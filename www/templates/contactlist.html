@@ -1,5 +1,10 @@
-<ion-view view-title="Search">
+<ion-view view-title="联系人">
   <ion-content>
-    <h1>联系人</h1>
+    <ion-list>
+      <ion-item ng-repeat="playlist in playlists" class="item-avatar-left" href="#/app/playlists/{{playlist.id}}">
+          <img src="{{playlist.image}}">
+          <h2>{{playlist.title}} {{playlist.location}}</h2>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

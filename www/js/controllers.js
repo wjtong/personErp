@@ -63,5 +63,16 @@ angular.module('starter.controllers', [])
   ];
 })
 
+.controller('ContactlistCtrl', function($scope) {
+  $scope.playlists = [
+    { title: '张厂长', id: 1, location: '浙江，海宁', image: 'img/team/img1-sm.jpg', message: '500公斤皮料已送到，450公斤接受入库' },
+    { title: '王小明', id: 2, location: '浙江，杭州', image: 'img/team/img2-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+    { title: '李经理', id: 3, location: '浙江，杭州', image: 'img/team/img3-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+    { title: '李经理', id: 4, location: '浙江，杭州', image: 'img/team/img4-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+    { title: '李经理', id: 5, location: '浙江，杭州', image: 'img/team/img5-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+    { title: '宋经理', id: 6, location: '浙江，杭州', image: 'img/team/img6-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' }
+  ];
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });

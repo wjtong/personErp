@@ -54,7 +54,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: '/contactlist',
     views: {
       'menuContent': {
-        templateUrl: 'templates/contactlist.html'
+        templateUrl: 'templates/contactlist.html',
+        controller: 'ContactlistCtrl'
       }
     }
   })
