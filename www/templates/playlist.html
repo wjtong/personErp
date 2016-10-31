@@ -1,5 +1,10 @@
-<ion-view view-title="Playlist">
+<ion-view view-title="订单">
   <ion-content>
-    <h1>Playlist</h1>
+    <ion-list>
+      <ion-item ng-repeat="order in orders" href="#/app/orders/{{order.id}}">
+          <i class="icon ion-navicon-round"></i>
+          {{order.id}} -- {{order.time}}
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

@@ -75,4 +75,11 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+  $scope.orders = [
+    { time: '2016-03-04', id: 'CO10000' },
+    { time: '2016-04-08', id: 'CO10001' },
+    { time: '2016-07-23', id: 'CO10002' },
+    { time: '2016-09-14', id: 'CO10003' },
+    { time: '2016-10-09', id: 'CO10004' }
+  ];
 });
