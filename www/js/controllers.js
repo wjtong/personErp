@@ -52,6 +52,17 @@ angular.module('starter.controllers', [])
   ];
 })
 
+.controller('PersonHomeCtrl', function($scope) {
+  $scope.productlist = [
+    { name: '小皮件加工', id: 1, price: 250, image: '/img/product/001.jpg', description: '加工小皮件服务' },
+    { name: '大皮件加工', id: 2, price: 150, image: '/img/product/002.jpg', description: '加工大皮件服务' },
+    { name: '皮件运输', id: 3, price: 260, image: '/img/product/003.jpg', description: '运输皮件' },
+    { name: '运输纸箱小号', id: 4, price: 170, image: '/img/product/004.jpg', description: '用于运输的小号包装纸箱' },
+    { name: '运输纸箱中号', id: 5, price: 180, image: '/img/product/005.jpg', description: '用于运输的中号包装纸箱' },
+    { name: '运输纸箱大号', id: 6, price: 190, image: '/img/product/006.jpg', description: '用于运输的大号包装纸箱' }
+  ];
+})
+
 .controller('HomeCtrl', function($scope) {
   $scope.playlists = [
     { title: '张厂长', id: 1, location: '浙江，海宁', image: 'img/team/img1-sm.jpg', message: '500公斤皮料已送到，450公斤接受入库' },
