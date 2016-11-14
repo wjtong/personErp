@@ -171,5 +171,16 @@
         <string>{768, 1024}</string>
       </dict>
     </array>
+    <key>NSCameraUsageDescription</key>
+    <string></string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string></string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string></string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+      <key>NSAllowsArbitraryLoads</key>
+      <true/>
+    </dict>
   </dict>
 </plist>

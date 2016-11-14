@@ -65,7 +65,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: '/myresources',
     views: {
       'menuContent': {
-        templateUrl: 'templates/myresources.html'
+        templateUrl: 'templates/myresources.html',
+        controller:'myresources'
       }
     }
   })

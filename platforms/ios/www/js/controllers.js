@@ -159,4 +159,19 @@ angular.module('starter.controllers', [])
     $scope.phone = '0086 15072200010' ;
     $scope.emails = 'zhangwenwen1556@163.com';
 })
+.controller('myresources',function ($scope) {
+    $scope.resourcesList = [
+        {id:1,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+        {id:2,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
+        {id:3,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+        {id:4,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
+    ];
+    $scope.selectOption = [
+        {id:'me',name:'我'},
+        {id:'zhangzong',name:'张总'},
+        {id:'lisi',name:'李四'},
+        {id:'xiaoliu',name:'小刘'},
+        {id:'zhangsan',name:'张三'},
+    ];
+})
 ;
