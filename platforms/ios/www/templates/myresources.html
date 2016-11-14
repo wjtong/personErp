@@ -22,11 +22,11 @@
                 {{resources.desc}}
               </p>
               <p>
-                <a href="#" class="subdued">{{resources.pushed}} 已推送联系人</a>
+                <a class="subdued">{{resources.pushed}} 已推送联系人</a>
               </p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
-              <a class="tab-item" href="#">
+              <a class="tab-item">
                 <i class="icon ion-share"></i>
                 推送
               </a>
@@ -36,4 +36,12 @@
       </div>
     </ion-list>
   </ion-content>
+    <div class="bar bar-footer" style="margin-left: -6px;">
+        <div class="tab-nav tabs">
+            <button class="button button-light" style="width: 80px;" ng-click="newResources()">新建</button>
+            <select style="margin-left: 50px;">
+                <option ng-repeat="option in selectOption" option="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
+    </div>
 </ion-view>

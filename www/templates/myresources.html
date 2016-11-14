@@ -36,4 +36,12 @@
       </div>
     </ion-list>
   </ion-content>
+    <div class="bar bar-footer" style="margin-left: -6px;">
+        <div class="tab-nav tabs">
+            <button class="button button-light" style="width: 80px;" ng-click="newResources()">新建</button>
+            <select style="margin-left: 50px;">
+                <option ng-repeat="option in selectOption" option="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
+    </div>
 </ion-view>
