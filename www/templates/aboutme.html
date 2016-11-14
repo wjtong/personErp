@@ -1,5 +1,55 @@
-<ion-view view-title="Playlist">
+<ion-view view-title="关于我">
   <ion-content>
-    <h1>About me</h1>
+    <div class="content ionic-pseudo">
+      <div class="list card">
+        <a class="item">
+          <div class="item item-avatar" style="margin-top: -20px;margin-bottom: -20px;margin-left: -15px;">
+            <img ng-src="{{myInfo.img}}">
+            <div style="margin-top: 8px;">{{myInfo.name}}</div>
+          </div>
+        </a>
+        <a class="item">
+          <div style="font-weight: bold;">帐号:</div>
+          {{myInfo.account}}
+        </a>
+        <a class="item">
+          <div style="font-weight: bold;">性别:</div>
+          {{myInfo.sex}}
+        </a>
+        <a class="item" href="#/app/editAddress/{{myInfo.id}}">
+          <div style="font-weight: bold;">地址:</div>
+          {{myInfo.address}}
+        </a>
+        <a class="item">
+          <div style="font-weight: bold;">电话:</div>
+          {{myInfo.phone}}
+        </a>
+      </div>
+    </div>
+    <div class="">
+      <div class="list card" style="margin-top: -20px;">
+        <div class="item item-divider"><b>功能管理</b></div>
+        <div class="item">
+          <div class="item-content" style="float: left;">生产管理</div>
+          <input type="radio" name="productionManagement" style="margin-top: 5px;margin-left: 20px;" value="Y"> 是
+          <input type="radio" name="productionManagement" style="margin-top: 5px;" value="N" checked="checked"> 否
+        </div>
+        <div class="item">
+          <div class="item-content" style="float: left;">库存管理</div>
+          <input type="radio" name="inventory" style="margin-top: 5px;margin-left: 20px;" value="Y"> 是
+          <input type="radio" name="inventory" style="margin-top: 5px;" value="N" checked="checked"> 否
+        </div>
+        <div class="item">
+          <div class="item-content" style="float: left;">运输管理</div>
+          <input type="radio" name="transportation"  style="margin-top: 5px;margin-left: 20px;" value="Y"> 是
+          <input type="radio" name="transportation" style="margin-top: 5px;" value="N" checked> 否
+        </div>
+        <div class="item">
+          <div class="item-content" style="float: left;">活动管理</div>
+          <input type="radio" name="Activity" style="margin-top: 5px;margin-left: 20px;" value="Y"> 是
+          <input type="radio" name="Activity" style="margin-top: 5px;" value="N" checked> 否
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

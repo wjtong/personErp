@@ -1,0 +1,55 @@
+<ion-view view-title="地址编辑">
+    <ion-content>
+        <div class="content ionic-pseudo">
+            <div class="list card">
+                <div class="item item-input item-select">
+                    <div class="input-label">
+                        国家
+                    </div>
+                    <select>
+                        <option ng-repeat="country in countrys" value="{{country.id}}">{{country.name}}</option>
+                    </select>
+                </div>
+                <div class="item item-input item-select">
+                    <div class="input-label">
+                        省份
+                    </div>
+                    <select>
+                        <option ng-repeat="province in provinces" value="{{province.id}}">{{province.name}}</option>
+                    </select>
+                </div>
+                <div class="item item-input item-select">
+                    <div class="input-label">
+                        市
+                    </div>
+                    <select>
+                        <option ng-repeat="city in citys" value="{{city.id}}">{{city.name}}</option>
+                    </select>
+                </div>
+                <div class="item">
+                    <label class="">
+                        <span class="input-label">地址</span>
+                        <!--<input type="text" placeholder="地址" value="{{address}}" style="width: 100%">-->
+                        <textarea placeholder="地址" style="width: 100%;">{{address}}</textarea>
+                    </label>
+                </div>
+                <div class="item">
+                    <label class="">
+                        <span class="input-label">联系电话</span>
+                        <input type="text" placeholder="联系电话" value="{{phone}}" style="width: 100%">
+                    </label>
+                </div>
+                <div class="item">
+                    <label class="">
+                        <span class="input-label">电子邮箱</span>
+                        <input type="text" placeholder="电子邮箱" value="{{emails}}" style="width: 100%">
+                    </label>
+                </div>
+                <div class="item">
+                    <button class="button button-block button-stable">提交</button>
+                </div>
+
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

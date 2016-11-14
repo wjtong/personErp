@@ -45,7 +45,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: '/aboutme',
     views: {
       'menuContent': {
-        templateUrl: 'templates/aboutme.html'
+        templateUrl: 'templates/aboutme.html',
+        controller:'AboutMe'
       }
     }
   })
@@ -133,7 +134,27 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
-
+  .state('app.addPerson', {
+      url: '/addPerson',
+      disableBack:true,
+      cache :false,
+      views: {
+          'menuContent': {
+              templateUrl: 'templates/addPerson.html'
+          }
+      }
+  })
+  .state('app.editAddress', {
+      url: '/editAddress/:id',
+      disableBack:true,
+      cache :false,
+      views: {
+          'menuContent': {
+              templateUrl: 'templates/editAddress.html',
+              controller: 'editAddress'
+          }
+      }
+  })
   .state('app.single', {
     url: '/playlists/:playlistId',
     views: {

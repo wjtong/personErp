@@ -63,26 +63,59 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('HomeCtrl', function($scope) {
-  $scope.playlists = [
-    { title: '张厂长', id: 1, location: '浙江，海宁', image: 'img/team/img1-sm.jpg', message: '500公斤皮料已送到，450公斤接受入库' },
-    { title: '王小明', id: 2, location: '浙江，杭州', image: 'img/team/img2-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
-    { title: '李经理', id: 3, location: '浙江，杭州', image: 'img/team/img3-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
-    { title: '李经理', id: 4, location: '浙江，杭州', image: 'img/team/img4-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
-    { title: '李经理', id: 5, location: '浙江，杭州', image: 'img/team/img5-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
-    { title: '宋经理', id: 6, location: '浙江，杭州', image: 'img/team/img6-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' }
-  ];
+.controller('HomeCtrl', function($scope,$ionicModal) {
+  // $scope.playlists = [
+  //   { title: '张厂长', id: 1, location: '浙江，海宁', image: 'img/team/img1-sm.jpg', message: '500公斤皮料已送到，450公斤接受入库' },
+  //   { title: '王小明', id: 2, location: '浙江，杭州', image: 'img/team/img2-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+  //   { title: '李经理', id: 3, location: '浙江，杭州', image: 'img/team/img3-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+  //   { title: '李经理', id: 4, location: '浙江，杭州', image: 'img/team/img4-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+  //   { title: '李经理', id: 5, location: '浙江，杭州', image: 'img/team/img5-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+  //   { title: '宋经理', id: 6, location: '浙江，杭州', image: 'img/team/img6-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' }
+  // ];
+
+    $scope.mainLists = [
+        {img:'img/team/img1-md.jpg', id:1, name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'500公斤皮料已送到，450公斤接收入库，50公斤未接收，2016/10/08',like:3,comments:5},
+        {img:'img/team/img2-md.jpg', id:2, name:'小刘', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已创建生产，订单号12345678900，2016/10/07',like:2,comments:8},
+        {img:'img/team/img3-md.jpg', id:3, name:'我', company:'德阳贸易', address:'杭州，浙江，中国',desc:'已发布产品 PVC，2016/10/06',like:5,comments:3},
+        {img:'img/team/img4-md.jpg', id:4, name:'我', company:'德阳贸易', address:'海宁，浙江，中国',desc:'已创建生产订单 PVC 1000米，2016/10/05',like:1,comments:1},
+        {img:'img/team/img5-md.jpg', id:5, name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已发布生产服务 PVC，2016/10/04',like:2,comments:8}
+    ];
+
+    $ionicModal.fromTemplateUrl('templates/new-task-main.html', function(modal) {
+        $scope.taskModal = modal;
+    }, {
+        scope: $scope
+    });
+
+    $scope.newTask = function() {
+        $scope.taskModal.show();
+    };
+
+    $scope.closeNewTask = function() {
+        $scope.taskModal.hide();
+    }
+
 })
 
 .controller('ContactlistCtrl', function($scope) {
-  $scope.playlists = [
-    { title: '张厂长', id: 1, location: '浙江，海宁', image: 'img/team/img1-sm.jpg', message: '500公斤皮料已送到，450公斤接受入库' },
-    { title: '王小明', id: 2, location: '浙江，杭州', image: 'img/team/img2-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
-    { title: '李经理', id: 3, location: '浙江，杭州', image: 'img/team/img3-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
-    { title: '李经理', id: 4, location: '浙江，杭州', image: 'img/team/img4-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
-    { title: '李经理', id: 5, location: '浙江，杭州', image: 'img/team/img5-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
-    { title: '宋经理', id: 6, location: '浙江，杭州', image: 'img/team/img6-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' }
-  ];
+  // $scope.playlists = [
+  //   { title: '张厂长', id: 1, location: '浙江，海宁', image: 'img/team/img1-sm.jpg', message: '500公斤皮料已送到，450公斤接受入库' },
+  //   { title: '王小明', id: 2, location: '浙江，杭州', image: 'img/team/img2-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+  //   { title: '李经理', id: 3, location: '浙江，杭州', image: 'img/team/img3-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+  //   { title: '李经理', id: 4, location: '浙江，杭州', image: 'img/team/img4-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+  //   { title: '李经理', id: 5, location: '浙江，杭州', image: 'img/team/img5-sm.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' },
+  //   { title: '宋经理', id: 6, location: '浙江，杭州', image: 'img/team/img6-md.jpg', message: '300公斤皮革加工完成，200公斤皮革已发出' }
+  // ];
+    $scope.personmainLists = [
+        {id:'1',img:'img/team/img6-md.jpg',name:'张总',company:'德阳工厂',address:'海宁，浙江，中国'},
+        {id:'2',img:'img/team/img7-md.jpg',name:'小刘',company:'德阳工厂',address:'海宁，浙江，中国'},
+        {id:'3',img:'img/team/img8-md.jpg',name:'Mike',company:'skytrading',address:'Paloalto,CA,USA'},
+        {id:'4',img:'img/team/img9-md.jpg',name:'李四',company:'蓝天公司',address:'上海,中国'},
+        {id:'5',img:'img/team/img10-md.jpg',name:'王总',company:'大海皮料',address:'苏州，江苏，中国'},
+        {id:'6',img:'img/team/img11-md.jpg',name:'张三',company:'苏州希尔顿',address:'苏州 ，江苏，中国'},
+        {id:'7',img:'img/team/img13-md.jpg',name:'王球童',company:'九桥高尔夫',address:'杭州，浙江，中国'},
+        {id:'8',img:'img/team/img15-md.jpg',name:'FabioGrosso',company:'',address:'Turin，Italy'}
+    ]
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
@@ -93,4 +126,37 @@ angular.module('starter.controllers', [])
     { time: '2016-09-14', id: 'CO10003' },
     { time: '2016-10-09', id: 'CO10004' }
   ];
-});
+})
+.controller('AboutMe',function ($scope) {
+    $scope.myInfo = { id:'1',name:'张文文',img:'img/team/img3-md.jpg',account:'zhangwenwen',sex:'男',address:'上海市松江区泗凯路61弄20号201室',phone:'15072200010'};
+})
+.controller('editAddress',function ($scope) {
+    $scope.countrys = [
+        {id:'China',name:'中国'},
+        {id:'America',name:'美国'},
+        {id:'Japan',name:'日本'},
+        {id:'Russia',name:'俄罗斯'},
+        {id:'England',name:'英国'},
+        {id:'Canada',name:'加拿大'},
+        {id:'Australian',name:'澳大利亚'}
+    ];
+    $scope.provinces = [
+        {id:'zhejiang',name:'浙江'},
+        {id:'beijing',name:'北京'},
+        {id:'shanghai',name:'上海'},
+        {id:'tianjin',name:'天津'},
+        {id:'chongqing',name:'重庆'},
+    ];
+    $scope.citys = [
+        {id:'hangzhou',name:'杭州'},
+        {id:'ningbo',name:'宁波'},
+        {id:'wenzhou',name:'温州'},
+        {id:'taizhou',name:'台州'},
+        {id:'quzhou',name:'衢州'},
+        {id:'jinhua',name:'金华'}
+    ];
+    $scope.address = '泗凯路61弄20号201室';
+    $scope.phone = '0086 15072200010' ;
+    $scope.emails = 'zhangwenwen1556@163.com';
+})
+;
