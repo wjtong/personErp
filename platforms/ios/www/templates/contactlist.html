@@ -1,0 +1,52 @@
+<ion-view view-title="联系人">
+  <!--<ion-content>-->
+    <!--<ion-list>-->
+      <!--<ion-item ng-repeat="playlist in playlists" class="item-avatar-left" href="#/app/contactlist/{{contact.id}}">-->
+          <!--<img src="{{playlist.image}}">-->
+          <!--<h2>{{playlist.title}} {{playlist.location}}</h2>-->
+      <!--</ion-item>-->
+    <!--</ion-list>-->
+  <!--</ion-content>-->
+    <ion-content>
+        <ion-list>
+            <div>
+                <div class="content" ng-repeat="personmain in personmainLists" style="margin-top: -18px;">
+
+                    <div class="list card cardupdate">
+
+                        <div class="item item-avatar">
+                            <img ng-src="{{personmain.img}}">
+                            <h2>{{personmain.name}} {{personmain.company}}</h2>
+                            <p>{{personmain.address}}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+    <div class="bar bar-footer" style="margin-left: -6px;">
+        <div class="tab-nav tabs">
+            <a class="tab-item tab-item-active" style="line-height: 12px;" href="#/app/addPerson">
+                <i class="icon ion-ios-personadd-outline" style="line-height: 14px;">
+                </i>
+                <span class="tab-title ng-binding" style="font-size: 10px;">添加人员</span>
+            </a>
+            <a class="tab-item tab-item-active" style="line-height: 12px;">
+                <i class="icon ion-pricetag" style="line-height: 14px;">
+                </i>
+                <span class="tab-title ng-binding" style="font-size: 10px;">标签</span>
+            </a>
+            <a class="tab-item tab-item-active" style="line-height: 12px;">
+                <i class="icon ion-chatboxes" style="line-height: 14px;">
+                </i>
+                <span class="tab-title ng-binding" style="font-size: 10px;">群聊</span>
+            </a>
+            <a class="tab-item tab-item-active" style="line-height: 12px;">
+                <i class="icon ion-android-bulb" style="line-height: 14px;">
+                </i>
+                <span class="tab-title ng-binding" style="font-size: 10px;">发现</span>
+            </a>
+        </div>
+    </div>
+</ion-view>
