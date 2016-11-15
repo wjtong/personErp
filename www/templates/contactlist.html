@@ -9,8 +9,16 @@
             </div>
         </div>
         <ion-list>
+            <!--<div class="content has-header" style="margin-bottom: 70px;margin-top: -50px;">-->
+                <!--<div class="list list-inset">-->
+                    <!--<label class="item item-input">-->
+                        <!--<i class="icon ion-search placeholder-icon"></i>-->
+                        <!--<input type="text" placeholder="Search">-->
+                    <!--</label>-->
+                <!--</div>-->
+            <!--</div>-->
             <div>
-                <div class="content" ng-repeat="personmain in personmainLists" style="margin-top: -18px;">
+                <div class="content" ng-repeat="personmain in personmainLists" style="margin-top: -18px;" ng-click="goInfo(personmain.id)">
                     <div class="list card cardupdate">
                         <div class="item item-avatar">
                             <img ng-src="{{personmain.img}}">
