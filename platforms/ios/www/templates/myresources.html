@@ -1,15 +1,23 @@
 <ion-view view-title="我的资源">
   <ion-content>
+      <!--<div class="content has-header" style="margin-bottom: 70px;margin-top: -50px;">-->
+          <!--<div class="list list-inset">-->
+              <!--<label class="item item-input">-->
+                  <!--<i class="icon ion-search placeholder-icon"></i>-->
+                  <!--<input type="text" placeholder="Search">-->
+              <!--</label>-->
+          <!--</div>-->
+      <!--</div>-->
+      <div class="content">
+          <div class="list list-inset" style="margin-top: 5px;margin-bottom: 5px;">
+              <label class="item item-input">
+                  <i class="icon ion-search placeholder-icon"></i>
+                  <input type="text" placeholder="Search">
+              </label>
+          </div>
+      </div>
     <ion-list>
-        <div class="content has-header" style="margin-bottom: 70px;margin-top: -50px;">
-            <div class="list list-inset">
-                <label class="item item-input">
-                    <i class="icon ion-search placeholder-icon"></i>
-                    <input type="text" placeholder="Search">
-                </label>
-            </div>
-        </div>
-      <div>
+        <div>
         <div class="content" ng-repeat="resources in resourcesList" style="margin-top: -18px;">
           <div class="list card cardupdate">
             <div class="item item-avatar">

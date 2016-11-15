@@ -1,22 +1,14 @@
 <ion-view view-title="联系人">
-  <!--<ion-content>-->
-    <!--<ion-list>-->
-      <!--<ion-item ng-repeat="playlist in playlists" class="item-avatar-left" href="#/app/contactlist/{{contact.id}}">-->
-          <!--<img src="{{playlist.image}}">-->
-          <!--<h2>{{playlist.title}} {{playlist.location}}</h2>-->
-      <!--</ion-item>-->
-    <!--</ion-list>-->
-  <!--</ion-content>-->
     <ion-content>
-        <ion-list>
-            <div class="content has-header" style="margin-bottom: 70px;margin-top: -50px;">
-                <div class="list list-inset">
-                    <label class="item item-input">
-                        <i class="icon ion-search placeholder-icon"></i>
-                        <input type="text" placeholder="Search">
-                    </label>
-                </div>
+        <div class="content">
+            <div class="list list-inset" style="margin-top: 5px;margin-bottom: 5px;">
+                <label class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" placeholder="Search">
+                </label>
             </div>
+        </div>
+        <ion-list>
             <div>
                 <div class="content" ng-repeat="personmain in personmainLists" style="margin-top: -18px;">
                     <div class="list card cardupdate">
