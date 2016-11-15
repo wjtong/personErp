@@ -165,6 +165,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
           }
       }
   })
+  .state('app.myOrder',{
+      url:'/myOrder',
+      disableBack:true,
+      cache :false,
+      views: {
+          'menuContent': {
+              templateUrl: 'templates/myOrder.html',
+              controller: 'MyOrder'
+          }
+      }
+  })
   .state('app.single', {
     url: '/playlists/:playlistId',
     views: {
