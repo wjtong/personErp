@@ -41,7 +41,7 @@
   <form name="sendMessageForm" ng-submit="">
     <ion-footer-bar class="bar-stable item-input-inset message-footer">
       <label class="item-input-wrapper">
-        <textarea ng-model="input.message" value="" placeholder="Send {{person.name}} a message..." required minlength="1" maxlength="1500"style="width: 100%"></textarea>
+        <textarea ng-model="input.message" value="" placeholder="Send {{person.name}} a message..." required minlength="1" maxlength="1500"style="width: 100%" ></textarea>
       </label>
       <button class="button button-icon icon ion-android-send" type="submit"
               ng-disabled="!input.message || input.message === ''">
