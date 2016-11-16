@@ -77,11 +77,11 @@ angular.module('starter.services', [])
 })
 .factory("Home",function () {
     var mainLists = [
-        {img:'img/team/img1-md.jpg', id:1, name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'500公斤皮料已送到，450公斤接收入库，50公斤未接收，2016/10/08',like:3,comments:5},
-        {img:'img/team/img2-md.jpg', id:2, name:'小刘', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已创建生产，订单号12345678900，2016/10/07',collect:2,comments:8},
-        {img:'img/team/img3-md.jpg', id:3, name:'我', company:'德阳贸易', address:'杭州，浙江，中国',desc:'已发布产品 PVC，2016/10/06',collect:5,comments:3},
-        {img:'img/team/img4-md.jpg', id:4, name:'我', company:'德阳贸易', address:'海宁，浙江，中国',desc:'已创建生产订单 PVC 1000米，2016/10/05',collect:1,comments:1},
-        {img:'img/team/img5-md.jpg', id:5, name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已发布生产服务 PVC，2016/10/04',collect:2,comments:8}
+        {img:'img/team/img1-md.jpg', id:1, type:'order', name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'500公斤皮料已送到，450公斤接收入库，50公斤未接收，2016/10/08',like:3,comments:5},
+        {img:'img/team/img2-md.jpg', id:2, type:'server', name:'小刘', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已创建生产，订单号12345678900，2016/10/07',collect:2,comments:8},
+        {img:'img/team/img3-md.jpg', id:3, type:'order', name:'我', company:'德阳贸易', address:'杭州，浙江，中国',desc:'已发布产品 PVC，2016/10/06',collect:5,comments:3},
+        {img:'img/team/img4-md.jpg', id:4, type:'server', name:'我', company:'德阳贸易', address:'海宁，浙江，中国',desc:'已创建生产订单 PVC 1000米，2016/10/05',collect:1,comments:1},
+        {img:'img/team/img5-md.jpg', id:5, type:'order', name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已发布生产服务 PVC，2016/10/04',collect:2,comments:8}
     ];
     return{
         getAll:function () {
@@ -112,6 +112,107 @@ angular.module('starter.services', [])
                 }
             }
         }
+    }
+})
+.factory('myresources',function () {
+    var resourcesList = [
+      {id:1,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+      {id:2,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
+      {id:3,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+      {id:4,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
+    ];
+    var selectOption = [
+      {id:'me',name:'我'},
+      {id:'zhangzong',name:'张总'},
+      {id:'lisi',name:'李四'},
+      {id:'xiaoliu',name:'小刘'},
+      {id:'zhangsan',name:'张三'},
+    ];
+
+    return{
+        getResourcesAll:function () {
+            return resourcesList;
+        },
+        getResourceInfo:function (id) {
+            for(var i=0 ;i<resourcesList.length; i++){
+                if(resourcesList[i].id == id){
+                    return resourcesList[i];
+                }
+            }
+        },
+        getSelectOption:function () {
+            return selectOption;
+        }
+    }
+})
+.factory('ChatList',function () {
+    var personList = [
+      {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
+      {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
+      {id:10003,name:'王五',img:'img/team/img7-md.jpg'}
+    ];
+    var chatList = [
+      {
+        id:1,
+        title:'aland开票讨论',
+        participants:[
+          {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
+          {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
+          {id:10003,name:'王五',img:'img/team/img7-md.jpg'}
+        ],
+        discuss:[
+          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'hi。。。'},
+          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'有没有人在？'},
+          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'开票系统是不是有点慢呀？'},
+          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'是的。但是开票系统需要查询的东西太多，后面的也业务也是蛮多的，所以处理的东西多了以后就会拖慢系统'},
+          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'那有没有方式解决呢？'},
+          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'我们正在优化中。'}
+        ]
+      },
+      {
+        id:2,
+        title:'测是讨论',
+        participants:[
+          {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
+          {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
+          {id:10003,name:'王五',img:'img/team/img7-md.jpg'}
+        ],
+        discuss:[
+          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'a'},
+          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'b'},
+          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'c'},
+          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'d'},
+          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'e'},
+          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'f'},
+          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'g'},
+        ]
+      },
+    ];
+    return{
+      getChatList:function () {
+        return chatList;
+      },
+      getChatInfo:function (chatId) {
+        for(var i=0;i<chatList.length;i++){
+          if(chatId == chatList[i].id){
+            return chatList[i];
+          }
+        }
+      },
+      getChartInfoPerson:function (chatId) {
+        for(var i=0;i<chatList.length;i++){
+          if(chatId == chatList[i].id){
+            return chatList[i].participants;
+          }
+        }
+      },
+      getPersonInfo:function (id) {
+        for(var i=0;i<personList.length;i++){
+          if(id == personList[i].id){
+            return personList[i];
+          }
+        }
+      }
     }
 })
 ;

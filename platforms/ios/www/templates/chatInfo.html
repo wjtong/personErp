@@ -1,0 +1,81 @@
+<ion-view title="{{chat.title}}">
+  <!--<ion-content>-->
+    <!--<div class="leftd">-->
+      <!--<span class="leftd_h">-->
+          <!--<img ng-src="./img/c_pic.pn" />-->
+      <!--</span>-->
+      <!--<div class="speech left" class="speech left">-->
+        <!--二货，你看你傻样！-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="rightd">-->
+      <!--<span class="rightd_h">-->
+          <!--<img ng-src="./img/u_pic.pn" />-->
+      <!--</span>-->
+      <!--<div class="speech right" class="speech left">-->
+        <!--嘻嘻嘻嘻。。。。。。-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="leftd">-->
+      <!--<span class="leftd_h">-->
+          <!--<img ng-src="./img/c_pic.pn" />-->
+      <!--</span>-->
+      <!--<div class="speech left" class="speech left">-->
+        <!--笑什么笑，没看到本宝宝今天变漂亮了吗？-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="rightd">-->
+      <!--<span class="rightd_h">-->
+          <!--<img ng-src="./img/u_pic.pn" />-->
+      <!--</span>-->
+      <!--<div class="speech right" ng-class="left">-->
+        <!--不不不，每天你都很漂亮的啦！-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</ion-content>-->
+  <ion-content has-bouncing="true" class="has-header has-footer"
+               delegate-handle="userMessageScroll">
+    <div ng-repeat="chat in chat.discuss" class="message-wrapper">
+
+      <div ng-if="userId !== chat.personId">
+
+        <img ng-click="" class="profile-pic left"
+             ng-src="{{chat.img}}" onerror="" />
+
+          <div class="chat-bubble left">
+
+            <div class="message" ng-bind-html="chat.speak">
+            </div>
+            <div class="message-detail">
+              <span ng-click=""class="bold">{{chat.name}}</span>,
+            <span am-time-ago="message.date"></span>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="userId == chat.personId">
+        <img ng-click="" class="profile-pic right"
+             ng-src="{{chat.img}}" onerror="" />
+        <div class="chat-bubble right">
+          <div class="message" ng-bind-html="chat.speak">
+          </div>
+          <div class="message-detail" style="text-align: right;">
+            <span ng-click=""class="bold">{{chat.name}}</span>,
+            <span am-time-ago="message.date"></span>
+          </div>
+        </div>
+      </div>
+      <div class="cf"></div>
+    </div>
+  </ion-content>
+  <form name="sendMessageForm" ng-submit="">
+    <ion-footer-bar class="bar-stable item-input-inset message-footer">
+      <label class="item-input-wrapper">
+        <textarea ng-model="input.message" value="" placeholder="Send {{person.name}} a message..." required minlength="1" maxlength="1500"style="width: 100%"></textarea>
+      </label>
+      <button class="button button-icon icon ion-android-send" type="submit"
+              ng-disabled="!input.message || input.message === ''">
+      </button>
+    </ion-footer-bar>
+  </form>
+</ion-view>

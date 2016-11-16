@@ -79,7 +79,7 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.closeNewTask = function() {
         $scope.taskModal.hide();
     }
-    
+
     $scope.goInfo = function (id) {
         $location.path('app/playlists/'+id);
     }
@@ -139,20 +139,9 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.phone = '0086 15072200010' ;
     $scope.emails = 'zhangwenwen1556@163.com';
 })
-.controller('myresources',function ($scope,$location) {
-    $scope.resourcesList = [
-        {id:1,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-        {id:2,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
-        {id:3,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-        {id:4,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
-    ];
-    $scope.selectOption = [
-        {id:'me',name:'我'},
-        {id:'zhangzong',name:'张总'},
-        {id:'lisi',name:'李四'},
-        {id:'xiaoliu',name:'小刘'},
-        {id:'zhangsan',name:'张三'},
-    ];
+.controller('myresources',function ($scope,$location,myresources) {
+    $scope.resourcesList = myresources.getResourcesAll()
+    $scope.selectOption = myresources.getSelectOption();
     $scope.newResources = function(){
         $location.path("/app/newResources");
     }
@@ -218,5 +207,18 @@ angular.module('starter.controllers', ['ngCordova'])
         {id:'oneYear',desc:'过去一年'},
         {id:'oneYear',desc:'一年前'},
     ];
+})
+.controller('ChatList',function ($scope,$location,ChatList) {
+    $scope.ChatList = ChatList.getChatList();
+    $scope.goInfo = function (id) {
+      $location.path('/app/chatInfo/'+id);
+    }
+})
+.controller('ChatInfo',function ($scope, $stateParams ,ChatList) {
+    $scope.userId = 10002;
+    var chatId = $stateParams.chatId;
+    $scope.chat = ChatList.getChartInfo(chatId);
+    $scope.person = ChatList.getPersonInfo($scope.userId);
+
 })
 ;
