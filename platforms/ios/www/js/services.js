@@ -192,7 +192,7 @@ angular.module('starter.services', [])
       getChatList:function () {
         return chatList;
       },
-      getChartInfo:function (chatId) {
+      getChatInfo:function (chatId) {
         for(var i=0;i<chatList.length;i++){
           if(chatId == chatList[i].id){
             return chatList[i];

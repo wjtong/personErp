@@ -209,6 +209,17 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services' , '
         }
       }
     })
+    .state('app.chatPersonList',{
+      url:'/chatPersonList/:chatId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/chatPersonList.html',
+          controller: 'ChatPersonList'
+        }
+      }
+    })
   .state('app.single', {
     url: '/playlists/:playlistId',
     views: {
