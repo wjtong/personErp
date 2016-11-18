@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','starter.services' , 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,7 +21,36 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services' , '
     }
   });
 })
-
+.config(function (ionicDatePickerProvider) {
+    var datePickerObj = {
+        inputDate: new Date(),
+        titleLabel: 'Select a Date',
+        setLabel: '选择',
+        todayLabel: '今天',
+        closeLabel: '关闭',
+        mondayFirst: false,
+        weeksList: ["S", "M", "T", "W", "T", "F", "S"],
+        monthsList: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        templateType: 'popup',
+        from: new Date(2012, 8, 1),
+        to: new Date(2018, 8, 1),
+        showTodayButton: true,
+        dateFormat: 'dd MMMM yyyy',
+        closeOnSelect: false,
+        disableWeekdays: []
+    };
+    ionicDatePickerProvider.configDatePicker(datePickerObj);
+})
+.config(function (ionicTimePickerProvider) {
+    var timePickerObj = {
+        inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
+        format: 12,
+        step: 15,
+        setLabel: '选择',
+        closeLabel: '关闭'
+    };
+    ionicTimePickerProvider.configTimePicker(timePickerObj);
+})
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -242,6 +271,28 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services' , '
         }
       }
     })
+    .state('app.myTime',{
+      url:'/myTime',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/myTime.html',
+          controller: 'MyTime'
+        }
+      }
+    })
+    .state('app.tiemInfo',{
+      url:'/tiemInfo/:timeId/:infoId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/tiemInfo.html',
+          controller: 'TiemInfo'
+        }
+      }
+    })
   .state('app.single', {
     url: '/playlists/:playlistId',
     views: {
@@ -254,4 +305,5 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services' , '
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/app/playlists');
   $urlRouterProvider.otherwise('/app/home');
-});
+})
+;

@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova'])
+angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -224,21 +224,44 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.personList = Contact.getPersonLabel($scope.labelId);
     $scope.labelInfo = PersonLabel.getInfo($scope.labelId);
     $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
-
-    $ionicModal.fromTemplateUrl('templates/choicePersonToLable.html', function(modal) {
-      $scope.personModal = modal;
-    }, {
-      scope: $scope
-    });
-
-    $scope.newPerson = function() {
-      $scope.personModal.show();
-    };
-
-    $scope.closeNewPerson = function() {
-      $scope.personModal.hide();
+})
+.controller('MyTime',function ($scope,MyTime,$location) {
+    $scope.myTimes = MyTime.getAllMyTime();
+    //$scope.lists = $filter('orderBy')($scope.myTimes, expression, reverse)
+    $scope.goInfo = function (timeId,infoId) {
+      $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
     }
 
+})
+.controller('TiemInfo',function ($scope, $stateParams, MyTime, $cordovaDatePicker) {
+    var timeId = $stateParams.timeId;
+    var infoId = $stateParams.infoId;
+    $scope.time = MyTime.getTimeInfo(timeId,infoId);
 
+  var options = {
+    date: new Date(),
+    mode: 'date', // or 'time'
+    minDate: new Date() - 10000,
+    allowOldDates: true,
+    allowFutureDates: false,
+    doneButtonLabel: 'DONE',
+    doneButtonColor: '#F2F3F4',
+    cancelButtonLabel: 'CANCEL',
+    cancelButtonColor: '#000000'
+  };
+
+  $scope.getTime = function () {
+    $cordovaDatePicker.show(options).then(function(date){
+      alert(date);
+    });
+  }
+
+  document.getElementById("deviceready").addEventListener("click", function () {
+
+    $cordovaDatePicker.show(options).then(function(date){
+      alert(date);
+    });
+
+  }, false);
 })
 ;

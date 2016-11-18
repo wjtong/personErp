@@ -258,4 +258,51 @@ angular.module('starter.services', [])
     }
 
 })
+.factory('MyTime',function () {
+    var time = [
+      {
+        id:1,
+        data:'2016-11-15',
+        info:[
+          {id:101,title:'解决公司自己项目 app 中的联系人中的标签',biginTime:'2016-11-15T08:00:00',endTime:'2016-11-15T12:00:00'},
+          {id:102,title:'解决公司自己项目 app 中的标签的弹出',biginTime:'2016-11-15T13:00:00',endTime:'2016-11-15T14:00:00'},
+          {id:103,title:'解决公司自己项目 app 中的列表',biginTime:'2016-11-15T14:00:00',endTime:'2016-11-15T18:30:00'},
+        ]
+      },
+      {
+        id:2,
+        data:'2016-11-17',
+        info:[
+          {id:201,title:'解决公司自己项目 app 中的联系人中的标签1',biginTime:'2016-11-17T08:00:00',endTime:'2016-11-17T12:00:00'},
+          {id:202,title:'解决公司自己项目 app 中的标签的弹出1',biginTime:'2016-11-17T13:00:00',endTime:'2016-11-17T14:00:00'},
+          {id:203,title:'解决公司自己项目 app 中的列表1',biginTime:'2016-11-17T14:00:00',endTime:'2016-11-17T18:30:00'},
+        ]
+      },
+      {
+        id:3,
+        data:'2016-11-16',
+        info:[
+          {id:301,title:'开发联系人详情',biginTime:'2016-11-16T13:00:00',endTime:'2016-11-16T18:00:00'},
+          {id:302,title:'开发联系人列表',biginTime:'2016-11-16T08:00:00',endTime:'2016-11-16T12:00:00'}
+        ]
+      }
+    ];
+
+    return{
+      getAllMyTime:function () {
+        return time;
+      },
+      getTimeInfo:function (timeId, infoId) {
+        for (var i=0;i<time.length;i++){
+          if(time[i].id == timeId){
+            for (var j=0;j<time[i].info.length;j++){
+              if(time[i].info[j].id == infoId){
+                return time[i].info[j];
+              }
+            }
+          }
+        }
+      }
+    }
+})
 ;

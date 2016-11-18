@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova'])
+angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-timepicker'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -224,5 +224,75 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.personList = Contact.getPersonLabel($scope.labelId);
     $scope.labelInfo = PersonLabel.getInfo($scope.labelId);
     $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
+})
+.controller('MyTime',function ($scope,MyTime,$location) {
+    $scope.myTimes = MyTime.getAllMyTime();
+    //$scope.lists = $filter('orderBy')($scope.myTimes, expression, reverse)
+    $scope.goInfo = function (timeId,infoId) {
+      $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
+    }
+
+})
+.controller('TiemInfo',function ($scope, $stateParams, MyTime, ionicDatePicker, ionicTimePicker) {
+    var timeId = $stateParams.timeId;
+    var infoId = $stateParams.infoId;
+    $scope.time = MyTime.getTimeInfo(timeId,infoId);
+
+    var today=new Date();
+    var fromYear= today.getYear()+1900;
+    var toYear= today.getYear()+1901;
+    var intMonth=today.getMonth();
+    var intDay=today.getDate();
+
+    var ipObj1 = {
+        callback: function (val) {  //Mandatory
+            $scope.date = new Date(val);
+            //console.log('Return value from the datepicker popup is : ' + date, new Date(val));
+        },
+        disabledDates: [            //Optional
+            new Date(2016, 2, 16),
+            new Date(2015, 3, 16),
+            new Date(2015, 4, 16),
+            new Date(2015, 5, 16),
+            new Date('Wednesday, August 12, 2015'),
+            new Date("08-16-2016"),
+            new Date(1439676000000)
+        ],
+        from: new Date(fromYear, intMonth, intDay), //Optional
+        to: new Date(toYear, intMonth, intDay), //Optional
+        inputDate: new Date(),      //Optional
+        mondayFirst: true,          //Optional
+        //disableWeekdays: [0],       //Optional  这里是选择是否将周六周末不可选
+        closeOnSelect: false,       //Optional
+        templateType: 'popup'       //Optional
+    };
+
+    $scope.openDatePicker = function(){
+        ionicDatePicker.openDatePicker(ipObj1);
+    };
+
+    var optionId = '';
+    var ipObj2 = {
+        callback: function (val) {      //Mandatory
+            if (typeof (val) === 'undefined') {
+                console.log('Time not selected');
+            } else {
+                var selectedTime = new Date(val * 1000);
+                document.getElementById(optionId).value = selectedTime.getUTCHours()+':'+selectedTime.getUTCMinutes()+':00';
+                console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+            }
+        },
+        inputTime: 50400,   //Optional
+        format: 12,         //Optional
+        step: 15,           //Optional
+        setLabel: '选择'    //Optional
+    };
+    $scope.getIime = function (val) {
+        //alert(val);
+        optionId = val ;
+        ionicTimePicker.openTimePicker(ipObj2);
+    }
+
+
 })
 ;

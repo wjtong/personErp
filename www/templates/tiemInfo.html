@@ -1,0 +1,38 @@
+<ion-view title="编辑时间">
+  <ion-content>
+    <div class="content ionic-pseudo">
+      <div class="list card">
+        <div class="item">
+          <label class="">
+            <span class="input-label">标题</span>
+            <input type="text" placeholder="标题" value="{{time.title}}" style="width: 100%">
+          </label>
+        </div>
+        <div class="item">
+          <label class="">
+            <span class="input-label">日期</span>
+            <input type="text" ng-click="openDatePicker()" value="{{date | date:'yyyy-MM-dd'}}">
+          </label>
+        </div>
+
+        <div class="item">
+          <label class="">
+            <span class="input-label">开始时间</span>
+            <input type="text" ng-click="getIime('beginTime')" id="beginTime" value="">
+          </label>
+        </div>
+        <div class="item">
+          <label class="">
+            <span class="input-label">结束时间</span>
+            <input type="text" ng-click="getIime('endTime')" id="endTime" value="">
+          </label>
+        </div>
+
+        <div class="item">
+          <button class="button button-block button-stable">提交</button>
+        </div>
+
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
