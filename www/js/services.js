@@ -91,13 +91,13 @@ angular.module('starter.services', [])
 })
 .factory('Contact',function () {
     var personmainLists = [
-        {id:'1',img:'img/team/img6-md.jpg',name:'张总',company:'德阳工厂',address:'海宁，浙江，中国',phone:'15072200010',sex:'F',email:'12341@qq.com'},
-        {id:'2',img:'img/team/img7-md.jpg',name:'小刘',company:'德阳工厂',address:'海宁，浙江，中国',phone:'15072200011',sex:'M',email:'12342@qq.com'},
-        {id:'3',img:'img/team/img8-md.jpg',name:'Mike',company:'skytrading',address:'Paloalto,CA,USA',phone:'15072200012',sex:'F',email:'12343@qq.com'},
-        {id:'4',img:'img/team/img9-md.jpg',name:'李四',company:'蓝天公司',address:'上海,中国',phone:'15072200013',sex:'M',email:'12344@qq.com'},
-        {id:'5',img:'img/team/img10-md.jpg',name:'王总',company:'大海皮料',address:'苏州，江苏，中国',phone:'15072200014',sex:'F',email:'12345@qq.com'},
-        {id:'6',img:'img/team/img11-md.jpg',name:'张三',company:'苏州希尔顿',address:'苏州 ，江苏，中国',phone:'15072200015',sex:'M',email:'12346@qq.com'},
-        {id:'7',img:'img/team/img13-md.jpg',name:'王球童',company:'九桥高尔夫',address:'杭州，浙江，中国',phone:'15072200016',sex:'F',email:'12347@qq.com'},
+        {id:'1',img:'img/team/img6-md.jpg',name:'张总',company:'德阳工厂',address:'海宁，浙江，中国',phone:'15072200010',sex:'F',email:'12341@qq.com',labelId:1},
+        {id:'2',img:'img/team/img7-md.jpg',name:'小刘',company:'德阳工厂',address:'海宁，浙江，中国',phone:'15072200011',sex:'M',email:'12342@qq.com',labelId:2},
+        {id:'3',img:'img/team/img8-md.jpg',name:'Mike',company:'skytrading',address:'Paloalto,CA,USA',phone:'15072200012',sex:'F',email:'12343@qq.com',labelId:3},
+        {id:'4',img:'img/team/img9-md.jpg',name:'李四',company:'蓝天公司',address:'上海,中国',phone:'15072200013',sex:'M',email:'12344@qq.com',labelId:4},
+        {id:'5',img:'img/team/img10-md.jpg',name:'王总',company:'大海皮料',address:'苏州，江苏，中国',phone:'15072200014',sex:'F',email:'12345@qq.com',labelId:3},
+        {id:'6',img:'img/team/img11-md.jpg',name:'张三',company:'苏州希尔顿',address:'苏州 ，江苏，中国',phone:'15072200015',sex:'M',email:'12346@qq.com',labelId:2},
+        {id:'7',img:'img/team/img13-md.jpg',name:'王球童',company:'九桥高尔夫',address:'杭州，浙江，中国',phone:'15072200016',sex:'F',email:'12347@qq.com',labelId:1},
         {id:'8',img:'img/team/img15-md.jpg',name:'FabioGrosso',company:'',address:'Turin，Italy',phone:'15072200017',sex:'M',email:'12348@qq.com'}
     ];
     return {
@@ -111,6 +111,24 @@ angular.module('starter.services', [])
                     return personmainLists[i];
                 }
             }
+        },
+        getPersonLabel:function (labelId) {
+            var labelList = [] ;
+            for(var i=0;i<personmainLists.length;i++){
+                if(personmainLists[i].labelId == labelId){
+                    labelList.push(personmainLists[i]);
+                }
+            }
+            return labelList;
+        },
+        getPersonNoinLabel:function (labelId) {
+            var labelList = [] ;
+            for(var i=0;i<personmainLists.length;i++){
+              if(personmainLists[i].labelId != labelId){
+                labelList.push(personmainLists[i]);
+              }
+            }
+            return labelList;
         }
     }
 })
@@ -214,5 +232,30 @@ angular.module('starter.services', [])
         }
       }
     }
+})
+.factory('PersonLabel', function () {
+    var listLabel = [
+      {id:1,title:'亲人'},
+      {id:2,title:'朋友'},
+      {id:3,title:'同学'},
+      {id:4,title:'同事'}
+    ];
+
+    return{
+      getAllLabl:function () {
+        return listLabel;
+      },
+      remove:function (label) {
+        listLabel.splice(chats.indexOf(label), 1);
+      },
+      getInfo:function (labelId) {
+        for(var i=0;i<listLabel.length;i++){
+          if(labelId == listLabel[i].id){
+            return listLabel[i];
+          }
+        }
+      }
+    }
+
 })
 ;

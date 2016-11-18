@@ -9,14 +9,6 @@
             </div>
         </div>
         <ion-list>
-            <!--<div class="content has-header" style="margin-bottom: 70px;margin-top: -50px;">-->
-                <!--<div class="list list-inset">-->
-                    <!--<label class="item item-input">-->
-                        <!--<i class="icon ion-search placeholder-icon"></i>-->
-                        <!--<input type="text" placeholder="Search">-->
-                    <!--</label>-->
-                <!--</div>-->
-            <!--</div>-->
             <div>
                 <div class="content" ng-repeat="personmain in personmainLists" style="margin-top: -18px;" ng-click="goInfo(personmain.id)">
                     <div class="list card cardupdate">
@@ -37,7 +29,7 @@
                 </i>
                 <span class="tab-title ng-binding" style="font-size: 10px;">添加人员</span>
             </a>
-            <a class="tab-item tab-item-active" style="line-height: 12px;">
+            <a class="tab-item tab-item-active" style="line-height: 12px;" href="#/app/personLabel">
                 <i class="icon ion-pricetag" style="line-height: 14px;">
                 </i>
                 <span class="tab-title ng-binding" style="font-size: 10px;">标签</span>

@@ -213,4 +213,16 @@ angular.module('starter.controllers', ['ngCordova'])
 .controller('ChatPersonList',function ($scope, $stateParams,ChatList) {
     $scope.chat = ChatList.getChatInfo($stateParams.chatId);
 })
+.controller('PersonLabel', function ($scope, $location, PersonLabel) {
+    $scope.labelList = PersonLabel.getAllLabl();
+    $scope.goLabelInPerson = function (labelId) {
+      $location.path('/app/labelPersonList/'+labelId);
+    }
+})
+.controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel) {
+    $scope.labelId = $stateParams.labelId;
+    $scope.personList = Contact.getPersonLabel($scope.labelId);
+    $scope.labelInfo = PersonLabel.getInfo($scope.labelId);
+    $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
+})
 ;

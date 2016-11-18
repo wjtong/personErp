@@ -220,6 +220,28 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services' , '
         }
       }
     })
+    .state('app.personLabel',{
+      url:'/personLabel',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/personLabel.html',
+          controller: 'PersonLabel'
+        }
+      }
+    })
+    .state('app.labelPersonList',{
+      url:'/labelPersonList/:labelId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/labelPersonList.html',
+          controller: 'LabelPersonList'
+        }
+      }
+    })
   .state('app.single', {
     url: '/playlists/:playlistId',
     views: {

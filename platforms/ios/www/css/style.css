@@ -1,5 +1,5 @@
 body {
-  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+  /*cursor: url('http://ionicframework.com/img/finger.png'), auto;*/
 }
 
 /* allows the bar-footer to be elastic /*
@@ -127,7 +127,7 @@ img.profile-pic.right {
   top: -3px;
 }
 
-input, textarea{
+input[type='text'], textarea{
   width: 100%;
 }
 

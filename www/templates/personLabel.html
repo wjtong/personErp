@@ -1,0 +1,15 @@
+<ion-view title="标签">
+  <ion-content>
+    <ion-list>
+      <div class="list" ng-repeat="label in labelList" style="margin-bottom: 5px;" ng-click="goLabelInPerson(label.id)">
+        <div class="item item-toggle toggle-large ng-not-empty ng-valid" style="">
+          <div>
+            <span>
+              {{label.title}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>
