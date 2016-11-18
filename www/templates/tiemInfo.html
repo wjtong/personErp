@@ -18,13 +18,13 @@
         <div class="item">
           <label class="">
             <span class="input-label">开始时间</span>
-            <input type="text" ng-click="getIime('beginTime')" id="beginTime" value="">
+            <input type="text" ng-click="getIime('beginTime')" id="beginTime" value="{{time.biginTime | date:'HH:mm:ss'}}">
           </label>
         </div>
         <div class="item">
           <label class="">
             <span class="input-label">结束时间</span>
-            <input type="text" ng-click="getIime('endTime')" id="endTime" value="">
+            <input type="text" ng-click="getIime('endTime')" id="endTime" value="{{time.endTime | date:'HH:mm:ss'}}">
           </label>
         </div>
 

@@ -258,6 +258,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     var infoId = $stateParams.infoId;
     $scope.time = MyTime.getTimeInfo(timeId,infoId);
 
+    $scope.date = $scope.time.biginTime;
+
     var today=new Date();
     var fromYear= today.getYear()+1900;
     var toYear= today.getYear()+1901;
