@@ -10,7 +10,7 @@
         </div>
         <ion-list>
             <div>
-                <div class="content" ng-repeat="personmain in personmainLists" style="margin-top: -18px;" ng-click="goInfo(personmain.id)">
+                <div class="content" ng-repeat="personmain in personmainLists | orderBy:'name':false" style="margin-top: -18px;" ng-click="goInfo(personmain.id)">
                     <div class="list card cardupdate">
                         <div class="item item-avatar">
                             <img ng-src="{{personmain.img}}">
@@ -22,6 +22,37 @@
             </div>
         </ion-list>
     </ion-content>
+    <div class="rj-contacts-right-bar" >
+      <div>&uarr;</div>
+      <div>☆</div>
+      <div>A</div>
+      <div>B</div>
+      <div>C</div>
+      <div>D</div>
+      <div>E</div>
+      <div>F</div>
+      <div>G</div>
+      <div>H</div>
+      <div>I</div>
+      <div>J</div>
+      <div>K</div>
+      <div>L</div>
+      <div>M</div>
+      <div>N</div>
+      <div>O</div>
+      <div>P</div>
+      <div>Q</div>
+      <div>R</div>
+      <div>S</div>
+      <div>T</div>
+      <div>U</div>
+      <div>V</div>
+      <div>W</div>
+      <div>X</div>
+      <div>Y</div>
+      <div>Z</div>
+      <div>#</div>
+    </div>
     <div class="bar bar-footer" style="margin-left: -6px;">
         <div class="tab-nav tabs">
             <a class="tab-item tab-item-active" style="line-height: 12px;" href="#/app/addPerson">

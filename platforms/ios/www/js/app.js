@@ -145,8 +145,8 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services' , '
           }
       }
   })
-  .state('app.editPersion', {
-      url: '/editPersion/:personId',
+  .state('app.editPerson', {
+      url: '/editPerson/:personId',
       disableBack:true,
       cache :false,
       views: {
@@ -155,6 +155,48 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services' , '
               controller: 'UpdatePersonInfo'
           }
       }
+  })
+  .state('app.getResources', {
+    url: '/getResources/',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/otherresources.html',
+        controller: 'GetResources'
+      }
+    }
+  })
+  .state('app.getEvents', {
+    url: '/getEvents/',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/myevents.html',
+      }
+    }
+  })
+  .state('app.getBusiness', {
+    url: '/getBusiness/',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/business.html',
+      }
+    }
+  })
+  .state('app.abouthim', {
+    url: '/abouthim/:personId',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/abouthim.html',
+        controller: 'AboutHim'
+      }
+    }
   })
   .state('app.editAddress', {
       url: '/editAddress/:id',

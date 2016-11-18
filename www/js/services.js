@@ -139,6 +139,15 @@ angular.module('starter.services', [])
       {id:3,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
       {id:4,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
     ];
+
+    var resourcesListOthers = [
+      {id:1,img:'img/team/img9-md.jpg',name:'李四',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+      {id:2,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
+      {id:3,img:'img/team/img10-md.jpg',name:'王总',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+      {id:4,img:'img/team/img10-md.jpg',name:'王总',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+      {id:5,img:'img/team/img10-md.jpg',name:'王总',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+      {id:6,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
+    ];
     var selectOption = [
       {id:'me',name:'我'},
       {id:'zhangzong',name:'张总'},
@@ -150,6 +159,9 @@ angular.module('starter.services', [])
     return{
         getResourcesAll:function () {
             return resourcesList;
+        },
+        getResourcesOthersAll:function () {
+          return resourcesListOthers;
         },
         getResourceInfo:function (id) {
             for(var i=0 ;i<resourcesList.length; i++){
