@@ -1,0 +1,35 @@
+<ion-view view-title="关于他">
+  <ion-content>
+
+    <div class="list card cardupdate">
+
+      <div  class="item item-icon-left" ng-click="goInfo(personInfo.id)">
+        <i class="icon ion-ios-paper"></i>
+        个人信息
+        <div class="item item-avatar">
+          <img ng-src="{{personInfo.img}}">
+          <h2>{{personInfo.name}} {{resources.personInfo}}</h2>
+          <p>{{personInfo.address}}</p>
+        </div>
+      </div>
+
+      <div  class="item item-icon-left" ng-click="goResources()">
+        <i class="icon ion-ios-people"></i>
+        资源
+      </div>
+
+      <div class="item item-icon-left" ng-click="gobusiness()">
+        <i class="icon ion-android-plane"></i>
+        事务
+      </div>
+
+      <dic class="item item-icon-left" ng-click="goEvents()">
+        <i class="icon ion-ios-time-outline"></i>
+        时间
+      </dic>
+
+    </div>
+
+
+  </ion-content>
+</ion-view>

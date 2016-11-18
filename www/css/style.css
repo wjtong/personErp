@@ -180,3 +180,19 @@ a.autolinker {
 .loader .ion-loading-c {
   font-size: 64px;
 }
+
+.rj-contacts-right-bar {
+  position: fixed;
+  right: 0;
+  width: 20px;
+  height: 464px;
+  z-index: 2;
+  text-align: center;
+  font-size: 80%;
+  color: #545454;
+  margin-top: 50px;
+}
+
+.rj-contacts-right-bar div {
+  height: 16px;
+}

@@ -89,13 +89,33 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('ContactlistCtrl', function($scope,Contact,$location) {
     $scope.personmainLists = Contact.getAll();
     $scope.goInfo = function (id) {
-        $location.path('/app/editPersion/'+id);
+        $location.path('/app/abouthim/'+id);
     }
 })
 .controller('UpdatePersonInfo',function ($scope,Contact,$stateParams) {
     var id = $stateParams.personId;
     //alert(id);
     $scope.personInfo = Contact.get(id);
+})
+.controller('AboutHim',function ($scope,Contact,$stateParams,$location) {
+  var id = $stateParams.personId;
+  //alert(id);
+  $scope.personInfo = Contact.get(id);
+  $scope.goInfo = function (id) {
+    $location.path('/app/editPerson/'+id);
+  }
+  $scope.goResources = function () {
+    $location.path('/app/getResources/');
+  }
+  $scope.goEvents = function () {
+    $location.path('/app/getEvents/');
+  }
+  $scope.gobusiness = function () {
+    $location.path('/app/getBusiness/');
+  }
+})
+.controller('GetResources',function ($scope,myresources,$stateParams) {
+  $scope.resourcesListOthers = myresources.getResourcesOthersAll()
 })
 
 .controller('PlaylistCtrl', function($scope) {
