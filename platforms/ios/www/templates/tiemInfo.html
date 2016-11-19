@@ -10,12 +10,26 @@
         </div>
         <div class="item">
           <label class="">
-            <span class="input-label">电子邮箱</span>
-            <input type="text" ng-click="" id="deviceready">
+            <span class="input-label">日期</span>
+            <input type="text" ng-click="openDatePicker()" value="{{date | date:'yyyy-MM-dd'}}">
+          </label>
+        </div>
+
+        <div class="item">
+          <label class="">
+            <span class="input-label">开始时间</span>
+            <input type="text" ng-click="getIime('beginTime')" id="beginTime" value="{{time.biginTime | date:'HH:mm:ss'}}">
           </label>
         </div>
         <div class="item">
-          <button class="button button-block button-stable" ng-click="getTime()">提交</button>
+          <label class="">
+            <span class="input-label">结束时间</span>
+            <input type="text" ng-click="getIime('endTime')" id="endTime" value="{{time.endTime | date:'HH:mm:ss'}}">
+          </label>
+        </div>
+
+        <div class="item">
+          <button class="button button-block button-stable">提交</button>
         </div>
 
       </div>

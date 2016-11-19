@@ -10,7 +10,7 @@ gulp.task('html2js', function () {
   return gulp.src(['./src/*.html'])
     .pipe(minifyHtml())
     .pipe(ngHtml2Js({
-      moduleName: "ionic-datepicker.templates"
+      moduleName: "ionic-timepicker.templates"
     }))
     .pipe(concat("templates.js"))
     //.pipe(uglify())
@@ -20,19 +20,19 @@ gulp.task('html2js', function () {
 gulp.task('css2js', function () {
   return gulp.src("./src/*.css")
     .pipe(css2js())
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest("./dist/"));
 });
 
 gulp.task('make-bundle', ['del', 'html2js', 'css2js'], function () {
   return gulp.src(['./dist/*', './src/*.js'])
-    .pipe(concat('ionic-datepicker.bundle.min.js'))
+    .pipe(concat('ionic-timepicker.bundle.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('del-temp-files', ['make-bundle'], function () {
-  del(['./dist/templates.js', './dist/ionic-datepicker.styles.js']);
+  del(['./dist/templates.js', './dist/ionic-timepicker.styles.js']);
 });
 
 gulp.task('del', function () {
@@ -40,4 +40,3 @@ gulp.task('del', function () {
 });
 
 gulp.task('build', ['del-temp-files']);
-

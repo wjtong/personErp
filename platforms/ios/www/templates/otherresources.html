@@ -1,0 +1,39 @@
+<ion-view view-title="他的资源">
+  <ion-content>
+    <div class="content">
+      <div class="list list-inset" style="margin-top: 5px;margin-bottom: 5px;">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="Search">
+        </label>
+      </div>
+    </div>
+    <ion-list>
+      <div>
+        <div class="content" ng-repeat="resources in resourcesListOthers"  style="margin-top: -18px;">
+          <div class="list card cardupdate">
+            <div class="item item-avatar">
+              <img ng-src="{{resources.img}}">
+              <h2>{{resources.name}} {{resources.company}}</h2>
+              <p>{{resources.address}}</p>
+            </div>
+            <div class="item item-body">
+              <p>
+                {{resources.desc}}
+              </p>
+              <p>
+                <a class="subdued">{{resources.pushed}} 已推送联系人</a>
+              </p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+              <a class="tab-item">
+                <i class="icon ion-share"></i>
+                推送
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

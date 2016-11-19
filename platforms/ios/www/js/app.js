@@ -21,7 +21,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   });
 })
-
+.config(function (ionicDatePickerProvider) {
+    var datePickerObj = {
+        inputDate: new Date(),
+        titleLabel: 'Select a Date',
+        setLabel: '选择',
+        todayLabel: '今天',
+        closeLabel: '关闭',
+        mondayFirst: false,
+        weeksList: ["S", "M", "T", "W", "T", "F", "S"],
+        monthsList: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        templateType: 'popup',
+        from: new Date(2012, 8, 1),
+        to: new Date(2018, 8, 1),
+        showTodayButton: true,
+        dateFormat: 'dd MMMM yyyy',
+        closeOnSelect: false,
+        disableWeekdays: []
+    };
+    ionicDatePickerProvider.configDatePicker(datePickerObj);
+})
+.config(function (ionicTimePickerProvider) {
+    var timePickerObj = {
+        inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
+        format: 12,
+        step: 15,
+        setLabel: '选择',
+        closeLabel: '关闭'
+    };
+    ionicTimePickerProvider.configTimePicker(timePickerObj);
+})
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
