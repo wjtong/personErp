@@ -317,4 +317,24 @@ angular.module('starter.services', [])
       }
     }
 })
+.factory('OtherTime',function () {
+  var time = [
+    {
+      id:1,
+      data:'2016-11-16',
+      info:'这个时间的安排'
+    },
+    {
+      id:2,
+      data:'2016-11-17',
+      info:'这个时间的安排'
+    }
+  ];
+
+  return{
+    getAllOtherTime:function () {
+      return time;
+    },
+  }
+})
 ;

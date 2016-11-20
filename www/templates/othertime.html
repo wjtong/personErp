@@ -1,0 +1,12 @@
+<ion-view title="他的时间安排">
+  <ion-content>
+    <div class="">
+      <div class="list card" ng-repeat="otherTime in timeListOther | orderBy:'data':true">
+        <div class="item item-divider">
+          <b>{{otherTime.data}}</b>
+          <b>{{otherTime.info}}</b>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
