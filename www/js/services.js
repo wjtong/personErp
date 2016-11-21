@@ -89,6 +89,18 @@ angular.module('starter.services', [])
         }
     }
 })
+.factory("GroupChat",function () {
+  var groupList = [
+    {img:'img/team/img1-md.jpg', id:1,  name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'500公斤皮料已送到，450公斤接收入库，50公斤未接收，2016/10/08',like:3,comments:5},
+    {img:'img/team/img2-md.jpg', id:2,  name:'小刘', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已创建生产，订单号12345678900，2016/10/07',collect:2,comments:8},
+    {img:'img/team/img3-md.jpg', id:3,  name:'老李', company:'德阳贸易', address:'杭州，浙江，中国',desc:'已发布产品 PVC，2016/10/06',collect:5,comments:3},
+  ];
+  return{
+    getAll:function () {
+      return groupList;
+    }
+  }
+})
 .factory('Contact',function () {
     var personmainLists = [
         {id:'1',img:'img/team/img6-md.jpg',name:'张总',company:'德阳工厂',address:'海宁，浙江，中国',phone:'15072200010',sex:'F',email:'12341@qq.com',labelId:1},

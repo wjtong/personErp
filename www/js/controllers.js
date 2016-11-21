@@ -120,6 +120,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('GetEvent',function ($scope,OtherTime,$stateParams) {
   $scope.timeListOther = OtherTime.getAllOtherTime()
 })
+.controller('NewGroupChat',function ($scope,GroupChat,$stateParams) {
+  $scope.devList = GroupChat.getAll()
+})
 
 .controller('PlaylistCtrl', function($scope) {
   $scope.orders = [
