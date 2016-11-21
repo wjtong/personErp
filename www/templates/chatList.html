@@ -2,11 +2,25 @@
   <ion-content>
     <ion-list>
       <div>
+        <div class="item item-input item-select">
+          <div class="input-label">
+            选择类型
+          </div>
+          <select>
+            <option value="0" selected>全部</option>
+            <option value="1">订单</option>
+            <option value="2">学习</option>
+          </select>
+        </div>
+
         <div class="content" ng-repeat="chat in ChatList" style="margin-top: -10px;" ng-click="goInfo(chat.id)">
           <div class="chat card ChatList">
             <div class="item item-body">
               <p style="margin-top: 0px;">
                 {{chat.title}}
+              </p>
+              <p style="margin-top: 0px;">
+                主题类型：{{chat.typeName}}
               </p>
             </div>
             <div class="item item-avatar" style="margin-left: -16px;">

@@ -1,12 +1,16 @@
-<ion-view title="{{chat.title}}">
+<ion-view title="讨论组">
     <ion-nav-buttons side="right">
       <button class="button button-icon ion-person-stalker ion-navicon" menu-toggle="right" ng-click="goPersonList(chat.id)">
       </button>
     </ion-nav-buttons>
   <ion-content has-bouncing="true" class="has-header has-footer"
                delegate-handle="userMessageScroll">
+    <div class="list list-inset" style="margin-top: 5px;margin-bottom: 5px;">
+      <label class="item item-input">
+        讨论主题：{{chat.title}}
+      </label>
+    </div>
     <div ng-repeat="chat in chat.discuss" class="message-wrapper">
-
       <div ng-if="userId !== chat.personId">
 
         <img ng-click="" class="profile-pic left"

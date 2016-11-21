@@ -185,6 +185,7 @@ angular.module('starter.services', [])
       {
         id:1,
         title:'aland开票讨论',
+        typeName:'订单',
         participants:[
           {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
           {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
@@ -202,6 +203,7 @@ angular.module('starter.services', [])
       {
         id:2,
         title:'测是讨论',
+        typeName:'学习',
         participants:[
           {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
           {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
