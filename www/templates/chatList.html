@@ -1,16 +1,18 @@
 <ion-view title="聊天列表">
   <ion-content>
-    <div class="item item-input item-select">
-      <div class="input-label">
-        选择类型
-      </div>
-      <select>
-        <option value="0" selected>全部</option>
-        <option value="1" ng-click="">订单</option>
-        <option value="2">学习</option>
-      </select>
-    </div>
     <ion-list>
+      <div>
+        <div class="item item-input item-select">
+          <div class="input-label">
+            选择类型
+          </div>
+          <select>
+            <option value="0" selected>全部</option>
+            <option value="1">订单</option>
+            <option value="2">学习</option>
+          </select>
+        </div>
+
         <div class="content" ng-repeat="chat in ChatList" style="margin-top: -10px;" ng-click="goInfo(chat.id)">
           <div class="chat card ChatList">
             <div class="item item-body">
@@ -35,14 +37,4 @@
       </div>
     </ion-list>
   </ion-content>
-  <div class="bar bar-footer" style="margin-left: -6px;">
-    <div class="tab-nav tabs">
-      <a class="tab-item tab-item-active" style="line-height: 12px;" href="#/app/newGroupChat">
-        <i class="icon ion-chatboxes" style="line-height: 14px;">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">新建群聊</span>
-      </a>
-
-    </div>
-  </div>
 </ion-view>

@@ -339,17 +339,4 @@ angular.module('starter.services', [])
     },
   }
 })
-  .factory('NewGroupChat',function () {
-    var devList = [
-      {id:1,img:'img/team/img9-md.jpg',name:'李四',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-      {id:2,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
-      {id:3,img:'img/team/img10-md.jpg',name:'王总',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-    ];
-
-    return{
-      getAlldevList:function () {
-        return devList;
-      },
-    }
-  })
 ;
