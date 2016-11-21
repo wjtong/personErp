@@ -11,20 +11,23 @@
         <div class="item">
           <label class="">
             <span class="input-label">日期</span>
-            <input type="text" ng-click="openDatePicker()" value="{{date | date:'yyyy-MM-dd'}}">
+            <div>{{date | date:'yyyy-MM-dd'}}</div>
+            <input type="hidden" ng-click="openDatePicker()" value="{{date | date:'yyyy-MM-dd'}}">
           </label>
         </div>
 
         <div class="item">
           <label class="">
             <span class="input-label">开始时间</span>
-            <input type="text" ng-click="getIime('beginTime')" id="beginTime" value="{{time.biginTime | date:'HH:mm:ss'}}">
+            <div id="beginTimeDiv">{{beginTime | date:'HH:mm:ss'}}</div>
+            <input type="hidden" ng-click="getIime('beginTime')" id="beginTime" ng-model="beginTime" value="{{beginTime | date:'HH:mm:ss'}}">
           </label>
         </div>
         <div class="item">
           <label class="">
             <span class="input-label">结束时间</span>
-            <input type="text" ng-click="getIime('endTime')" id="endTime" value="{{time.endTime | date:'HH:mm:ss'}}">
+            <div id="endTimeDiv">{{endTime | date:'HH:mm:ss'}}</div>
+            <input type="hidden" ng-click="getIime('endTime')" id="endTime" value="{{endTime | date:'HH:mm:ss'}}">
           </label>
         </div>
 

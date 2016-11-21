@@ -260,6 +260,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 
     $scope.date = $scope.time.biginTime;
 
+    $scope.beginTime = $scope.time.biginTime;
+    $scope.endTime = $scope.time.endTime;
+
     var today=new Date();
     var fromYear= today.getYear()+1900;
     var toYear= today.getYear()+1901;
@@ -299,9 +302,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
             if (typeof (val) === 'undefined') {
                 console.log('Time not selected');
             } else {
-                var selectedTime = new Date(val * 1000);
-                document.getElementById(optionId).value = selectedTime.getUTCHours()+':'+selectedTime.getUTCMinutes()+':00';
-                console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+              var selectedTime = new Date(val * 1000);
+                if(optionId == 'beginTime'){
+                  $scope.beginTime = (selectedTime.getUTCHours()+':'+selectedTime.getUTCMinutes()+':00');
+                }else{
+                  $scope.endTime = (selectedTime.getUTCHours()+':'+selectedTime.getUTCMinutes()+':00');
+                }
+                // var selectedTime = new Date(val * 1000);
+                // document.getElementById(optionId).value = selectedTime.getUTCHours()+':'+selectedTime.getUTCMinutes()+':00';
+                // document.getElementById(optionId+"Div").html = selectedTime.getUTCHours()+':'+selectedTime.getUTCMinutes()+':00';
+                // console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
             }
         },
         inputTime: 50400,   //Optional
