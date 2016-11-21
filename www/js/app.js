@@ -202,7 +202,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     cache :false,
     views: {
       'menuContent': {
-        templateUrl: 'templates/myevents.html',
+        templateUrl: 'templates/othertime.html',
+        controller: 'GetEvent'
       }
     }
   })

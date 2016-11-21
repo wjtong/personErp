@@ -117,6 +117,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('GetResources',function ($scope,myresources,$stateParams) {
   $scope.resourcesListOthers = myresources.getResourcesOthersAll()
 })
+.controller('GetEvent',function ($scope,OtherTime,$stateParams) {
+  $scope.timeListOther = OtherTime.getAllOtherTime()
+})
 
 .controller('PlaylistCtrl', function($scope) {
   $scope.orders = [
