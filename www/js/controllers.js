@@ -212,7 +212,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.goOrderInf = function (orderId,orderTypeId) {
       $location.path('/app/myOrderInfo/'+orderId+'/'+orderTypeId);
     }
-    var dateOption = [
+    $scope.dateOption = [
         {id:'Three',desc:'过去三天'},
         {id:'Seven',desc:'过去七天'},
         {id:'oneMonth',desc:'过去一个月'},

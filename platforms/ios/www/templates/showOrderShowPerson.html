@@ -1,0 +1,16 @@
+<div class="modal">
+  <div class="bar bar-header">
+    <button class="button" style="position: absolute;right: 5px;" ng-click="hiddenPerson();">关闭</button>
+  </div>
+  <ion-content>
+    <ion-list>
+      <div style="margin-top: 45px;">
+        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personList" type="item-text-wrap">
+          <img ng-src="{{personmain.img}}">
+          <h2>{{personmain.name}} {{personmain.company}}</h2>
+          <p>{{personmain.address}}</p>
+        </ion-item>
+      </div>
+    </ion-list>
+  </ion-content>
+</div>

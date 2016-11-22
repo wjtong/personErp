@@ -1,0 +1,47 @@
+<ion-view view-title="添加人员">
+  <ion-content>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">讨论主题：</span>
+          <input type="text" placeholder="讨论主题">
+        </label>
+      </div>
+    </div>
+
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item  item-select" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">讨论类型</span>
+          <select ng-model="groupChatType">
+            <option value="0">无</option>
+            <option value="1">订单</option>
+            <option value="2">学习</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">讨论人员：</span>
+
+          <div class="list">
+
+            <ion-checkbox ng-repeat="item in devList" >
+              <div>
+                <ion-item class="item item-avatar item-icon-right"  type="item-text-wrap">
+                  <img ng-src="{{item.img}}">
+                  <h2>{{item.name}}</h2>
+                </ion-item>
+              </div>
+            </ion-checkbox>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-positive">提交</button>
+    </div>
+  </ion-content>
+</ion-view>

@@ -120,6 +120,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('GetEvent',function ($scope,OtherTime,$stateParams) {
   $scope.timeListOther = OtherTime.getAllOtherTime()
 })
+.controller('NewGroupChat',function ($scope,GroupChat,$stateParams) {
+  $scope.devList = GroupChat.getAll()
+})
 
 .controller('PlaylistCtrl', function($scope) {
   $scope.orders = [
@@ -209,7 +212,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.goOrderInf = function (orderId,orderTypeId) {
       $location.path('/app/myOrderInfo/'+orderId+'/'+orderTypeId);
     }
-    var dateOption = [
+    $scope.dateOption = [
         {id:'Three',desc:'过去三天'},
         {id:'Seven',desc:'过去七天'},
         {id:'oneMonth',desc:'过去一个月'},
@@ -218,14 +221,32 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         {id:'oneYear',desc:'一年前'},
     ];
 })
-.controller('MyOrderInfo', function ($scope,$stateParams,MyOrder) {
+.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,MyOrder,Contact) {
     var orderId = $stateParams.orderId;
     var orderTypeId = $stateParams.orderTypeId;
-    alert('订单 Id：'+orderId+'   订单类型: '+orderTypeId);
+    //alert('订单 Id：'+orderId+'   订单类型: '+orderTypeId);
+    $scope.personList = Contact.getAll();
     if(orderTypeId == 'sal'){
-        $scope.orderInfo = MyOrder.getSalOrder(orderId);
-    }else if(orderTypeId == 'pur'){
-        $scope.orderInfo = MyOrder.getSalOrder(orderId);
+        //alert('来了');
+        $scope.orderInfo = MyOrder.getSalOrderInfo(orderId);
+      $scope.orderInfo.orderType = '销售订单';
+      $scope.orderInfo.orderTime = '2016-11-22 10:22:21';
+    }else if(orderTypeId == 'pur') {
+      $scope.orderInfo = MyOrder.getPurOrderInfo(orderId);
+      $scope.orderInfo.orderType = '采购订单';
+      $scope.orderInfo.orderTime = '2016-11-22 10:22:21';
+    }
+    $ionicModal.fromTemplateUrl('templates/showOrderShowPerson.html', function(modal) {
+      $scope.person = modal;
+    }, {
+      scope: $scope
+    });
+
+    $scope.showPerson = function () {
+      $scope.person.show();
+    }
+    $scope.hiddenPerson = function () {
+      $scope.person.hide();
     }
 
 })
@@ -263,16 +284,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
 })
 .controller('MyTime',function ($scope,MyTime,$location) {
-  $scope.myTimes = MyTime.getAllMyTime();
-  //$scope.lists = $filter('orderBy')($scope.myTimes, expression, reverse)
-  $scope.goInfo = function (timeId,infoId) {
-    $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
-  }
-
-})
-.controller('NewGroupChat',function ($scope,NewGroupChat) {
-
-  $scope.devList = NewGroupChat.getAlldevList();
+    $scope.myTimes = MyTime.getAllMyTime();
+    //$scope.lists = $filter('orderBy')($scope.myTimes, expression, reverse)
+    $scope.goInfo = function (timeId,infoId) {
+      $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
+    }
 
 })
 .controller('TiemInfo',function ($scope, $stateParams, MyTime, ionicDatePicker, ionicTimePicker) {
