@@ -108,6 +108,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+  .state('app.newGroupChat', {
+    url: '/newGroupChat',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/newgroupchat.html',
+        controller:'NewGroupChat'
+      }
+    }
+  })
 
   .state('app.bookmark', {
     url: '/bookmark',

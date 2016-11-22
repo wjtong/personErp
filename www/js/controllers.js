@@ -120,6 +120,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('GetEvent',function ($scope,OtherTime,$stateParams) {
   $scope.timeListOther = OtherTime.getAllOtherTime()
 })
+.controller('NewGroupChat',function ($scope,GroupChat,$stateParams) {
+  $scope.devList = GroupChat.getAll()
+})
 
 .controller('PlaylistCtrl', function($scope) {
   $scope.orders = [
@@ -281,16 +284,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
 })
 .controller('MyTime',function ($scope,MyTime,$location) {
-  $scope.myTimes = MyTime.getAllMyTime();
-  //$scope.lists = $filter('orderBy')($scope.myTimes, expression, reverse)
-  $scope.goInfo = function (timeId,infoId) {
-    $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
-  }
-
-})
-.controller('NewGroupChat',function ($scope,NewGroupChat) {
-
-  $scope.devList = NewGroupChat.getAlldevList();
+    $scope.myTimes = MyTime.getAllMyTime();
+    //$scope.lists = $filter('orderBy')($scope.myTimes, expression, reverse)
+    $scope.goInfo = function (timeId,infoId) {
+      $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
+    }
 
 })
 .controller('TiemInfo',function ($scope, $stateParams, MyTime, ionicDatePicker, ionicTimePicker) {
