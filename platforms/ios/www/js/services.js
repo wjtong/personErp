@@ -50,20 +50,20 @@ angular.module('starter.services', [])
 })
 .factory('MyOrder',function () {
     var selOrder = [
-        {orderId:1,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-        {orderId:2,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
-        {orderId:3,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-        {orderId:4,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
+        {orderId:'1',img:'img/team/img1-md.jpg', orderTypeId:'sal', name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+        {orderId:'2',img:'img/team/img2-md.jpg', orderTypeId:'sal', name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
+        {orderId:'3',img:'img/team/img1-md.jpg', orderTypeId:'sal', name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+        {orderId:'4',img:'img/team/img2-md.jpg', orderTypeId:'sal', name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
     ];
     var purOrder = [
-        {orderId:'1',img:'img/team/img6-md.jpg',name:'张总',company:'德阳工厂',address:'海宁，浙江，中国',desc:'购买 PVC 1000米，2016/10/05',pushed:'3'},
-        {orderId:'2',img:'img/team/img7-md.jpg',name:'小刘',company:'德阳工厂',address:'海宁，浙江，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'2'},
-        {orderId:'3',img:'img/team/img8-md.jpg',name:'Mike',company:'skytrading',address:'Paloalto,CA,USA',desc:'购买 PU 1000米，2016/10/04',pushed:'3'},
-        {orderId:'4',img:'img/team/img9-md.jpg',name:'李四',company:'蓝天公司',address:'上海,中国',desc:'购买 PU 1000米，2016/10/04',pushed:'6'},
-        {orderId:'5',img:'img/team/img10-md.jpg',name:'王总',company:'大海皮料',address:'苏州，江苏，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'2'},
-        {orderId:'6',img:'img/team/img11-md.jpg',name:'张三',company:'苏州希尔顿',address:'苏州 ，江苏，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'5'},
-        {orderId:'7',img:'img/team/img13-md.jpg',name:'王球童',company:'九桥高尔夫',address:'杭州，浙江，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'6'},
-        {orderId:'8',img:'img/team/img15-md.jpg',name:'FabioGrosso',company:'',address:'Turin，Italy',desc:'购买 PU 1000米，2016/10/04',pushed:'9'}
+        {orderId:'1',img:'img/team/img6-md.jpg', orderTypeId:'pur', name:'张总',company:'德阳工厂',address:'海宁，浙江，中国',desc:'购买 PVC 1000米，2016/10/05',pushed:'3'},
+        {orderId:'2',img:'img/team/img7-md.jpg', orderTypeId:'pur', name:'小刘',company:'德阳工厂',address:'海宁，浙江，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'2'},
+        {orderId:'3',img:'img/team/img8-md.jpg', orderTypeId:'pur', name:'Mike',company:'skytrading',address:'Paloalto,CA,USA',desc:'购买 PU 1000米，2016/10/04',pushed:'3'},
+        {orderId:'4',img:'img/team/img9-md.jpg', orderTypeId:'pur', name:'李四',company:'蓝天公司',address:'上海,中国',desc:'购买 PU 1000米，2016/10/04',pushed:'6'},
+        {orderId:'5',img:'img/team/img10-md.jpg', orderTypeId:'pur', name:'王总',company:'大海皮料',address:'苏州，江苏，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'2'},
+        {orderId:'6',img:'img/team/img11-md.jpg', orderTypeId:'pur', name:'张三',company:'苏州希尔顿',address:'苏州 ，江苏，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'5'},
+        {orderId:'7',img:'img/team/img13-md.jpg', orderTypeId:'pur', name:'王球童',company:'九桥高尔夫',address:'杭州，浙江，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'6'},
+        {orderId:'8',img:'img/team/img15-md.jpg', orderTypeId:'pur', name:'FabioGrosso',company:'',address:'Turin，Italy',desc:'购买 PU 1000米，2016/10/04',pushed:'9'}
     ];
     return{
         getSalOrder: function () {
@@ -71,6 +71,20 @@ angular.module('starter.services', [])
         },
         getPurOrder:function () {
             return purOrder;
+        },
+        getSalOrderInfo:function (orderId) {
+            for(var i=0;i<selOrder.length;i++){
+                if(orderId == selOrder[i].orderId){
+                    return selOrder[i];
+                }
+            }
+        },
+        getPurOrderInfo:function (orderId) {
+            for(var i=0;i<purOrder.length;i++){
+                if(orderId == purOrder[i].orderId){
+                    return purOrder[i];
+                }
+            }
         }
     }
 
@@ -185,6 +199,7 @@ angular.module('starter.services', [])
       {
         id:1,
         title:'aland开票讨论',
+        typeName:'订单',
         participants:[
           {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
           {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
@@ -202,6 +217,7 @@ angular.module('starter.services', [])
       {
         id:2,
         title:'测是讨论',
+        typeName:'学习',
         participants:[
           {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
           {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
@@ -317,4 +333,37 @@ angular.module('starter.services', [])
       }
     }
 })
+.factory('OtherTime',function () {
+  var time = [
+    {
+      id:1,
+      data:'2016-11-16',
+      info:'这个时间的安排'
+    },
+    {
+      id:2,
+      data:'2016-11-17',
+      info:'这个时间的安排'
+    }
+  ];
+
+  return{
+    getAllOtherTime:function () {
+      return time;
+    },
+  }
+})
+  .factory('NewGroupChat',function () {
+    var devList = [
+      {id:1,img:'img/team/img9-md.jpg',name:'李四',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+      {id:2,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
+      {id:3,img:'img/team/img10-md.jpg',name:'王总',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
+    ];
+
+    return{
+      getAlldevList:function () {
+        return devList;
+      },
+    }
+  })
 ;

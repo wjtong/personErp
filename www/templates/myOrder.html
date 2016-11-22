@@ -12,7 +12,7 @@
     <ion-content>
         <ion-list>
             <div style="margin-top: 70px;">
-                <div class="content" ng-repeat="order in orderList" style="margin-top: -18px;">
+                <div class="content" ng-repeat="order in orderList" style="margin-top: -18px;" ng-click="goOrderInf(order.orderId,order.orderTypeId)">
                     <div class="list card cardupdate">
                         <div class="item item-avatar">
                             <img ng-src="{{order.img}}">

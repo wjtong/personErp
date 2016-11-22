@@ -117,6 +117,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('GetResources',function ($scope,myresources,$stateParams) {
   $scope.resourcesListOthers = myresources.getResourcesOthersAll()
 })
+.controller('GetEvent',function ($scope,OtherTime,$stateParams) {
+  $scope.timeListOther = OtherTime.getAllOtherTime()
+})
 
 .controller('PlaylistCtrl', function($scope) {
   $scope.orders = [
@@ -195,13 +198,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     };
 })
 
-.controller('MyOrder',function ($scope,MyOrder) {
+.controller('MyOrder',function ($scope,$location, MyOrder) {
     $scope.orderList = MyOrder.getSalOrder();
     $scope.getSalOrder = function () {
         $scope.orderList = MyOrder.getSalOrder();
     }
     $scope.getPurOrder = function () {
         $scope.orderList = MyOrder.getPurOrder();
+    }
+    $scope.goOrderInf = function (orderId,orderTypeId) {
+      $location.path('/app/myOrderInfo/'+orderId+'/'+orderTypeId);
     }
     var dateOption = [
         {id:'Three',desc:'过去三天'},
@@ -211,6 +217,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         {id:'oneYear',desc:'过去一年'},
         {id:'oneYear',desc:'一年前'},
     ];
+})
+.controller('MyOrderInfo', function ($scope,$stateParams,MyOrder) {
+    var orderId = $stateParams.orderId;
+    var orderTypeId = $stateParams.orderTypeId;
+    alert('订单 Id：'+orderId+'   订单类型: '+orderTypeId);
+    if(orderTypeId == 'sal'){
+        $scope.orderInfo = MyOrder.getSalOrder(orderId);
+    }else if(orderTypeId == 'pur'){
+        $scope.orderInfo = MyOrder.getSalOrder(orderId);
+    }
+
 })
 .controller('ChatList',function ($scope,$location,ChatList) {
     $scope.ChatList = ChatList.getChatList();
@@ -246,11 +263,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
 })
 .controller('MyTime',function ($scope,MyTime,$location) {
-    $scope.myTimes = MyTime.getAllMyTime();
-    //$scope.lists = $filter('orderBy')($scope.myTimes, expression, reverse)
-    $scope.goInfo = function (timeId,infoId) {
-      $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
-    }
+  $scope.myTimes = MyTime.getAllMyTime();
+  //$scope.lists = $filter('orderBy')($scope.myTimes, expression, reverse)
+  $scope.goInfo = function (timeId,infoId) {
+    $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
+  }
+
+})
+.controller('NewGroupChat',function ($scope,NewGroupChat) {
+
+  $scope.devList = NewGroupChat.getAlldevList();
 
 })
 .controller('TiemInfo',function ($scope, $stateParams, MyTime, ionicDatePicker, ionicTimePicker) {

@@ -198,13 +198,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     };
 })
 
-.controller('MyOrder',function ($scope,MyOrder) {
+.controller('MyOrder',function ($scope,$location, MyOrder) {
     $scope.orderList = MyOrder.getSalOrder();
     $scope.getSalOrder = function () {
         $scope.orderList = MyOrder.getSalOrder();
     }
     $scope.getPurOrder = function () {
         $scope.orderList = MyOrder.getPurOrder();
+    }
+    $scope.goOrderInf = function (orderId,orderTypeId) {
+      $location.path('/app/myOrderInfo/'+orderId+'/'+orderTypeId);
     }
     var dateOption = [
         {id:'Three',desc:'过去三天'},
@@ -214,6 +217,35 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         {id:'oneYear',desc:'过去一年'},
         {id:'oneYear',desc:'一年前'},
     ];
+})
+.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,MyOrder,Contact) {
+    var orderId = $stateParams.orderId;
+    var orderTypeId = $stateParams.orderTypeId;
+    //alert('订单 Id：'+orderId+'   订单类型: '+orderTypeId);
+    $scope.personList = Contact.getAll();
+    if(orderTypeId == 'sal'){
+        //alert('来了');
+        $scope.orderInfo = MyOrder.getSalOrderInfo(orderId);
+      $scope.orderInfo.orderType = '销售订单';
+      $scope.orderInfo.orderTime = '2016-11-22 10:22:21';
+    }else if(orderTypeId == 'pur') {
+      $scope.orderInfo = MyOrder.getPurOrderInfo(orderId);
+      $scope.orderInfo.orderType = '采购订单';
+      $scope.orderInfo.orderTime = '2016-11-22 10:22:21';
+    }
+    $ionicModal.fromTemplateUrl('templates/showOrderShowPerson.html', function(modal) {
+      $scope.person = modal;
+    }, {
+      scope: $scope
+    });
+
+    $scope.showPerson = function () {
+      $scope.person.show();
+    }
+    $scope.hiddenPerson = function () {
+      $scope.person.hide();
+    }
+
 })
 .controller('ChatList',function ($scope,$location,ChatList) {
     $scope.ChatList = ChatList.getChatList();

@@ -185,17 +185,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
       }
   })
-  .state('app.newGroupChat', {
-    url: '/newGroupChat',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/newgroupchat.html',
-        controller: 'NewGroupChat'
-      }
-    }
-  })
+  // .state('app.newGroupChat', {
+  //   url: '/newGroupChat',
+  //   disableBack:true,
+  //   cache :false,
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: 'templates/newgroupchat.html',
+  //       controller: 'NewGroupChat'
+  //     }
+  //   }
+  // })
   .state('app.getResources', {
     url: '/getResources/',
     disableBack:true,
@@ -269,7 +269,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
               controller: 'MyOrder'
           }
       }
+  }).state('app.myOrderInfo',{
+    url:'/myOrderInfo/:orderId/:orderTypeId',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/myOrderInfo.html',
+        controller: 'MyOrderInfo'
+      }
+    }
   })
+
     .state('app.chatList',{
       url:'/chatList',
       disableBack:true,
