@@ -1,0 +1,29 @@
+<div class="modal">
+  <div class="bar bar-header">
+    <button class="button" style="position: absolute;right: 5px;" ng-click="hiddenOrderChat()">关闭</button>
+  </div>
+  <ion-content>
+    <ion-list>
+      <div style="margin-top: 70px;">
+        <div class="content" ng-repeat="chat in ChatList" style="margin-top: -10px;">
+          <div class="chat card ChatList">
+            <div class="item item-body">
+              <p style="margin-top: 0px;">
+                {{chat.title}}
+              </p>
+            </div>
+            <div class="item item-avatar" style="margin-left: -16px;">
+              <img ng-src="{{imag.img}}" ng-repeat="imag in chat.participants" style="
+                    top: 16px;
+                    max-width: 40px;
+                    max-height: 40px;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;margin-left: 16px;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</div>

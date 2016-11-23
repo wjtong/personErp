@@ -91,11 +91,11 @@ angular.module('starter.services', [])
 })
 .factory("Home",function () {
     var mainLists = [
-        {img:'img/team/img1-md.jpg', id:1, type:'order', name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'500公斤皮料已送到，450公斤接收入库，50公斤未接收，2016/10/08',like:3,comments:5},
+        {img:'img/team/img1-md.jpg', id:1, type:'order', orderTypeId:'sal', name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'500公斤皮料已送到，450公斤接收入库，50公斤未接收，2016/10/08',like:3,comments:5},
         {img:'img/team/img2-md.jpg', id:2, type:'server', name:'小刘', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已创建生产，订单号12345678900，2016/10/07',collect:2,comments:8},
-        {img:'img/team/img3-md.jpg', id:3, type:'order', name:'我', company:'德阳贸易', address:'杭州，浙江，中国',desc:'已发布产品 PVC，2016/10/06',collect:5,comments:3},
+        {img:'img/team/img3-md.jpg', id:3, type:'order', orderTypeId:'sal', name:'我', company:'德阳贸易', address:'杭州，浙江，中国',desc:'已发布产品 PVC，2016/10/06',collect:5,comments:3},
         {img:'img/team/img4-md.jpg', id:4, type:'server', name:'我', company:'德阳贸易', address:'海宁，浙江，中国',desc:'已创建生产订单 PVC 1000米，2016/10/05',collect:1,comments:1},
-        {img:'img/team/img5-md.jpg', id:5, type:'order', name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已发布生产服务 PVC，2016/10/04',collect:2,comments:8}
+        {img:'img/team/img5-md.jpg', id:5, type:'order', orderTypeId:'pur', name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已发布生产服务 PVC，2016/10/04',collect:2,comments:8}
     ];
     return{
         getAll:function () {
@@ -160,10 +160,10 @@ angular.module('starter.services', [])
 })
 .factory('myresources',function () {
     var resourcesList = [
-      {id:1,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-      {id:2,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
-      {id:3,img:'img/team/img1-md.jpg',name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-      {id:4,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
+      {id:1,img:'img/team/img1-md.jpg',descImg:"img/product/001.jpg",title:"生产PU",name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5,price:124.00},
+      {id:2,img:'img/team/img2-md.jpg',descImg:"img/product/002.jpg",title:"发布PU生产服务",name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5,price:243.00},
+      {id:3,img:'img/team/img1-md.jpg',descImg:"img/product/003.jpg",title:"发布PU生产服务",name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5,price:319.00},
+      {id:4,img:'img/team/img2-md.jpg',descImg:"img/product/004.jpg",title:"发布PU生产服务",name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5,price:578.00}
     ];
 
     var resourcesListOthers = [

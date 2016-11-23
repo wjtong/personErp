@@ -13,6 +13,10 @@
             <td>&nbsp;&nbsp;&nbsp;{{orderInfo.orderType}}</td>
           </tr>
           <tr>
+            <td style="text-align: right"> 订单状态</td>
+            <td>&nbsp;&nbsp;&nbsp;{{orderInfo.orderStatus}}</td>
+          </tr>
+          <tr>
             <td style="text-align: right">时间</td>
             <td>&nbsp;&nbsp;&nbsp;{{orderInfo.orderTime}}</td>
           </tr>
@@ -75,7 +79,7 @@
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">可见人员</span>
       </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="showOrderChat()">
         <i class="icon ion-ios-chatboxes-outline" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">有关的讨论</span>

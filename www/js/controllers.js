@@ -80,8 +80,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $scope.taskModal.hide();
     }
 
-    $scope.goInfo = function (id) {
-        $location.path('app/playlists/'+id);
+    $scope.goInfo = function (id,type,orderType) {
+      //alert('id:'+id+'  type:'+type);
+      if(type == 'order'){
+        $location.path('/app/myOrderInfo/'+id+"/"+orderType);
+      }else if(type == 'server'){
+        $location.path('/app/myResourcesInfo/'+id);
+      }
     }
 
 })
@@ -171,6 +176,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.newResources = function(){
         $location.path("/app/newResources");
     }
+    $scope.goInfo = function (resourcesId) {
+      $location.path("/app/myResourcesInfo/"+resourcesId);
+    }
+})
+.controller('MyResourcesInfo',function ($scope,$stateParams,myresources) {
+    var resourcesId = $stateParams.resourcesId;
+    $scope.resources = myresources.getResourceInfo(resourcesId);
 })
 .controller('NewResources',function ($scope,$cordovaCamera) {
     $scope.imageSrc = "";
@@ -221,23 +233,31 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         {id:'oneYear',desc:'一年前'},
     ];
 })
-.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,MyOrder,Contact) {
+.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,MyOrder,Contact,ChatList) {
     var orderId = $stateParams.orderId;
     var orderTypeId = $stateParams.orderTypeId;
     //alert('订单 Id：'+orderId+'   订单类型: '+orderTypeId);
     $scope.personList = Contact.getAll();
+    $scope.ChatList = ChatList.getChatList();
     if(orderTypeId == 'sal'){
         //alert('来了');
         $scope.orderInfo = MyOrder.getSalOrderInfo(orderId);
       $scope.orderInfo.orderType = '销售订单';
       $scope.orderInfo.orderTime = '2016-11-22 10:22:21';
+      $scope.orderInfo.orderStatus = '已完成';
     }else if(orderTypeId == 'pur') {
       $scope.orderInfo = MyOrder.getPurOrderInfo(orderId);
       $scope.orderInfo.orderType = '采购订单';
       $scope.orderInfo.orderTime = '2016-11-22 10:22:21';
+      $scope.orderInfo.orderStatus = '已完成';
     }
     $ionicModal.fromTemplateUrl('templates/showOrderShowPerson.html', function(modal) {
       $scope.person = modal;
+    }, {
+      scope: $scope
+    });
+    $ionicModal.fromTemplateUrl('templates/orderChat.html', function(modal) {
+      $scope.orderChat = modal;
     }, {
       scope: $scope
     });
@@ -247,6 +267,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
     $scope.hiddenPerson = function () {
       $scope.person.hide();
+    }
+    $scope.showOrderChat = function () {
+      $scope.orderChat.show();
+    }
+    $scope.hiddenOrderChat = function () {
+      $scope.orderChat.hide();
     }
 
 })
