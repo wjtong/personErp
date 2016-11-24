@@ -17,16 +17,24 @@
             <td>&nbsp;&nbsp;&nbsp;{{orderInfo.orderStatus}}</td>
           </tr>
           <tr>
-            <td style="text-align: right">时间</td>
-            <td>&nbsp;&nbsp;&nbsp;{{orderInfo.orderTime}}</td>
-          </tr>
-          <tr>
             <td style="text-align: right">参与人员</td>
             <td>&nbsp;&nbsp;&nbsp;{{orderInfo.name}}</td>
           </tr>
           <tr>
             <td style="text-align: right">支付方式</td>
-            <td>&nbsp;&nbsp;&nbsp;支付宝</td>
+            <td>&nbsp;&nbsp;&nbsp;{{orderInfo.paymentMethod}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">订单金额</td>
+            <td>&nbsp;&nbsp;&nbsp;{{orderInfo.grandTotal}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">订单创建时间</td>
+            <td>&nbsp;&nbsp;&nbsp;{{orderInfo.orderTime}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">最后更新时间</td>
+            <td>&nbsp;&nbsp;&nbsp;{{orderInfo.lastUPdateTime}}</td>
           </tr>
         </table>
       </div>
@@ -47,7 +55,6 @@
             <td style="text-align: right">货运单号</td>
             <td>&nbsp;&nbsp;&nbsp;6583290143</td>
           </tr>
-
         </table>
       </div>
     </div>

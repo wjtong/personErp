@@ -50,20 +50,116 @@ angular.module('starter.services', [])
 })
 .factory('MyOrder',function () {
     var selOrder = [
-        {orderId:'1',img:'img/team/img1-md.jpg', orderTypeId:'sal', name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-        {orderId:'2',img:'img/team/img2-md.jpg', orderTypeId:'sal', name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
-        {orderId:'3',img:'img/team/img1-md.jpg', orderTypeId:'sal', name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-        {orderId:'4',img:'img/team/img2-md.jpg', orderTypeId:'sal', name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
+        {
+          orderId:'SAL_10001',
+          img:'img/team/zhangwenwen.jpeg',
+          orderTypeId:'sal',
+          orderType:'销售订单',
+          name:'张文文',
+          company:'上海班富电子商务_程序员',
+          address:'中国，上海，松江',
+          desc:'软件定制',
+          orderTime:'2016-11-22 14:21:22',
+          lastUPdateTime:'2016-11-23 10:34:11',
+          grandTotal:400,
+          orderStatus:'已批准',
+          paymentMethod:'支付宝、微信',
+          pushed:5,
+          collect:3,
+          comments:4
+        },
+        {
+          orderId:'SAL_10002',
+          img:'img/team/fenghao.png',
+          orderTypeId:'sal',
+          orderType:'销售订单',
+          name:'冯浩',
+          company:'上海班富电子商务_经理',
+          address:'中国，浙江，杭州',
+          desc:'更换汽车零件',
+          orderTime:'2016-11-20 10:21:22',
+          lastUPdateTime:'2016-11-20 14:34:11',
+          grandTotal:4530,
+          orderStatus:'已完成',
+          paymentMethod:'现金',
+          pushed:5,
+          collect:3,
+          comments:4
+        },
+        {
+          orderId:'SAL_10003',
+          img:'',
+          orderTypeId:'sal',
+          orderType:'销售订单',
+          name:'童文戟',
+          company:'素然服饰',
+          address:'加拿大',
+          desc:'汽车',
+          orderTime:'2016-11-03 14:21:22',
+          lastUPdateTime:'2016-11-04 10:34:11',
+          grandTotal:2360,
+          orderStatus:'已完成',
+          paymentMethod:'微信',
+          pushed:5,
+          collect:3,
+          comments:4
+        },
+        {
+          orderId:'SAL_10004',
+          img:'',
+          orderTypeId:'sal',
+          orderType:'销售订单',
+          name:'王亮',
+          company:'素然服饰',
+          address:'中国，安徽，池州',
+          desc:'软件定制服务',
+          orderTime:'2016-11-22 14:21:22',
+          lastUPdateTime:'2016-11-23 10:34:11',
+          grandTotal:400,
+          orderStatus:'已批准',
+          paymentMethod:'支付宝',
+          pushed:5,
+          collect:3,
+          comments:4
+        }
     ];
     var purOrder = [
-        {orderId:'1',img:'img/team/img6-md.jpg', orderTypeId:'pur', name:'张总',company:'德阳工厂',address:'海宁，浙江，中国',desc:'购买 PVC 1000米，2016/10/05',pushed:'3'},
-        {orderId:'2',img:'img/team/img7-md.jpg', orderTypeId:'pur', name:'小刘',company:'德阳工厂',address:'海宁，浙江，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'2'},
-        {orderId:'3',img:'img/team/img8-md.jpg', orderTypeId:'pur', name:'Mike',company:'skytrading',address:'Paloalto,CA,USA',desc:'购买 PU 1000米，2016/10/04',pushed:'3'},
-        {orderId:'4',img:'img/team/img9-md.jpg', orderTypeId:'pur', name:'李四',company:'蓝天公司',address:'上海,中国',desc:'购买 PU 1000米，2016/10/04',pushed:'6'},
-        {orderId:'5',img:'img/team/img10-md.jpg', orderTypeId:'pur', name:'王总',company:'大海皮料',address:'苏州，江苏，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'2'},
-        {orderId:'6',img:'img/team/img11-md.jpg', orderTypeId:'pur', name:'张三',company:'苏州希尔顿',address:'苏州 ，江苏，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'5'},
-        {orderId:'7',img:'img/team/img13-md.jpg', orderTypeId:'pur', name:'王球童',company:'九桥高尔夫',address:'杭州，浙江，中国',desc:'购买 PU 1000米，2016/10/04',pushed:'6'},
-        {orderId:'8',img:'img/team/img15-md.jpg', orderTypeId:'pur', name:'FabioGrosso',company:'',address:'Turin，Italy',desc:'购买 PU 1000米，2016/10/04',pushed:'9'}
+        {
+          orderId:'PUR_10001',
+          img:'',
+          orderTypeId:'pur',
+          orderType:'采购订单',
+          name:'童文戟',
+          company:'素然服饰',
+          address:'加拿大',
+          desc:'采购服饰',
+          orderTime:'2016-11-22 14:21:22',
+          lastUPdateTime:'2016-11-23 10:34:11',
+          grandTotal:400,
+          orderStatus:'已批准',
+          paymentMethod:'支付宝、微信',
+          pushed:3,
+          collect:3,
+          comments:4
+        },
+        {
+          orderId:'PUR_10002',
+          img:'img/team/fenghao.png',
+          orderTypeId:'pur',
+          orderType:'采购订单',
+          name:'冯浩',
+          company:'上海班富电子商务',
+          address:'中国，浙江，杭州',
+          desc:'软件定制',
+          orderTime:'2016-11-23 10:21:22',
+          lastUPdateTime:'2016-11-23 14:34:11',
+          grandTotal:400,
+          orderStatus:'已完成',
+          paymentMethod:'支付宝',
+          pushed:2,
+          collect:3,
+          comments:4
+        }
     ];
     return{
         getSalOrder: function () {
@@ -89,12 +185,99 @@ angular.module('starter.services', [])
     }
 
 })
+.factory('MyOrderInfo',function () {
+    var orderInfo = [
+      {
+        orderId:'SAL_10001',
+        item:[
+          {
+            productionId:'PRO_100001',
+            shipId:'SHIP_100001',
+            kd_code:'639820194',
+            productId:'130500010',
+            estimateTiem:'2016-11-23 00:00:00',
+            productName:'项目赶进度，提供外包',
+            price:400
+          },
+        ]
+      },
+      {
+        orderId:'SAL_10002',
+        item:[
+          {
+            productionId:'PRO_100002',
+            shipId:'SHIP_100002',
+            kd_code:'639820191',
+            productId:'130500011',
+            estimateTiem:'2016-11-20 12:00:00',
+            productName:'汽车大灯总成',
+            price:1000
+          },
+          {
+            productionId:'PRO_100003',
+            shipId:'SHIP_100003',
+            kd_code:'639820192',
+            productId:'130500012',
+            estimateTiem:'2016-11-20 12:00:00',
+            productName:'汽车前引擎盖',
+            price:1000
+          },
+          {
+            productionId:'PRO_100004',
+            shipId:'SHIP_100004',
+            kd_code:'639820194',
+            productId:'130500013',
+            estimateTiem:'2016-11-20 12:00:00',
+            productName:'汽车轮毂*4',
+            price:1000
+          },
+          {
+            productionId:'PRO_100005',
+            shipId:'SHIP_100005',
+            kd_code:'639820195',
+            productId:'130500014',
+            estimateTiem:'2016-11-20 12:00:00',
+            productName:'汽车轮胎*4',
+            price:530
+          }
+        ]
+      },
+      {
+        orderId:'SAL_10003',
+        item:[
+          {
+            productionId:'PRO_100006',
+            shipId:'SHIP_100006',
+            kd_code:'639820196',
+            productId:'130500016',
+            estimateTiem:'2016-11-04 10:34:11',
+            productName:'jeep 牧马人',
+            price:400000
+          },
+        ]
+      },
+      {
+        orderId:'SAL_10004',
+        item:[
+          {
+            productionId:'PRO_100007',
+            shipId:'SHIP_100007',
+            kd_code:'639820197',
+            productId:'130500017',
+            estimateTiem:'2016-11-23 10:34:11',
+            productName:'jeep 牧马人',
+            price:400000
+          },
+        ]
+      }
+    ];
+})
 .factory("Home",function () {
     var mainLists = [
         {img:'img/team/img1-md.jpg', id:1, type:'order', orderTypeId:'sal', name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'500公斤皮料已送到，450公斤接收入库，50公斤未接收，2016/10/08',like:3,comments:5},
         {img:'img/team/img2-md.jpg', id:2, type:'server', name:'小刘', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已创建生产，订单号12345678900，2016/10/07',collect:2,comments:8},
-        {img:'img/team/img3-md.jpg', id:3, type:'order', orderTypeId:'sal', name:'我', company:'德阳贸易', address:'杭州，浙江，中国',desc:'已发布产品 PVC，2016/10/06',collect:5,comments:3},
-        {img:'img/team/img4-md.jpg', id:4, type:'server', name:'我', company:'德阳贸易', address:'海宁，浙江，中国',desc:'已创建生产订单 PVC 1000米，2016/10/05',collect:1,comments:1},
+        {img:'img/team/img3-md.jpg', id:3, type:'order', orderTypeId:'sal', name:'张三', company:'德阳贸易', address:'杭州，浙江，中国',desc:'已发布产品 PVC，2016/10/06',collect:5,comments:3},
+        {img:'img/team/img4-md.jpg', id:4, type:'server', name:'李四', company:'德阳贸易', address:'海宁，浙江，中国',desc:'已创建生产订单 PVC 1000米，2016/10/05',collect:1,comments:1},
         {img:'img/team/img5-md.jpg', id:5, type:'order', orderTypeId:'pur', name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已发布生产服务 PVC，2016/10/04',collect:2,comments:8}
     ];
     return{
@@ -132,7 +315,6 @@ angular.module('starter.services', [])
         },
         get:function (id) {
             for(var i=0 ;i<personmainLists.length; i++){
-                //alert(id);
                 if(personmainLists[i].id == id){
                     return personmainLists[i];
                 }
@@ -160,10 +342,62 @@ angular.module('starter.services', [])
 })
 .factory('myresources',function () {
     var resourcesList = [
-      {id:1,img:'img/team/img1-md.jpg',descImg:"img/product/001.jpg",title:"生产PU",name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5,price:124.00},
-      {id:2,img:'img/team/img2-md.jpg',descImg:"img/product/002.jpg",title:"发布PU生产服务",name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5,price:243.00},
-      {id:3,img:'img/team/img1-md.jpg',descImg:"img/product/003.jpg",title:"发布PU生产服务",name:'我',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5,price:319.00},
-      {id:4,img:'img/team/img2-md.jpg',descImg:"img/product/004.jpg",title:"发布PU生产服务",name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5,price:578.00}
+      {
+        id:'RES_100001',
+        img:'',
+        descImg:"img/resources/facility.png",
+        title:"软件服务",
+        name:'童文戟',
+        company:'素然服饰',
+        address:'加拿大',
+        desc:'ofbiz仓库的讲解',
+        pushed:5,
+        price:124.00,
+        collect:3,
+        comments:4
+      },
+      {
+        id:'RES_100002',
+        img:'img/team/zhangwenwen.jpeg',
+        descImg:"img/resources/chongzhuang.png",
+        title:"电脑系统维护",
+        name:'张文文',
+        company:'上海班富电子商务',
+        address:'中国，上海，松江',
+        desc:'电脑系统崩溃，系统重装',
+        pushed:5,
+        price:50.00,
+        collect:3,
+        comments:4
+      },
+      {
+        id:'RES_100003',
+        img:'',
+        descImg:"img/resources/chongzhuang.png",
+        title:"数据恢复",
+        name:'王亮',
+        company:'素然服饰',
+        address:'中国，安徽，池州',
+        desc:'电脑中的公司数据被删除掉，数据恢复',
+        pushed:5,
+        price:200.00,
+        collect:3,
+        comments:4
+      },
+      {
+        id:'RES_100004',
+        img:'img/team/shenyinling.png',
+        descImg:"img/resources/yanfa.jpg",
+        title:"系统开发",
+        name:'沈寅麟',
+        company:'上海班富电子商务',
+        address:'中国，上海',
+        desc:'对上海 aland 的研发系统进行开发/月',
+        pushed:5,
+        price:10000.00,
+        collect:3,
+        comments:4
+      }
     ];
 
     var resourcesListOthers = [
@@ -175,7 +409,7 @@ angular.module('starter.services', [])
       {id:6,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
     ];
     var selectOption = [
-      {id:'me',name:'我'},
+      {id:'me',name:'李四'},
       {id:'zhangzong',name:'张总'},
       {id:'lisi',name:'李四'},
       {id:'xiaoliu',name:'小刘'},

@@ -63,8 +63,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   ];
 })
 
-.controller('HomeCtrl', function($scope,$ionicModal,Home,$location) {
-    $scope.mainLists = Home.getAll();
+.controller('HomeCtrl', function($scope,$ionicModal,Home,$location,MyOrder,myresources) {
+    var salOrderList = MyOrder.getSalOrder();
+    var purOrderList = MyOrder.getPurOrder();
+    var resourcesList = myresources.getResourcesAll();
+    $scope.mainLists = [];
+    for(var i=0;i<salOrderList.length;i++){salOrderList[i].type='order';$scope.mainLists.push(salOrderList[i]);}
+    for(var i=0;i<purOrderList.length;i++){purOrderList[i].type='order';$scope.mainLists.push(purOrderList[i]);}
+    for(var i=0;i<resourcesList.length;i++){resourcesList[i].type='server';$scope.mainLists.push(resourcesList[i]);}
 
     $ionicModal.fromTemplateUrl('templates/new-task-main.html', function(modal) {
         $scope.taskModal = modal;
@@ -80,10 +86,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $scope.taskModal.hide();
     }
 
-    $scope.goInfo = function (id,type,orderType) {
-      //alert('id:'+id+'  type:'+type);
+    $scope.goInfo = function (id,orderId,type,orderType) {
+      //alert('id:'+id+'  orderId:'+orderId+'  type:'+type+"  orderType"+orderType);
       if(type == 'order'){
-        $location.path('/app/myOrderInfo/'+id+"/"+orderType);
+        $location.path('/app/myOrderInfo/'+orderId+"/"+orderType);
       }else if(type == 'server'){
         $location.path('/app/myResourcesInfo/'+id);
       }
@@ -241,16 +247,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.ChatList = ChatList.getChatList();
     if(orderTypeId == 'sal'){
         //alert('来了');
-        $scope.orderInfo = MyOrder.getSalOrderInfo(orderId);
-      $scope.orderInfo.orderType = '销售订单';
-      $scope.orderInfo.orderTime = '2016-11-22 10:22:21';
-      $scope.orderInfo.orderStatus = '已完成';
+      $scope.orderInfo = MyOrder.getSalOrderInfo(orderId);
+
     }else if(orderTypeId == 'pur') {
       $scope.orderInfo = MyOrder.getPurOrderInfo(orderId);
-      $scope.orderInfo.orderType = '采购订单';
-      $scope.orderInfo.orderTime = '2016-11-22 10:22:21';
-      $scope.orderInfo.orderStatus = '已完成';
     }
+
     $ionicModal.fromTemplateUrl('templates/showOrderShowPerson.html', function(modal) {
       $scope.person = modal;
     }, {
