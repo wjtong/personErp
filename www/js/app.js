@@ -127,11 +127,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
-  .state('app.bookmark', {
-    url: '/bookmark',
+  .state('app.favorites', {
+    url: '/favorites',
     views: {
       'menuContent': {
-        templateUrl: 'templates/bookmark.html'
+        templateUrl: 'templates/favorites.html',
+        controller:'FavoritesCtrl'
       }
     }
   })

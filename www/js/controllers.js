@@ -96,6 +96,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 
 })
+.controller('FavoritesCtrl', function($scope,Favorites,$location) {
+    $scope.favoritesList=Favorites.getAllfavorites();
+    $scope.goInfo = function (id,orderId,type,orderType) {
+      //alert('id:'+id+'  orderId:'+orderId+'  type:'+type+"  orderType"+orderType);
+      if(type == '订单'){
+        $location.path('/app/myOrderInfo/'+orderId+"/"+orderType);
+      }else if(type == '资源'){
+        $location.path('/app/myResourcesInfo/'+id);
+      }
+    }
+})
 
 .controller('ContactlistCtrl', function($scope,Contact,$location) {
     $scope.personmainLists = Contact.getAll();

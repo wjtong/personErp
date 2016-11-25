@@ -311,7 +311,7 @@ angular.module('starter.services', [])
           phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
         {id:'PERS_10004',img:'img/team/',name:'王坤',company:'上海班富电子商务',address:'中国,上海，长宁',
           phone:'18772115070',sex:'F',email:'kun.wang@banff-tech.com',labelId:4},
-        {id:'PERS_10005',img:'img/team/',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',
+        {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',
           phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:3},
         {id:'PERS_10006',img:'img/team/',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
           phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:2},
@@ -630,6 +630,88 @@ angular.module('starter.services', [])
   return{
     getAllOtherTime:function () {
       return time;
+    },
+  }
+})
+.factory('Favorites',function () {
+  var favoriteOrders = [
+    {
+      orderId:'SAL_10002',
+      noReadMessages:'17',
+      type:'订单',
+      img:'img/team/fenghao.png',
+      orderTypeId:'sal',
+      orderType:'销售订单',
+      name:'冯浩',
+      company:'上海班富电子商务_经理',
+      address:'中国，浙江，杭州',
+      desc:'更换汽车零件',
+      orderTime:'2016-11-20 10:21:22',
+      lastUPdateTime:'2016-11-20 14:34:11',
+      grandTotal:4530,
+      orderStatus:'已完成',
+      paymentMethod:'现金',
+      pushed:5,
+      collect:3,
+      comments:4
+    },
+    {
+      orderId:'PUR_10001',
+      type:'订单',
+      noReadMessages:'3',
+      img:'',
+      orderTypeId:'pur',
+      orderType:'采购订单',
+      name:'童文戟',
+      company:'素然服饰',
+      address:'加拿大',
+      desc:'采购服饰',
+      orderTime:'2016-11-22 14:21:22',
+      lastUPdateTime:'2016-11-23 10:34:11',
+      grandTotal:400,
+      orderStatus:'已批准',
+      paymentMethod:'支付宝、微信',
+      pushed:3,
+      collect:3,
+      comments:4
+    },
+    {
+      id:'RES_100001',
+      noReadMessages:'4',
+      type:'资源',
+      img:'',
+      descImg:"img/resources/facility.png",
+      title:"软件服务",
+      name:'童文戟',
+      company:'素然服饰',
+      address:'加拿大',
+      desc:'ofbiz仓库的讲解',
+      pushed:5,
+      price:124.00,
+      collect:3,
+      comments:4
+    },
+    {
+      id:'RES_100002',
+      noReadMessages:'10',
+      type:'资源',
+      img:'img/team/zhangwenwen.jpeg',
+      descImg:"img/resources/chongzhuang.png",
+      title:"电脑系统维护",
+      name:'张文文',
+      company:'上海班富电子商务',
+      address:'中国，上海，松江',
+      desc:'电脑系统崩溃，系统重装',
+      pushed:5,
+      price:50.00,
+      collect:3,
+      comments:4
+    }
+  ];
+
+  return{
+    getAllfavorites:function () {
+      return favoriteOrders;
     },
   }
 })
