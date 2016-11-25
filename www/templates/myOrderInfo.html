@@ -1,7 +1,7 @@
 <ion-view title="我的订单明细">
   <ion-content>
-    <div class="">
-      <div class="list card">
+    <div class="list">
+      <div class="list card" style="margin-bottom: 40px;">
         <div class="item item-divider"><b>订单头</b></div>
         <table class="item">
           <tr>
@@ -29,6 +29,14 @@
             <td>&nbsp;&nbsp;&nbsp;{{orderInfo.grandTotal}}</td>
           </tr>
           <tr>
+            <td style="text-align: right">收货地址</td>
+            <td>&nbsp;&nbsp;&nbsp;{{orderInfo.address}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">电话号码</td>
+            <td>&nbsp;&nbsp;&nbsp;{{orderInfo.phoneNumber}}</td>
+          </tr>
+          <tr>
             <td style="text-align: right">订单创建时间</td>
             <td>&nbsp;&nbsp;&nbsp;{{orderInfo.orderTime}}</td>
           </tr>
@@ -38,44 +46,44 @@
           </tr>
         </table>
       </div>
-    </div>
-    <div class="">
-      <div class="list card" style="margin-top: -30px;">
-        <div class="item item-divider"><b>订单项1</b></div>
+      <div class="list card" style="margin-bottom: 40px;margin-top: -30px;" ng-if="orderInfo.adjustment != null ">
+        <div class="item item-divider"><b>订单调整</b></div>
         <table class="item">
-          <tr>
-            <td style="text-align: right">生产 ID</td>
-            <td>&nbsp;&nbsp;&nbsp;production_001</td>
-          </tr>
-          <tr>
-            <td style="text-align: right">货运 ID</td>
-            <td>&nbsp;&nbsp;&nbsp;ship_001</td>
-          </tr>
-          <tr>
-            <td style="text-align: right">货运单号</td>
-            <td>&nbsp;&nbsp;&nbsp;6583290143</td>
+          <tr ng-repeat="adjustment in orderInfo.adjustment">
+            <td style="text-align: right">{{adjustment.adjustmentReason}}&nbsp;{{adjustment.adjustmentPrice}} {{adjustment.createBy}}</td>
           </tr>
         </table>
       </div>
-    </div>
-    <div class="">
-      <div class="list card" style="margin-top: -30px;">
-        <div class="item item-divider"><b>订单项2</b></div>
-        <table class="item">
-          <tr>
-            <td style="text-align: right">生产 ID</td>
-            <td>&nbsp;&nbsp;&nbsp;production_002</td>
-          </tr>
-          <tr>
-            <td style="text-align: right">货运 ID</td>
-            <td>&nbsp;&nbsp;&nbsp;ship_002</td>
-          </tr>
-          <tr>
-            <td style="text-align: right">货运单号</td>
-            <td>&nbsp;&nbsp;&nbsp;6583290143</td>
-          </tr>
-
-        </table>
+      <div class="" ng-repeat="itemInfo in itemList">
+        <div class="list card" style="margin-top: -30px;">
+          <div class="item item-divider"><b>订单项{{$index+1}}</b> &nbsp;&nbsp;&nbsp;{{itemInfo.productName}}</div>
+          <table class="item">
+            <tr>
+              <td style="text-align: right">生产 ID</td>
+              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.productionId}}</td>
+            </tr>
+            <tr>
+              <td style="text-align: right">货运 ID</td>
+              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.shipId}}</td>
+            </tr>
+            <tr>
+              <td style="text-align: right">货运单号</td>
+              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.kd_code}}</td>
+            </tr>
+            <tr>
+              <td style="text-align: right">产品 ID</td>
+              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.productId}}</td>
+            </tr>
+            <tr>
+              <td style="text-align: right">预计交付时间</td>
+              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.estimateTiem}}</td>
+            </tr>
+            <tr>
+              <td style="text-align: right">价格</td>
+              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.price}}</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </ion-content>
@@ -91,11 +99,21 @@
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">有关的讨论</span>
       </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;">
-        <i class="icon ion-hammer" style="line-height: 14px;">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="showStatusPopup()" ng-if=" orderInfo.orderStatus == '已批准'">
+        <i class="icon ion-gear-b" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">状态</span>
       </a>
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="orderAdjustment()" ng-if=" orderInfo.orderStatus == '已批准'">
+        <i class="icon ion-cash" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">订单调整</span>
+      </a>
+      <!--<script id="popup-template.html" type="text/ng-template">-->
+        <!--&lt;!&ndash;<input ng-model="data.wifi" type="text" placeholder="Password">&ndash;&gt;-->
+      <input type="hidden" ng-model="data.adjustmentPrice" placeholder="调整金额">
+      <input type="hidden" ng-model="data.adjustmentReason" placeholder="调整原因">
+      <!--</script>-->
     </div>
   </div>
 </ion-view>

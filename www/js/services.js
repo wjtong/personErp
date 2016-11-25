@@ -58,6 +58,7 @@ angular.module('starter.services', [])
           name:'张文文',
           company:'上海班富电子商务_程序员',
           address:'中国，上海，松江',
+          phoneNumber:'15072200010',
           desc:'软件定制',
           orderTime:'2016-11-22 14:21:22',
           lastUPdateTime:'2016-11-23 10:34:11',
@@ -75,16 +76,29 @@ angular.module('starter.services', [])
           orderType:'销售订单',
           name:'冯浩',
           company:'上海班富电子商务_经理',
+          phoneNumber:'13801887706',
           address:'中国，浙江，杭州',
           desc:'更换汽车零件',
           orderTime:'2016-11-20 10:21:22',
           lastUPdateTime:'2016-11-20 14:34:11',
-          grandTotal:4530,
+          grandTotal:4130,
           orderStatus:'已完成',
           paymentMethod:'现金',
           pushed:5,
           collect:3,
-          comments:4
+          comments:4,
+          adjustment:[
+            {
+              adjustmentReason:'线下优惠',
+              adjustmentPrice:-300,
+              createBy:'zhangwenwen'
+            },
+            {
+              adjustmentReason:'返还邮费',
+              adjustmentPrice:-100,
+              createBy:'zhangwenwen'
+            }
+          ]
         },
         {
           orderId:'SAL_10003',
@@ -94,6 +108,7 @@ angular.module('starter.services', [])
           name:'童文戟',
           company:'素然服饰',
           address:'加拿大',
+          phoneNumber:'13764302779',
           desc:'汽车',
           orderTime:'2016-11-03 14:21:22',
           lastUPdateTime:'2016-11-04 10:34:11',
@@ -112,7 +127,8 @@ angular.module('starter.services', [])
           name:'王亮',
           company:'素然服饰',
           address:'中国，安徽，池州',
-          desc:'软件定制服务',
+          phoneNumber:'15656690250',
+          desc:'电动车',
           orderTime:'2016-11-22 14:21:22',
           lastUPdateTime:'2016-11-23 10:34:11',
           grandTotal:400,
@@ -132,6 +148,7 @@ angular.module('starter.services', [])
           name:'童文戟',
           company:'素然服饰',
           address:'加拿大',
+          phoneNumber:'13764302779',
           desc:'采购服饰',
           orderTime:'2016-11-22 14:21:22',
           lastUPdateTime:'2016-11-23 10:34:11',
@@ -149,6 +166,7 @@ angular.module('starter.services', [])
           orderType:'采购订单',
           name:'冯浩',
           company:'上海班富电子商务',
+          phoneNumber:'13801887706',
           address:'中国，浙江，杭州',
           desc:'软件定制',
           orderTime:'2016-11-23 10:21:22',
@@ -181,6 +199,62 @@ angular.module('starter.services', [])
                     return purOrder[i];
                 }
             }
+        },
+        updateOrderStatus:function (orderId, statusName) {
+            var flag = true;
+            for(var i=0;i<selOrder.length;i++){
+              if(selOrder[i].orderId == orderId){
+                selOrder[i].orderStatus = statusName;
+                flag = false;
+                return
+              }
+            }
+            if(flag){
+              for(var i=0;i<purOrder.length;i++){
+                if(purOrder[i].orderId == orderId){
+                  purOrder[i].orderStatus = statusName;
+                  return
+                }
+              }
+            }
+        },
+        addAdjustment:function (orderId,adjustmentPrice,adjustmentReason,createBy) {
+          var flag = true;
+          for(var i=0;i<selOrder.length;i++){
+            if(selOrder[i].orderId == orderId){
+              if(selOrder[i].adjustment == null){
+                var adjustment = [];
+                var adjustmentInfo = {adjustmentPrice:adjustmentPrice,adjustmentReason:adjustmentReason,createBy:createBy};
+                adjustment.push(adjustmentInfo);
+                selOrder[i].adjustment = adjustment;
+                selOrder[i].grandTotal = selOrder[i].grandTotal + adjustmentPrice;
+              }else{
+                var adjustmentInfo = {adjustmentPrice:adjustmentPrice,adjustmentReason:adjustmentReason,createBy:createBy};
+                selOrder[i].adjustment.push(adjustmentInfo);
+                selOrder[i].grandTotal = selOrder[i].grandTotal + adjustmentPrice;
+              }
+              flag = false;
+              return
+            }
+          }
+          if(flag){
+            for(var i=0;i<purOrder.length;i++){
+              if(purOrder[i].orderId == orderId){
+                if(purOrder[i].adjustment == null){
+                  var adjustment = [];
+                  var adjustmentInfo = {adjustmentPrice:adjustmentPrice,adjustmentReason:adjustmentReason,createBy:createBy};
+                  adjustment.push(adjustmentInfo);
+                  purOrder[i].adjustment = adjustment;
+                  purOrder[i].grandTotal = purOrder[i].grandTotal + adjustmentPrice;
+                }else{
+                  var adjustmentInfo = {adjustmentPrice:adjustmentPrice,adjustmentReason:adjustmentReason,createBy:createBy};
+                  purOrder[i].adjustment.push(adjustmentInfo);
+                  purOrder[i].grandTotal = purOrder[i].grandTotal + adjustmentPrice;
+                }
+                return
+              }
+            }
+          }
         }
     }
 
@@ -198,7 +272,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-23 00:00:00',
             productName:'项目赶进度，提供外包',
             price:400
-          },
+          }
         ]
       },
       {
@@ -253,7 +327,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-04 10:34:11',
             productName:'jeep 牧马人',
             price:400000
-          },
+          }
         ]
       },
       {
@@ -265,12 +339,50 @@ angular.module('starter.services', [])
             kd_code:'639820197',
             productId:'130500017',
             estimateTiem:'2016-11-23 10:34:11',
-            productName:'jeep 牧马人',
-            price:400000
-          },
+            productName:'电动车',
+            price:400
+          }
+        ]
+      },
+      {
+        orderId:'PUR_10001',
+        item:[
+          {
+            productionId:'PRO_100008',
+            shipId:'SHIP_100008',
+            kd_code:'639820198',
+            productId:'130500018',
+            estimateTiem:'2016-11-23 10:34:11',
+            productName:'素然手语系列衣服',
+            price:400
+          }
+        ]
+      },
+      {
+        orderId:'PUR_10002',
+        item:[
+          {
+            productionId:'PRO_100009',
+            shipId:'SHIP_100009',
+            kd_code:'639820199',
+            productId:'130500019',
+            estimateTiem:'2016-11-23 14:34:11',
+            productName:'购买 ionic 的定制软件，进行二次开发',
+            price:400
+          }
         ]
       }
     ];
+
+    return{
+      getInfo:function (orderId) {
+        for(var i=0;i<orderInfo.length;i++){
+          if(orderInfo[i].orderId == orderId){
+            return orderInfo[i].item;
+          }
+        }
+      }
+    }
 })
 .factory("Home",function () {
     var mainLists = [

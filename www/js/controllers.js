@@ -239,12 +239,15 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         {id:'oneYear',desc:'一年前'},
     ];
 })
-.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,MyOrder,Contact,ChatList) {
+.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,$ionicPopup,MyOrder,Contact,ChatList,MyOrderInfo) {
     var orderId = $stateParams.orderId;
     var orderTypeId = $stateParams.orderTypeId;
     //alert('订单 Id：'+orderId+'   订单类型: '+orderTypeId);
     $scope.personList = Contact.getAll();
     $scope.ChatList = ChatList.getChatList();
+    $scope.itemList = MyOrderInfo.getInfo(orderId);
+    $scope.orderId = orderId;
+
     if(orderTypeId == 'sal'){
         //alert('来了');
       $scope.orderInfo = MyOrder.getSalOrderInfo(orderId);
@@ -276,6 +279,65 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.hiddenOrderChat = function () {
       $scope.orderChat.hide();
     }
+
+    $scope.statusPopup = null;
+    //订单状态弹出
+    $scope.showStatusPopup = function() {
+      $scope.cancelledOrder = '取消订单';
+      $scope.completedOrder = '完成订单' ;
+      $scope.data = {}
+      var myPopup = $ionicPopup.show({
+        template: '<button class="button" style="width:100%;background-color: wheat;" ng-click="updateOrderStatus(cancelledOrder)">取消订单</button><br/>' +
+        '<button class="button" style="width: 100%;background-color: wheat;margin-top: 2px;" ng-click="updateOrderStatus(completedOrder)">完成订单</button><br/>' +
+        '<button class="button" style="width: 100%;background-color: red;margin-top: 2px;" ng-click="closeStatusPopup();">关闭</button>',
+        title: '请选择需要更改的订单状态',
+        scope: $scope
+
+      });
+      myPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+      $scope.statusPopup = myPopup;
+    };
+    $scope.closeStatusPopup = function () {
+      $scope.statusPopup.close();
+    }
+    $scope.updateOrderStatus = function (statusName) {
+      MyOrder.updateOrderStatus($scope.orderId,statusName);
+      $scope.statusPopup.close();
+      //alert("orderId:"+$scope.orderId+"   statusName:"+statusName);
+    }
+  //订单调整添加
+  $scope.orderAdjustment = function() {
+    $scope.data = {}
+    // 自定义弹窗
+    var Adjustment = $ionicPopup.show({
+      template: '<input type="number" placeholder="调整金额" ng-model="data.adjustmentPrice">' +
+      '<input style="margin-top: 6px;" type="text" placeholder="调整原因" ng-model="data.adjustmentReason">',
+      title: '订单调整',
+      subTitle: '输入框都为必填',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>添加</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            if (!$scope.data.adjustmentPrice || !$scope.data.adjustmentReason) {
+              e.preventDefault();
+            } else {
+              MyOrder.addAdjustment(orderId,$scope.data.adjustmentPrice,$scope.data.adjustmentReason,'zhangwenwen')
+              return $scope.data.adjustmentPrice;
+            }
+          }
+        },
+      ]
+    });
+    Adjustment.then(function(res) {
+      console.log('Tapped!', res);
+    });
+  };
+
 
 })
 .controller('ChatList',function ($scope,$location,ChatList) {
