@@ -11,7 +11,7 @@
       </label>
     </div>
     <div ng-repeat="chat in chat.discuss" class="message-wrapper">
-      <div ng-if="userId !== chat.personId">
+      <div ng-if="userId !== chat.id">
 
         <img ng-click="" class="profile-pic left"
              ng-src="{{chat.img}}" onerror="" />
@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div ng-if="userId == chat.personId">
+      <div ng-if="userId == chat.id">
         <img ng-click="" class="profile-pic right"
              ng-src="{{chat.img}}" onerror="" />
         <div class="chat-bubble right">

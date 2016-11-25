@@ -1,0 +1,56 @@
+<ion-view view-title="收藏">
+  <ion-content>
+    <ion-list>
+      <div>
+        <div class="item item-input item-select">
+          <div class="input-label" >
+            选择收藏类型
+          </div>
+          <select>
+            <option value="0" selected>全部</option>
+            <option value="1">订单</option>
+            <option value="2">资源</option>
+            <option value="3">事务</option>
+            <option value="4">时间</option>
+          </select>
+        </div>
+        <div class="content" ng-repeat="favorites in favoritesList" style="margin-top: -18px;" ng-click="goInfo(favorites.id,favorites.orderId,favorites.type,favorites.orderTypeId)">
+
+          <div class="list card cardupdate">
+
+            <div class="item item-avatar">
+              <img ng-src="{{favorites.img}}">
+              <span class="rj-sm-red-icon" ng-show="favorites"><p ng-bind="favorites.noReadMessages"></p></span>
+              <h2>{{favorites.name}} {{favorites.company}}</h2>
+              <p>{{favorites.address}}</p>
+            </div>
+            <div class="item item-body">
+              <p>
+                {{favorites.desc}}
+              </p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left" >
+              <a class="tab-item">
+                <i class="icon ion-ios-heart"></i>
+                收藏
+              </a>
+              <a class="tab-item">
+                <i class="icon ion-chatbox"></i>
+                评论
+              </a>
+              <a class="tab-item">
+                <i class="icon ion-share"></i>
+                分享
+              </a>
+              <a class="tab-item" ng-click="showMessage()">
+                <i class="icon ion-levels"></i>
+                收藏类型：{{favorites.type}}
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -400,9 +400,12 @@ angular.module('starter.services', [])
 })
 .factory("GroupChat",function () {
   var groupList = [
-    {img:'img/team/img1-md.jpg', id:1,  name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'500公斤皮料已送到，450公斤接收入库，50公斤未接收，2016/10/08',like:3,comments:5},
-    {img:'img/team/img2-md.jpg', id:2,  name:'小刘', company:'德阳工厂', address:'海宁，浙江，中国',desc:'已创建生产，订单号12345678900，2016/10/07',collect:2,comments:8},
-    {img:'img/team/img3-md.jpg', id:3,  name:'老李', company:'德阳贸易', address:'杭州，浙江，中国',desc:'已发布产品 PVC，2016/10/06',collect:5,comments:3},
+    {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
+      phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:1},
+    {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
+      phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
+    {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
+      phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
   ];
   return{
     getAll:function () {
@@ -412,14 +415,22 @@ angular.module('starter.services', [])
 })
 .factory('Contact',function () {
     var personmainLists = [
-        {id:'1',img:'img/team/img6-md.jpg',name:'张总',company:'德阳工厂',address:'海宁，浙江，中国',phone:'15072200010',sex:'F',email:'12341@qq.com',labelId:1},
-        {id:'2',img:'img/team/img7-md.jpg',name:'小刘',company:'德阳工厂',address:'海宁，浙江，中国',phone:'15072200011',sex:'M',email:'12342@qq.com',labelId:2},
-        {id:'3',img:'img/team/img8-md.jpg',name:'Mike',company:'skytrading',address:'Paloalto,CA,USA',phone:'15072200012',sex:'F',email:'12343@qq.com',labelId:3},
-        {id:'4',img:'img/team/img9-md.jpg',name:'李四',company:'蓝天公司',address:'上海,中国',phone:'15072200013',sex:'M',email:'12344@qq.com',labelId:4},
-        {id:'5',img:'img/team/img10-md.jpg',name:'王总',company:'大海皮料',address:'苏州，江苏，中国',phone:'15072200014',sex:'F',email:'12345@qq.com',labelId:3},
-        {id:'6',img:'img/team/img11-md.jpg',name:'张三',company:'苏州希尔顿',address:'苏州 ，江苏，中国',phone:'15072200015',sex:'M',email:'12346@qq.com',labelId:2},
-        {id:'7',img:'img/team/img13-md.jpg',name:'王球童',company:'九桥高尔夫',address:'杭州，浙江，中国',phone:'15072200016',sex:'F',email:'12347@qq.com',labelId:1},
-        {id:'8',img:'img/team/img15-md.jpg',name:'FabioGrosso',company:'',address:'Turin，Italy',phone:'15072200017',sex:'M',email:'12348@qq.com'}
+        {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
+          phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:1},
+        {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
+          phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
+        {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
+          phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
+        {id:'PERS_10004',img:'img/team/wangkun.jpg',name:'王坤',company:'上海班富电子商务',address:'中国,上海，长宁',
+          phone:'18772115070',sex:'F',email:'kun.wang@banff-tech.com',labelId:4},
+        {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',
+          phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:3},
+        {id:'PERS_10006',img:'img/team/shubenkun.jpg',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+          phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:2},
+        {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+          phone:'15910989807',sex:'F',email:'yu.chen@banff-tech.com',labelId:1},
+        {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',company:'上海班富电子商务',address:'中国，上海，嘉定',
+          phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:1}
     ];
     return {
         getAll:function () {
@@ -513,12 +524,35 @@ angular.module('starter.services', [])
     ];
 
     var resourcesListOthers = [
-      {id:1,img:'img/team/img9-md.jpg',name:'李四',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-      {id:2,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5},
-      {id:3,img:'img/team/img10-md.jpg',name:'王总',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-      {id:4,img:'img/team/img10-md.jpg',name:'王总',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-      {id:5,img:'img/team/img10-md.jpg',name:'王总',company:'德阳贸易',address:'杭州，浙江，中国',desc:'发布产品PU，2016/10/08',pushed:5},
-      {id:6,img:'img/team/img2-md.jpg',name:'张总',company:'德阳贸易',address:'海宁，浙江，中国',desc:'发布PU生产服务，2016/10/08',pushed:5}
+      {
+        id:'RES_100003',
+        img:'',
+        descImg:"img/resources/chongzhuang.png",
+        title:"数据恢复",
+        name:'王亮',
+        company:'素然服饰',
+        address:'中国，安徽，池州',
+        desc:'电脑中的公司数据被删除掉，数据恢复',
+        pushed:5,
+        price:200.00,
+        collect:3,
+        comments:4
+      },
+      {
+        id:'RES_100004',
+        img:'img/team/shenyinling.png',
+        descImg:"img/resources/yanfa.jpg",
+        title:"系统开发",
+        name:'沈寅麟',
+        company:'上海班富电子商务',
+        address:'中国，上海',
+        desc:'对上海 aland 的研发系统进行开发/月',
+        pushed:5,
+        price:10000.00,
+        collect:3,
+        comments:4
+      }
+
     ];
     var selectOption = [
       {id:'me',name:'李四'},
@@ -549,9 +583,12 @@ angular.module('starter.services', [])
 })
 .factory('ChatList',function () {
     var personList = [
-      {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
-      {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
-      {id:10003,name:'王五',img:'img/team/img7-md.jpg'}
+      {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
+        phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:1},
+      {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
+        phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
+      {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
+        phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
     ];
     var chatList = [
       {
@@ -559,17 +596,20 @@ angular.module('starter.services', [])
         title:'aland开票讨论',
         typeName:'订单',
         participants:[
-          {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
-          {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
-          {id:10003,name:'王五',img:'img/team/img7-md.jpg'}
+          {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
+            phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:1},
+          {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
+            phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
+          {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
+            phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
         ],
         discuss:[
-          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'hi。。。'},
-          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'有没有人在？'},
-          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'开票系统是不是有点慢呀？'},
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'是的。但是开票系统需要查询的东西太多，后面的也业务也是蛮多的，所以处理的东西多了以后就会拖慢系统'},
-          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'那有没有方式解决呢？'},
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'我们正在优化中。'}
+          {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',speak:'hi。。。'},
+          {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',speak:'有没有人在？'},
+          {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',speak:'开票系统是不是有点慢呀？'},
+          {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',speak:'是的。但是开票系统需要查询的东西太多，后面的也业务也是蛮多的，所以处理的东西多了以后就会拖慢系统'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'那有没有方式解决呢？'},
+          {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',speak:'我们正在优化中。'}
         ]
       },
       {
@@ -577,18 +617,23 @@ angular.module('starter.services', [])
         title:'测是讨论',
         typeName:'学习',
         participants:[
-          {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
-          {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
-          {id:10003,name:'王五',img:'img/team/img7-md.jpg'}
+          {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',
+            phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:3},
+          {id:'PERS_10006',img:'img/team/shubenkun.jpg',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+            phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:2},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+            phone:'15910989807',sex:'F',email:'yu.chen@banff-tech.com',labelId:1},
+          {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',company:'上海班富电子商务',address:'中国，上海，嘉定',
+            phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:1}
         ],
         discuss:[
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'a'},
-          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'b'},
-          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'c'},
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'d'},
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'e'},
-          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'f'},
-          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'g'},
+          {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',speak:'a'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'b'},
+          {id:'PERS_10008',img:'img/team/jinlongxi.png',speak:'c'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'d'},
+          {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',speak:'e'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'f'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'g'},
         ]
       },
     ];
@@ -708,6 +753,88 @@ angular.module('starter.services', [])
   return{
     getAllOtherTime:function () {
       return time;
+    },
+  }
+})
+.factory('Favorites',function () {
+  var favoriteOrders = [
+    {
+      orderId:'SAL_10002',
+      noReadMessages:'17',
+      type:'订单',
+      img:'img/team/fenghao.png',
+      orderTypeId:'sal',
+      orderType:'销售订单',
+      name:'冯浩',
+      company:'上海班富电子商务_经理',
+      address:'中国，浙江，杭州',
+      desc:'更换汽车零件',
+      orderTime:'2016-11-20 10:21:22',
+      lastUPdateTime:'2016-11-20 14:34:11',
+      grandTotal:4530,
+      orderStatus:'已完成',
+      paymentMethod:'现金',
+      pushed:5,
+      collect:3,
+      comments:4
+    },
+    {
+      orderId:'PUR_10001',
+      type:'订单',
+      noReadMessages:'3',
+      img:'',
+      orderTypeId:'pur',
+      orderType:'采购订单',
+      name:'童文戟',
+      company:'素然服饰',
+      address:'加拿大',
+      desc:'采购服饰',
+      orderTime:'2016-11-22 14:21:22',
+      lastUPdateTime:'2016-11-23 10:34:11',
+      grandTotal:400,
+      orderStatus:'已批准',
+      paymentMethod:'支付宝、微信',
+      pushed:3,
+      collect:3,
+      comments:4
+    },
+    {
+      id:'RES_100001',
+      noReadMessages:'4',
+      type:'资源',
+      img:'',
+      descImg:"img/resources/facility.png",
+      title:"软件服务",
+      name:'童文戟',
+      company:'素然服饰',
+      address:'加拿大',
+      desc:'ofbiz仓库的讲解',
+      pushed:5,
+      price:124.00,
+      collect:3,
+      comments:4
+    },
+    {
+      id:'RES_100002',
+      noReadMessages:'10',
+      type:'资源',
+      img:'img/team/zhangwenwen.jpeg',
+      descImg:"img/resources/chongzhuang.png",
+      title:"电脑系统维护",
+      name:'张文文',
+      company:'上海班富电子商务',
+      address:'中国，上海，松江',
+      desc:'电脑系统崩溃，系统重装',
+      pushed:5,
+      price:50.00,
+      collect:3,
+      comments:4
+    }
+  ];
+
+  return{
+    getAllfavorites:function () {
+      return favoriteOrders;
     },
   }
 })

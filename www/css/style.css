@@ -192,6 +192,21 @@ a.autolinker {
   color: #545454;
   margin-top: 50px;
 }
+.item > .rj-sm-red-icon {
+  position: absolute;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #FF0000;
+  line-height: 18px;
+  text-align: center;
+  top: 5px;
+  left: 40px; }
+
+.item > .rj-sm-red-icon > p {
+  color: #FFF;
+  font-size: 12px; }
 
 .rj-contacts-right-bar div {
   height: 16px;
