@@ -309,13 +309,13 @@ angular.module('starter.services', [])
           phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
         {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
           phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
-        {id:'PERS_10004',img:'img/team/',name:'王坤',company:'上海班富电子商务',address:'中国,上海，长宁',
+        {id:'PERS_10004',img:'img/team/wangkun.jpg',name:'王坤',company:'上海班富电子商务',address:'中国,上海，长宁',
           phone:'18772115070',sex:'F',email:'kun.wang@banff-tech.com',labelId:4},
         {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',
           phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:3},
-        {id:'PERS_10006',img:'img/team/',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+        {id:'PERS_10006',img:'img/team/shubenkun.jpg',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
           phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:2},
-        {id:'PERS_10007',img:'img/team/',name:'陈宇',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+        {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
           phone:'15910989807',sex:'F',email:'yu.chen@banff-tech.com',labelId:1},
         {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',company:'上海班富电子商务',address:'中国，上海，嘉定',
           phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:1}
@@ -471,9 +471,12 @@ angular.module('starter.services', [])
 })
 .factory('ChatList',function () {
     var personList = [
-      {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
-      {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
-      {id:10003,name:'王五',img:'img/team/img7-md.jpg'}
+      {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
+        phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:1},
+      {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
+        phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
+      {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
+        phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
     ];
     var chatList = [
       {
@@ -481,17 +484,20 @@ angular.module('starter.services', [])
         title:'aland开票讨论',
         typeName:'订单',
         participants:[
-          {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
-          {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
-          {id:10003,name:'王五',img:'img/team/img7-md.jpg'}
+          {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
+            phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:1},
+          {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
+            phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
+          {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
+            phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
         ],
         discuss:[
-          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'hi。。。'},
-          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'有没有人在？'},
-          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'开票系统是不是有点慢呀？'},
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'是的。但是开票系统需要查询的东西太多，后面的也业务也是蛮多的，所以处理的东西多了以后就会拖慢系统'},
-          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'那有没有方式解决呢？'},
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'我们正在优化中。'}
+          {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',speak:'hi。。。'},
+          {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',speak:'有没有人在？'},
+          {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',speak:'开票系统是不是有点慢呀？'},
+          {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',speak:'是的。但是开票系统需要查询的东西太多，后面的也业务也是蛮多的，所以处理的东西多了以后就会拖慢系统'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'那有没有方式解决呢？'},
+          {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',speak:'我们正在优化中。'}
         ]
       },
       {
@@ -499,18 +505,23 @@ angular.module('starter.services', [])
         title:'测是讨论',
         typeName:'学习',
         participants:[
-          {id:10001,name:'张三',img:'img/team/img1-md.jpg'},
-          {id:10002,name:'李四',img:'img/team/img6-md.jpg'},
-          {id:10003,name:'王五',img:'img/team/img7-md.jpg'}
+          {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',
+            phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:3},
+          {id:'PERS_10006',img:'img/team/shubenkun.jpg',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+            phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:2},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+            phone:'15910989807',sex:'F',email:'yu.chen@banff-tech.com',labelId:1},
+          {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',company:'上海班富电子商务',address:'中国，上海，嘉定',
+            phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:1}
         ],
         discuss:[
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'a'},
-          {personId:10001,name:'张三',img:'img/team/img1-md.jpg',speak:'b'},
-          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'c'},
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'d'},
-          {personId:10002,name:'李四',img:'img/team/img6-md.jpg',speak:'e'},
-          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'f'},
-          {personId:10003,name:'王五',img:'img/team/img7-md.jpg',speak:'g'},
+          {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',speak:'a'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'b'},
+          {id:'PERS_10008',img:'img/team/jinlongxi.png',speak:'c'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'d'},
+          {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',speak:'e'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'f'},
+          {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'g'},
         ]
       },
     ];

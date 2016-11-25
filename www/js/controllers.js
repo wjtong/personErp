@@ -297,7 +297,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 })
 .controller('ChatInfo',function ($scope, $stateParams, $location, ChatList) {
     $scope.rightMenu = 'chat';
-    $scope.userId = 10002;
+    $scope.userId = 'PERS_10008';
     var chatId = $stateParams.chatId;
     $scope.chat = ChatList.getChatInfo(chatId);
     $scope.person = ChatList.getPersonInfo($scope.userId);
