@@ -1,14 +1,20 @@
 <div class="modal">
   <div class="bar bar-header">
+    <button class="button" style="position: absolute;left: 5px;">添加</button>
     <button class="button" style="position: absolute;right: 5px;" ng-click="hiddenPerson();">关闭</button>
   </div>
   <ion-content>
       <div style="margin-top: 55px;">
-        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personList" type="item-text-wrap">
-          <img ng-src="{{personmain.img}}">
-          <h2>{{personmain.name}} {{personmain.company}}</h2>
-          <p>{{personmain.address}}</p>
-        </ion-item>
+        <ion-list>
+          <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personList" type="item-text-wrap">
+            <img ng-src="{{personmain.img}}">
+            <h2>{{personmain.name}} {{personmain.company}}</h2>
+            <p>{{personmain.address}}</p>
+            <ion-option-button class="button-assertive">
+              删除
+            </ion-option-button>
+          </ion-item>
+        </ion-list>
       </div>
   </ion-content>
 </div>
