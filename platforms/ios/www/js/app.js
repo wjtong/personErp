@@ -127,11 +127,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
-  .state('app.bookmark', {
-    url: '/bookmark',
+  .state('app.favorites', {
+    url: '/favorites',
     views: {
       'menuContent': {
-        templateUrl: 'templates/bookmark.html'
+        templateUrl: 'templates/favorites.html',
+        controller:'FavoritesCtrl'
       }
     }
   })
@@ -298,6 +299,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+    .state('app.createOrder',{
+      url:'/createOrder/:typeId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/createOrder.html',
+          controller: 'CreateOrder'
+        }
+      }
+    })
 
     .state('app.chatList',{
       url:'/chatList',

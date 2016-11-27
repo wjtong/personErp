@@ -1,0 +1,41 @@
+<ion-view title="{{pageTitle}}">
+  <ion-content>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">客户</span>
+          <div ng-if="orderInfo.partyId != null">{{orderInfo.partyName}}</div>
+          <button class="button" ng-if="orderInfo.partyId == null" ng-click="showContact()">选择客户</button>
+          <input type="hidden" placeholder="客户" value="{{orderInfo.partyId}}" ng-click="showContact()">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">地址</span>
+          <input type="text" placeholder="地址" value="{{orderInfo.address}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">电话号码</span>
+          <input type="text" placeholder="电话号码" value="{{orderInfo.phone}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">电话号码</span>
+          <input type="date" placeholder="时间" value="">
+        </label>
+      </div>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-positive">提交</button>
+    </div>
+  </ion-content>
+</ion-view>

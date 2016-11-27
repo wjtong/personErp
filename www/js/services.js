@@ -838,4 +838,72 @@ angular.module('starter.services', [])
     },
   }
 })
+.factory('CreateOrder',function () {
+  var salOrderInfo = {};
+  var purOrderInfo = {};
+  return{
+    getSalOrderInfo:function () {
+      return salOrderInfo;
+    },
+    getPurOrderInfo:function () {
+      return purOrderInfo;
+    },
+    setPartyToSalOrder:function (partyId, partyName, phone) {
+      salOrderInfo.partyId = partyId;
+      salOrderInfo.partyName = partyName;
+      salOrderInfo.phone = phone;
+    },
+    setPartyToPurOrder:function (partyId, partyName, phone) {
+      purOrderInfo.partyId = partyId;
+      purOrderInfo.partyName = partyName;
+      purOrderInfo.phone = phone;
+    },
+    setAddressToSalOrder:function (address) {
+      salOrderInfo.address = address;
+    },
+    setAddressToPurOrder:function (address) {
+      purOrderInfo.address = address;
+    },
+    setSalResources:function (resources) {
+      if(salOrderInfo.resources == null){
+        var resourcesList = [];
+        resourcesList.push(resources);
+        salOrderInfo.resources = resourcesList;
+      }else{
+        var flag = true;
+        for(var i=0;i<salOrderInfo.resources.length;i++){
+          if(salOrderInfo.resources[i].id == resources.id){
+            flag = false;
+          }
+        }
+        if(flag){
+          salOrderInfo.resources.push(resources);
+        }
+      }
+    },
+    setPurResources:function (resources) {
+      if(purOrderInfo.resources == null){
+        var resourcesList = [];
+        resourcesList.push(resources);
+        purOrderInfo.resources = resourcesList;
+      }else{
+        var flag = true;
+        for(var i=0;i<purOrderInfo.resources.length;i++){
+          if(purOrderInfo.resources[i].id == resources.id){
+            flag = false;
+          }
+        }
+        if(flag){
+          purOrderInfo.resources.push(resources);
+        }
+      }
+    },
+    removeResourcesToSalOrder:function (resources) {
+      salOrderInfo.resources.splice(salOrderInfo.resources.indexOf(resources), 1);
+    },
+    removeResourcesToPurOrder:function (resources) {
+      purOrderInfo.resources.splice(purOrderInfo.resources.indexOf(resources), 1);
+    }
+  }
+})
 ;

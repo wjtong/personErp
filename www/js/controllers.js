@@ -87,7 +87,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 
     $scope.goInfo = function (id,orderId,type,orderType) {
-      //alert('id:'+id+'  orderId:'+orderId+'  type:'+type+"  orderType"+orderType);
       if(type == 'order'){
         $location.path('/app/myOrderInfo/'+orderId+"/"+orderType);
       }else if(type == 'server'){
@@ -99,7 +98,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('FavoritesCtrl', function($scope,Favorites,$location) {
     $scope.favoritesList=Favorites.getAllfavorites();
     $scope.goInfo = function (id,orderId,type,orderType) {
-      //alert('id:'+id+'  orderId:'+orderId+'  type:'+type+"  orderType"+orderType);
       if(type == '订单'){
         $location.path('/app/myOrderInfo/'+orderId+"/"+orderType);
       }else if(type == '资源'){
@@ -116,12 +114,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 })
 .controller('UpdatePersonInfo',function ($scope,Contact,$stateParams) {
     var id = $stateParams.personId;
-    //alert(id);
     $scope.personInfo = Contact.get(id);
 })
 .controller('AboutHim',function ($scope,Contact,$stateParams,$location) {
   var id = $stateParams.personId;
-  //alert(id);
   $scope.personInfo = Contact.get(id);
   $scope.goInfo = function (id) {
     $location.path('/app/editPerson/'+id);
@@ -230,7 +226,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     };
 })
 
-.controller('MyOrder',function ($scope,$location, MyOrder) {
+.controller('MyOrder',function ($scope,$location, $ionicPopup, MyOrder) {
     $scope.orderList = MyOrder.getSalOrder();
     $scope.getSalOrder = function () {
         $scope.orderList = MyOrder.getSalOrder();
@@ -249,18 +245,43 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         {id:'oneYear',desc:'过去一年'},
         {id:'oneYear',desc:'一年前'},
     ];
+
+    $scope.choiceOrderType = function () {
+      $scope.selOrder = 'sal';
+      $scope.purOrder = 'pur' ;
+      $scope.data = {}
+      var orderType = $ionicPopup.show({
+        template: '<button class="button" style="width:100%;background-color: wheat;" ng-click="goCreateOrder(purOrder)">采购订单</button><br/>' +
+        '<button class="button" style="width: 100%;background-color: wheat;margin-top: 2px;" ng-click="goCreateOrder(selOrder)">销售订单</button><br/>' +
+        '<button class="button" style="width: 100%;background-color: red;margin-top: 2px;" ng-click="closeChoiceOrderType();">关闭</button>',
+        title: '请选择需要创建的订单类型',
+        scope: $scope
+
+      });
+      orderType.then(function(res) {
+        console.log('Tapped!', res);
+      });
+      $scope.orderType = orderType;
+    }
+    $scope.closeChoiceOrderType = function () {
+      $scope.orderType.close();
+    }
+    $scope.goCreateOrder = function (type) {
+      //alert(types);
+      $scope.orderType.close();
+      $location.path('/app/createOrder/'+type);
+    }
+
 })
 .controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,$ionicPopup,MyOrder,Contact,ChatList,MyOrderInfo) {
     var orderId = $stateParams.orderId;
     var orderTypeId = $stateParams.orderTypeId;
-    //alert('订单 Id：'+orderId+'   订单类型: '+orderTypeId);
     $scope.personList = Contact.getAll();
     $scope.ChatList = ChatList.getChatList();
     $scope.itemList = MyOrderInfo.getInfo(orderId);
     $scope.orderId = orderId;
 
     if(orderTypeId == 'sal'){
-        //alert('来了');
       $scope.orderInfo = MyOrder.getSalOrderInfo(orderId);
 
     }else if(orderTypeId == 'pur') {
@@ -316,7 +337,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.updateOrderStatus = function (statusName) {
       MyOrder.updateOrderStatus($scope.orderId,statusName);
       $scope.statusPopup.close();
-      //alert("orderId:"+$scope.orderId+"   statusName:"+statusName);
     }
   //订单调整添加
   $scope.orderAdjustment = function() {
@@ -348,8 +368,107 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       console.log('Tapped!', res);
     });
   };
+})
+.controller('CreateOrder',function ($scope,$stateParams,$ionicModal,$ionicPopup,CreateOrder,Contact,myresources) {
+  var typeId = $stateParams.typeId;
+  $scope.contactList = Contact.getAll();
+  $scope.resourcesList = myresources.getResourcesAll();
+  $scope.typeId = typeId;
+  if(typeId == 'sal'){
+    $scope.pageTitle = '销售订单录入' ;
+    $scope.orderInfo = CreateOrder.getSalOrderInfo();
+  }else if(typeId == 'pur'){
+    $scope.pageTitle = '采购订单录入' ;
+    $scope.orderInfo = CreateOrder.getPurOrderInfo();
+  }
 
+  $ionicModal.fromTemplateUrl('templates/orderContact.html', function(modal) {
+    $scope.contact = modal;
+  }, {
+    scope: $scope
+  });
 
+  $ionicModal.fromTemplateUrl('templates/addResourcesToOrder.html', function(modal) {
+    $scope.resources = modal;
+  }, {
+    scope: $scope
+  });
+
+  $scope.addressConfirm = null;
+  //我的地址是否应用到订单状态弹出
+  $scope.showAddressConfirm = function(partyId) {
+    $scope.partyId = partyId;
+    $scope.used = 'Y';
+    $scope.notUsed = 'N' ;
+    $scope.data = {}
+    var myPopup = $ionicPopup.show({
+      template: '<button class="button" style="width:100%;background-color: wheat;" ng-click="addAddressToOrder(used)">应用</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: wheat;margin-top: 2px;" ng-click="addAddressToOrder(notUsed)">不应用</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: red;margin-top: 2px;" ng-click="closeAddressConfim();">关闭</button>',
+      title: '自己的联系地址是否应用到订单',
+      scope: $scope
+
+    });
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+    $scope.addressConfirm = myPopup;
+  };
+
+  $scope.showContact = function () {
+    $scope.contact.show();
+  }
+  $scope.hiddenContact = function () {
+    $scope.contact.hide();
+  }
+  $scope.showResources = function () {
+    $scope.resources.show();
+  }
+  $scope.hiddenResources = function () {
+    $scope.resources.hide();
+  }
+
+  $scope.closeAddressConfim = function () {
+    $scope.addressConfirm.close();
+  }
+  $scope.addAddressToOrder = function (flag) {
+    var contect = Contact.get($scope.partyId);
+    if(typeId=='sal'){
+      CreateOrder.setPartyToSalOrder(contect.id,contect.name,contect.phone);
+      if(flag=='Y'){
+        CreateOrder.setAddressToSalOrder(contect.address);
+      }else{
+        CreateOrder.setAddressToSalOrder("");
+      }
+    }else if(typeId == 'pur'){
+      CreateOrder.setPartyToPurOrder(contect.id,contect.name,contect.phone);
+      if(flag=='Y'){
+        CreateOrder.setAddressToPurOrder(contect.address);
+      }else{
+        CreateOrder.setAddressToPurOrder("");
+      }
+    }
+    $scope.addressConfirm.close();
+    $scope.contact.hide();
+  }
+  $scope.addResourcesToOrder = function (resources) {
+    if(typeId == 'sal'){
+      CreateOrder.setSalResources(resources);
+    }else if(typeId == 'pur'){
+      CreateOrder.setPurResources(resources);
+    }
+    $scope.resources.hide();
+  }
+  $scope.removeResourcesToOrder = function (resources) {
+    if(typeId == 'sal'){
+      CreateOrder.removeResourcesToSalOrder(resources);
+    }else if(typeId == 'pur'){
+      CreateOrder.removeResourcesToPurOrder(resources);
+    }
+  }
+
+  // $scope.orderInfo.partyId = '100020';
+  // $scope.orderInfo.partyName = '张文文';
 })
 .controller('ChatList',function ($scope,$location,ChatList) {
     $scope.ChatList = ChatList.getChatList();
@@ -363,7 +482,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     var chatId = $stateParams.chatId;
     $scope.chat = ChatList.getChatInfo(chatId);
     $scope.person = ChatList.getPersonInfo($scope.userId);
-
     $scope.goPersonList = function (id) {
       $location.path("/app/chatPersonList/"+id);
     }
@@ -459,7 +577,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         setLabel: '选择'    //Optional
     };
     $scope.getIime = function (val) {
-        //alert(val);
         optionId = val ;
         ionicTimePicker.openTimePicker(ipObj2);
     }

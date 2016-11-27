@@ -299,6 +299,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+    .state('app.createOrder',{
+      url:'/createOrder/:typeId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/createOrder.html',
+          controller: 'CreateOrder'
+        }
+      }
+    })
 
     .state('app.chatList',{
       url:'/chatList',

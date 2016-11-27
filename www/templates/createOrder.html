@@ -1,0 +1,73 @@
+<ion-view title="{{pageTitle}}">
+  <ion-content>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">客户</span>
+          <div ng-if="orderInfo.partyId != null">{{orderInfo.partyName}}</div>
+          <button class="button button-small button-stable" ng-if="orderInfo.partyId == null" ng-click="showContact()">选择客户</button>
+          <input type="hidden" placeholder="客户" value="{{orderInfo.partyId}}" ng-click="showContact()">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">地址</span>
+          <input type="text" placeholder="地址" value="{{orderInfo.address}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">电话号码</span>
+          <input type="text" placeholder="电话号码" value="{{orderInfo.phone}}">
+        </label>
+      </div>
+    </div>
+
+    <div class="list card" style="margin-bottom: 40px;margin-top: 10px;">
+      <div class="item item-divider"><b>资源</b><button style="margin-left: 10px;" ng-click="showResources()">添加资源</button></div>
+      <ion-list>
+        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="resources in orderInfo.resources" type="item-text-wrap">
+          <img ng-src="{{resources.img}}">
+          <h2>{{resources.name}} {{resources.company}}</h2>
+          <p>{{resources.desc}}</p>
+          <ion-option-button class="button-assertive" ng-click="removeResourcesToOrder(resources)">
+            删除
+          </ion-option-button>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div class="" ng-repeat="resources in orderInfo.resources">
+      <div class="list card" style="margin-top: -30px;">
+        <div class="item item-divider"><b>订单项{{$index+1}}</b></div>
+        <table class="item">
+          <tr>
+            <td style="text-align: right">产品 Id</td>
+            <td>&nbsp;&nbsp;&nbsp;{{resources.id}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">货运 ID</td>
+            <td>&nbsp;&nbsp;&nbsp;{{resources.desc}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin-top: -30px;margin-bottom: 5px;">
+      <div class="item">
+        <label class="">
+          <span class="input-label">备注</span>
+          <!--<input type="text" placeholder="地址" value="{{address}}" style="width: 100%">-->
+          <textarea placeholder="备注" style="width: 100%;"></textarea>
+        </label>
+      </div>
+    </div>
+    <div class="padding">
+      <button class="button" style="width: 50%;background-color: #387ef5;">提交</button>
+      <button class="button" style="width: 49%;background-color: #e42012;">取消</button>
+    </div>
+  </ion-content>
+</ion-view>
