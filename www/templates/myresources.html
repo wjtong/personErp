@@ -8,12 +8,87 @@
         </label>
       </div>
     </div>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="resources in resourcesList" type="item-text-wrap" ng-click="goInfo(resources.id)">
-        <img ng-src="{{resources.descImg}}">
-
-        <p>{{resources.desc}}</p>
-      </ion-item>
-    </ion-list>
+    <div class="content">
+      <div class="row">
+        <div class="col col-50">
+          <ion-item class="item" style="height:100%; width:100%"  type="item-text-wrap" ng-click="goInfo(resourcesList1.id)">
+            <div class="item item-body">
+              <img class="item item-image" style="height:20%; width:100%" src="{{resourcesList1.descImg}}">
+              <p>{{resourcesList1.title}}</p>
+            </div>
+            <div class="item tabs">
+              <a class="tab-item" href="#">
+                喜欢
+              </a>
+              <a class="tab-item" href="#">
+                评论
+              </a>
+              <a class="tab-item" href="#">
+                分享
+              </a>
+            </div>
+          </ion-item>
+        </div>
+        <div class="col col-50">
+          <ion-item class="item" style="height:100%; width:100%"  type="item-text-wrap" ng-click="goInfo(resourcesList2.id)">
+            <div class="item item-body">
+              <img class="item item-image" style="height:20%; width:100%" src="{{resourcesList2.descImg}}">
+              <p>{{resourcesList2.title}}</p>
+            </div>
+            <div class="item tabs">
+              <a class="tab-item" href="#">
+                喜欢
+              </a>
+              <a class="tab-item" href="#">
+                评论
+              </a>
+              <a class="tab-item" href="#">
+                分享
+              </a>
+            </div>
+          </ion-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-50">
+          <ion-item class="item" style="height:100%; width:100%"  type="item-text-wrap" ng-click="goInfo(resourcesList3.id)">
+            <div class="item item-body">
+              <img class="item item-image" style="height:20%; width:100%" src="{{resourcesList3.descImg}}">
+              <p>{{resourcesList3.title}}</p>
+            </div>
+            <div class="item tabs">
+              <a class="tab-item" href="#">
+                喜欢
+              </a>
+              <a class="tab-item" href="#">
+                评论
+              </a>
+              <a class="tab-item" href="#">
+                分享
+              </a>
+            </div>
+          </ion-item>
+        </div>
+        <div class="col col-50">
+          <ion-item class="item" style="height:100%; width:100%"  type="item-text-wrap" ng-click="goInfo(resourcesList4.id)">
+            <div class="item item-body">
+              <img class="item item-image" style="height:20%; width:100%" src="{{resourcesList4.descImg}}">
+              <p>{{resourcesList4.title}}</p>
+            </div>
+            <div class="item tabs">
+              <a class="tab-item" href="#">
+                喜欢
+              </a>
+              <a class="tab-item" href="#">
+                评论
+              </a>
+              <a class="tab-item" href="#">
+                分享
+              </a>
+            </div>
+          </ion-item>
+        </div>
+    </div>
+   </div>
   </ion-content>
 </ion-view>
