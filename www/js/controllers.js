@@ -184,10 +184,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.emails = 'zhangwenwen1556@163.com';
 })
 .controller('myresources',function ($scope,$location,myresources) {
-    $scope.resourcesList1 = myresources.getResourceInfo(id='RES_100001');
-    $scope.resourcesList2 = myresources.getResourceInfo(id='RES_100002');
-    $scope.resourcesList3 = myresources.getResourceInfo(id='RES_100003');
-    $scope.resourcesList4 = myresources.getResourceInfo(id='RES_100004');
+    $scope.resourcesList = myresources.getResourcesAll();
     $scope.selectOption = myresources.getSelectOption();
     $scope.newResources = function(){
         $location.path("/app/newResources");
