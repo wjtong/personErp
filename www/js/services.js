@@ -534,7 +534,7 @@ angular.module('starter.services', [])
         address:'中国，上海',
         desc:'年终总结',
         pushed:5,
-        price:124.00,
+        price:'',
         collect:3,
         comments:4
       },
@@ -548,7 +548,7 @@ angular.module('starter.services', [])
         address:'中国，上海，松江',
         desc:'产品发布',
         pushed:5,
-        price:50.00,
+        price:'',
         collect:3,
         comments:4
       },
@@ -602,6 +602,13 @@ angular.module('starter.services', [])
                     return resourcesList[i];
                 }
             }
+        },
+        getResourceOtherInfo:function (id) {
+          for(var i=0 ;i<resourcesListOthers.length; i++){
+            if(resourcesListOthers[i].id == id){
+              return resourcesListOthers[i];
+            }
+          }
         },
         getSelectOption:function () {
             return selectOption;

@@ -132,8 +132,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $location.path('/app/getBusiness/');
   }
 })
-.controller('GetResources',function ($scope,myresources,$stateParams) {
-  $scope.resourcesListOthers = myresources.getResourcesOthersAll()
+.controller('GetResources',function ($scope,myresources,$stateParams,$location) {
+  $scope.resourcesListOthers = myresources.getResourcesOthersAll();
+  $scope.goInfo = function (resourcesId) {
+    $location.path("/app/myResourcesInfo/"+resourcesId);
+  }
 })
 .controller('GetEvent',function ($scope,OtherTime,$stateParams) {
   $scope.timeListOther = OtherTime.getAllOtherTime()
@@ -196,6 +199,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('MyResourcesInfo',function ($scope,$stateParams,myresources) {
     var resourcesId = $stateParams.resourcesId;
     $scope.resources = myresources.getResourceInfo(resourcesId);
+    $scope.resourcesOther = myresources.getResourceOtherInfo(resourcesId);
 })
 .controller('NewResources',function ($scope,$cordovaCamera) {
     $scope.imageSrc = "";
