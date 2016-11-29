@@ -8,32 +8,28 @@
         </label>
       </div>
     </div>
-    <ion-list>
-      <div>
-        <div class="content" ng-repeat="resources in resourcesListOthers"  style="margin-top: -18px;">
-          <div class="list card cardupdate">
-            <div class="item item-avatar">
-              <img ng-src="{{resources.img}}">
-              <h2>{{resources.name}} {{resources.company}}</h2>
-              <p>{{resources.address}}</p>
+    <div class="content" style="margin-top: 15px;">
+      <div class="row row-wrap" style="margin-left: -10px;">
+        <div class="col col-50" ng-repeat="resources in resourcesListOthers">
+          <ion-item class="card" style="height:100%; width:100%;margin-top: -20px;"  type="item-text-wrap" >
+            <div class="item item-body" >
+              <img  style="height:100%; width:100%;" src="{{resources.descImg}}">
+              <p>{{resources.title}}</p>
             </div>
-            <div class="item item-body">
-              <p>
-                {{resources.desc}}
-              </p>
-              <p>
-                <a class="subdued">{{resources.pushed}} 已推送联系人</a>
-              </p>
-            </div>
-            <div class="item tabs tabs-secondary tabs-icon-left">
-              <a class="tab-item">
-                <i class="icon ion-share"></i>
-                推送
+            <div class="item tabs">
+              <a class="tab-item" href="#">
+                喜欢
+              </a>
+              <a class="tab-item" href="#">
+                评论
+              </a>
+              <a class="tab-item" href="#">
+                收藏
               </a>
             </div>
-          </div>
+          </ion-item>
         </div>
       </div>
-    </ion-list>
+    </div>
   </ion-content>
 </ion-view>
