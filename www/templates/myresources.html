@@ -8,12 +8,12 @@
         </label>
       </div>
     </div>
-    <div class="content">
-      <div class="row row-wrap">
+    <div class="content" style="margin-top: 15px;">
+      <div class="row row-wrap" style="margin-left: -10px;">
         <div class="col col-50" ng-repeat="resources in resourcesList">
-          <ion-item class="item" style="height:100%; width:100%"  type="item-text-wrap" ng-click="goInfo(resourcesList.id)">
+          <ion-item class="card" style="height:100%; width:100%;margin-top: -20px;"  type="item-text-wrap" ng-click="goInfo(resources.id)">
             <div class="item item-body">
-              <img class="item item-image" style="height:20%; width:100%" src="{{resources.descImg}}">
+              <img  style="height:100%; width:100%;" src="{{resources.descImg}}">
               <p>{{resources.title}}</p>
             </div>
             <div class="item tabs">
@@ -24,7 +24,7 @@
                 评论
               </a>
               <a class="tab-item" href="#">
-                分享
+                收藏
               </a>
             </div>
           </ion-item>
