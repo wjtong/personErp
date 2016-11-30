@@ -525,7 +525,35 @@ angular.module('starter.services', [])
 
     var resourcesListOthers = [
       {
-        id:'RES_100003',
+        id:'RES_100005',
+        img:'img/resources/nianzhong.jpeg',
+        descImg:"img/resources/nianzhong.jpeg",
+        title:"年终总结",
+        name:'冯浩',
+        company:'上海班富电子商务',
+        address:'中国，上海',
+        desc:'年终总结',
+        pushed:5,
+        price:'',
+        collect:3,
+        comments:4
+      },
+      {
+        id:'RES_100006',
+        img:'img/resources/fabu.jpeg',
+        descImg:"img/resources/fabu.jpeg",
+        title:"产品发布",
+        name:'张文文',
+        company:'上海班富电子商务',
+        address:'中国，上海，松江',
+        desc:'产品发布',
+        pushed:5,
+        price:'',
+        collect:3,
+        comments:4
+      },
+      {
+        id:'RES_100007',
         img:'',
         descImg:"img/resources/chongzhuang.png",
         title:"数据恢复",
@@ -539,7 +567,7 @@ angular.module('starter.services', [])
         comments:4
       },
       {
-        id:'RES_100004',
+        id:'RES_100008',
         img:'img/team/shenyinling.png',
         descImg:"img/resources/yanfa.jpg",
         title:"系统开发",
@@ -552,7 +580,6 @@ angular.module('starter.services', [])
         collect:3,
         comments:4
       }
-
     ];
     var selectOption = [
       {id:'me',name:'李四'},
@@ -575,6 +602,13 @@ angular.module('starter.services', [])
                     return resourcesList[i];
                 }
             }
+        },
+        getResourceOtherInfo:function (id) {
+          for(var i=0 ;i<resourcesListOthers.length; i++){
+            if(resourcesListOthers[i].id == id){
+              return resourcesListOthers[i];
+            }
+          }
         },
         getSelectOption:function () {
             return selectOption;

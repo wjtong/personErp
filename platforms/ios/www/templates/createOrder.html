@@ -26,6 +26,22 @@
         </label>
       </div>
     </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">交付日期</span>
+          <input type="text" placeholder="交付日期" value="">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">交付方式</span>
+          <input type="text" placeholder="交付方式" value="">
+        </label>
+      </div>
+    </div>
 
     <div class="list card" style="margin-bottom: 40px;margin-top: 10px;">
       <div class="item item-divider"><b>资源</b><button style="margin-left: 10px;" ng-click="showResources()">添加资源</button></div>
@@ -52,6 +68,10 @@
           <tr>
             <td style="text-align: right">货运 ID</td>
             <td>&nbsp;&nbsp;&nbsp;{{resources.desc}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">数量</td>
+            <td><input type="number" placeholder="数量" value="1" style="margin-left: 12px;"/></td>
           </tr>
         </table>
       </div>

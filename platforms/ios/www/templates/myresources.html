@@ -1,47 +1,35 @@
 <ion-view view-title="我的资源">
   <ion-content>
-      <div class="content">
-          <div class="list list-inset" style="margin-top: 5px;margin-bottom: 5px;">
-              <label class="item item-input">
-                  <i class="icon ion-search placeholder-icon"></i>
-                  <input type="text" placeholder="Search">
-              </label>
-          </div>
+    <div class="content">
+      <div class="list list-inset" style="margin-top: 5px;margin-bottom: 5px;">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="Search">
+        </label>
       </div>
-    <ion-list>
-        <div>
-        <div class="content" ng-repeat="resources in resourcesList"  style="margin-top: -18px;" ng-click="goInfo(resources.id)">
-          <div class="list card cardupdate">
-            <div class="item item-avatar">
-              <img ng-src="{{resources.img}}">
-              <h2>{{resources.name}} {{resources.company}}</h2>
-              <p>{{resources.address}}</p>
-            </div>
+    </div>
+    <div class="content" style="margin-top: 15px;">
+      <div class="row row-wrap" style="margin-left: -10px;">
+        <div class="col col-50" ng-repeat="resources in resourcesList">
+          <ion-item class="card" style="height:100%; width:100%;margin-top: -20px;"  type="item-text-wrap" ng-click="goInfo(resources.id)">
             <div class="item item-body">
-              <p>
-                {{resources.desc}}
-              </p>
-              <p>
-                <a class="subdued">{{resources.pushed}} 已推送联系人</a>
-              </p>
+              <img  style="height:100%; width:100%;" src="{{resources.descImg}}">
+              <p>{{resources.title}}</p>
             </div>
-            <div class="item tabs tabs-secondary tabs-icon-left">
-              <a class="tab-item">
-                <i class="icon ion-share"></i>
-                推送
+            <div class="item tabs">
+              <a class="tab-item" href="#">
+                喜欢
+              </a>
+              <a class="tab-item" href="#">
+                评论
+              </a>
+              <a class="tab-item" href="#">
+                收藏
               </a>
             </div>
-          </div>
-        </div>
-      </div>
-    </ion-list>
-  </ion-content>
-    <div class="bar bar-footer" style="margin-left: -6px;">
-        <div class="tab-nav tabs">
-            <button class="button button-light" style="width: 80px;" ng-click="newResources()">新建</button>
-            <select style="margin-left: 50px;">
-                <option ng-repeat="option in selectOption" option="{{option.id}}">{{option.name}}</option>
-            </select>
+          </ion-item>
         </div>
     </div>
+   </div>
+  </ion-content>
 </ion-view>
