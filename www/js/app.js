@@ -311,6 +311,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
+    .state('app.newDevOrder',{
+      url:'/newDevOrder/',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/newDevOrder.html',
+          controller: 'NewDevOrder'
+        }
+      }
+    })
 
     .state('app.chatList',{
       url:'/chatList',

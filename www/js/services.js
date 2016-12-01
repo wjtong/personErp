@@ -179,12 +179,55 @@ angular.module('starter.services', [])
           comments:4
         }
     ];
+    var devOrder = [
+      {
+        orderId:'DEV_10001',
+        img:'img/team/chenyu.jpg',
+        orderTypeId:'dev',
+        orderType:'开发订单',
+        name:'陈宇',
+        company:'上海班富电子商务',
+        address:'中国，浙江，杭州',
+        phoneNumber:'13764302779',
+        desc:'开发云卡',
+        orderTime:'2016-11-22 14:21:22',
+        lastUPdateTime:'2016-11-29 10:34:11',
+        grandTotal:400,
+        orderStatus:'已批准',
+        paymentMethod:'支付宝、微信',
+        pushed:3,
+        collect:3,
+        comments:4
+      },
+      {
+        orderId:'DEV_10002',
+        img:'img/team/fenghao.png',
+        orderTypeId:'dev',
+        orderType:'开发订单',
+        name:'冯浩',
+        company:'上海班富电子商务',
+        phoneNumber:'13801887706',
+        address:'中国，浙江，杭州',
+        desc:'开发软件',
+        orderTime:'2016-11-23 10:21:22',
+        lastUPdateTime:'2016-11-29 14:34:11',
+        grandTotal:400,
+        orderStatus:'已完成',
+        paymentMethod:'支付宝',
+        pushed:2,
+        collect:3,
+        comments:4
+      }
+    ];
     return{
         getSalOrder: function () {
             return selOrder;
         },
         getPurOrder:function () {
             return purOrder;
+        },
+        getDevOrder:function () {
+          return devOrder;
         },
         getSalOrderInfo:function (orderId) {
             for(var i=0;i<selOrder.length;i++){
@@ -199,6 +242,13 @@ angular.module('starter.services', [])
                     return purOrder[i];
                 }
             }
+        },
+        getDevOrderInfo:function (orderId) {
+          for(var i=0;i<devOrder.length;i++){
+            if(orderId == devOrder[i].orderId){
+              return devOrder[i];
+            }
+          }
         },
         updateOrderStatus:function (orderId, statusName) {
             var flag = true;
@@ -369,6 +419,34 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-23 14:34:11',
             productName:'购买 ionic 的定制软件，进行二次开发',
             price:400
+          }
+        ]
+      },
+      {
+        orderId:'DEV_10001',
+        item:[
+          {
+            productionId:'PRO_100010',
+            shipId:'SHIP_100010',
+            kd_code:'639820200',
+            productId:'130500020',
+            estimateTiem:'2016-11-25 18:34:11',
+            productName:'购买阿里云服务器，搭建测试环境',
+            price:320
+          }
+        ]
+      },
+      {
+        orderId:'DEV_10002',
+        item:[
+          {
+            productionId:'PRO_100011',
+            shipId:'SHIP_100011',
+            kd_code:'639820201',
+            productId:'130500020',
+            estimateTiem:'2016-11-25 14:37:11',
+            productName:'购买手机，用于测试',
+            price:1000
           }
         ]
       }
@@ -778,14 +856,20 @@ angular.module('starter.services', [])
   var time = [
     {
       id:1,
-      data:'2016-11-16',
-      info:'这个时间的安排'
+      data:'2016-11-20',
+      info:[
+        {id:101,title:'公司人员篮球赛',biginTime:'2016-11-20T10:00:00',endTime:'2016-11-20T12:00:00'},
+        {id:102,title:'公司人员午餐会',biginTime:'2016-11-20T12:30:00',endTime:'2016-11-20T14:300:00'},
+      ]
     },
     {
       id:2,
-      data:'2016-11-17',
-      info:'这个时间的安排'
-    }
+      data:'2016-11-23',
+      info:[
+        {id:201,title:'电话会议',biginTime:'2016-11-23T08:00:00',endTime:'2016-11-23T10:00:00'},
+        {id:202,title:'和王总去深圳出差',biginTime:'2016-11-23T13:00:00',endTime:'2016-11-27T8:00:00'},
+      ]
+    },
   ];
 
   return{
