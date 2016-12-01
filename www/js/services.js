@@ -852,14 +852,20 @@ angular.module('starter.services', [])
   var time = [
     {
       id:1,
-      data:'2016-11-16',
-      info:'这个时间的安排'
+      data:'2016-11-20',
+      info:[
+        {id:101,title:'公司人员篮球赛',biginTime:'2016-11-20T10:00:00',endTime:'2016-11-20T12:00:00'},
+        {id:102,title:'公司人员午餐会',biginTime:'2016-11-20T12:30:00',endTime:'2016-11-20T14:300:00'},
+      ]
     },
     {
       id:2,
-      data:'2016-11-17',
-      info:'这个时间的安排'
-    }
+      data:'2016-11-23',
+      info:[
+        {id:201,title:'电话会议',biginTime:'2016-11-23T08:00:00',endTime:'2016-11-23T10:00:00'},
+        {id:202,title:'和王总去深圳出差',biginTime:'2016-11-23T13:00:00',endTime:'2016-11-27T8:00:00'},
+      ]
+    },
   ];
 
   return{
