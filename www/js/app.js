@@ -189,7 +189,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       cache :false,
       views: {
           'menuContent': {
-              templateUrl: 'templates/addPerson.html'
+              templateUrl: 'templates/addPerson.html',
+              controller: 'AddPerson'
           }
       }
   })

@@ -4,7 +4,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">姓名</span>
-                    <input type="text" placeholder="姓名" value="{{personInfo.name}}">
+                    <input type="text" placeholder="姓名" ng-model="personInfo.name" value="">
                 </label>
             </div>
         </div>
@@ -12,7 +12,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">电话</span>
-                    <input type="text" placeholder="电话" value="{{personInfo.phone}}">
+                    <input type="text" placeholder="电话" ng-model="personInfo.phone" value="">
                 </label>
             </div>
         </div>
@@ -23,6 +23,16 @@
                     <select ng-model="sex" ng-init="sex = personInfo.sex">
                         <option value="F">男</option>
                         <option value="M">女</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+            <div class="item  item-select" style="margin: -17px 0px;">
+                <label class="">
+                    <span class="input-label">标签</span>
+                    <select ng-model="lab" ng-init="lab = personInfo.labelId">
+                        <option value="{{label.id}}" ng-repeat="label in label">{{label.title}}</option>
                     </select>
                 </label>
             </div>

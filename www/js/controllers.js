@@ -112,9 +112,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $location.path('/app/abouthim/'+id);
     }
 })
-.controller('UpdatePersonInfo',function ($scope,Contact,$stateParams) {
+.controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,PersonLabel) {
     var id = $stateParams.personId;
     $scope.personInfo = Contact.get(id);
+    $scope.label = PersonLabel.getAllLabl();
+})
+.controller('AddPerson',function ($scope,PersonLabel) {
+    $scope.label = PersonLabel.getAllLabl();
 })
 .controller('AboutHim',function ($scope,Contact,$stateParams,$location) {
   var id = $stateParams.personId;
@@ -495,11 +499,38 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('ChatPersonList',function ($scope, $stateParams,ChatList) {
     $scope.chat = ChatList.getChatInfo($stateParams.chatId);
 })
-.controller('PersonLabel', function ($scope, $location, PersonLabel) {
+.controller('PersonLabel', function ($scope, $location,$ionicPopup, PersonLabel) {
     $scope.labelList = PersonLabel.getAllLabl();
     $scope.goLabelInPerson = function (labelId) {
       $location.path('/app/labelPersonList/'+labelId);
+    };
+
+    $scope.showAddLab = function() {
+        $scope.data = {};
+        var myPopup = $ionicPopup.show({
+            template: '<input type="text" ng-model="data.addLabel"/>' +
+            '<button class="button" style="width:100%;background-color: wheat;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
+            '<button class="button" style="width: 100%;background-color: red;margin-top: 2px;" ng-click="closeLab();">关闭</button>' ,
+            title: '创建标签',
+            scope: $scope
+        });
+        myPopup.then(function(res) {
+            console.log('Tapped!', res);
+        });
+        $scope.addLab = myPopup;
+    };
+    $scope.createLabel = function () {
+
+        if($scope.data.addLabel == null || $scope.data.addLabel == ''){
+        }else{
+            PersonLabel.addPersonLab($scope.data.addLabel);
+            $scope.addLab.close();
+        }
     }
+    $scope.closeLab = function () {
+        $scope.addLab.close();
+    }
+
 })
 .controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel) {
     $scope.labelId = $stateParams.labelId;
