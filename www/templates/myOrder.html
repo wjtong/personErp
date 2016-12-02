@@ -21,6 +21,7 @@
                             <img ng-src="{{order.img}}">
                             <h2>{{order.name}} {{order.company}}</h2>
                             <p>{{order.address}}</p>
+                            <p id="p2" style="color: #ff3b30" ng-if="order.surplus<=5"><b>离完成时间还有：{{order.surplus}}天</b></p>
                         </div>
                         <div class="item item-body">
                             <p>

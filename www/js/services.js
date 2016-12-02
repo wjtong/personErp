@@ -67,7 +67,8 @@ angular.module('starter.services', [])
           paymentMethod:'支付宝、微信',
           pushed:5,
           collect:3,
-          comments:4
+          comments:4,
+          surplus:2
         },
         {
           orderId:'SAL_10002',
@@ -87,6 +88,7 @@ angular.module('starter.services', [])
           pushed:5,
           collect:3,
           comments:4,
+          surplus:7,
           adjustment:[
             {
               adjustmentReason:'线下优惠',
@@ -117,7 +119,8 @@ angular.module('starter.services', [])
           paymentMethod:'微信',
           pushed:5,
           collect:3,
-          comments:4
+          comments:4,
+          surplus:3
         },
         {
           orderId:'SAL_10004',
@@ -136,7 +139,9 @@ angular.module('starter.services', [])
           paymentMethod:'支付宝',
           pushed:5,
           collect:3,
-          comments:4
+          comments:4,
+          surplus:2
+
         }
     ];
     var purOrder = [
@@ -157,7 +162,8 @@ angular.module('starter.services', [])
           paymentMethod:'支付宝、微信',
           pushed:3,
           collect:3,
-          comments:4
+          comments:4,
+          surplus:4
         },
         {
           orderId:'PUR_10002',
@@ -197,7 +203,8 @@ angular.module('starter.services', [])
         paymentMethod:'支付宝、微信',
         pushed:3,
         collect:3,
-        comments:4
+        comments:4,
+        surplus:3
       },
       {
         orderId:'DEV_10002',
@@ -216,7 +223,8 @@ angular.module('starter.services', [])
         paymentMethod:'支付宝',
         pushed:2,
         collect:3,
-        comments:4
+        comments:4,
+        surplus:3
       }
     ];
     return{
