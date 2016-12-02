@@ -321,7 +321,14 @@ angular.module('starter.services', [])
             productId:'130500010',
             estimateTiem:'2016-11-23 00:00:00',
             productName:'项目赶进度，提供外包',
-            price:400
+            price:400,
+            abstract:{
+              finishTime:'2017-01-23 00:00:00',
+              operator:'李德',
+              material:'100',
+              stage:'工序一',
+              output:'30'
+            }
           }
         ]
       },
@@ -335,7 +342,14 @@ angular.module('starter.services', [])
             productId:'130500011',
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车大灯总成',
-            price:1000
+            price:1000,
+            abstract:{
+              finishTime:'2017-02-23 00:00:00',
+              operator:'刘懂',
+              material:'30个',
+              stage:'工序三',
+              output:'3组'
+            }
           },
           {
             productionId:'PRO_100003',
@@ -376,7 +390,14 @@ angular.module('starter.services', [])
             productId:'130500016',
             estimateTiem:'2016-11-04 10:34:11',
             productName:'jeep 牧马人',
-            price:400000
+            price:400000,
+            abstract:{
+              finishTime:'2017-03-13 00:00:00',
+              operator:'李强',
+              material:'15',
+              stage:'工序三',
+              output:'10'
+            }
           }
         ]
       },
@@ -390,7 +411,14 @@ angular.module('starter.services', [])
             productId:'130500017',
             estimateTiem:'2016-11-23 10:34:11',
             productName:'电动车',
-            price:400
+            price:400,
+            abstract:{
+              finishTime:'2017-05-23 00:00:00',
+              operator:'刘懂明',
+              material:'300',
+              stage:'工序三',
+              output:'15'
+            }
           }
         ]
       },
@@ -432,7 +460,14 @@ angular.module('starter.services', [])
             productId:'130500020',
             estimateTiem:'2016-11-25 18:34:11',
             productName:'购买阿里云服务器，搭建测试环境',
-            price:320
+            price:320,
+            abstract:{
+              finishTime:'2016-12-23 00:00:00',
+              operator:'金龙熙',
+              material:'2台',
+              stage:'单元测试',
+              output:'2'
+            }
           }
         ]
       },
@@ -446,7 +481,14 @@ angular.module('starter.services', [])
             productId:'130500020',
             estimateTiem:'2016-11-25 14:37:11',
             productName:'购买手机，用于测试',
-            price:1000
+            price:1000,
+            abstract:{
+              finishTime:'2017-02-23 00:00:00',
+              operator:'李明',
+              material:'1',
+              stage:'单元测试',
+              output:''
+            }
           }
         ]
       }
