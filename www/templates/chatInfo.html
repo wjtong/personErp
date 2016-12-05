@@ -6,12 +6,18 @@
   <ion-content has-bouncing="true" class="has-header has-footer"
                delegate-handle="userMessageScroll">
     <div class="list list-inset" style="margin-top: 5px;margin-bottom: 5px;">
-      <label class="item item-input">
+
+      <label class="item item-input" style="padding-right:0px">
+        <div>
         讨论主题：{{chat.title}}
         <br>
         <br>
         <br>
+        </div>
       </label>
+      <button class="button  button-small button-clear button-positive icon ion-gear-a " style="margin-right: 0px"  ng-click="editChat(chat.title)">
+        编辑
+      </button>
     </div>
     <div ng-repeat="chat in chat.discuss" class="message-wrapper">
       <div ng-if="userId !== chat.id">

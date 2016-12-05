@@ -539,6 +539,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.goPersonList = function (id) {
       $location.path("/app/chatPersonList/"+id);
     }
+    $scope.editChat = function () {
+      $location.path("/app/newGroupChat");
+    }
 
 })
 .controller('ChatPersonList',function ($scope, $stateParams,ChatList) {
