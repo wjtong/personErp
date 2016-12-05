@@ -17,29 +17,19 @@
             </div>
         </div>
         <div class="list card cardupdate" style="margin: 5px 10px;">
-            <div class="item  item-select" style="margin: -17px 0px;">
-                <!--<label class="item item-input item-select">-->
-                    <!--<span class="input-label" style="margin-left: -15px">性别</span>-->
-                    <!--<select ng-model="sex" ng-init="sex = personInfo.sex">-->
-                        <!--<option value="F">男</option>-->
-                        <!--<option value="M">女</option>-->
-                    <!--</select>-->
-                <!--</label>-->
-                <label class="item item-input item-select">
-                    <div class="input-label">
-                        前端技术
-                    </div>
-                    <select>
-                        <option>HTML</option>
-                        <option selected>CSS</option>
-                        <option>JavaScript</option>
+            <div class="item item-select" style="margin: -17px 0px;">
+                <label class="">
+                    <span class="input-label">性别</span>
+                    <select ng-model="sex" ng-init="sex = personInfo.sex">
+                        <option value="F">男</option>
+                        <option value="M">女</option>
                     </select>
                 </label>
             </div>
         </div>
         <div class="list card cardupdate" style="margin: 5px 10px;">
-            <div class="item " style="margin: -17px 0px;">
-                <label class="item item-input item-select">
+            <div class="item item-select" style="margin: -17px 0px;">
+                <label class="">
                     <span class="input-label">标签</span>
                     <select ng-model="lab" ng-init="lab = personInfo.labelId">
                         <option value="{{label.id}}" ng-repeat="label in label">{{label.title}}</option>
