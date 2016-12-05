@@ -200,10 +200,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path("/app/myResourcesInfo/"+resourcesId);
     }
 })
-.controller('MyResourcesInfo',function ($scope,$stateParams,myresources) {
+.controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location) {
     var resourcesId = $stateParams.resourcesId;
     $scope.resources = myresources.getResourceInfo(resourcesId);
     $scope.resourcesOther = myresources.getResourceOtherInfo(resourcesId);
+    $scope.createOrder = function(){
+      $location.path("/app/createOrder/pur");
+    }
 })
 .controller('NewResources',function ($scope,$cordovaCamera) {
     $scope.imageSrc = "";
