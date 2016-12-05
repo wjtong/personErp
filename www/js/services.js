@@ -331,6 +331,7 @@ angular.module('starter.services', [])
             productName:'项目赶进度，提供外包',
             price:400,
             abstract:{
+              beginTime:'2016-11-23 00:00:00',
               finishTime:'2017-01-23 00:00:00',
               operator:'李德',
               material:'100',
@@ -352,6 +353,7 @@ angular.module('starter.services', [])
             productName:'汽车大灯总成',
             price:1000,
             abstract:{
+              beginTime:'2016-12-23 00:00:00',
               finishTime:'2017-02-23 00:00:00',
               operator:'刘懂',
               material:'30个',
@@ -400,6 +402,7 @@ angular.module('starter.services', [])
             productName:'jeep 牧马人',
             price:400000,
             abstract:{
+              beginTime:'2016-12-18 00:00:00',
               finishTime:'2017-03-13 00:00:00',
               operator:'李强',
               material:'15',
@@ -421,6 +424,7 @@ angular.module('starter.services', [])
             productName:'电动车',
             price:400,
             abstract:{
+              beginTime:'2016-11-29 00:00:00',
               finishTime:'2017-05-23 00:00:00',
               operator:'刘懂明',
               material:'300',
@@ -470,6 +474,7 @@ angular.module('starter.services', [])
             productName:'购买阿里云服务器，搭建测试环境',
             price:320,
             abstract:{
+              beginTime:'2016-11-20 00:00:00',
               finishTime:'2016-12-23 00:00:00',
               operator:'金龙熙',
               material:'2台',
@@ -491,6 +496,7 @@ angular.module('starter.services', [])
             productName:'购买手机，用于测试',
             price:1000,
             abstract:{
+              beginTime:'2016-11-28 00:00:00',
               finishTime:'2017-02-23 00:00:00',
               operator:'李明',
               material:'1',
