@@ -122,7 +122,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'menuContent': {
         templateUrl: 'templates/newgroupchat.html',
-        controller:'NewGroupChat'
+        controller:'LabelPersonList'
       }
     }
   })
