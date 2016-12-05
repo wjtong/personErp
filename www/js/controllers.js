@@ -125,16 +125,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.personInfo = Contact.get(id);
   $scope.goInfo = function (id) {
     $location.path('/app/editPerson/'+id);
-  }
+  };
   $scope.goResources = function () {
     $location.path('/app/getResources/');
-  }
+  };
   $scope.goEvents = function () {
     $location.path('/app/getEvents/');
-  }
+  };
   $scope.gobusiness = function () {
     $location.path('/app/getBusiness/');
-  }
+  };
 })
 .controller('GetResources',function ($scope,myresources,$stateParams,$location) {
   $scope.resourcesListOthers = myresources.getResourcesOthersAll();
