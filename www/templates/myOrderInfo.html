@@ -55,8 +55,11 @@
         </table>
       </div>
       <div class="" ng-repeat="itemInfo in itemList">
+
         <div class="list card" style="margin-top: -30px;">
-          <div class="item item-divider"><b>订单项{{$index+1}}</b> &nbsp;&nbsp;&nbsp;{{itemInfo.productName}}</div>
+          <div class="item item-divider"><b>订单项{{$index+1}}</b> &nbsp;&nbsp;&nbsp;{{itemInfo.productName}}
+            <button >生产</button>
+          </div>
           <table class="item">
             <tr>
               <td style="text-align: right">生产 ID</td>

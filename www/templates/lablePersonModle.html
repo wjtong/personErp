@@ -1,0 +1,25 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <button class="button button-icon ion-plus-round " menu-toggle="right" ng-click="">
+      确定添加
+    </button>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <div class="list">
+            <ion-checkbox ng-repeat="item in personNoinLabel" >
+              <div>
+                <ion-item class="item item-avatar item-icon-right"  type="item-text-wrap">
+                  <img ng-src="{{item.img}}">
+                  <h2>{{item.name}}</h2>
+                </ion-item>
+              </div>
+            </ion-checkbox>
+          </div>
+        </label>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>
