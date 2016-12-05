@@ -363,7 +363,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       views: {
         'menuContent': {
           templateUrl: 'templates/chatPersonList.html',
-          controller: 'ChatPersonList'
+          controller: 'LabelPersonList'
         }
       }
     })

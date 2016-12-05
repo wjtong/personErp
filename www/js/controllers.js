@@ -577,7 +577,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 
 })
-.controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel) {
+.controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel,ChatList) {
+    $scope.chat = ChatList.getChatInfo($stateParams.chatId);
     $scope.labelId = $stateParams.labelId;
     $scope.personList = Contact.getPersonLabel($scope.labelId);
     $scope.labelInfo = PersonLabel.getInfo($scope.labelId);
