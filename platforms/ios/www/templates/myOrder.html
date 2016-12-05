@@ -7,6 +7,9 @@
             <a class="tab-item tab-item-active">
                 <button class="button button-stable" style="width: 80px;height: 96%;" ng-click="getPurOrder()">采购订单</button>
             </a>
+            <a class="tab-item tab-item-active">
+              <button class="button button-stable" style="width: 80px;height: 96%;" ng-click="getDevOrder()">开发订单</button>
+            </a>
         </div>
     </div>
     <ion-content>
@@ -18,6 +21,7 @@
                             <img ng-src="{{order.img}}">
                             <h2>{{order.name}} {{order.company}}</h2>
                             <p>{{order.address}}</p>
+                            <p id="p2" style="color: #ff3b30" ng-if="order.surplus<=5"><b>离完成时间还有：{{order.surplus}}天</b></p>
                         </div>
                         <div class="item item-body">
                             <p>

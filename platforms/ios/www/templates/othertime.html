@@ -1,10 +1,13 @@
 <ion-view title="他的时间安排">
   <ion-content>
     <div class="">
-      <div class="list card" ng-repeat="otherTime in timeListOther | orderBy:'data':true">
-        <div class="item item-divider">
-          <b>{{otherTime.data}}</b>
-          <b>{{otherTime.info}}</b>
+      <div class="list card" ng-repeat="myTime in timeListOther | orderBy:'data':true">
+        <div class="item item-divider"><b>{{myTime.data}}</b></div>
+        <div class="item" ng-repeat="time in myTime.info | orderBy:'biginTime':false" >
+          <div class="item-content" style="float: left;">
+            {{time.title}}<br>
+            {{time.biginTime | date:"HH:mm:ss"}} - {{time.endTime | date:"HH:mm:ss"}}
+          </div>
         </div>
       </div>
     </div>

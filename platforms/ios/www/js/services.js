@@ -67,7 +67,8 @@ angular.module('starter.services', [])
           paymentMethod:'支付宝、微信',
           pushed:5,
           collect:3,
-          comments:4
+          comments:4,
+          surplus:2
         },
         {
           orderId:'SAL_10002',
@@ -87,6 +88,7 @@ angular.module('starter.services', [])
           pushed:5,
           collect:3,
           comments:4,
+          surplus:7,
           adjustment:[
             {
               adjustmentReason:'线下优惠',
@@ -117,7 +119,8 @@ angular.module('starter.services', [])
           paymentMethod:'微信',
           pushed:5,
           collect:3,
-          comments:4
+          comments:4,
+          surplus:3
         },
         {
           orderId:'SAL_10004',
@@ -136,7 +139,9 @@ angular.module('starter.services', [])
           paymentMethod:'支付宝',
           pushed:5,
           collect:3,
-          comments:4
+          comments:4,
+          surplus:2
+
         }
     ];
     var purOrder = [
@@ -157,7 +162,8 @@ angular.module('starter.services', [])
           paymentMethod:'支付宝、微信',
           pushed:3,
           collect:3,
-          comments:4
+          comments:4,
+          surplus:4
         },
         {
           orderId:'PUR_10002',
@@ -179,12 +185,57 @@ angular.module('starter.services', [])
           comments:4
         }
     ];
+    var devOrder = [
+      {
+        orderId:'DEV_10001',
+        img:'img/team/chenyu.jpg',
+        orderTypeId:'dev',
+        orderType:'开发订单',
+        name:'陈宇',
+        company:'上海班富电子商务',
+        address:'中国，浙江，杭州',
+        phoneNumber:'13764302779',
+        desc:'开发云卡',
+        orderTime:'2016-11-22 14:21:22',
+        lastUPdateTime:'2016-11-29 10:34:11',
+        grandTotal:400,
+        orderStatus:'已批准',
+        paymentMethod:'支付宝、微信',
+        pushed:3,
+        collect:3,
+        comments:4,
+        surplus:3
+      },
+      {
+        orderId:'DEV_10002',
+        img:'img/team/fenghao.png',
+        orderTypeId:'dev',
+        orderType:'开发订单',
+        name:'冯浩',
+        company:'上海班富电子商务',
+        phoneNumber:'13801887706',
+        address:'中国，浙江，杭州',
+        desc:'开发软件',
+        orderTime:'2016-11-23 10:21:22',
+        lastUPdateTime:'2016-11-29 14:34:11',
+        grandTotal:400,
+        orderStatus:'已完成',
+        paymentMethod:'支付宝',
+        pushed:2,
+        collect:3,
+        comments:4,
+        surplus:3
+      }
+    ];
     return{
         getSalOrder: function () {
             return selOrder;
         },
         getPurOrder:function () {
             return purOrder;
+        },
+        getDevOrder:function () {
+          return devOrder;
         },
         getSalOrderInfo:function (orderId) {
             for(var i=0;i<selOrder.length;i++){
@@ -199,6 +250,13 @@ angular.module('starter.services', [])
                     return purOrder[i];
                 }
             }
+        },
+        getDevOrderInfo:function (orderId) {
+          for(var i=0;i<devOrder.length;i++){
+            if(orderId == devOrder[i].orderId){
+              return devOrder[i];
+            }
+          }
         },
         updateOrderStatus:function (orderId, statusName) {
             var flag = true;
@@ -271,7 +329,14 @@ angular.module('starter.services', [])
             productId:'130500010',
             estimateTiem:'2016-11-23 00:00:00',
             productName:'项目赶进度，提供外包',
-            price:400
+            price:400,
+            abstract:{
+              finishTime:'2017-01-23 00:00:00',
+              operator:'李德',
+              material:'100',
+              stage:'工序一',
+              output:'30'
+            }
           }
         ]
       },
@@ -285,7 +350,14 @@ angular.module('starter.services', [])
             productId:'130500011',
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车大灯总成',
-            price:1000
+            price:1000,
+            abstract:{
+              finishTime:'2017-02-23 00:00:00',
+              operator:'刘懂',
+              material:'30个',
+              stage:'工序三',
+              output:'3组'
+            }
           },
           {
             productionId:'PRO_100003',
@@ -326,7 +398,14 @@ angular.module('starter.services', [])
             productId:'130500016',
             estimateTiem:'2016-11-04 10:34:11',
             productName:'jeep 牧马人',
-            price:400000
+            price:400000,
+            abstract:{
+              finishTime:'2017-03-13 00:00:00',
+              operator:'李强',
+              material:'15',
+              stage:'工序三',
+              output:'10'
+            }
           }
         ]
       },
@@ -340,7 +419,14 @@ angular.module('starter.services', [])
             productId:'130500017',
             estimateTiem:'2016-11-23 10:34:11',
             productName:'电动车',
-            price:400
+            price:400,
+            abstract:{
+              finishTime:'2017-05-23 00:00:00',
+              operator:'刘懂明',
+              material:'300',
+              stage:'工序三',
+              output:'15'
+            }
           }
         ]
       },
@@ -369,6 +455,48 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-23 14:34:11',
             productName:'购买 ionic 的定制软件，进行二次开发',
             price:400
+          }
+        ]
+      },
+      {
+        orderId:'DEV_10001',
+        item:[
+          {
+            productionId:'PRO_100010',
+            shipId:'SHIP_100010',
+            kd_code:'639820200',
+            productId:'130500020',
+            estimateTiem:'2016-11-25 18:34:11',
+            productName:'购买阿里云服务器，搭建测试环境',
+            price:320,
+            abstract:{
+              finishTime:'2016-12-23 00:00:00',
+              operator:'金龙熙',
+              material:'2台',
+              stage:'单元测试',
+              output:'2'
+            }
+          }
+        ]
+      },
+      {
+        orderId:'DEV_10002',
+        item:[
+          {
+            productionId:'PRO_100011',
+            shipId:'SHIP_100011',
+            kd_code:'639820201',
+            productId:'130500020',
+            estimateTiem:'2016-11-25 14:37:11',
+            productName:'购买手机，用于测试',
+            price:1000,
+            abstract:{
+              finishTime:'2017-02-23 00:00:00',
+              operator:'李明',
+              material:'1',
+              stage:'单元测试',
+              output:''
+            }
           }
         ]
       }
@@ -416,21 +544,21 @@ angular.module('starter.services', [])
 .factory('Contact',function () {
     var personmainLists = [
         {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
-          phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:1},
+          phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
         {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
-          phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
+          phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:'2'},
         {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
-          phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
+          phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'},
         {id:'PERS_10004',img:'img/team/wangkun.jpg',name:'王坤',company:'上海班富电子商务',address:'中国,上海，长宁',
-          phone:'18772115070',sex:'F',email:'kun.wang@banff-tech.com',labelId:4},
+          phone:'18772115070',sex:'F',email:'kun.wang@banff-tech.com',labelId:'4'},
         {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',
-          phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:3},
+          phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:'3'},
         {id:'PERS_10006',img:'img/team/shubenkun.jpg',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
-          phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:2},
+          phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:'2'},
         {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
-          phone:'15910989807',sex:'F',email:'yu.chen@banff-tech.com',labelId:1},
+          phone:'15910989807',sex:'F',email:'yu.chen@banff-tech.com',labelId:'1'},
         {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',company:'上海班富电子商务',address:'中国，上海，嘉定',
-          phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:1}
+          phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:'1'}
     ];
     return {
         getAll:function () {
@@ -618,11 +746,11 @@ angular.module('starter.services', [])
 .factory('ChatList',function () {
     var personList = [
       {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
-        phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:1},
+        phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
       {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
-        phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
+        phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:'2'},
       {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
-        phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
+        phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'},
     ];
     var chatList = [
       {
@@ -631,11 +759,11 @@ angular.module('starter.services', [])
         typeName:'订单',
         participants:[
           {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
-            phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:1},
+            phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
           {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
-            phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:2},
+            phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:'2'},
           {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
-            phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:3},
+            phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'},
         ],
         discuss:[
           {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',speak:'hi。。。'},
@@ -652,13 +780,13 @@ angular.module('starter.services', [])
         typeName:'学习',
         participants:[
           {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',
-            phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:3},
+            phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:'3'},
           {id:'PERS_10006',img:'img/team/shubenkun.jpg',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
-            phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:2},
+            phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:'2'},
           {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
-            phone:'15910989807',sex:'F',email:'yu.chen@banff-tech.com',labelId:1},
+            phone:'15910989807',sex:'F',email:'yu.chen@banff-tech.com',labelId:'1'},
           {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',company:'上海班富电子商务',address:'中国，上海，嘉定',
-            phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:1}
+            phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:'1'}
         ],
         discuss:[
           {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',speak:'a'},
@@ -700,10 +828,10 @@ angular.module('starter.services', [])
 })
 .factory('PersonLabel', function () {
     var listLabel = [
-      {id:1,title:'亲人'},
-      {id:2,title:'朋友'},
-      {id:3,title:'同学'},
-      {id:4,title:'同事'}
+      {id:'1',title:'亲人'},
+      {id:'2',title:'朋友'},
+      {id:'3',title:'同学'},
+      {id:'4',title:'同事'}
     ];
 
     return{
@@ -719,6 +847,10 @@ angular.module('starter.services', [])
             return listLabel[i];
           }
         }
+      },
+      addPersonLab:function (title) {
+          var label = {id:listLabel.length+1,title:title};
+          listLabel.push(label);
       }
     }
 
@@ -774,14 +906,20 @@ angular.module('starter.services', [])
   var time = [
     {
       id:1,
-      data:'2016-11-16',
-      info:'这个时间的安排'
+      data:'2016-11-20',
+      info:[
+        {id:101,title:'公司人员篮球赛',biginTime:'2016-11-20T10:00:00',endTime:'2016-11-20T12:00:00'},
+        {id:102,title:'公司人员午餐会',biginTime:'2016-11-20T12:30:00',endTime:'2016-11-20T14:300:00'},
+      ]
     },
     {
       id:2,
-      data:'2016-11-17',
-      info:'这个时间的安排'
-    }
+      data:'2016-11-23',
+      info:[
+        {id:201,title:'电话会议',biginTime:'2016-11-23T08:00:00',endTime:'2016-11-23T10:00:00'},
+        {id:202,title:'和王总去深圳出差',biginTime:'2016-11-23T13:00:00',endTime:'2016-11-27T8:00:00'},
+      ]
+    },
   ];
 
   return{

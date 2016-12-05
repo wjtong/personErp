@@ -11,7 +11,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
       cordova.plugins.Keyboard.disableScroll(true);
 
     }
@@ -189,7 +189,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       cache :false,
       views: {
           'menuContent': {
-              templateUrl: 'templates/addPerson.html'
+              templateUrl: 'templates/addPerson.html',
+              controller: 'AddPerson'
           }
       }
   })
@@ -307,6 +308,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         'menuContent': {
           templateUrl: 'templates/createOrder.html',
           controller: 'CreateOrder'
+        }
+      }
+    })
+    .state('app.newDevOrder',{
+      url:'/newDevOrder/',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/newDevOrder.html',
+          controller: 'NewDevOrder'
         }
       }
     })
