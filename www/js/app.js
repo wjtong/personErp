@@ -108,6 +108,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
+    .state('app.otherResourcesInfo', {
+      url: '/otherResourcesInfo/:resourcesId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/myResourcesInfo.html',
+          controller:'MyResourcesInfo'
+        }
+      }
+    })
 
   .state('app.myevents', {
     url: '/myevents',

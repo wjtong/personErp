@@ -142,7 +142,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('GetResources',function ($scope,myresources,$stateParams,$location) {
   $scope.resourcesListOthers = myresources.getResourcesOthersAll();
   $scope.goInfo = function (resourcesId) {
-    $location.path("/app/myResourcesInfo/"+resourcesId);
+    $location.path("/app/otherResourcesInfo/"+resourcesId);
   }
 })
 .controller('GetEvent',function ($scope,OtherTime,$stateParams) {
@@ -203,14 +203,42 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path("/app/myResourcesInfo/"+resourcesId);
     }
 })
-.controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location) {
+.controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact) {
+    $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;
     $scope.resources = myresources.getResourceInfo(resourcesId);
     $scope.resourcesOther = myresources.getResourceOtherInfo(resourcesId);
     $scope.createOrder = function(){
       $location.path("/app/createOrder/pur");
-    }
-})
+    };
+    $ionicModal.fromTemplateUrl('templates/priceToPerson.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
+  })
 .controller('NewResources',function ($scope,$cordovaCamera) {
     $scope.imageSrc = "";
     $scope.takePhoto=function(){
