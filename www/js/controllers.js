@@ -132,6 +132,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.goEvents = function () {
     $location.path('/app/getEvents/');
   };
+  $scope.goOrder = function (name) {
+    $location.path('/app/assOrder/'+name);
+  };
   $scope.gobusiness = function () {
     $location.path('/app/getBusiness/');
   };
@@ -264,8 +267,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     });
   };
 })
-
-.controller('MyOrder',function ($scope,$location, $ionicPopup, MyOrder) {
+.controller('MyOrder',function ($scope,$location, $ionicPopup, MyOrder,$stateParams) {
+    var personName = $stateParams.personName;
+    $scope.personName=personName
     $scope.orderList = MyOrder.getSalOrder();
     $scope.getSalOrder = function () {
         $scope.orderList = MyOrder.getSalOrder();

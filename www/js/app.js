@@ -205,6 +205,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
       }
   })
+  .state('app.assOrder', {
+    url: '/assOrder/:personName',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/assOrder.html',
+        controller: 'MyOrder'
+      }
+    }
+  })
   // .state('app.newGroupChat', {
   //   url: '/newGroupChat',
   //   disableBack:true,
