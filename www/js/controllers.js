@@ -547,8 +547,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $scope.data = {};
         var myPopup = $ionicPopup.show({
             template: '<input type="text" ng-model="data.addLabel"/>' +
-            '<button class="button" style="width:100%;background-color: wheat;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
-            '<button class="button" style="width: 100%;background-color: red;margin-top: 2px;" ng-click="closeLab();">关闭</button>' ,
+            '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
+            '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">关闭</button>' ,
             title: '创建标签',
             scope: $scope
         });
