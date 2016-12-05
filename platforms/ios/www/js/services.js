@@ -662,7 +662,7 @@ angular.module('starter.services', [])
         address:'中国，上海',
         desc:'年终总结',
         pushed:5,
-        price:'',
+        price:'500',
         collect:3,
         comments:4
       },
@@ -676,7 +676,7 @@ angular.module('starter.services', [])
         address:'中国，上海，松江',
         desc:'产品发布',
         pushed:5,
-        price:'',
+        price:'890',
         collect:3,
         comments:4
       },

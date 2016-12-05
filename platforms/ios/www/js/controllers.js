@@ -132,6 +132,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.goEvents = function () {
     $location.path('/app/getEvents/');
   };
+  $scope.goOrder = function (name) {
+    $location.path('/app/assOrder/'+name);
+  };
   $scope.gobusiness = function () {
     $location.path('/app/getBusiness/');
   };
@@ -200,10 +203,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path("/app/myResourcesInfo/"+resourcesId);
     }
 })
-.controller('MyResourcesInfo',function ($scope,$stateParams,myresources) {
+.controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location) {
     var resourcesId = $stateParams.resourcesId;
     $scope.resources = myresources.getResourceInfo(resourcesId);
     $scope.resourcesOther = myresources.getResourceOtherInfo(resourcesId);
+    $scope.createOrder = function(){
+      $location.path("/app/createOrder/pur");
+    }
 })
 .controller('NewResources',function ($scope,$cordovaCamera) {
     $scope.imageSrc = "";
@@ -261,8 +267,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     });
   };
 })
-
-.controller('MyOrder',function ($scope,$location, $ionicPopup, MyOrder) {
+.controller('MyOrder',function ($scope,$location, $ionicPopup, MyOrder,$stateParams) {
+    var personName = $stateParams.personName;
+    $scope.personName=personName
     $scope.orderList = MyOrder.getSalOrder();
     $scope.getSalOrder = function () {
         $scope.orderList = MyOrder.getSalOrder();
@@ -547,8 +554,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $scope.data = {};
         var myPopup = $ionicPopup.show({
             template: '<input type="text" ng-model="data.addLabel"/>' +
-            '<button class="button" style="width:100%;background-color: wheat;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
-            '<button class="button" style="width: 100%;background-color: red;margin-top: 2px;" ng-click="closeLab();">关闭</button>' ,
+            '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
+            '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">关闭</button>' ,
             title: '创建标签',
             scope: $scope
         });
@@ -575,6 +582,30 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.personList = Contact.getPersonLabel($scope.labelId);
     $scope.labelInfo = PersonLabel.getInfo($scope.labelId);
     $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
+    $ionicModal.fromTemplateUrl('templates/lablePersonmodle.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    })
 })
 .controller('MyTime',function ($scope,MyTime,$location) {
     $scope.myTimes = MyTime.getAllMyTime();
