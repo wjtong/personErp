@@ -203,7 +203,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path("/app/myResourcesInfo/"+resourcesId);
     }
 })
-.controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact) {
+.controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
     $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;
     $scope.resources = myresources.getResourceInfo(resourcesId);
@@ -223,9 +223,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.closeModal = function() {
       $scope.modal.hide();
     };
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
     //Cleanup the modal when we're done with it!
     $scope.$on('$destroy', function() {
       $scope.modal.remove();
@@ -238,6 +235,30 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.$on('modal.removed', function() {
       // Execute action
     });
+    //编辑价格弹出框
+    $scope.showPopup = function() {
+      $scope.data = {}
+
+      // 自定义弹窗
+      var myPopup = $ionicPopup.show({
+        template: '<input type="text" >',
+        title: '请输入你要修改的价格',
+        scope: $scope,
+        buttons: [
+          { text: '保存',
+            type: 'button-positive',},
+          {
+            text: '取消',
+          },
+        ]
+      });
+      myPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+      $timeout(function() {
+        myPopup.close(); // 3秒后关闭弹窗
+      }, 3000);
+    };
   })
 .controller('NewResources',function ($scope,$cordovaCamera) {
     $scope.imageSrc = "";

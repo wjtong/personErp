@@ -1,7 +1,7 @@
 <ion-modal-view>
   <ion-header-bar>
-    <button class="button button-icon  " menu-toggle="left" ng-click="newResources()">
-      编辑
+    <button class="button button-icon  " menu-toggle="left" ng-click="">
+      添加
     </button>
     <button class="button button-icon  " menu-toggle="left" ng-click="modal.hide()">
       取消
@@ -11,7 +11,7 @@
     <div class="list card cardupdate" style="margin: 5px 10px;">
       <ion-list>
         <p>默认价格：{{resources.price}}</p>
-        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personList | orderBy:'name':false" type="item-text-wrap" ng-click="newResources()">
+        <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personList | orderBy:'name':false" type="item-text-wrap" ng-click="showPopup()">
           <img ng-src="{{personmain.img}}">
           <h2>{{personmain.name}} {{personmain.company}}</h2>
           <p>{{personmain.address}}</p>
