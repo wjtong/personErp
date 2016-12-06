@@ -112,7 +112,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       url: '/otherResourcesInfo/:resourcesId',
       views: {
         'menuContent': {
-          templateUrl: 'templates/myResourcesInfo.html',
+          templateUrl: 'templates/otherResourcesInfo.html',
           controller:'MyResourcesInfo'
         }
       }
