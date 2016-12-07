@@ -861,6 +861,21 @@ angular.module('starter.services', [])
     }
 
 })
+
+.factory('Activity',function () {
+  var activity = [
+    {id:'ACT_001',title:'登山',createTime:'2016-12-7',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁'},
+    {id:'ACT_002',title:'公司培训',createTime:'2016-12-7',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁'}
+
+  ];
+
+  return{
+    getAllActivity:function (){
+      return activity
+    }
+  }
+})
+
 .factory('MyTime',function () {
     var time = [
       {

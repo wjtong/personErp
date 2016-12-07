@@ -161,6 +161,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     { time: '2016-10-09', id: 'CO10004' }
   ];
 })
+
+.controller('GetBusiness',function($scope,Activity){
+  $scope.active=Activity.getAllActivity();
+
+})
 .controller('AboutMe',function ($scope) {
     $scope.myInfo = { id:'1',name:'张文文',img:'img/team/img3-md.jpg',account:'zhangwenwen',sex:'男',address:'上海市松江区泗凯路61弄20号201室',phone:'15072200010'};
 })
