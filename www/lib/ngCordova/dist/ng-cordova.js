@@ -4860,7 +4860,7 @@ angular.module('ngCordova.plugins.keyboard', [])
 
     return {
       hideAccessoryBar: function (bool) {
-        return cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+        return cordova.plugins.Keyboard.hideKeyboardAccessoryBar(bool);
       },
 
       close: function () {
