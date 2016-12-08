@@ -58,7 +58,6 @@
 
         <div class="list card" style="margin-top: -30px;">
           <div class="item item-divider"><b>订单项{{$index+1}}</b> &nbsp;&nbsp;&nbsp;{{itemInfo.productName}}
-            <button >生产</button>
           </div>
           <table class="item">
             <tr>
@@ -113,6 +112,7 @@
               <td>&nbsp;&nbsp;&nbsp;{{itemInfo.abstract.output}}</td>
             </tr>
           </table>
+          <button class="button button-positive" ng-click="goProduction(orderInfo.orderId)">发起生产</button>
         </div>
       </div>
     </div>

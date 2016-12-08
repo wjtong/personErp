@@ -281,6 +281,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+  .state('app.createProduction', {
+    url: '/createProduction/:orderId',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/createProduction.html',
+        controller: 'CreateProduct'
+      }
+    }
+  })
+  .state('app.editProduction', {
+    url: '/editProduction/:proId',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/createProduction.html',
+        controller: 'UpdateProduction'
+      }
+    }
+  })
   .state('app.editAddress', {
       url: '/editAddress/:id',
       disableBack:true,
