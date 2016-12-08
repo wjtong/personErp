@@ -391,6 +391,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     ];
     var orderId = $stateParams.orderId;
     $scope.itemList = MyOrder.getSalOrderInfo(orderId);
+    //增加工序
     $ionicModal.fromTemplateUrl('templates/addProcess.html', {
       scope: $scope,
       animation: 'slide-in-up'
