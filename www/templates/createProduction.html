@@ -66,8 +66,9 @@
     <div class="list card cardupdate" style="margin: 5px 10px;">
       <div class="item" style="margin: -17px 0px;">
         <label class="">
-          <span class="input-label">预计完成时间</span>
-          <input type="text" placeholder="预计完成时间" value="">
+          <span class="input-label">预计完成日期</span>
+          <div>{{date | date:'yyyy-MM-dd'}}</div>
+          <input type="date" ng-click="openDatePicker()" value="{{date | date:'yyyy-MM-dd'}}">
         </label>
       </div>
     </div>
