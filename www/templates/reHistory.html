@@ -1,0 +1,19 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <button class="button button-icon ion-plus-round " menu-toggle="left" ng-click="">
+      确定添加
+    </button>
+    <button class="button button-icon  " menu-toggle="left" ng-click="History.hide()">
+      取消
+    </button>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate  item-icon-right item-text-wrap" ng-repeat="personmain in reHistory"  ng-click="goInfo(personmain.id)">
+
+        <p><b>编号：</b>{{personmain.id}}<b>&nbsp;名称：</b>{{personmain.name}}<b>&nbsp;原料：</b>{{personmain.material}}<b>&nbsp;用量：</b>{{personmain.quantity}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  </ion-view>
+</ion-modal-view>

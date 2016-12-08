@@ -1,5 +1,55 @@
-<ion-view view-title="Search">
+<ion-view view-title="活动">
   <ion-content>
-    <h1>我的事务</h1>
+    <div class="item item-input item-select">
+      <div class="input-label" >
+        <button class="button button-outline button-positive ion-compose" >创建</button>
+      </div>
+      <select>
+        <option value="0" selected>近期活动</option>
+        <option value="1">近三天</option>
+        <option value="2">近一周</option>
+        <option value="3">近一个月</option>
+        <option value="4">近3个月</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      <textarea name="content" cols="36" rows="8"  style="border: 0px solid #888888;LINE-HEIGHT:18px;padding: 3px;background-image: url(img/resources/jinqi.jpeg);">
+        近期没有活动安排
+      </textarea>
+    </div>
+    <br>
+    <div class="content"  >
+      <ion-list>
+        <ion-item ><i class="icon ion-ios-location-outline"></i>圈内活动</ion-item>
+      </ion-list>
+      <div class="list" ng-repeat="matter in active">
+        <div class="item"><p><b>活动安排：{{matter.title}}</b></p>
+        </div>
+        <div class="item item-image">
+
+          <img src="{{matter.img}}">
+        </div>
+        <p>  发起人：{{matter.name}}</p>
+        <a class="item item-icon-left " href="#">
+          <i class="icon ion-flag"></i>
+          地点：{{matter.address}}
+          <br>
+          时间：{{matter.createTime}}
+        </a>
+        <div class="item tabs">
+          <a class="tab-item" href="#">
+            参与：39位
+          </a>
+          <a class="tab-item" href="#">
+            感兴趣：120位
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+    </div>
   </ion-content>
 </ion-view>

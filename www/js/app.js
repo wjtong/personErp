@@ -265,9 +265,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'menuContent': {
         templateUrl: 'templates/business.html',
+        controller:'GetBusiness'
       }
     }
   })
+
   .state('app.abouthim', {
     url: '/abouthim/:personId',
     disableBack:true,
@@ -276,6 +278,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'menuContent': {
         templateUrl: 'templates/abouthim.html',
         controller: 'AboutHim'
+      }
+    }
+  })
+  .state('app.createProduction', {
+    url: '/createProduction/:orderId',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/createProduction.html',
+        controller: 'CreateProduct'
+      }
+    }
+  })
+  .state('app.editProduction', {
+    url: '/editProduction/:proId',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/createProduction.html',
+        controller: 'UpdateProduction'
       }
     }
   })
@@ -309,17 +333,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
               controller: 'MyOrder'
           }
       }
-  }).state('app.myOrderInfo',{
-    url:'/myOrderInfo/:orderId/:orderTypeId',
+  })
+  .state('app.Business', {
+    url: '/Business',
     disableBack:true,
     cache :false,
     views: {
       'menuContent': {
-        templateUrl: 'templates/myOrderInfo.html',
-        controller: 'MyOrderInfo'
+        templateUrl: 'templates/business.html',
+        controller:'GetBusiness'
       }
     }
   })
+  .state('app.myOrderInfo',{
+  url:'/myOrderInfo/:orderId/:orderTypeId',
+  disableBack:true,
+  cache :false,
+  views: {
+    'menuContent': {
+      templateUrl: 'templates/myOrderInfo.html',
+      controller: 'MyOrderInfo'
+    }
+  }
+})
     .state('app.createOrder',{
       url:'/createOrder/:typeId',
       disableBack:true,

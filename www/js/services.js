@@ -861,6 +861,45 @@ angular.module('starter.services', [])
     }
 
 })
+
+.factory('ReHistory',function () {
+  var history = [
+    {id:'REHI_001',name:'准备',material:'原料一',quantity:'30吨'},
+    {id:'REHI_002',name:'制作',material:'原料二',quantity:'30吨'},
+    {id:'REHI_003',name:'生产',material:'原料三',quantity:'30吨'},
+    {id:'REHI_004',name:'加工',material:'原料一＋原料三',quantity:'30吨'},
+    {id:'REHI_005',name:'冶炼',material:'原料一＋原料二＋原料三',quantity:'30吨'},
+
+
+  ];
+  return{
+    getAllHistory:function (){
+      return history;
+    },
+    getInfo:function (id) {
+      for(var i=0;i<history.length;i++){
+        if(id == history[i].id){
+          return history[i];
+        }
+      }
+    },
+  }
+})
+
+.factory('Activity',function () {
+  var activity = [
+    {id:'ACT_001',title:'登山',createTime:'2016-12-7',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁'},
+    {id:'ACT_002',title:'公司培训',createTime:'2016-12-7',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁'}
+
+  ];
+
+  return{
+    getAllActivity:function (){
+      return activity
+    }
+  }
+})
+
 .factory('MyTime',function () {
     var time = [
       {

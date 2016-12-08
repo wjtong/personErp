@@ -1,0 +1,24 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <button class="button button-icon  " menu-toggle="left" ng-click="addMaterial()">
+      确定添加
+    </button>
+    <button class="button button-icon  " menu-toggle="left" ng-click="closeModal()">
+      取消
+    </button>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;" type="item-text-wrap">
+        <label class="">
+          <div class="list">
+            <ion-checkbox ng-repeat="item in devList" ng-checked="item.checked" type="item-text-wrap">
+              {{ item.text }}
+            </ion-checkbox>
+          </div>
+        </label>
+      </div>
+    </div>
+  </ion-content>
+  </ion-view>
+</ion-modal-view>

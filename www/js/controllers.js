@@ -117,6 +117,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.personInfo = Contact.get(id);
     $scope.label = PersonLabel.getAllLabl();
 })
+.controller('UpdateProduction',function ($scope,$stateParams,ReHistory) {
+  var id = $stateParams.proId;
+  $scope.productionList=ReHistory.getInfo(id)
+
+})
 .controller('AddPerson',function ($scope,PersonLabel) {
     $scope.label = PersonLabel.getAllLabl();
 })
@@ -160,6 +165,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     { time: '2016-09-14', id: 'CO10003' },
     { time: '2016-10-09', id: 'CO10004' }
   ];
+})
+
+.controller('GetBusiness',function($scope,Activity){
+  $scope.active=Activity.getAllActivity();
+
 })
 .controller('AboutMe',function ($scope) {
     $scope.myInfo = { id:'1',name:'张文文',img:'img/team/img3-md.jpg',account:'zhangwenwen',sex:'男',address:'上海市松江区泗凯路61弄20号201室',phone:'15072200010'};
@@ -373,7 +383,117 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 
 })
-.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,$ionicPopup,MyOrder,Contact,ChatList,MyOrderInfo) {
+.controller('CreateProduct',function ($scope,$ionicModal,$stateParams,MyOrder,$location,ReHistory) {
+    $scope.devList = [
+      { text: "原料一", checked: false },
+      { text: "原料二", checked: false },
+      { text: "原料三", checked: false }
+    ];
+    var orderId = $stateParams.orderId;
+    $scope.itemList = MyOrder.getSalOrderInfo(orderId);
+    //增加工序
+    $ionicModal.fromTemplateUrl('templates/addProcess.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
+
+    //参考历史工序
+    $scope.reHistory = ReHistory.getAllHistory();
+    $scope.goInfo = function (id){
+      $scope.productionList=ReHistory.getInfo(id);
+      $scope.History.hide();
+
+    }
+    $ionicModal.fromTemplateUrl('templates/reHistory.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(History) {
+      $scope.History = History;
+    });
+    $scope.goHistory = function() {
+      $scope.History.show();
+    };
+    $scope.closeHistory = function() {
+      $scope.History.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.History.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('History.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('History.removed', function() {
+      // Execute action
+    });
+    //选择原料
+    $scope.devList = [
+      { text: "原料一", checked: false },
+      { text: "原料二", checked: false },
+      { text: "原料三", checked: false }
+    ];
+    $scope.reHistory = ReHistory.getAllHistory();
+    $scope.goInfo = function (id){
+      $scope.productionList=ReHistory.getInfo(id);
+      $scope.History.hide();
+
+    }
+    $ionicModal.fromTemplateUrl('templates/material.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(material) {
+      $scope.material = material;
+    });
+    $scope.goMaterial = function() {
+      $scope.material.show();
+    };
+    $scope.closeModal = function() {
+      $scope.material.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.material.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('History.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('History.removed', function() {
+      // Execute action
+    });
+    $scope.addMaterial = function () {
+      $scope.material.hide();
+    }
+})
+
+
+.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,$ionicPopup,MyOrder,Contact,ChatList,MyOrderInfo,$location) {
+    $scope.goProduction = function (orderId) {
+      $location.path('/app/createProduction/'+orderId);
+    };
     var orderId = $stateParams.orderId;
     var orderTypeId = $stateParams.orderTypeId;
     $scope.personList = Contact.getAll();

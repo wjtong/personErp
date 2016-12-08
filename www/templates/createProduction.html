@@ -1,0 +1,94 @@
+<ion-view title="创建生产">
+  <ion-content>
+    <div class="list"></div>
+    <div class="list card" style="margin-top: -30px;">
+      <div style="margin-top: 10px;">
+        <h3><b>订单摘要:</b></h3>
+      </div>
+      <table class="item">
+        <tr>
+          <td style="text-align: right">订单号</td>
+          <td>&nbsp;{{itemList.orderId}}&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">产品名称</td>
+          <td>&nbsp;&nbsp;{{itemList.desc}}&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">数量</td>
+          <td>&nbsp;&nbsp;{{itemList.collect}}&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">客户</td>
+          <td>&nbsp;&nbsp;{{itemList.name}}&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">要求交付日期</td>
+          <td>{{itemList.lastUPdateTime}}</td>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <h3><b>工序:</b></h3><div class="item item-divider"><button style="margin-left: 10px;" ng-click="goHistory()">引用历史工序</button></div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">名称</span>
+          <input type="text" placeholder="名称" value="{{productionList.name}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">编号</span>
+          <input type="text" placeholder="编号" value="{{productionList.id}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">原料<button style="margin-left: 10px;" ng-click="goMaterial()">选择原料</button></span>
+          <input type="text" placeholder="原料" value="{{productionList.material}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">用量</span>
+          <input type="text" placeholder="数量" value="{{productionList.quantity}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">预计完成日期</span>
+          <div>{{date | date:'yyyy-MM-dd'}}</div>
+          <input type="date" ng-click="openDatePicker()" value="{{date | date:'yyyy-MM-dd'}}">
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="col-demo">
+          <button class="button button-balanced" style="width: 100%;" ng-click="openModal()">增加工序</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="col-demo">
+          <button class="button button-positive" style="width: 100%;">创建</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="col-demo">
+          <button class="button button-assertive" style="width: 100%;">取消</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </ion-content>
+</ion-view>
