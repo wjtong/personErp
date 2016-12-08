@@ -32,7 +32,7 @@
         </div>
         <div class="list card">
             <div class="item item-divider"><b>库存记录</b></div>
-            <div class="item" ng-repeat="item in inventoryInfo.useItem" ng-click="shouItemInfo(item);">
+            <div class="item" ng-repeat="item in inventoryInfo.useItem | orderBy:'date':false" ng-click="shouItemInfo(item);">
                 <div class="item-content" style="float: left;">
                     序列({{item.itemSeqId}}) &nbsp;&nbsp;数量({{item.quantityPromiseDiff}}/{{item.quantityOnHeadDiff}}) &nbsp;&nbsp;时间({{item.date}})
                     <!--{{time.biginTime | date:"HH:mm:ss"}} - {{time.endTime | date:"HH:mm:ss"}}-->
