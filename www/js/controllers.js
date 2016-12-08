@@ -739,7 +739,37 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         optionId = val ;
         ionicTimePicker.openTimePicker(ipObj2);
     }
+})
+.controller('Stock', function ($scope,Stock) {
+    $scope.stockList = Stock.getAllStockList();
+})
+.controller('StockInfo',function ($scope, $stateParams,$ionicPopup, Stock) {
+    var inventoryId = $stateParams.inventoryId;
+    $scope.inventoryInfo = Stock.getInfo(inventoryId);
 
-
+    $scope.shouItemInfo = function(item) {
+        $scope.data = {};
+        var myPopup = $ionicPopup.show({
+          template: '<div class="list"><label class="item item-input"><span class="input-label" style="text-align: right">序列号：</span><div>'+item.itemSeqId+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">实际库存：</span><div>'+item.quantityOnHeadDiff+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">承诺库存：</span><div>'+item.quantityPromiseDiff+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">日期：</span><div>'+item.date+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">创建人：</span><div>'+item.createUserLogin+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">明细：</span><div>'+item.itemTxt+'</div></label>' +
+          '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeInfo();">关闭</button>' ,
+          title: '库存消耗明细',
+          scope: $scope
+        });
+        myPopup.then(function(res) {
+          console.log('Tapped!', res);
+        });
+        $scope.itemInfo = myPopup;
+    };
+    $scope.closeInfo = function () {
+      $scope.itemInfo.close();
+    }
+})
+.controller('ReceiveStock',function ($scope,myresources) {
+    $scope.resourcesList = myresources.getResourcesAll();
 })
 ;

@@ -428,7 +428,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'PlaylistCtrl'
       }
     }
-  });
+  }).state('app.stock', {
+      url: '/stock',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/stock.html',
+          controller: 'Stock'
+        }
+      }
+    }
+  )
+    .state('app.stockInfo', {
+        url: '/stockInfo/:inventoryId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/stockInfo.html',
+            controller: 'StockInfo'
+          }
+        }
+      }
+    ).state('app.receiveStock', {
+      url: '/receiveStock',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/receiveStock.html',
+          controller: 'ReceiveStock'
+        }
+      }
+    }
+  )
+  ;
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/app/playlists');
   $urlRouterProvider.otherwise('/app/home');

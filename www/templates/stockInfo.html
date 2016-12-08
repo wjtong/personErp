@@ -1,0 +1,43 @@
+<ion-view title="库存详情">
+    <ion-content>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">品名：</span>
+                <div>{{inventoryInfo.name}}</div>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">总数量：</span>
+                <div>{{inventoryInfo.quantityAccount}}</div>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">现货：</span>
+                <div>{{inventoryInfo.quantityOnHead}}</div>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">有效数量：</span>
+                <div>{{inventoryInfo.quantityPromise}}</div>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">入库时间：</span>
+                <div>{{inventoryInfo.inventoryDate}}</div>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">供应商：</span>
+                <div>{{inventoryInfo.supplier}}</div>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">库存状态：</span>
+                <div>{{inventoryInfo.statu}}</div>
+            </label>
+        </div>
+        <div class="list card">
+            <div class="item item-divider"><b>库存记录</b></div>
+            <div class="item" ng-repeat="item in inventoryInfo.useItem" ng-click="shouItemInfo(item);">
+                <div class="item-content" style="float: left;">
+                    序列({{item.itemSeqId}}) &nbsp;&nbsp;数量({{item.quantityPromiseDiff}}/{{item.quantityOnHeadDiff}}) &nbsp;&nbsp;时间({{item.date}})
+                    <!--{{time.biginTime | date:"HH:mm:ss"}} - {{time.endTime | date:"HH:mm:ss"}}-->
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,27 @@
+<ion-view title="接收库存">
+    <ion-content>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">品名：</span>
+                <div>{{data.productName}}</div>
+                <input type="hidden" ng-model="data.productId"/>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">数量：</span>
+                <input type="number" ng-model="data.quantity">
+            </label>
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">供应商：</span>
+                <div>{{data.supplier}}</div>
+                <input type="hidden" ng-model="data.supplierPartyId">
+            </label>
+            <label class="item item-input">
+                <span class="input-label" style="text-align: right">状态：</span>
+                <select>
+                    <option value="1">序列化</option>
+                    <option value="2">非序列号</option>
+                </select>
+            </label>
+        </div>
+    </ion-content>
+</ion-view>
