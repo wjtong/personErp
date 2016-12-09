@@ -331,6 +331,7 @@ angular.module('starter.services', [])
             productName:'项目赶进度，提供外包',
             price:400,
             abstract:{
+              beginTime:'2016-11-23 00:00:00',
               finishTime:'2017-01-23 00:00:00',
               operator:'李德',
               material:'100',
@@ -352,6 +353,7 @@ angular.module('starter.services', [])
             productName:'汽车大灯总成',
             price:1000,
             abstract:{
+              beginTime:'2016-12-23 00:00:00',
               finishTime:'2017-02-23 00:00:00',
               operator:'刘懂',
               material:'30个',
@@ -400,6 +402,7 @@ angular.module('starter.services', [])
             productName:'jeep 牧马人',
             price:400000,
             abstract:{
+              beginTime:'2016-12-18 00:00:00',
               finishTime:'2017-03-13 00:00:00',
               operator:'李强',
               material:'15',
@@ -421,6 +424,7 @@ angular.module('starter.services', [])
             productName:'电动车',
             price:400,
             abstract:{
+              beginTime:'2016-11-29 00:00:00',
               finishTime:'2017-05-23 00:00:00',
               operator:'刘懂明',
               material:'300',
@@ -470,6 +474,7 @@ angular.module('starter.services', [])
             productName:'购买阿里云服务器，搭建测试环境',
             price:320,
             abstract:{
+              beginTime:'2016-11-20 00:00:00',
               finishTime:'2016-12-23 00:00:00',
               operator:'金龙熙',
               material:'2台',
@@ -491,6 +496,7 @@ angular.module('starter.services', [])
             productName:'购买手机，用于测试',
             price:1000,
             abstract:{
+              beginTime:'2016-11-28 00:00:00',
               finishTime:'2017-02-23 00:00:00',
               operator:'李明',
               material:'1',
@@ -543,21 +549,21 @@ angular.module('starter.services', [])
 })
 .factory('Contact',function () {
     var personmainLists = [
-        {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
+        {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',price:'80',
           phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
-        {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
+        {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',price:'90',
           phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:'2'},
-        {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
+        {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',price:'100',
           phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'},
-        {id:'PERS_10004',img:'img/team/wangkun.jpg',name:'王坤',company:'上海班富电子商务',address:'中国,上海，长宁',
+        {id:'PERS_10004',img:'img/team/wangkun.jpg',name:'王坤',company:'上海班富电子商务',address:'中国,上海，长宁',price:'110',
           phone:'18772115070',sex:'F',email:'kun.wang@banff-tech.com',labelId:'4'},
-        {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',
+        {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',company:'上海班富电子商务',address:'中国，上海，长宁',price:'120',
           phone:'18702104254',sex:'F',email:'ning.li@banff-tech.com',labelId:'3'},
-        {id:'PERS_10006',img:'img/team/shubenkun.jpg',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+        {id:'PERS_10006',img:'img/team/shubenkun.jpg',name:'苏本坤',company:'上海班富电子商务',address:'中国 ，浙江，杭州',price:'130',
           phone:'18614055178',sex:'F',email:'benkun.su@banff-tech.com',labelId:'2'},
-        {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',company:'上海班富电子商务',address:'中国 ，浙江，杭州',
+        {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',company:'上海班富电子商务',address:'中国 ，浙江，杭州',price:'140',
           phone:'15910989807',sex:'F',email:'yu.chen@banff-tech.com',labelId:'1'},
-        {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',company:'上海班富电子商务',address:'中国，上海，嘉定',
+        {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',company:'上海班富电子商务',address:'中国，上海，嘉定',price:'150',
           phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:'1'}
     ];
     return {
@@ -855,6 +861,45 @@ angular.module('starter.services', [])
     }
 
 })
+
+.factory('ReHistory',function () {
+  var history = [
+    {id:'REHI_001',name:'准备',material:'原料一',quantity:'30吨'},
+    {id:'REHI_002',name:'制作',material:'原料二',quantity:'30吨'},
+    {id:'REHI_003',name:'生产',material:'原料三',quantity:'30吨'},
+    {id:'REHI_004',name:'加工',material:'原料一＋原料三',quantity:'30吨'},
+    {id:'REHI_005',name:'冶炼',material:'原料一＋原料二＋原料三',quantity:'30吨'},
+
+
+  ];
+  return{
+    getAllHistory:function (){
+      return history;
+    },
+    getInfo:function (id) {
+      for(var i=0;i<history.length;i++){
+        if(id == history[i].id){
+          return history[i];
+        }
+      }
+    },
+  }
+})
+
+.factory('Activity',function () {
+  var activity = [
+    {id:'ACT_001',title:'登山',createTime:'2016-12-7',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁'},
+    {id:'ACT_002',title:'公司培训',createTime:'2016-12-7',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁'}
+
+  ];
+
+  return{
+    getAllActivity:function (){
+      return activity
+    }
+  }
+})
+
 .factory('MyTime',function () {
     var time = [
       {
@@ -1077,5 +1122,117 @@ angular.module('starter.services', [])
       purOrderInfo.resources.splice(purOrderInfo.resources.indexOf(resources), 1);
     }
   }
+})
+.factory('Stock', function () {
+    var stockList = [
+        {
+            productId:'00001',
+            name:'汽车前大灯',
+            img:'img/product/dadeng.png',
+            price:3000,
+            quantityAccount:300,
+            quantityOnHead:100,
+            quantityPromise:98,
+            inventoryDate:'2016-12-07 12:32:28',
+            supplier:'上海班富电子商务',
+            statu:'正常',
+            useItem:[
+                {itemSeqId:'10001',quantityOnHeadDiff:300,quantityPromiseDiff:300,itemTxt:'手动接收',createUserLogin:'zhangwenwen',date:'2016-10-10 12:23:44'},
+                {itemSeqId:'10002',quantityOnHeadDiff:-150,quantityPromiseDiff:-150,itemTxt:'订单消耗[Sal_10001(完成)]',createUserLogin:'zhangwenwen',date:'2016-10-11 15:23:44'},
+                {itemSeqId:'10003',quantityOnHeadDiff:-300,quantityPromiseDiff:-300,itemTxt:'制造消耗[Mad_10001(完成)]',createUserLogin:'zhangwenwen',date:'2016-12-10 12:23:44'},
+            ]
+        },
+        {
+          productId:'00002',
+            name:'汽车轮胎',
+            img:'img/product/miqilin.png',
+            price:400,
+            quantityAccount:500,
+            quantityOnHead:321,
+            quantityPromise:140,
+            inventoryDate:'2016-10-07 10:32:28',
+            supplier:'成都米其林轮胎汽车服务有限公司',
+            statu:'正常',
+            useItem:[
+                {itemSeqId:'10003',quantityOnHeadDiff:500,quantityPromiseDiff:500,itemTxt:'采购接收[Pur_10002(完成)]',createUserLogin:'zhangwenwen',date:'2016-10-10 12:23:44'},
+                {itemSeqId:'10004',quantityOnHeadDiff:-179,quantityPromiseDiff:-179,itemTxt:'制造消耗[Mad_10002(完成)]',createUserLogin:'fenghao',date:'2016-10-23 10:23:44'},
+                {itemSeqId:'10005',quantityOnHeadDiff:0,quantityPromiseDiff:-182,itemTxt:'订单消耗[Sal_10002(批准)]',createUserLogin:'fenghao',date:'2016-11-05 22:23:44'},
+            ]
+        },
+        {
+          productId:'00003',
+            name:'aland牌维生素C',
+            img:'img/product/aland_vc.png',
+            price:138,
+            quantityAccount:1000,
+            quantityOnHead:465,
+            quantityPromise:465,
+            inventoryDate:'2016-11-23 12:32:28',
+            supplier:'上海aland保健品有限公司',
+            statu:'正常',
+            useItem:[
+                {itemSeqId:'10006',quantityOnHeadDiff:1000,quantityPromiseDiff:1000,itemTxt:'采购接收[Pur_10003(完成)]',createUserLogin:'zhangwenwen',date:'2016-11-05 12:23:44'},
+                {itemSeqId:'10007',quantityOnHeadDiff:-535,quantityPromiseDiff:-535,itemTxt:'订单消耗[Sal_10003(完成)]',createUserLogin:'fenghao',date:'2016-12-07 14:23:44'},
+            ]
+        },
+        {
+          productId:'00004',
+            name:'双肩背包',
+            img:'img/product/shuangjianbao.png',
+            price:399,
+            quantityAccount:50,
+            quantityOnHead:50,
+            quantityPromise:48,
+            inventoryDate:'2016-12-07 18:32:28',
+            supplier:'新秀丽服饰有限公司',
+            statu:'正常',
+            useItem:[
+                {itemSeqId:'10008',quantityOnHeadDiff:50,quantityPromiseDiff:50,itemTxt:'采购接收[Pur_10004(完成)]',createUserLogin:'zhangwenwen',date:'2016-11-05 12:23:44'},
+                {itemSeqId:'10009',quantityOnHeadDiff:0,quantityPromiseDiff:-2,itemTxt:'订单消耗[Sal_10004(批准)]',createUserLogin:'fenghao',date:'2016-12-05 12:23:44'},
+            ]
+        },
+        {
+          productId:'00005',
+            name:'笔记本电脑',
+            img:'img/product/huipu.png',
+            price:4599,
+            quantityAccount:30,
+            quantityOnHead:12,
+            quantityPromise:8,
+            supplier:'惠普中国',
+            inventoryList:[
+              {
+                inventoryId:10001,
+                quantityAccount:30,
+                quantityOnHead:12,
+                quantityPromise:8,
+                inventoryDate:'2016-04-07 12:32:28',
+                supplier:'惠普中国',
+                statu:'正常',
+              },
+            ],
+            useItem:[
+                {itemSeqId:'10010',quantityOnHeadDiff:30,quantityPromiseDiff:30,itemTxt:'采购接收[Pur_10005(完成)]',createUserLogin:'zhangwenwen',date:'2016-10-05 12:23:44'},
+                {itemSeqId:'10011',quantityOnHeadDiff:-18,quantityPromiseDiff:-18,itemTxt:'订单消耗[Sal_10005(完成)]',createUserLogin:'fenghao',date:'2016-12-05 12:23:44'},
+                {itemSeqId:'10012',quantityOnHeadDiff:0,quantityPromiseDiff:-4,itemTxt:'订单消耗[Sal_10006(批准)]',createUserLogin:'fenghao',date:'2016-12-08 12:23:44'},
+            ]
+        },
+        {productId:'00006',name:'戴尔显示器',img:'img/product/daier.png',price:1499,quantityAccount:10,quantityOnHead:10,quantityPromise:10,inventoryDate:'2016-12-01 10:32:28',supplier:'美国戴尔公司',statu:'正常'},
+        {productId:'00007',name:'打印机',img:'img/product/dayingji.png',price:5999,quantityAccount:1,quantityOnHead:1,quantityPromise:1,inventoryDate:'2016-12-03 12:32:28',supplier:'简约数码打印计算中心',statu:'损坏'},
+        {productId:'00008',name:'插座',img:'img/product/gongniu.png',price:59,quantityAccount:4,quantityOnHead:4,quantityPromise:4,inventoryDate:'2016-05-07 12:32:28',supplier:'公牛集团',statu:'正常'},
+        {productId:'00009',name:'iphone7 plus',img:'img/product/iphonePlus.png',price:6999,quantityAccount:100,quantityPromise:100,quantityOnHead:100,inventoryDate:'2016-12-07 12:32:28',supplier:'苹果公司',statu:'正常'},
+    ];
+    return{
+        getAllStockList:function () {
+            return stockList;
+        },
+        getInfo:function (inventoryId) {
+            for(var i=0;i<stockList.length;i++){
+                if(stockList[i].inventoryId == inventoryId){
+                    return stockList[i];
+                }
+            }
+        }
+    }
 })
 ;

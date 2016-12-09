@@ -4,7 +4,7 @@
   </div>
   <ion-content>
     <div style="margin-top: 55px;">
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in contactList" type="item-text-wrap" ng-click="showAddressConfirm(personmain.id)">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in contactList" type="item-text-wrap" ng-click="showAddressConfirm(personmain.id,personmain.name)">
         <img ng-src="{{personmain.img}}">
         <h2>{{personmain.name}} {{personmain.company}}</h2>
         <p>{{personmain.address}}</p>

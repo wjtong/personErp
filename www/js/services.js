@@ -1126,7 +1126,7 @@ angular.module('starter.services', [])
 .factory('Stock', function () {
     var stockList = [
         {
-            inventoryId:'00001',
+            productId:'00001',
             name:'汽车前大灯',
             img:'img/product/dadeng.png',
             price:3000,
@@ -1135,15 +1135,10 @@ angular.module('starter.services', [])
             quantityPromise:98,
             inventoryDate:'2016-12-07 12:32:28',
             supplier:'上海班富电子商务',
-            statu:'正常',
-            useItem:[
-                {itemSeqId:'10001',quantityOnHeadDiff:300,quantityPromiseDiff:300,itemTxt:'手动接收',createUserLogin:'zhangwenwen',date:'2016-10-10 12:23:44'},
-                {itemSeqId:'10002',quantityOnHeadDiff:-150,quantityPromiseDiff:-150,itemTxt:'订单消耗[Sal_10001(完成)]',createUserLogin:'zhangwenwen',date:'2016-10-11 15:23:44'},
-                {itemSeqId:'10003',quantityOnHeadDiff:-300,quantityPromiseDiff:-300,itemTxt:'制造消耗[Mad_10001(完成)]',createUserLogin:'zhangwenwen',date:'2016-12-10 12:23:44'},
-            ]
+            statu:'正常'
         },
         {
-            inventoryId:'00002',
+          productId:'00002',
             name:'汽车轮胎',
             img:'img/product/miqilin.png',
             price:400,
@@ -1152,15 +1147,10 @@ angular.module('starter.services', [])
             quantityPromise:140,
             inventoryDate:'2016-10-07 10:32:28',
             supplier:'成都米其林轮胎汽车服务有限公司',
-            statu:'正常',
-            useItem:[
-                {itemSeqId:'10003',quantityOnHeadDiff:500,quantityPromiseDiff:500,itemTxt:'采购接收[Pur_10002(完成)]',createUserLogin:'zhangwenwen',date:'2016-10-10 12:23:44'},
-                {itemSeqId:'10004',quantityOnHeadDiff:-179,quantityPromiseDiff:-179,itemTxt:'制造消耗[Mad_10002(完成)]',createUserLogin:'fenghao',date:'2016-10-23 10:23:44'},
-                {itemSeqId:'10005',quantityOnHeadDiff:0,quantityPromiseDiff:-182,itemTxt:'订单消耗[Sal_10002(批准)]',createUserLogin:'fenghao',date:'2016-11-05 22:23:44'},
-            ]
+            statu:'正常'
         },
         {
-            inventoryId:'00003',
+          productId:'00003',
             name:'aland牌维生素C',
             img:'img/product/aland_vc.png',
             price:138,
@@ -1169,14 +1159,10 @@ angular.module('starter.services', [])
             quantityPromise:465,
             inventoryDate:'2016-11-23 12:32:28',
             supplier:'上海aland保健品有限公司',
-            statu:'正常',
-            useItem:[
-                {itemSeqId:'10006',quantityOnHeadDiff:1000,quantityPromiseDiff:1000,itemTxt:'采购接收[Pur_10003(完成)]',createUserLogin:'zhangwenwen',date:'2016-11-05 12:23:44'},
-                {itemSeqId:'10007',quantityOnHeadDiff:-535,quantityPromiseDiff:-535,itemTxt:'订单消耗[Sal_10003(完成)]',createUserLogin:'fenghao',date:'2016-12-07 14:23:44'},
-            ]
+            statu:'正常'
         },
         {
-            inventoryId:'00004',
+          productId:'00004',
             name:'双肩背包',
             img:'img/product/shuangjianbao.png',
             price:399,
@@ -1185,44 +1171,86 @@ angular.module('starter.services', [])
             quantityPromise:48,
             inventoryDate:'2016-12-07 18:32:28',
             supplier:'新秀丽服饰有限公司',
-            statu:'正常',
-            useItem:[
-                {itemSeqId:'10008',quantityOnHeadDiff:50,quantityPromiseDiff:50,itemTxt:'采购接收[Pur_10004(完成)]',createUserLogin:'zhangwenwen',date:'2016-11-05 12:23:44'},
-                {itemSeqId:'10009',quantityOnHeadDiff:0,quantityPromiseDiff:-2,itemTxt:'订单消耗[Sal_10004(批准)]',createUserLogin:'fenghao',date:'2016-12-05 12:23:44'},
-            ]
+            statu:'正常'
         },
         {
-            inventoryId:'00005',
+          productId:'00005',
             name:'笔记本电脑',
             img:'img/product/huipu.png',
             price:4599,
             quantityAccount:30,
             quantityOnHead:12,
-            quantityPromise:8,
-            inventoryDate:'2016-04-07 12:32:28',
+            quantityPromise:10,
             supplier:'惠普中国',
-            statu:'正常',
-            useItem:[
-                {itemSeqId:'10010',quantityOnHeadDiff:30,quantityPromiseDiff:30,itemTxt:'采购接收[Pur_10005(完成)]',createUserLogin:'zhangwenwen',date:'2016-10-05 12:23:44'},
-                {itemSeqId:'10011',quantityOnHeadDiff:-18,quantityPromiseDiff:-18,itemTxt:'订单消耗[Sal_10005(完成)]',createUserLogin:'fenghao',date:'2016-12-05 12:23:44'},
-                {itemSeqId:'10012',quantityOnHeadDiff:0,quantityPromiseDiff:-4,itemTxt:'订单消耗[Sal_10006(批准)]',createUserLogin:'fenghao',date:'2016-12-08 12:23:44'},
+            inventoryList:[
+              {
+                inventoryId:'10001',
+                name:'笔记本电脑',
+                quantityAccount:10,
+                quantityOnHead:10,
+                quantityPromise:10,
+                inventoryDate:'2016-12-07T12:32:28.000',
+                supplier:'惠普中国',
+                statu:'正常'
+              },
+              {
+                inventoryId:'10002',
+                name:'笔记本电脑',
+                quantityAccount:10,
+                quantityOnHead:2,
+                quantityPromise:0,
+                inventoryDate:'2016-12-05T10:32:28',
+                supplier:'惠普中国',
+                statu:'正常',
+                useItem:[
+                  {itemSeqId:'10011',quantityOnHeadDiff:-5,quantityPromiseDiff:-5,itemTxt:'订单消耗[Sal_10005(完成)]',createUserLogin:'fenghao',date:'2016-12-05T12:23:44.000'},
+                  {itemSeqId:'10012',quantityOnHeadDiff:-3,quantityPromiseDiff:-3,itemTxt:'订单消耗[Sal_10006(批准)]',createUserLogin:'fenghao',date:'2016-12-08T12:23:44'},
+                  {itemSeqId:'10012',quantityOnHeadDiff:0,quantityPromiseDiff:-2,itemTxt:'订单消耗[Sal_10006(批准)]',createUserLogin:'fenghao',date:'2016-12-08T12:23:44'}
+                ]
+              },
+              {
+                inventoryId:'10003',
+                name:'笔记本电脑',
+                quantityAccount:10,
+                quantityOnHead:0,
+                quantityPromise:0,
+                inventoryDate:'2016-04-07T12:32:28',
+                supplier:'惠普中国',
+                statu:'正常',
+                useItem:[
+                  {itemSeqId:'10011',quantityOnHeadDiff:-5,quantityPromiseDiff:-5,itemTxt:'订单消耗[Sal_10005(完成)]',createUserLogin:'fenghao',date:'2016-12-05 12:23:44'},
+                  {itemSeqId:'10012',quantityOnHeadDiff:-5,quantityPromiseDiff:-5,itemTxt:'订单消耗[Sal_10006(批准)]',createUserLogin:'fenghao',date:'2016-12-08 12:23:44'}
+                ]
+              }
             ]
         },
-        {inventoryId:'00006',name:'戴尔显示器',img:'img/product/daier.png',price:1499,quantityAccount:10,quantityOnHead:10,quantityPromise:10,inventoryDate:'2016-12-01 10:32:28',supplier:'美国戴尔公司',statu:'正常'},
-        {inventoryId:'00007',name:'打印机',img:'img/product/dayingji.png',price:5999,quantityAccount:1,quantityOnHead:1,quantityPromise:1,inventoryDate:'2016-12-03 12:32:28',supplier:'简约数码打印计算中心',statu:'损坏'},
-        {inventoryId:'00008',name:'插座',img:'img/product/gongniu.png',price:59,quantityAccount:4,quantityOnHead:4,quantityPromise:4,inventoryDate:'2016-05-07 12:32:28',supplier:'公牛集团',statu:'正常'},
-        {inventoryId:'00009',name:'iphone7 plus',img:'img/product/iphonePlus.png',price:6999,quantityAccount:100,quantityPromise:100,quantityOnHead:100,inventoryDate:'2016-12-07 12:32:28',supplier:'苹果公司',statu:'正常'},
+        {productId:'00006',name:'戴尔显示器',img:'img/product/daier.png',price:1499,quantityAccount:10,quantityOnHead:10,quantityPromise:10,inventoryDate:'2016-12-01 10:32:28',supplier:'美国戴尔公司',statu:'正常'},
+        {productId:'00007',name:'打印机',img:'img/product/dayingji.png',price:5999,quantityAccount:1,quantityOnHead:1,quantityPromise:1,inventoryDate:'2016-12-03 12:32:28',supplier:'简约数码打印计算中心',statu:'损坏'},
+        {productId:'00008',name:'插座',img:'img/product/gongniu.png',price:59,quantityAccount:4,quantityOnHead:4,quantityPromise:4,inventoryDate:'2016-05-07 12:32:28',supplier:'公牛集团',statu:'正常'},
+        {productId:'00009',name:'iphone7 plus',img:'img/product/iphonePlus.png',price:6999,quantityAccount:100,quantityPromise:100,quantityOnHead:100,inventoryDate:'2016-12-07 12:32:28',supplier:'苹果公司',statu:'正常'},
     ];
     return{
         getAllStockList:function () {
             return stockList;
         },
-        getInfo:function (inventoryId) {
+        getProductInfo:function (productId) {
             for(var i=0;i<stockList.length;i++){
-                if(stockList[i].inventoryId == inventoryId){
-                    return stockList[i];
+                if(stockList[i].productId == productId){
+                    //alert(stockList[i].name);
+                    return stockList[i].inventoryList;
                 }
             }
+        },
+        goInventoryInfo:function (productId, inventoryId) {
+          for(var i=0;i<stockList.length;i++){
+            if(stockList[i].productId == productId){
+              for(var j=0;j<stockList[i].inventoryList.length;j++){
+                if(stockList[i].inventoryList[j].inventoryId == inventoryId){
+                  return stockList[i].inventoryList[j];
+                }
+              }
+            }
+          }
         }
     }
 })

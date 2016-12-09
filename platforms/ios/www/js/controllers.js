@@ -117,6 +117,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.personInfo = Contact.get(id);
     $scope.label = PersonLabel.getAllLabl();
 })
+.controller('UpdateProduction',function ($scope,$stateParams,ReHistory) {
+  var id = $stateParams.proId;
+  $scope.productionList=ReHistory.getInfo(id)
+
+})
 .controller('AddPerson',function ($scope,PersonLabel) {
     $scope.label = PersonLabel.getAllLabl();
 })
@@ -142,7 +147,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('GetResources',function ($scope,myresources,$stateParams,$location) {
   $scope.resourcesListOthers = myresources.getResourcesOthersAll();
   $scope.goInfo = function (resourcesId) {
-    $location.path("/app/myResourcesInfo/"+resourcesId);
+    $location.path("/app/otherResourcesInfo/"+resourcesId);
   }
 })
 .controller('GetEvent',function ($scope,OtherTime,$stateParams) {
@@ -160,6 +165,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     { time: '2016-09-14', id: 'CO10003' },
     { time: '2016-10-09', id: 'CO10004' }
   ];
+})
+
+.controller('GetBusiness',function($scope,Activity){
+  $scope.active=Activity.getAllActivity();
+
 })
 .controller('AboutMe',function ($scope) {
     $scope.myInfo = { id:'1',name:'张文文',img:'img/team/img3-md.jpg',account:'zhangwenwen',sex:'男',address:'上海市松江区泗凯路61弄20号201室',phone:'15072200010'};
@@ -203,14 +213,63 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path("/app/myResourcesInfo/"+resourcesId);
     }
 })
-.controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location) {
+.controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
+    $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;
     $scope.resources = myresources.getResourceInfo(resourcesId);
     $scope.resourcesOther = myresources.getResourceOtherInfo(resourcesId);
     $scope.createOrder = function(){
       $location.path("/app/createOrder/pur");
-    }
-})
+    };
+    $ionicModal.fromTemplateUrl('templates/priceToPerson.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
+    //编辑价格弹出框
+    $scope.showPopup = function() {
+      $scope.data = {}
+
+      // 自定义弹窗
+      var myPopup = $ionicPopup.show({
+        template: '<input type="text" >',
+        title: '请输入你要修改的价格',
+        scope: $scope,
+        buttons: [
+          { text: '保存',
+            type: 'button-positive',},
+          {
+            text: '取消',
+          },
+        ]
+      });
+      myPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+      $timeout(function() {
+        myPopup.close(); // 3秒后关闭弹窗
+      }, 3000);
+    };
+  })
 .controller('NewResources',function ($scope,$cordovaCamera) {
     $scope.imageSrc = "";
     $scope.takePhoto=function(){
@@ -324,7 +383,117 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 
 })
-.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,$ionicPopup,MyOrder,Contact,ChatList,MyOrderInfo) {
+.controller('CreateProduct',function ($scope,$ionicModal,$stateParams,MyOrder,$location,ReHistory) {
+    $scope.devList = [
+      { text: "原料一", checked: false },
+      { text: "原料二", checked: false },
+      { text: "原料三", checked: false }
+    ];
+    var orderId = $stateParams.orderId;
+    $scope.itemList = MyOrder.getSalOrderInfo(orderId);
+    //增加工序
+    $ionicModal.fromTemplateUrl('templates/addProcess.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
+
+    //参考历史工序
+    $scope.reHistory = ReHistory.getAllHistory();
+    $scope.goInfo = function (id){
+      $scope.productionList=ReHistory.getInfo(id);
+      $scope.History.hide();
+
+    }
+    $ionicModal.fromTemplateUrl('templates/reHistory.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(History) {
+      $scope.History = History;
+    });
+    $scope.goHistory = function() {
+      $scope.History.show();
+    };
+    $scope.closeHistory = function() {
+      $scope.History.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.History.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('History.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('History.removed', function() {
+      // Execute action
+    });
+    //选择原料
+    $scope.devList = [
+      { text: "原料一", checked: false },
+      { text: "原料二", checked: false },
+      { text: "原料三", checked: false }
+    ];
+    $scope.reHistory = ReHistory.getAllHistory();
+    $scope.goInfo = function (id){
+      $scope.productionList=ReHistory.getInfo(id);
+      $scope.History.hide();
+
+    }
+    $ionicModal.fromTemplateUrl('templates/material.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(material) {
+      $scope.material = material;
+    });
+    $scope.goMaterial = function() {
+      $scope.material.show();
+    };
+    $scope.closeModal = function() {
+      $scope.material.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.material.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('History.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('History.removed', function() {
+      // Execute action
+    });
+    $scope.addMaterial = function () {
+      $scope.material.hide();
+    }
+})
+
+
+.controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,$ionicPopup,MyOrder,Contact,ChatList,MyOrderInfo,$location) {
+    $scope.goProduction = function (orderId) {
+      $location.path('/app/createProduction/'+orderId);
+    };
     var orderId = $stateParams.orderId;
     var orderTypeId = $stateParams.orderTypeId;
     $scope.personList = Contact.getAll();
@@ -539,6 +708,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.goPersonList = function (id) {
       $location.path("/app/chatPersonList/"+id);
     }
+    $scope.editChat = function () {
+      $location.path("/app/newGroupChat");
+    }
 
 })
 .controller('ChatPersonList',function ($scope, $stateParams,ChatList) {
@@ -577,7 +749,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 
 })
-.controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel) {
+.controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel,ChatList,GroupChat) {
+    $scope.devList = GroupChat.getAll();
+    $scope.chat = ChatList.getChatInfo($stateParams.chatId);
     $scope.labelId = $stateParams.labelId;
     $scope.personList = Contact.getPersonLabel($scope.labelId);
     $scope.labelInfo = PersonLabel.getInfo($scope.labelId);
@@ -685,7 +859,37 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         optionId = val ;
         ionicTimePicker.openTimePicker(ipObj2);
     }
+})
+.controller('Stock', function ($scope,Stock) {
+    $scope.stockList = Stock.getAllStockList();
+})
+.controller('StockInfo',function ($scope, $stateParams,$ionicPopup, Stock) {
+    var inventoryId = $stateParams.inventoryId;
+    $scope.inventoryInfo = Stock.getInfo(inventoryId);
 
-
+    $scope.shouItemInfo = function(item) {
+        $scope.data = {};
+        var myPopup = $ionicPopup.show({
+          template: '<div class="list"><label class="item item-input"><span class="input-label" style="text-align: right">序列号：</span><div>'+item.itemSeqId+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">实际库存：</span><div>'+item.quantityOnHeadDiff+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">承诺库存：</span><div>'+item.quantityPromiseDiff+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">日期：</span><div>'+item.date+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">创建人：</span><div>'+item.createUserLogin+'</div></label>' +
+          '<label class="item item-input"><span class="input-label" style="text-align: right">明细：</span><div>'+item.itemTxt+'</div></label>' +
+          '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeInfo();">关闭</button>' ,
+          title: '库存消耗明细',
+          scope: $scope
+        });
+        myPopup.then(function(res) {
+          console.log('Tapped!', res);
+        });
+        $scope.itemInfo = myPopup;
+    };
+    $scope.closeInfo = function () {
+      $scope.itemInfo.close();
+    }
+})
+.controller('ReceiveStock',function ($scope,myresources) {
+    $scope.resourcesList = myresources.getResourcesAll();
 })
 ;

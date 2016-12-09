@@ -1,21 +1,21 @@
 <ion-view title="接收库存">
     <ion-content>
         <div class="list">
-            <label class="item item-input">
+            <label class="item item-input"  ng-click="showResources();">
                 <span class="input-label" style="text-align: right">品名：</span>
-                <div>{{data.productName}}</div>
-                <input type="hidden" ng-model="data.productId"/>
+                <div>{{productName}}</div>
+                <input type="hidden" value="{{productId}}"/>
             </label>
             <label class="item item-input">
                 <span class="input-label" style="text-align: right">数量：</span>
                 <input type="number" ng-model="data.quantity">
             </label>
-            <label class="item item-input">
+            <label class="item item-input" ng-click="showContact();">
                 <span class="input-label" style="text-align: right">供应商：</span>
-                <div>{{data.supplier}}</div>
-                <input type="hidden" ng-model="data.supplierPartyId">
+                <div>{{supplier}}</div>
+                <input type="hidden" value="{{supplierPartyId}}">
             </label>
-            <label class="item item-input">
+            <label class="item item-select">
                 <span class="input-label" style="text-align: right">状态：</span>
                 <select>
                     <option value="1">序列化</option>
@@ -23,5 +23,17 @@
                 </select>
             </label>
         </div>
+      <div class="row">
+        <div class="col">
+          <div class="col-demo">
+            <button class="button button-positive" style="width: 100%;">提交</button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="col-demo">
+            <button class="button button-assertive" style="width: 100%;">取消</button>
+          </div>
+        </div>
+      </div>
     </ion-content>
 </ion-view>

@@ -108,6 +108,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
+    .state('app.otherResourcesInfo', {
+      url: '/otherResourcesInfo/:resourcesId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/otherResourcesInfo.html',
+          controller:'MyResourcesInfo'
+        }
+      }
+    })
 
   .state('app.myevents', {
     url: '/myevents',
@@ -122,7 +131,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'menuContent': {
         templateUrl: 'templates/newgroupchat.html',
-        controller:'NewGroupChat'
+        controller:'LabelPersonList'
       }
     }
   })
@@ -256,9 +265,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'menuContent': {
         templateUrl: 'templates/business.html',
+        controller:'GetBusiness'
       }
     }
   })
+
   .state('app.abouthim', {
     url: '/abouthim/:personId',
     disableBack:true,
@@ -267,6 +278,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'menuContent': {
         templateUrl: 'templates/abouthim.html',
         controller: 'AboutHim'
+      }
+    }
+  })
+  .state('app.createProduction', {
+    url: '/createProduction/:orderId',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/createProduction.html',
+        controller: 'CreateProduct'
+      }
+    }
+  })
+  .state('app.editProduction', {
+    url: '/editProduction/:proId',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/createProduction.html',
+        controller: 'UpdateProduction'
       }
     }
   })
@@ -300,17 +333,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
               controller: 'MyOrder'
           }
       }
-  }).state('app.myOrderInfo',{
-    url:'/myOrderInfo/:orderId/:orderTypeId',
+  })
+  .state('app.Business', {
+    url: '/Business',
     disableBack:true,
     cache :false,
     views: {
       'menuContent': {
-        templateUrl: 'templates/myOrderInfo.html',
-        controller: 'MyOrderInfo'
+        templateUrl: 'templates/business.html',
+        controller:'GetBusiness'
       }
     }
   })
+  .state('app.myOrderInfo',{
+  url:'/myOrderInfo/:orderId/:orderTypeId',
+  disableBack:true,
+  cache :false,
+  views: {
+    'menuContent': {
+      templateUrl: 'templates/myOrderInfo.html',
+      controller: 'MyOrderInfo'
+    }
+  }
+})
     .state('app.createOrder',{
       url:'/createOrder/:typeId',
       disableBack:true,
@@ -363,7 +408,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       views: {
         'menuContent': {
           templateUrl: 'templates/chatPersonList.html',
-          controller: 'ChatPersonList'
+          controller: 'LabelPersonList'
         }
       }
     })
@@ -419,7 +464,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'PlaylistCtrl'
       }
     }
-  });
+  }).state('app.stock', {
+      url: '/stock',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/stock.html',
+          controller: 'Stock'
+        }
+      }
+    }
+  )
+    .state('app.stockInfo', {
+        url: '/stockInfo/:productId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/stockInfo.html',
+            controller: 'StockInfo'
+          }
+        }
+      }
+    ).state('app.receiveStock', {
+      url: '/receiveStock',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/receiveStock.html',
+          controller: 'ReceiveStock'
+        }
+      }
+    }
+  )
+  ;
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/app/playlists');
   $urlRouterProvider.otherwise('/app/home');

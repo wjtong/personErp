@@ -49,24 +49,28 @@
       </dict>
     </dict>
     <key>CFBundleIdentifier</key>
-    <string>com.ionicframework.personerp542503</string>
+    <string>com.ionicframework.personErp</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
     <string>${PRODUCT_NAME}</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.0.1</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
     <string>0.0.1</string>
-    <key>CFBundleShortVersionString</key>
-    <string>0.0.1</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
-    <key>NSMainNibFile</key>
+    <key>NSCameraUsageDescription</key>
+    <string></string>
+    <key>NSLocationWhenInUseUsageDescription</key>
     <string></string>
     <key>NSMainNibFile~ipad</key>
+    <string></string>
+    <key>NSPhotoLibraryUsageDescription</key>
     <string></string>
     <key>UILaunchImages</key>
     <array>
@@ -171,11 +175,5 @@
         <string>{768, 1024}</string>
       </dict>
     </array>
-    <key>NSCameraUsageDescription</key>
-    <string></string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string></string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string></string>
   </dict>
 </plist>

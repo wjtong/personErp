@@ -674,7 +674,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.addressConfirm.close();
     $scope.contact.hide();
   }
-  $scope.addResourcesToOrder = function (resources) {
+  $scope.addResources = function (resources) {
     if(typeId == 'sal'){
       CreateOrder.setSalResources(resources);
     }else if(typeId == 'pur'){
@@ -863,9 +863,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('Stock', function ($scope,Stock) {
     $scope.stockList = Stock.getAllStockList();
 })
-.controller('StockInfo',function ($scope, $stateParams,$ionicPopup, Stock) {
+.controller('StockInfo',function ($scope, $stateParams,$ionicPopup,$ionicModal, Stock) {
+    var productId = $stateParams.productId;
     var inventoryId = $stateParams.inventoryId;
-    $scope.inventoryInfo = Stock.getInfo(inventoryId);
+    $scope.inventoryInfo = Stock.goInventoryInfo(productId,inventoryId);
 
     $scope.shouItemInfo = function(item) {
         $scope.data = {};
@@ -888,8 +889,63 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.closeInfo = function () {
       $scope.itemInfo.close();
     }
+
+  $ionicModal.fromTemplateUrl('templates/stockOut.html', function(modal) {
+    $scope.stockout = modal;
+  }, {
+    scope: $scope
+  });
+  $scope.showStockOut = function () {
+    $scope.stockout.show();
+  }
+  $scope.hideStockOut = function () {
+    $scope.stockout.hide();
+  }
+
 })
-.controller('ReceiveStock',function ($scope,myresources) {
+.controller('ReceiveStock',function ($scope,$ionicModal, myresources,Contact) {
     $scope.resourcesList = myresources.getResourcesAll();
+    $scope.contactList = Contact.getAll();
+
+    $ionicModal.fromTemplateUrl('templates/addResourcesToOrder.html', function(modal) {
+      $scope.resources = modal;
+    }, {
+      scope: $scope
+    });
+    $ionicModal.fromTemplateUrl('templates/orderContact.html', function(modal) {
+      $scope.contact = modal;
+    }, {
+      scope: $scope
+    });
+
+    $scope.showResources = function () {
+      $scope.resources.show();
+    }
+    $scope.hiddenResources = function () {
+      $scope.resources.hide();
+    }
+    $scope.showContact = function () {
+      $scope.contact.show();
+    }
+    $scope.hiddenContact = function () {
+      $scope.contact.hide();
+    }
+    $scope.addResources = function (resources) {
+      $scope.productName = resources.title;
+      $scope.productId = resources.id;
+      $scope.resources.hide();
+    }
+    $scope.showAddressConfirm = function (partyId, partyName) {
+      $scope.supplier = partyName;
+      $scope.supplierPartyId = partyId;
+      $scope.contact.hide();
+    }
+})
+.controller('StockList', function ($scope, $stateParams, $location, Stock) {
+    $scope.productId = $stateParams.productId;
+    $scope.stockList = Stock.getProductInfo($scope.productId);
+    $scope.goInfo = function (productId, inventoryId) {
+      $location.path('/app/stockInfo/'+productId+'/'+inventoryId);
+    }
 })
 ;

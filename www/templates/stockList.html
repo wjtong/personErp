@@ -1,0 +1,14 @@
+<ion-view title="库存明细">
+  <ion-content>
+    <ion-list>
+      <div class="list card" ng-if="stockList != null">
+        <div class="item" ng-repeat="item in stockList | orderBy:'inventoryDate':true " ng-click="goInfo(productId,item.inventoryId)">
+          <div class="item-content" style="float: left;">
+            ID({{item.inventoryId}}) &nbsp;&nbsp;数量({{item.quantityPromise}}/{{item.quantityOnHead}}) &nbsp;&nbsp;时间({{item.inventoryDate | date:"yyyy-MM-dd"}})
+          </div>
+        </div>
+      </div>
+      <div class="list card" ng-if="stockList == null">没有产生库存明细</div>
+    </ion-list>
+  </ion-content>
+</ion-view>

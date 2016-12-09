@@ -475,7 +475,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   )
     .state('app.stockInfo', {
-        url: '/stockInfo/:inventoryId',
+        url: '/stockInfo/:productId/:inventoryId',
         views: {
           'menuContent': {
             templateUrl: 'templates/stockInfo.html',
@@ -483,7 +483,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       }
-    ).state('app.receiveStock', {
+    ).state('app.stockList',{
+      url: '/stockList/:productId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/stockList.html',
+          controller: 'StockList'
+        }
+      }
+    })
+    .state('app.receiveStock', {
       url: '/receiveStock',
       views: {
         'menuContent': {

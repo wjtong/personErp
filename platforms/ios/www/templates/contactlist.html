@@ -8,13 +8,15 @@
                 </label>
             </div>
         </div>
-        <ion-list>
-          <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personmainLists | orderBy:'name':false" type="item-text-wrap" ng-click="goInfo(personmain.id)">
-            <img ng-src="{{personmain.img}}">
-            <h2>{{personmain.name}} {{personmain.company}}</h2>
-            <p>{{personmain.address}}</p>
-          </ion-item>
-        </ion-list>
+        <div class="list" style="margin-bottom: 50px;">
+            <ion-list>
+              <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personmainLists | orderBy:'name':false" type="item-text-wrap" ng-click="goInfo(personmain.id)">
+                <img ng-src="{{personmain.img}}">
+                <h2>{{personmain.name}} {{personmain.company}}</h2>
+                <p>{{personmain.address}}</p>
+              </ion-item>
+            </ion-list>
+        </div>
     </ion-content>
     <div class="rj-contacts-right-bar" >
       <div>&uarr;</div>
