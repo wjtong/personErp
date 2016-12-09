@@ -29,29 +29,13 @@
       </table>
     </div>
     <div>
-      <h3><b>工序:</b></h3><div class="item item-divider"><button style="margin-left: 10px;" ng-click="goHistory()">引用历史工序</button></div>
-    </div>
-    <div class="list card cardupdate" style="margin: 5px 10px;">
-      <div class="item" style="margin: -17px 0px;">
-        <label class="">
-          <span class="input-label">名称</span>
-          <input type="text" placeholder="名称" value="{{productionList.name}}">
-        </label>
-      </div>
-    </div>
-    <div class="list card cardupdate" style="margin: 5px 10px;">
-      <div class="item" style="margin: -17px 0px;">
-        <label class="">
-          <span class="input-label">编号</span>
-          <input type="text" placeholder="编号" value="{{productionList.id}}">
-        </label>
-      </div>
+      <h3>原料：</h3>
     </div>
     <div class="list card cardupdate" style="margin: 5px 10px;">
       <div class="item" style="margin: -17px 0px;">
         <label class="">
           <span class="input-label">原料<button style="margin-left: 10px;" ng-click="goMaterial()">选择原料</button></span>
-          <input type="text" placeholder="原料" value="{{productionList.material}}">
+          <input type="text" placeholder="原料" value="">
         </label>
       </div>
     </div>
@@ -59,23 +43,106 @@
       <div class="item" style="margin: -17px 0px;">
         <label class="">
           <span class="input-label">用量</span>
-          <input type="text" placeholder="数量" value="{{productionList.quantity}}">
+          <input type="text" placeholder="数量" value="">
         </label>
       </div>
     </div>
-    <div class="list card cardupdate" style="margin: 5px 10px;">
-      <div class="item" style="margin: -17px 0px;">
-        <label class="">
-          <span class="input-label">预计完成日期</span>
-          <div>{{date | date:'yyyy-MM-dd'}}</div>
-          <input type="date" ng-click="openDatePicker()" value="{{date | date:'yyyy-MM-dd'}}">
-        </label>
+    <div>
+      <div>
+        <h3><b>工序一:</b></h3><div class="item item-divider"><button style="margin-left: 10px;" ng-click="goHistory()">引用历史工序</button></div>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">名称</span>
+            <input type="text" placeholder="名称" value="{{productionList.name}}">
+          </label>
+        </div>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">编号</span>
+            <input type="text" placeholder="编号" value="{{productionList.id}}">
+          </label>
+        </div>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">投料</span>
+            <input type="text" placeholder="投料" value="{{productionList.chargeProduction}}">
+          </label>
+        </div>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">下料</span>
+            <input type="text" placeholder="下料" value="{{productionList.dowMaterial}}">
+          </label>
+        </div>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">预计完成日期</span>
+            <div>{{date | date:'yyyy-MM-dd'}}</div>
+            <input type="date" ng-click="openDatePicker()" value="{{date | date:'yyyy-MM-dd'}}">
+          </label>
+        </div>
+      </div>
+    </div>
+    <div id="addgx" hidden="true">
+      <div>
+        <h3><b>工序二:</b></h3>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">名称</span>
+            <input type="text" placeholder="名称" value="">
+          </label>
+        </div>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">编号</span>
+            <input type="text" placeholder="编号" value="">
+          </label>
+        </div>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">投料</span>
+            <input type="text" placeholder="投料" value="">
+          </label>
+        </div>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">下料</span>
+            <input type="text" placeholder="下料" value="">
+          </label>
+        </div>
+      </div>
+      <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="item" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">预计完成日期</span>
+            <div>{{date | date:'yyyy-MM-dd'}}</div>
+            <input type="date" ng-click="openDatePicker()" value="{{date | date:'yyyy-MM-dd'}}">
+          </label>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col">
         <div class="col-demo">
-          <button class="button button-balanced" style="width: 100%;" ng-click="openModal()">增加工序</button>
+          <button class="button button-balanced" style="width: 100%;" ng-click="addgongxu()">增加工序</button>
         </div>
       </div>
       <div class="col">

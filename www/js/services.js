@@ -864,11 +864,11 @@ angular.module('starter.services', [])
 
 .factory('ReHistory',function () {
   var history = [
-    {id:'REHI_001',name:'准备',material:'原料一',quantity:'30吨'},
-    {id:'REHI_002',name:'制作',material:'原料二',quantity:'30吨'},
-    {id:'REHI_003',name:'生产',material:'原料三',quantity:'30吨'},
-    {id:'REHI_004',name:'加工',material:'原料一＋原料三',quantity:'30吨'},
-    {id:'REHI_005',name:'冶炼',material:'原料一＋原料二＋原料三',quantity:'30吨'},
+    {id:'REHI_001',name:'准备',chargeProduction:'100吨',dowMaterial:'15吨'},
+    {id:'REHI_002',name:'制作',chargeProduction:'80吨',dowMaterial:'30吨'},
+    {id:'REHI_003',name:'生产',chargeProduction:'105吨',dowMaterial:'20吨'},
+    {id:'REHI_004',name:'加工',chargeProduction:'75吨',dowMaterial:'30吨'},
+    {id:'REHI_005',name:'冶炼',chargeProduction:'200吨',dowMaterial:'30吨'},
 
 
   ];
@@ -880,6 +880,68 @@ angular.module('starter.services', [])
       for(var i=0;i<history.length;i++){
         if(id == history[i].id){
           return history[i];
+        }
+      }
+    },
+  }
+})
+
+.factory('ProductionDetails',function () {
+  var Details = [
+    {productionId:'PRO_10001',
+      startTime:'2016-12-1',
+      endTime:'2017-3-03',
+      proname:'皮革',
+      material:'原料一',
+      quantity:'30吨',
+      processone:{id:'REHI_001',name:'准备',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+      processtwo:{id:'REHI_002',name:'加工',quantityY:'30吨',quantityN:'25吨',chargeProduction:'30吨',dowMaterial:'15吨'},
+    },
+    {productionId:'PRO_10002',
+      startTime:'2016-12-5',
+      endTime:'2017-04-04',
+      proname:'插排',
+      material:'原料三',
+      quantity:'50件',
+      processone:{id:'REHI_003',name:'加热',quantityY:'44吨',quantityN:'3吨',chargeProduction:'590吨',dowMaterial:'150吨'},
+      processtwo:{id:'REHI_004',name:'精炼',quantityY:'33吨',quantityN:'6吨',chargeProduction:'70吨',dowMaterial:'8吨'},
+    },
+    {productionId:'PRO_10003',
+      startTime:'2016-12-18',
+      endTime:'2017-5-05',
+      proname:'打印机',
+      material:'原料一',
+      quantity:'100台',
+      processone:{id:'REHI_005',name:'提纯',quantityY:'30吨',quantityN:'44吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+      processtwo:{id:'REHI_006',name:'精炼',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+    },
+    {productionId:'PRO_10004',
+      startTime:'2016-12-22',
+      endTime:'2017-5-06',
+      proname:'硬盘',
+      material:'原料二',
+      quantity:'500块',
+      processone:{id:'REHI_007',name:'精炼',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+      processtwo:{id:'REHI_008',name:'提纯',quantityY:'30吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+    },
+    {productionId:'PRO_10005',
+      startTime:'2016-12-11',
+      endTime:'2017-7-07',
+      proname:'皮革',
+      material:'原料一',
+      quantity:'1000吨',
+      processone:{id:'REHI_009',name:'精炼',quantityY:'30吨',quantityN:'25吨',chargeProduction:'25吨',dowMaterial:'15吨'},
+      processtwo:{id:'REHI_0010',name:'精炼',quantityY:'44吨',quantityN:'44吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+    },
+  ];
+  return{
+    getAllDetails:function (){
+      return Details;
+    },
+    getInfo:function (id) {
+      for(var i=0;i<Details.length;i++){
+        if(id == Details[i].id){
+          return Details[i];
         }
       }
     },

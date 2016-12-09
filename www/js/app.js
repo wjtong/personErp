@@ -70,6 +70,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
+  .state('app.ProductionDetails', {
+    url: '/ProductionDetails/:ProductionId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/ProductionDetails.html',
+        controller:'ProDet'
+      }
+    }
+  })
   .state('app.aboutme', {
     url: '/aboutme',
     views: {
@@ -79,7 +88,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-
   .state('app.contactlist', {
     url: '/contactlist',
     views: {

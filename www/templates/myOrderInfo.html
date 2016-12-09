@@ -54,12 +54,12 @@
           </tr>
         </table>
       </div>
-      <div class="" ng-repeat="itemInfo in itemList">
+      <div class="" ng-repeat="itemInfo in itemList" >
 
         <div class="list card" style="margin-top: -30px;">
           <div class="item item-divider"><b>订单项{{$index+1}}</b> &nbsp;&nbsp;&nbsp;{{itemInfo.productName}}
           </div>
-          <table class="item">
+          <table class="item" ng-click="goInfoPro(itemInfo.productionId)">
             <tr>
               <td style="text-align: right">生产 ID</td>
               <td>&nbsp;&nbsp;&nbsp;{{itemInfo.productionId}}</td>
@@ -112,7 +112,7 @@
               <td>&nbsp;&nbsp;&nbsp;{{itemInfo.abstract.output}}</td>
             </tr>
           </table>
-          <button class="button button-positive" ng-click="goProduction(orderInfo.orderId)">发起生产</button>
+          <button class="button  button-stable" ng-click="goProduction(orderInfo.orderId)">发起生产</button>
         </div>
       </div>
     </div>

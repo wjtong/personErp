@@ -385,10 +385,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 })
 .controller('CreateProduct',function ($scope,$ionicModal,$stateParams,MyOrder,$location,ReHistory) {
     $scope.devList = [
-      { text: "原料一", checked: false },
-      { text: "原料二", checked: false },
-      { text: "原料三", checked: false }
+      { id:'01',text: "皮革" },
+      { id:'01',text: "燃油" },
+      { id:'01',text: "催化剂" }
     ];
+    $scope.addgongxu = function () {
+      var a= new Date()
+      console.info(a.getMilliseconds());
+      document.getElementById("addgx").hidden=false;
+      $scope.modal.hide();
+      console.info(a.getMilliseconds());
+    }
     var orderId = $stateParams.orderId;
     $scope.itemList = MyOrder.getSalOrderInfo(orderId);
     //增加工序
@@ -416,7 +423,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.$on('modal.removed', function() {
       // Execute action
     });
-
     //参考历史工序
     $scope.reHistory = ReHistory.getAllHistory();
     $scope.goInfo = function (id){
@@ -449,11 +455,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       // Execute action
     });
     //选择原料
-    $scope.devList = [
-      { text: "原料一", checked: false },
-      { text: "原料二", checked: false },
-      { text: "原料三", checked: false }
-    ];
     $scope.reHistory = ReHistory.getAllHistory();
     $scope.goInfo = function (id){
       $scope.productionList=ReHistory.getInfo(id);
@@ -488,11 +489,18 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.material.hide();
     }
 })
+.controller('ProDet',function($scope,$stateParams,ProductionDetails){
+    var productionId=$stateParams.ProductionId;
+    $scope.productionList=ProductionDetails.getInfo();
 
+})
 
 .controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,$ionicPopup,MyOrder,Contact,ChatList,MyOrderInfo,$location) {
     $scope.goProduction = function (orderId) {
       $location.path('/app/createProduction/'+orderId);
+    };
+    $scope.goInfoPro = function (productionId) {
+      $location.path('/app/ProductionDetails/'+productionId);
     };
     var orderId = $stateParams.orderId;
     var orderTypeId = $stateParams.orderTypeId;

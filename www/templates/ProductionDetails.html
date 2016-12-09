@@ -1,0 +1,117 @@
+<ion-view view-title="生产详情">
+  <ion-content>
+    <ion-slide-box active-slide="myActiveSlide">
+      <ion-slide>
+        <div>
+          <h3>生产信息</h3>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">开始日期</span>
+              <input type="text" placeholder="名称" value="{{productionList.startTime}}">
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">结束日期</span>
+              <input type="text" placeholder="编号" value="{{productionList.endTime}}">
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">产品名称</span>
+              <input type="text" placeholder="原料" value="{{productionList.proname}}">
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">生产编号</span>
+              <input type="text" placeholder="原料" value="{{productionList.productionId}}">
+            </label>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div>
+          <h3>工序一</h3>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">用料</span>
+              <input type="text" placeholder="名称" value="{{productionList.processone.chargeProduction}}">
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">下料</span>
+              <input type="text" placeholder="编号" value="{{productionList.processone.dowMaterial}}">
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">一等品（半成品）</span>
+              <input type="text"  value="{{productionList.processone.quantityY}}">
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">二等品（半成品）</span>
+              <input type="text"  value="{{productionList.processone.quantityN}}">
+            </label>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div>
+          <h3>工序二</h3>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">用料</span>
+              <input type="text" placeholder="名称" value="{{productionList.processtwo.chargeProduction}}">
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">下料</span>
+              <input type="text" placeholder="编号" value="{{productionList.processtwo.dowMaterial}}">
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">一等品（半成品）</span>
+              <input type="text"  value="{{productionList.processtwo.quantityY}}">
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">二等品（半成品）</span>
+              <input type="text"  value="{{productionList.processtwo.quantityN}}">
+            </label>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
+</ion-view>
