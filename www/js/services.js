@@ -862,6 +862,7 @@ angular.module('starter.services', [])
 
 })
 
+
 .factory('ReHistory',function () {
   var history = [
     {id:'REHI_001',name:'准备',chargeProduction:'100吨',dowMaterial:'15吨'},
@@ -960,6 +961,41 @@ angular.module('starter.services', [])
       return activity
     }
   }
+})
+.factory('Material',function () {
+  var MaterialList = [
+    {id:'Mat_10001',name:'皮革',price:'15',dosage:''},
+    {id:'Mat_10002',name:'石油',price:'20',dosage:''},
+    {id:'Mat_10003',name:'催化剂',price:'25',dosage:''},
+    {id:'Mat_10004',name:'石墨',price:'30',dosage:''},
+  ];
+  var MaterialAll =[];
+  return{
+    getAllMaterialList:function () {
+      return MaterialList;
+    },
+    getMaterialAll:function(){
+      return  MaterialAll;
+    },
+    setMaterial:function (resources) {
+      if(MaterialAll.resources == null){
+        var resourcesList = [];
+        resourcesList.push(resources);
+        MaterialAll.resources = resourcesList;
+      }else{
+        var flag = true;
+        for(var i=0;i<MaterialAll.resources.length;i++){
+          if(MaterialAll.resources[i].id == resources.id){
+            flag = false;
+          }
+        }
+        if(flag){
+          MaterialAll.resources.push(resources);
+        }
+      }
+    },
+  }
+
 })
 
 .factory('MyTime',function () {
