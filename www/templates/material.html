@@ -10,11 +10,13 @@
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate  item-icon-right item-text-wrap" ng-repeat="personmain in devList">
-        <label class="item item-input">
-          <p><b>原料：</b>{{personmain.text}}&nbsp;&nbsp;</p>
-          用量：<input type="text" placeholder="">
+          <p><b>原料：</b>{{personmain.text}}</p>
+          <br>
+          <p>用量：</p>
+          <label class="item item-input">
+          <p><input type="text" placeholder=""></p>
+          </label>
           <button ng-click="goInfo(personmain.text)">选择</button>
-        </label>
       </ion-item>
     </ion-list>
   </ion-content>
