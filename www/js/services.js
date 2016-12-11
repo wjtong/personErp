@@ -352,6 +352,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车大灯总成',
             price:1000,
+            number:1,
             abstract:{
               beginTime:'2016-12-23 00:00:00',
               finishTime:'2017-02-23 00:00:00',
@@ -368,6 +369,7 @@ angular.module('starter.services', [])
             productId:'130500012',
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车前引擎盖',
+            number:1,
             price:1000
           },
           {
@@ -377,6 +379,7 @@ angular.module('starter.services', [])
             productId:'130500013',
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车轮毂*4',
+            number:1,
             price:1000
           },
           {
@@ -386,6 +389,7 @@ angular.module('starter.services', [])
             productId:'130500014',
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车轮胎*4',
+            number:1,
             price:530
           }
         ]
@@ -400,6 +404,7 @@ angular.module('starter.services', [])
             productId:'130500016',
             estimateTiem:'2016-11-04 10:34:11',
             productName:'jeep 牧马人',
+            number:1,
             price:400000,
             abstract:{
               beginTime:'2016-12-18 00:00:00',
@@ -423,6 +428,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-23 10:34:11',
             productName:'电动车',
             price:400,
+            number:1,
             abstract:{
               beginTime:'2016-11-29 00:00:00',
               finishTime:'2017-05-23 00:00:00',
@@ -444,7 +450,18 @@ angular.module('starter.services', [])
             productId:'130500018',
             estimateTiem:'2016-11-23 10:34:11',
             productName:'素然手语系列衣服',
-            price:400
+            number:1,
+            price:200
+          },
+          {
+            productionId:'PRO_100008',
+            shipId:'SHIP_100008',
+            kd_code:'639820198',
+            productId:'130500018',
+            estimateTiem:'2016-11-23 10:34:11',
+            productName:'素然Z系列衣服',
+            number:2,
+            price:100
           }
         ]
       },
@@ -458,6 +475,7 @@ angular.module('starter.services', [])
             productId:'130500019',
             estimateTiem:'2016-11-23 14:34:11',
             productName:'购买 ionic 的定制软件，进行二次开发',
+            number:1,
             price:400
           }
         ]
@@ -473,6 +491,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-25 18:34:11',
             productName:'购买阿里云服务器，搭建测试环境',
             price:320,
+            number:1,
             abstract:{
               beginTime:'2016-11-20 00:00:00',
               finishTime:'2016-12-23 00:00:00',
@@ -495,6 +514,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-25 14:37:11',
             productName:'购买手机，用于测试',
             price:1000,
+            number:1,
             abstract:{
               beginTime:'2016-11-28 00:00:00',
               finishTime:'2017-02-23 00:00:00',

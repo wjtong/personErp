@@ -1,0 +1,13 @@
+<div class="modal">
+  <div class="bar bar-header">
+    <button class="button" style="position: absolute;left: 5px;" ng-click="orderInfoConfirmHidden();">确认接收</button>
+    <button class="button" style="position: absolute;right: 5px;" ng-click="orderInfoConfirmHidden();">关闭</button>
+  </div>
+  <ion-content>
+    <div style="margin-top: 55px;">
+        <div class="item" ng-repeat="item in itemListReceive">
+          {{item.productName}} &nbsp;<input type="number" value="{{item.number}}"/>
+        </div>
+    </div>
+  </ion-content>
+</div>

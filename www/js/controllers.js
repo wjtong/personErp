@@ -956,4 +956,35 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path('/app/stockInfo/'+productId+'/'+inventoryId);
     }
 })
+.controller('ReceivePurOrderList',function ($scope,$location,MyOrder) {
+  $scope.purOrderList = MyOrder.getPurOrder();
+  $scope.goInfo = function (orderId) {
+    $location.path('/app/receiveOrderInfo/'+orderId);
+  }
+}).controller('ReceiveOrderInfo',function ($scope, $stateParams,$ionicModal, MyOrder,MyOrderInfo) {
+  var orderId = $stateParams.orderId;
+  $scope.orderInfo = MyOrder.getPurOrderInfo(orderId);
+  $scope.itemList = MyOrderInfo.getInfo(orderId);
+  $ionicModal.fromTemplateUrl('templates/receiveOrderInfoConfirm.html', function(modal) {
+    $scope.orderInfoConfirm = modal;
+  }, {
+    scope: $scope
+  });
+  $scope.orderInfoConfirmShow = function () {
+    $scope.orderInfoConfirm.show();
+  }
+  $scope.orderInfoConfirmHidden = function () {
+    $scope.orderInfoConfirm.hide();
+  }
+  $scope.receiveOne = function (productInfo) {
+    var productList = [productInfo];
+    $scope.itemListReceive = productList;
+    $scope.orderInfoConfirm.show();
+  }
+  $scope.receiveAll = function (productInfo) {
+    $scope.itemListReceive = MyOrderInfo.getInfo(orderId);
+    $scope.orderInfoConfirm.show();
+  }
+
+})
 ;

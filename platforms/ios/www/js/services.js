@@ -352,6 +352,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车大灯总成',
             price:1000,
+            number:1,
             abstract:{
               beginTime:'2016-12-23 00:00:00',
               finishTime:'2017-02-23 00:00:00',
@@ -368,6 +369,7 @@ angular.module('starter.services', [])
             productId:'130500012',
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车前引擎盖',
+            number:1,
             price:1000
           },
           {
@@ -377,6 +379,7 @@ angular.module('starter.services', [])
             productId:'130500013',
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车轮毂*4',
+            number:1,
             price:1000
           },
           {
@@ -386,6 +389,7 @@ angular.module('starter.services', [])
             productId:'130500014',
             estimateTiem:'2016-11-20 12:00:00',
             productName:'汽车轮胎*4',
+            number:1,
             price:530
           }
         ]
@@ -400,6 +404,7 @@ angular.module('starter.services', [])
             productId:'130500016',
             estimateTiem:'2016-11-04 10:34:11',
             productName:'jeep 牧马人',
+            number:1,
             price:400000,
             abstract:{
               beginTime:'2016-12-18 00:00:00',
@@ -423,6 +428,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-23 10:34:11',
             productName:'电动车',
             price:400,
+            number:1,
             abstract:{
               beginTime:'2016-11-29 00:00:00',
               finishTime:'2017-05-23 00:00:00',
@@ -444,7 +450,18 @@ angular.module('starter.services', [])
             productId:'130500018',
             estimateTiem:'2016-11-23 10:34:11',
             productName:'素然手语系列衣服',
-            price:400
+            number:1,
+            price:200
+          },
+          {
+            productionId:'PRO_100008',
+            shipId:'SHIP_100008',
+            kd_code:'639820198',
+            productId:'130500018',
+            estimateTiem:'2016-11-23 10:34:11',
+            productName:'素然Z系列衣服',
+            number:2,
+            price:100
           }
         ]
       },
@@ -458,6 +475,7 @@ angular.module('starter.services', [])
             productId:'130500019',
             estimateTiem:'2016-11-23 14:34:11',
             productName:'购买 ionic 的定制软件，进行二次开发',
+            number:1,
             price:400
           }
         ]
@@ -473,6 +491,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-25 18:34:11',
             productName:'购买阿里云服务器，搭建测试环境',
             price:320,
+            number:1,
             abstract:{
               beginTime:'2016-11-20 00:00:00',
               finishTime:'2016-12-23 00:00:00',
@@ -495,6 +514,7 @@ angular.module('starter.services', [])
             estimateTiem:'2016-11-25 14:37:11',
             productName:'购买手机，用于测试',
             price:1000,
+            number:1,
             abstract:{
               beginTime:'2016-11-28 00:00:00',
               finishTime:'2017-02-23 00:00:00',
@@ -864,11 +884,11 @@ angular.module('starter.services', [])
 
 .factory('ReHistory',function () {
   var history = [
-    {id:'REHI_001',name:'准备',material:'原料一',quantity:'30吨'},
-    {id:'REHI_002',name:'制作',material:'原料二',quantity:'30吨'},
-    {id:'REHI_003',name:'生产',material:'原料三',quantity:'30吨'},
-    {id:'REHI_004',name:'加工',material:'原料一＋原料三',quantity:'30吨'},
-    {id:'REHI_005',name:'冶炼',material:'原料一＋原料二＋原料三',quantity:'30吨'},
+    {id:'REHI_001',name:'准备',chargeProduction:'100吨',dowMaterial:'15吨'},
+    {id:'REHI_002',name:'制作',chargeProduction:'80吨',dowMaterial:'30吨'},
+    {id:'REHI_003',name:'生产',chargeProduction:'105吨',dowMaterial:'20吨'},
+    {id:'REHI_004',name:'加工',chargeProduction:'75吨',dowMaterial:'30吨'},
+    {id:'REHI_005',name:'冶炼',chargeProduction:'200吨',dowMaterial:'30吨'},
 
 
   ];
@@ -880,6 +900,68 @@ angular.module('starter.services', [])
       for(var i=0;i<history.length;i++){
         if(id == history[i].id){
           return history[i];
+        }
+      }
+    },
+  }
+})
+
+.factory('ProductionDetails',function () {
+  var Details = [
+    {productionId:'PRO_10001',
+      startTime:'2016-12-1',
+      endTime:'2017-3-03',
+      proname:'皮革',
+      material:'原料一',
+      quantity:'30吨',
+      processone:{id:'REHI_001',name:'准备',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+      processtwo:{id:'REHI_002',name:'加工',quantityY:'30吨',quantityN:'25吨',chargeProduction:'30吨',dowMaterial:'15吨'},
+    },
+    {productionId:'PRO_10002',
+      startTime:'2016-12-5',
+      endTime:'2017-04-04',
+      proname:'插排',
+      material:'原料三',
+      quantity:'50件',
+      processone:{id:'REHI_003',name:'加热',quantityY:'44吨',quantityN:'3吨',chargeProduction:'590吨',dowMaterial:'150吨'},
+      processtwo:{id:'REHI_004',name:'精炼',quantityY:'33吨',quantityN:'6吨',chargeProduction:'70吨',dowMaterial:'8吨'},
+    },
+    {productionId:'PRO_10003',
+      startTime:'2016-12-18',
+      endTime:'2017-5-05',
+      proname:'打印机',
+      material:'原料一',
+      quantity:'100台',
+      processone:{id:'REHI_005',name:'提纯',quantityY:'30吨',quantityN:'44吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+      processtwo:{id:'REHI_006',name:'精炼',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+    },
+    {productionId:'PRO_10004',
+      startTime:'2016-12-22',
+      endTime:'2017-5-06',
+      proname:'硬盘',
+      material:'原料二',
+      quantity:'500块',
+      processone:{id:'REHI_007',name:'精炼',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+      processtwo:{id:'REHI_008',name:'提纯',quantityY:'30吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+    },
+    {productionId:'PRO_10005',
+      startTime:'2016-12-11',
+      endTime:'2017-7-07',
+      proname:'皮革',
+      material:'原料一',
+      quantity:'1000吨',
+      processone:{id:'REHI_009',name:'精炼',quantityY:'30吨',quantityN:'25吨',chargeProduction:'25吨',dowMaterial:'15吨'},
+      processtwo:{id:'REHI_0010',name:'精炼',quantityY:'44吨',quantityN:'44吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+    },
+  ];
+  return{
+    getAllDetails:function (){
+      return Details;
+    },
+    getInfo:function (id) {
+      for(var i=0;i<Details.length;i++){
+        if(id == Details[i].id){
+          return Details[i];
         }
       }
     },
@@ -1135,12 +1217,7 @@ angular.module('starter.services', [])
             quantityPromise:98,
             inventoryDate:'2016-12-07 12:32:28',
             supplier:'上海班富电子商务',
-            statu:'正常',
-            useItem:[
-                {itemSeqId:'10001',quantityOnHeadDiff:300,quantityPromiseDiff:300,itemTxt:'手动接收',createUserLogin:'zhangwenwen',date:'2016-10-10 12:23:44'},
-                {itemSeqId:'10002',quantityOnHeadDiff:-150,quantityPromiseDiff:-150,itemTxt:'订单消耗[Sal_10001(完成)]',createUserLogin:'zhangwenwen',date:'2016-10-11 15:23:44'},
-                {itemSeqId:'10003',quantityOnHeadDiff:-300,quantityPromiseDiff:-300,itemTxt:'制造消耗[Mad_10001(完成)]',createUserLogin:'zhangwenwen',date:'2016-12-10 12:23:44'},
-            ]
+            statu:'正常'
         },
         {
           productId:'00002',
@@ -1152,12 +1229,7 @@ angular.module('starter.services', [])
             quantityPromise:140,
             inventoryDate:'2016-10-07 10:32:28',
             supplier:'成都米其林轮胎汽车服务有限公司',
-            statu:'正常',
-            useItem:[
-                {itemSeqId:'10003',quantityOnHeadDiff:500,quantityPromiseDiff:500,itemTxt:'采购接收[Pur_10002(完成)]',createUserLogin:'zhangwenwen',date:'2016-10-10 12:23:44'},
-                {itemSeqId:'10004',quantityOnHeadDiff:-179,quantityPromiseDiff:-179,itemTxt:'制造消耗[Mad_10002(完成)]',createUserLogin:'fenghao',date:'2016-10-23 10:23:44'},
-                {itemSeqId:'10005',quantityOnHeadDiff:0,quantityPromiseDiff:-182,itemTxt:'订单消耗[Sal_10002(批准)]',createUserLogin:'fenghao',date:'2016-11-05 22:23:44'},
-            ]
+            statu:'正常'
         },
         {
           productId:'00003',
@@ -1169,11 +1241,7 @@ angular.module('starter.services', [])
             quantityPromise:465,
             inventoryDate:'2016-11-23 12:32:28',
             supplier:'上海aland保健品有限公司',
-            statu:'正常',
-            useItem:[
-                {itemSeqId:'10006',quantityOnHeadDiff:1000,quantityPromiseDiff:1000,itemTxt:'采购接收[Pur_10003(完成)]',createUserLogin:'zhangwenwen',date:'2016-11-05 12:23:44'},
-                {itemSeqId:'10007',quantityOnHeadDiff:-535,quantityPromiseDiff:-535,itemTxt:'订单消耗[Sal_10003(完成)]',createUserLogin:'fenghao',date:'2016-12-07 14:23:44'},
-            ]
+            statu:'正常'
         },
         {
           productId:'00004',
@@ -1185,11 +1253,7 @@ angular.module('starter.services', [])
             quantityPromise:48,
             inventoryDate:'2016-12-07 18:32:28',
             supplier:'新秀丽服饰有限公司',
-            statu:'正常',
-            useItem:[
-                {itemSeqId:'10008',quantityOnHeadDiff:50,quantityPromiseDiff:50,itemTxt:'采购接收[Pur_10004(完成)]',createUserLogin:'zhangwenwen',date:'2016-11-05 12:23:44'},
-                {itemSeqId:'10009',quantityOnHeadDiff:0,quantityPromiseDiff:-2,itemTxt:'订单消耗[Sal_10004(批准)]',createUserLogin:'fenghao',date:'2016-12-05 12:23:44'},
-            ]
+            statu:'正常'
         },
         {
           productId:'00005',
@@ -1198,23 +1262,48 @@ angular.module('starter.services', [])
             price:4599,
             quantityAccount:30,
             quantityOnHead:12,
-            quantityPromise:8,
+            quantityPromise:10,
             supplier:'惠普中国',
             inventoryList:[
               {
-                inventoryId:10001,
-                quantityAccount:30,
-                quantityOnHead:12,
-                quantityPromise:8,
-                inventoryDate:'2016-04-07 12:32:28',
+                inventoryId:'10001',
+                name:'笔记本电脑',
+                quantityAccount:10,
+                quantityOnHead:10,
+                quantityPromise:10,
+                inventoryDate:'2016-12-07T12:32:28.000',
+                supplier:'惠普中国',
+                statu:'正常'
+              },
+              {
+                inventoryId:'10002',
+                name:'笔记本电脑',
+                quantityAccount:10,
+                quantityOnHead:2,
+                quantityPromise:0,
+                inventoryDate:'2016-12-05T10:32:28',
                 supplier:'惠普中国',
                 statu:'正常',
+                useItem:[
+                  {itemSeqId:'10011',quantityOnHeadDiff:-5,quantityPromiseDiff:-5,itemTxt:'订单消耗[Sal_10005(完成)]',createUserLogin:'fenghao',date:'2016-12-05T12:23:44.000'},
+                  {itemSeqId:'10012',quantityOnHeadDiff:-3,quantityPromiseDiff:-3,itemTxt:'订单消耗[Sal_10006(批准)]',createUserLogin:'fenghao',date:'2016-12-08T12:23:44'},
+                  {itemSeqId:'10012',quantityOnHeadDiff:0,quantityPromiseDiff:-2,itemTxt:'订单消耗[Sal_10006(批准)]',createUserLogin:'fenghao',date:'2016-12-08T12:23:44'}
+                ]
               },
-            ],
-            useItem:[
-                {itemSeqId:'10010',quantityOnHeadDiff:30,quantityPromiseDiff:30,itemTxt:'采购接收[Pur_10005(完成)]',createUserLogin:'zhangwenwen',date:'2016-10-05 12:23:44'},
-                {itemSeqId:'10011',quantityOnHeadDiff:-18,quantityPromiseDiff:-18,itemTxt:'订单消耗[Sal_10005(完成)]',createUserLogin:'fenghao',date:'2016-12-05 12:23:44'},
-                {itemSeqId:'10012',quantityOnHeadDiff:0,quantityPromiseDiff:-4,itemTxt:'订单消耗[Sal_10006(批准)]',createUserLogin:'fenghao',date:'2016-12-08 12:23:44'},
+              {
+                inventoryId:'10003',
+                name:'笔记本电脑',
+                quantityAccount:10,
+                quantityOnHead:0,
+                quantityPromise:0,
+                inventoryDate:'2016-04-07T12:32:28',
+                supplier:'惠普中国',
+                statu:'正常',
+                useItem:[
+                  {itemSeqId:'10011',quantityOnHeadDiff:-5,quantityPromiseDiff:-5,itemTxt:'订单消耗[Sal_10005(完成)]',createUserLogin:'fenghao',date:'2016-12-05 12:23:44'},
+                  {itemSeqId:'10012',quantityOnHeadDiff:-5,quantityPromiseDiff:-5,itemTxt:'订单消耗[Sal_10006(批准)]',createUserLogin:'fenghao',date:'2016-12-08 12:23:44'}
+                ]
+              }
             ]
         },
         {productId:'00006',name:'戴尔显示器',img:'img/product/daier.png',price:1499,quantityAccount:10,quantityOnHead:10,quantityPromise:10,inventoryDate:'2016-12-01 10:32:28',supplier:'美国戴尔公司',statu:'正常'},
@@ -1226,12 +1315,24 @@ angular.module('starter.services', [])
         getAllStockList:function () {
             return stockList;
         },
-        getInfo:function (inventoryId) {
+        getProductInfo:function (productId) {
             for(var i=0;i<stockList.length;i++){
-                if(stockList[i].inventoryId == inventoryId){
-                    return stockList[i];
+                if(stockList[i].productId == productId){
+                    //alert(stockList[i].name);
+                    return stockList[i].inventoryList;
                 }
             }
+        },
+        goInventoryInfo:function (productId, inventoryId) {
+          for(var i=0;i<stockList.length;i++){
+            if(stockList[i].productId == productId){
+              for(var j=0;j<stockList[i].inventoryList.length;j++){
+                if(stockList[i].inventoryList[j].inventoryId == inventoryId){
+                  return stockList[i].inventoryList[j];
+                }
+              }
+            }
+          }
         }
     }
 })

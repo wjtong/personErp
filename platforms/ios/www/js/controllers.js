@@ -385,10 +385,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 })
 .controller('CreateProduct',function ($scope,$ionicModal,$stateParams,MyOrder,$location,ReHistory) {
     $scope.devList = [
-      { text: "原料一", checked: false },
-      { text: "原料二", checked: false },
-      { text: "原料三", checked: false }
+      { id:'01',text: "皮革" },
+      { id:'01',text: "燃油" },
+      { id:'01',text: "催化剂" }
     ];
+    $scope.addgongxu = function () {
+      var a= new Date()
+      console.info(a.getMilliseconds());
+      document.getElementById("addgx").hidden=false;
+      $scope.modal.hide();
+      console.info(a.getMilliseconds());
+    }
     var orderId = $stateParams.orderId;
     $scope.itemList = MyOrder.getSalOrderInfo(orderId);
     //增加工序
@@ -416,7 +423,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.$on('modal.removed', function() {
       // Execute action
     });
-
     //参考历史工序
     $scope.reHistory = ReHistory.getAllHistory();
     $scope.goInfo = function (id){
@@ -449,11 +455,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       // Execute action
     });
     //选择原料
-    $scope.devList = [
-      { text: "原料一", checked: false },
-      { text: "原料二", checked: false },
-      { text: "原料三", checked: false }
-    ];
     $scope.reHistory = ReHistory.getAllHistory();
     $scope.goInfo = function (id){
       $scope.productionList=ReHistory.getInfo(id);
@@ -488,11 +489,18 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.material.hide();
     }
 })
+.controller('ProDet',function($scope,$stateParams,ProductionDetails){
+    var productionId=$stateParams.ProductionId;
+    $scope.productionList=ProductionDetails.getInfo();
 
+})
 
 .controller('MyOrderInfo', function ($scope,$stateParams,$ionicModal,$ionicPopup,MyOrder,Contact,ChatList,MyOrderInfo,$location) {
     $scope.goProduction = function (orderId) {
       $location.path('/app/createProduction/'+orderId);
+    };
+    $scope.goInfoPro = function (productionId) {
+      $location.path('/app/ProductionDetails/'+productionId);
     };
     var orderId = $stateParams.orderId;
     var orderTypeId = $stateParams.orderTypeId;
@@ -674,7 +682,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.addressConfirm.close();
     $scope.contact.hide();
   }
-  $scope.addResourcesToOrder = function (resources) {
+  $scope.addResources = function (resources) {
     if(typeId == 'sal'){
       CreateOrder.setSalResources(resources);
     }else if(typeId == 'pur'){
@@ -863,9 +871,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('Stock', function ($scope,Stock) {
     $scope.stockList = Stock.getAllStockList();
 })
-.controller('StockInfo',function ($scope, $stateParams,$ionicPopup, Stock) {
+.controller('StockInfo',function ($scope, $stateParams,$ionicPopup,$ionicModal, Stock) {
+    var productId = $stateParams.productId;
     var inventoryId = $stateParams.inventoryId;
-    $scope.inventoryInfo = Stock.getInfo(inventoryId);
+    $scope.inventoryInfo = Stock.goInventoryInfo(productId,inventoryId);
 
     $scope.shouItemInfo = function(item) {
         $scope.data = {};
@@ -888,8 +897,94 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.closeInfo = function () {
       $scope.itemInfo.close();
     }
+
+  $ionicModal.fromTemplateUrl('templates/stockOut.html', function(modal) {
+    $scope.stockout = modal;
+  }, {
+    scope: $scope
+  });
+  $scope.showStockOut = function () {
+    $scope.stockout.show();
+  }
+  $scope.hideStockOut = function () {
+    $scope.stockout.hide();
+  }
+
 })
-.controller('ReceiveStock',function ($scope,myresources) {
+.controller('ReceiveStock',function ($scope,$ionicModal, myresources,Contact) {
     $scope.resourcesList = myresources.getResourcesAll();
+    $scope.contactList = Contact.getAll();
+
+    $ionicModal.fromTemplateUrl('templates/addResourcesToOrder.html', function(modal) {
+      $scope.resources = modal;
+    }, {
+      scope: $scope
+    });
+    $ionicModal.fromTemplateUrl('templates/orderContact.html', function(modal) {
+      $scope.contact = modal;
+    }, {
+      scope: $scope
+    });
+
+    $scope.showResources = function () {
+      $scope.resources.show();
+    }
+    $scope.hiddenResources = function () {
+      $scope.resources.hide();
+    }
+    $scope.showContact = function () {
+      $scope.contact.show();
+    }
+    $scope.hiddenContact = function () {
+      $scope.contact.hide();
+    }
+    $scope.addResources = function (resources) {
+      $scope.productName = resources.title;
+      $scope.productId = resources.id;
+      $scope.resources.hide();
+    }
+    $scope.showAddressConfirm = function (partyId, partyName) {
+      $scope.supplier = partyName;
+      $scope.supplierPartyId = partyId;
+      $scope.contact.hide();
+    }
+})
+.controller('StockList', function ($scope, $stateParams, $location, Stock) {
+    $scope.productId = $stateParams.productId;
+    $scope.stockList = Stock.getProductInfo($scope.productId);
+    $scope.goInfo = function (productId, inventoryId) {
+      $location.path('/app/stockInfo/'+productId+'/'+inventoryId);
+    }
+})
+.controller('ReceivePurOrderList',function ($scope,$location,MyOrder) {
+  $scope.purOrderList = MyOrder.getPurOrder();
+  $scope.goInfo = function (orderId) {
+    $location.path('/app/receiveOrderInfo/'+orderId);
+  }
+}).controller('ReceiveOrderInfo',function ($scope, $stateParams,$ionicModal, MyOrder,MyOrderInfo) {
+  var orderId = $stateParams.orderId;
+  $scope.orderInfo = MyOrder.getPurOrderInfo(orderId);
+  $scope.itemList = MyOrderInfo.getInfo(orderId);
+  $ionicModal.fromTemplateUrl('templates/receiveOrderInfoConfirm.html', function(modal) {
+    $scope.orderInfoConfirm = modal;
+  }, {
+    scope: $scope
+  });
+  $scope.orderInfoConfirmShow = function () {
+    $scope.orderInfoConfirm.show();
+  }
+  $scope.orderInfoConfirmHidden = function () {
+    $scope.orderInfoConfirm.hide();
+  }
+  $scope.receiveOne = function (productInfo) {
+    var productList = [productInfo];
+    $scope.itemListReceive = productList;
+    $scope.orderInfoConfirm.show();
+  }
+  $scope.receiveAll = function (productInfo) {
+    $scope.itemListReceive = MyOrderInfo.getInfo(orderId);
+    $scope.orderInfoConfirm.show();
+  }
+
 })
 ;

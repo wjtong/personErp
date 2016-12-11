@@ -508,8 +508,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           controller: 'ReceiveStock'
         }
       }
-    }
-  )
+    })
+    .state('app.receivePurOrderList', {
+      url: '/receivePurOrderList',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/receivePurOrderList.html',
+          controller: 'ReceivePurOrderList'
+        }
+      }
+    })
+    .state('app.receiveOrderInfo', {
+      url: '/receiveOrderInfo/:orderId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/receiveOrderInfo.html',
+          controller: 'ReceiveOrderInfo'
+        }
+      }
+    })
   ;
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/app/playlists');

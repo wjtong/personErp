@@ -70,6 +70,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
+  .state('app.ProductionDetails', {
+    url: '/ProductionDetails/:ProductionId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/ProductionDetails.html',
+        controller:'ProDet'
+      }
+    }
+  })
   .state('app.aboutme', {
     url: '/aboutme',
     views: {
@@ -79,7 +88,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-
   .state('app.contactlist', {
     url: '/contactlist',
     views: {
@@ -475,7 +483,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   )
     .state('app.stockInfo', {
-        url: '/stockInfo/:productId',
+        url: '/stockInfo/:productId/:inventoryId',
         views: {
           'menuContent': {
             templateUrl: 'templates/stockInfo.html',
@@ -483,7 +491,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       }
-    ).state('app.receiveStock', {
+    ).state('app.stockList',{
+      url: '/stockList/:productId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/stockList.html',
+          controller: 'StockList'
+        }
+      }
+    })
+    .state('app.receiveStock', {
       url: '/receiveStock',
       views: {
         'menuContent': {
@@ -491,8 +508,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           controller: 'ReceiveStock'
         }
       }
-    }
-  )
+    })
+    .state('app.receivePurOrderList', {
+      url: '/receivePurOrderList',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/receivePurOrderList.html',
+          controller: 'ReceivePurOrderList'
+        }
+      }
+    })
+    .state('app.receiveOrderInfo', {
+      url: '/receiveOrderInfo/:orderId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/receiveOrderInfo.html',
+          controller: 'ReceiveOrderInfo'
+        }
+      }
+    })
   ;
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/app/playlists');

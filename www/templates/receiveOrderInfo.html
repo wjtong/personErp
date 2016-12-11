@@ -55,7 +55,6 @@
         </table>
       </div>
       <div class="" ng-repeat="itemInfo in itemList" >
-
         <div class="list card" style="margin-top: -30px;">
           <div class="item item-divider"><b>订单项{{$index+1}}</b> &nbsp;&nbsp;&nbsp;{{itemInfo.productName}}
           </div>
@@ -85,65 +84,25 @@
               <td>&nbsp;&nbsp;&nbsp;{{itemInfo.price}}</td>
             </tr>
             <tr>
-              <td style="text-align: right"><b>生产摘要:</b></td>
+              <td style="text-align: right">数量</td>
+              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.number}}</td>
             </tr>
-            <tr>
-              <td style="text-align: right">创建生产日期</td>
-              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.abstract.beginTime}}</td>
-            </tr>
-            <tr>
-              <td style="text-align: right">预计完成时期</td>
-              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.abstract.finishTime}}</td>
-            </tr>
-            <tr>
-              <td style="text-align: right">操作人</td>
-              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.abstract.operator}}</td>
-            </tr>
-            <tr>
-              <td style="text-align: right">用料</td>
-              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.abstract.material}}</td>
-            </tr>
-            <tr>
-              <td style="text-align: right">阶段</td>
-              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.abstract.stage}}</td>
-            </tr>
-            <tr>
-              <td style="text-align: right">产出</td>
-              <td>&nbsp;&nbsp;&nbsp;{{itemInfo.abstract.output}}</td>
-            </tr>
+            <tr><td>&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<button class="button" ng-click="receiveOne(itemInfo)">接收</button></td></tr>
           </table>
-          <button class="button  button-stable" ng-click="goProduction(orderInfo.orderId)">发起生产</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="margin-top: -25px;">
+          <div class="col-demo">
+            <button class="button button-positive" style="width: 100%;" ng-click="receiveAll();">完成订单</button>
+          </div>
+        </div>
+        <div class="col" style="margin-top: -25px;">
+          <div class="col-demo">
+            <button class="button button-assertive" style="width: 100%;">取消</button>
+          </div>
         </div>
       </div>
     </div>
   </ion-content>
-  <div class="bar bar-footer" style="margin-left: -6px;">
-    <div class="tab-nav tabs">
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="showPerson()">
-        <i class="icon ion-ios-personadd-outline" style="line-height: 14px;">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">可见人员</span>
-      </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="showOrderChat()">
-        <i class="icon ion-ios-chatboxes-outline" style="line-height: 14px;">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">有关的讨论</span>
-      </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="showStatusPopup()" ng-if=" orderInfo.orderStatus == '已批准'">
-        <i class="icon ion-gear-b" style="line-height: 14px;">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">状态</span>
-      </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="orderAdjustment()" ng-if=" orderInfo.orderStatus == '已批准'">
-        <i class="icon ion-cash" style="line-height: 14px;">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">订单调整</span>
-      </a>
-      <!--<script id="popup-template.html" type="text/ng-template">-->
-        <!--&lt;!&ndash;<input ng-model="data.wifi" type="text" placeholder="Password">&ndash;&gt;-->
-      <input type="hidden" ng-model="data.adjustmentPrice" placeholder="调整金额">
-      <input type="hidden" ng-model="data.adjustmentReason" placeholder="调整原因">
-      <!--</script>-->
-    </div>
-  </div>
 </ion-view>
