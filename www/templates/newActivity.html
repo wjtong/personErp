@@ -1,0 +1,44 @@
+<ion-view view-title="新建活动">
+  <ion-content>
+    <div class="content ionic-pseudo">
+      <div class="list card">
+        <div class="item">
+          <label class="">
+            <span class="input-label">活动标题</span>
+            <input type="text" placeholder="标题" value="" style="width: 100%">
+          </label>
+        </div>
+        <div class="item">
+          <label class="">
+            <span class="input-label">描述</span>
+            <input type="text" placeholder="描述" value="" style="width: 100%">
+          </label>
+        </div>
+        <div class="item">
+          <label class="">
+            <span class="input-label">图片</span>
+            <button class="button button-block button-stable" ng-click="takePhoto()">图片选择</button>
+            <img ng-src="{{imageSrc}}" ng-click="takePhoto()" id="myImage" class="full-image">
+          </label>
+        </div>
+        <div class="item">
+          <label class="">
+            <span class="input-label">时间</span>
+            <input type="text" placeholder="时间" value="" style="width: 100%">
+          </label>
+        </div>
+        <div class="item">
+          <label class="">
+            <span class="input-label">地点</span>
+            <input type="date" placeholder="地点" value="" style="width: 100%">
+          </label>
+        </div>
+        <div class="item">
+          <label class="">
+            <button class="button button-outline button-positive ion-paper-airplane"  ng-click="openModal()">推送好友</button>
+          </label>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

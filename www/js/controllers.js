@@ -167,8 +167,23 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   ];
 })
 
-.controller('GetBusiness',function($scope,Activity){
+.controller('GetBusiness',function($scope,Activity,$location){
   $scope.active=Activity.getAllActivity();
+  $scope.newActivity=function () {
+    $location.path('/app/newActivity')
+  }
+  $scope.myTime=function () {
+    $location.path('/app/myTime')
+  }
+  $scope.activityDetails=function (id) {
+    $location.path("/app/activityDetails/"+id);
+  }
+
+})
+.controller('ActivityCrl',function ($stateParams,$scope,Activity) {
+  var id = $stateParams.activityId;
+  $scope.activityList = Activity.getActivityInfo(id);
+  $scope.personList = Activity.getAllPerson();
 
 })
 .controller('AboutMe',function ($scope) {
@@ -392,10 +407,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     };
     $scope.addgongxu = function () {
       var a= new Date()
-      console.info(a.getMilliseconds());
       document.getElementById("addgx").hidden=false;
-      $scope.modal.hide();
-      console.info(a.getMilliseconds());
     }
     var orderId = $stateParams.orderId;
     $scope.itemList = MyOrder.getSalOrderInfo(orderId);
@@ -487,6 +499,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       // Execute action
     });
 })
+
 .controller('ProDet',function($scope,$stateParams,ProductionDetails){
     var productionId=$stateParams.ProductionId;
     $scope.productionList=ProductionDetails.getInfo();

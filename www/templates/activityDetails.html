@@ -1,0 +1,52 @@
+<ion-view view-title="活动详情">
+  <ion-content>
+    <div class="list" >
+      <div class="item">
+      <label class="">
+        <span class="input-label">活动标题</span>
+        <input type="text"  value="{{activityList.title}}" style="width: 100%">
+      </label>
+      </div>
+      <div class="item">
+        <label class="">
+          <span class="input-label">发起人</span>
+          <input type="text"  value="{{activityList.name}}" style="width: 100%">
+        </label>
+      </div>
+      <div class="item">
+        <label class="">
+          <span class="input-label">地点</span>
+          <input type="text"  value="{{activityList.address}}" style="width: 100%">
+        </label>
+      </div>
+      <div class="item">
+        <label class="">
+          <span class="input-label">时间</span>
+          <input type="text"  value="{{activityList.createTime}}" style="width: 100%">
+        </label>
+      </div>
+      <div><p>参与人员：</p></div>
+      <div class="item item-avatar" style="margin-left: -16px;">
+        <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="
+                top: 16px;
+                max-width: 40px;
+                max-height: 40px;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;margin-left: 16px;">
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="col-demo">
+            <button class="button button-positive" style="width: 100%;">参与</button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="col-demo">
+            <button class="button button-positive" style="width: 100%;">赞</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
