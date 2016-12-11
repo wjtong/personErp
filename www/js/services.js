@@ -882,6 +882,7 @@ angular.module('starter.services', [])
 
 })
 
+
 .factory('ReHistory',function () {
   var history = [
     {id:'REHI_001',name:'准备',chargeProduction:'100吨',dowMaterial:'15吨'},
@@ -974,12 +975,65 @@ angular.module('starter.services', [])
     {id:'ACT_002',title:'公司培训',createTime:'2016-12-7',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁'}
 
   ];
+  var personList = [
+    {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
+      phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
+    {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
+      phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:'2'},
+    {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
+      phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'},
+  ];
 
-  return{
-    getAllActivity:function (){
+  return {
+    getAllActivity: function () {
       return activity
+    },
+    getAllPerson: function () {
+      return personList
+    },
+    getActivityInfo: function (id) {
+      for (var i = 0; i < activity.length; i++) {
+        if (id == activity[i].id) {
+          return activity[i];
+        }
+      }
     }
   }
+})
+.factory('Material',function () {
+  var MaterialList = [
+    {id:'Mat_10001',name:'皮革',price:'15',dosage:''},
+    {id:'Mat_10002',name:'石油',price:'20',dosage:''},
+    {id:'Mat_10003',name:'催化剂',price:'25',dosage:''},
+    {id:'Mat_10004',name:'石墨',price:'30',dosage:''},
+  ];
+  var MaterialAll =[];
+  return{
+    getAllMaterialList:function () {
+      return MaterialList;
+    },
+    getMaterialAll:function(){
+      return  MaterialAll;
+    },
+    setMaterial:function (resources) {
+      if(MaterialAll.resources == null){
+        var resourcesList = [];
+        resourcesList.push(resources);
+        MaterialAll.resources = resourcesList;
+      }else{
+        var flag = true;
+        for(var i=0;i<MaterialAll.resources.length;i++){
+          if(MaterialAll.resources[i].id == resources.id){
+            flag = false;
+          }
+        }
+        if(flag){
+          MaterialAll.resources.push(resources);
+        }
+      }
+    },
+  }
+
 })
 
 .factory('MyTime',function () {

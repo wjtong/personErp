@@ -8,17 +8,11 @@
     </button>
   </ion-header-bar>
   <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate  item-icon-right item-text-wrap" ng-repeat="personmain in devList">
-          <p><b>原料：</b>{{personmain.text}}</p>
-          <br>
-          <p>用量：</p>
-          <label class="item item-input" >
-          <p><input type="text" id="yongliang" placeholder="" ></p>
-          </label>
-          <button ng-click="goInfo()">选择</button>
+    <div style="margin-top: 55px;">
+      <ion-item class="item-remove-animate  item-icon-right" ng-repeat="resources in MaterialList" type="item-text-wrap" ng-click="addMAll(resources)">
+        <p>编号：{{resources.id}}&nbsp;&nbsp;&nbsp;原料：{{resources.name}}&nbsp;&nbsp;&nbsp;价格：{{resources.price}}</p>
       </ion-item>
-    </ion-list>
+    </div>
   </ion-content>
   </ion-view>
 </ion-modal-view>

@@ -28,24 +28,16 @@
         </tr>
       </table>
     </div>
-    <div>
-      <h3>原料：</h3>
-    </div>
-    <div class="list card cardupdate" style="margin: 5px 10px;">
-      <div class="item" style="margin: -17px 0px;">
-        <label class="">
-          <span class="input-label">原料<button style="margin-left: 10px;" ng-click="goMaterial()">选择原料</button></span>
-          <input type="text" placeholder="原料" value="">
-        </label>
-      </div>
-    </div>
-    <div class="list card cardupdate" style="margin: 5px 10px;">
-      <div class="item" style="margin: -17px 0px;">
-        <label class="">
-          <span class="input-label">用量</span>
-          <input type="text" placeholder="数量" value="">
-        </label>
-      </div>
+    <div class="list" style="margin-bottom: 40px;margin-top: 10px;">
+      <div class="item item-divider"><b>原料</b><button style="margin-left: 10px;" ng-click="goMaterial()">添加原料</button></div>
+      <ion-list>
+        <ion-item class="item-remove-animate  item-icon-right" ng-repeat="resources in MaterialListAll.resources" type="item-text-wrap">
+          <p>编号：{{resources.id}}&nbsp;&nbsp;&nbsp;原料：{{resources.name}}&nbsp;&nbsp;&nbsp;价格：{{resources.price}}</p>
+          <label class="item item-input">
+            <input placeholder="用量" type="text">
+          </label>
+        </ion-item>
+      </ion-list>
     </div>
     <div>
       <div>
