@@ -360,7 +360,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'menuContent': {
         templateUrl: 'templates/newActivity.html',
-        //controller:'NewActivity'
+        controller:'LabelPersonList'
       }
     }
   })
