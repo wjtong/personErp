@@ -1,0 +1,14 @@
+<ion-view title="{{timeListInfo.data}}">
+  <ion-content>
+    <div class="">
+      <div class="list card">
+        <div class="item" ng-repeat="time in timeListInfo.info | orderBy:'biginTime':false" ng-click="goTimeInfo(time.id)">
+          <div class="item-content" style="float: left;">
+            {{time.title}}<br>
+            {{time.biginTime | date:"HH:mm:ss"}} - {{time.endTime | date:"HH:mm:ss"}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

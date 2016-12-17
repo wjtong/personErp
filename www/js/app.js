@@ -464,6 +464,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
+    .state('app.timeList',{
+      url:'/timeList/:timeId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/timeList.html',
+          controller: 'TimeList'
+        }
+      }
+    })
+
     .state('app.activityDetails',{
       url:'/activityDetails/:activityId',
       disableBack:true,

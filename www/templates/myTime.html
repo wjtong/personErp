@@ -1,15 +1,9 @@
 <ion-view title="我的时间安排">
   <ion-content>
-    <div class="">
-      <div class="list card" ng-repeat="myTime in myTimes | orderBy:'data':true">
-        <div class="item item-divider"><b>{{myTime.data}}</b></div>
-        <div class="item" ng-repeat="time in myTime.info | orderBy:'biginTime':false" ng-click="goInfo(myTime.id,time.id)">
-          <div class="item-content" style="float: left;">
-            {{time.title}}<br>
-            {{time.biginTime | date:"HH:mm:ss"}} - {{time.endTime | date:"HH:mm:ss"}}
-          </div>
-        </div>
-      </div>
-    </div>
+    <ul class="list">
+      <li class="item" ng-repeat="myTime in myTimes | orderBy:'data':true" ng-click="goMyTimeList(myTime.id)">
+        {{myTime.data}}
+      </li>
+    </ul>
   </ion-content>
 </ion-view>

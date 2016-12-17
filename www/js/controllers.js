@@ -806,7 +806,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.goInfo = function (timeId,infoId) {
       $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
     }
-
+    $scope.goMyTimeList = function (timeId) {
+      $location.path('/app/timeList/'+timeId);
+    }
+})
+.controller('TimeList',function ($scope, $stateParams, $ionicModal, $location, MyTime) {
+    $scope.timeId = $stateParams.timeId;
+    $scope.timeListInfo = MyTime.getTimeList($scope.timeId);
+    $scope.goTimeInfo = function (infoId) {
+      //alert('testest');
+      $location.path('/app/tiemInfo/'+$scope.timeId+'/'+infoId);
+    }
 })
 .controller('TiemInfo',function ($scope, $stateParams, MyTime, ionicDatePicker, ionicTimePicker) {
     var timeId = $stateParams.timeId;

@@ -1070,6 +1070,13 @@ angular.module('starter.services', [])
       getAllMyTime:function () {
         return time;
       },
+      getTimeList:function (timeId) {
+        for (var i=0;i<time.length;i++){
+          if(time[i].id == timeId){
+            return time[i];
+          }
+        }
+      },
       getTimeInfo:function (timeId, infoId) {
         for (var i=0;i<time.length;i++){
           if(time[i].id == timeId){
