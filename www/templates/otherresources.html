@@ -10,7 +10,7 @@
     </div>
     <div class="content" style="margin-top: 15px;">
       <div class="row row-wrap" style="margin-left: -10px;">
-        <div class="col col-50" ng-repeat="resources in resourcesListOthers" ng-click="goInfo(resources.id)">
+        <div class="col col-50" ng-repeat="resources in resourcesListOthers" ng-click="goInfo(resources.id,id)">
           <ion-item class="card" style="height:100%; width:100%;margin-top: -20px;"  type="item-text-wrap" >
             <div class="item item-body" >
               <img  style="height:100%; width:100%;" src="{{resources.descImg}}">

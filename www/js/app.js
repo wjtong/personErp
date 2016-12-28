@@ -125,7 +125,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-
+  .state('app.personResourcesInfo', {
+      url: '/personResourcesInfo/:resourcesId/:personId',
+      views: {
+          'menuContent': {
+              templateUrl: 'templates/otherResourcesInfo.html',
+              controller:'PersonResourcesInfo'
+          }
+      }
+  })
   .state('app.myevents', {
     url: '/myevents',
     views: {
@@ -245,7 +253,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   //   }
   // })
   .state('app.getResources', {
-    url: '/getResources/',
+    url: '/getResources/:id',
     disableBack:true,
     cache :false,
     views: {

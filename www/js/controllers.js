@@ -131,8 +131,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.goInfo = function (id) {
     $location.path('/app/editPerson/'+id);
   };
-  $scope.goResources = function () {
-    $location.path('/app/getResources/');
+  $scope.goResources = function (id) {
+    $location.path('/app/getResources/'+id);
   };
   $scope.goEvents = function () {
     $location.path('/app/getEvents/');
@@ -145,10 +145,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   };
 })
 .controller('GetResources',function ($scope,myresources,$stateParams,$location) {
-  $scope.resourcesListOthers = myresources.getResourcesOthersAll();
-  $scope.goInfo = function (resourcesId) {
-    $location.path("/app/otherResourcesInfo/"+resourcesId);
-  }
+    $scope.id = $stateParams.id;
+    $scope.resourcesListOthers = myresources.getPersonList($scope.id);
+    // $scope.resourcesListOthers = myresources.getResourcesOthersAll();
+    $scope.goInfo = function (resourcesId,personId) {
+        $location.path("/app/personResourcesInfo/"+resourcesId+"/"+personId);
+    }
 })
 .controller('GetEvent',function ($scope,OtherTime,$stateParams) {
   $scope.timeListOther = OtherTime.getAllOtherTime()
@@ -228,6 +230,69 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path("/app/myResourcesInfo/"+resourcesId);
     }
 })
+.controller('PersonResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
+    $scope.personList = Contact.getAll();
+    var resourcesId = $stateParams.resourcesId;
+    var personId = $stateParams.personId;
+
+    $scope.resources = myresources.getPersonInfo(personId,resourcesId);
+    $scope.resourcesOther = myresources.getResourceOtherInfo(resourcesId);
+    $scope.createOrder = function(){
+        $location.path("/app/createOrder/pur");
+    };
+    $ionicModal.fromTemplateUrl('templates/priceToPerson.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+        $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+        $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+        // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+        // Execute action
+    });
+    //编辑价格弹出框
+    $scope.showPopup = function() {
+        $scope.data = {}
+
+        // 自定义弹窗
+        var myPopup = $ionicPopup.show({
+            template: '<input type="text" >',
+            title: '请输入你要修改的价格',
+            scope: $scope,
+            buttons: [
+                { text: '保存',
+                    type: 'button-positive',},
+                {
+                    text: '取消',
+                },
+            ]
+        });
+        myPopup.then(function(res) {
+            console.log('Tapped!', res);
+        });
+        $timeout(function() {
+            myPopup.close(); // 3秒后关闭弹窗
+        }, 3000);
+    };
+})
+
+
+
+
 .controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
     $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;

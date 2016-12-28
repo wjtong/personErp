@@ -735,6 +735,110 @@ angular.module('starter.services', [])
         comments:4
       }
     ];
+
+
+    var personList = [
+        {
+            personId:'PERS_10001',
+            infoList:[
+                {
+                    id:'RES_100010',
+                    img:'img/resources/yahuazhi.jpeg',
+                    descImg:"img/resources/yahuazhi.jpeg",
+                    title:"压花白纸",
+                    name:'冯浩',
+                    company:'上海班富电子商务',
+                    address:'中国，上海',
+                    desc:'用于生产产的压花纸',
+                    pushed:5,
+                    price:'500',
+                    collect:3,
+                    comments:4
+                },
+                {
+                    id:'RES_100011',
+                    img:'img/resources/pigeyanliao.jpeg',
+                    descImg:"img/resources/pigeyanliao.jpeg",
+                    title:"褐色印料",
+                    name:'沈寅麟',
+                    company:'上海班富电子商务',
+                    address:'中国，上海',
+                    desc:'褐色印料',
+                    pushed:5,
+                    price:'500',
+                    collect:3,
+                    comments:4
+                }
+            ]
+        },
+        {
+            personId:'PERS_10002',
+            infoList:[
+                {
+                    id:'RES_100012',
+                    img:'img/resources/dahuoche.jpeg',
+                    descImg:"img/resources/dahuoche.jpeg",
+                    title:"大货车运输",
+                    name:'冯厂长',
+                    company:'上海班富电子商务',
+                    address:'中国，上海',
+                    desc:'大货车运输',
+                    pushed:5,
+                    price:'500',
+                    collect:3,
+                    comments:4
+                },
+                {
+                    id:'RES_100013',
+                    img:'img/resources/huolun.jpeg',
+                    descImg:"img/resources/huolun.jpeg",
+                    title:"海运",
+                    name:'冯厂长',
+                    company:'上海班富电子商务',
+                    address:'中国，上海',
+                    desc:'海运',
+                    pushed:5,
+                    price:'500',
+                    collect:3,
+                    comments:4
+                }
+            ]
+        },
+        {
+            personId:'PERS_10005',
+            infoList:[
+                {
+                    id:'RES_100014',
+                    img:'img/resources/pigeshengchanxian.jpg',
+                    descImg:"img/resources/pigeshengchanxian.jpg",
+                    title:"立邦湿发生产线。0.5m/s",
+                    name:'王司机',
+                    company:'上海班富电子商务',
+                    address:'中国，上海',
+                    desc:'立邦湿发生产线。0.5m/s',
+                    pushed:5,
+                    price:'500',
+                    collect:3,
+                    comments:4
+                },
+                {
+                    id:'RES_100015',
+                    img:'img/resources/pigeshengchanxian.jpg',
+                    descImg:"img/resources/pigeshengchanxian.jpg",
+                    title:"立邦湿发生产线。1.0m/s",
+                    name:'张司机',
+                    company:'上海班富电子商务',
+                    address:'中国，上海',
+                    desc:'立邦湿发生产线。1.0m/s',
+                    pushed:5,
+                    price:'500',
+                    collect:3,
+                    comments:4
+                }
+            ]
+        }
+    ];
+
     var selectOption = [
       {id:'me',name:'李四'},
       {id:'zhangzong',name:'张总'},
@@ -766,6 +870,26 @@ angular.module('starter.services', [])
         },
         getSelectOption:function () {
             return selectOption;
+        },
+        getPersonList:function (personId) {
+            // personList
+            for(var i=0;i<personList.length;i++){
+                if(personId == personList[i].personId){
+                    return personList[i].infoList;
+                }
+            }
+        },
+        getPersonInfo:function (personId, id) {
+            for(var i=0;i<personList.length;i++){
+                if(personId == personList[i].personId){
+                    for(var j=0;j<personList[i].infoList.length;j++){
+                        if(personList[i].infoList[j].id = id){
+                            return personList[i].infoList[j];
+                        }
+                    }
+                }
+
+            }
         }
     }
 })
