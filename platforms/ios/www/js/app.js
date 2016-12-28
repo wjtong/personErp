@@ -353,6 +353,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+  .state('app.newActivity', {
+    url: '/newActivity',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/newActivity.html',
+        controller:'LabelPersonList'
+      }
+    }
+  })
   .state('app.myOrderInfo',{
   url:'/myOrderInfo/:orderId/:orderTypeId',
   disableBack:true,
@@ -450,6 +461,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         'menuContent': {
           templateUrl: 'templates/myTime.html',
           controller: 'MyTime'
+        }
+      }
+    })
+    .state('app.timeList',{
+      url:'/timeList/:timeId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/timeList.html',
+          controller: 'TimeList'
+        }
+      }
+    })
+
+    .state('app.activityDetails',{
+      url:'/activityDetails/:activityId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/activityDetails.html',
+          controller:'ActivityCrl'
         }
       }
     })

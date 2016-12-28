@@ -167,8 +167,23 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   ];
 })
 
-.controller('GetBusiness',function($scope,Activity){
+.controller('GetBusiness',function($scope,Activity,$location){
   $scope.active=Activity.getAllActivity();
+  $scope.newActivity=function () {
+    $location.path('/app/newActivity')
+  }
+  $scope.myTime=function () {
+    $location.path('/app/myTime')
+  }
+  $scope.activityDetails=function (id) {
+    $location.path("/app/activityDetails/"+id);
+  }
+
+})
+.controller('ActivityCrl',function ($stateParams,$scope,Activity) {
+  var id = $stateParams.activityId;
+  $scope.activityList = Activity.getActivityInfo(id);
+  $scope.personList = Activity.getAllPerson();
 
 })
 .controller('AboutMe',function ($scope) {
@@ -383,18 +398,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 
 })
-.controller('CreateProduct',function ($scope,$ionicModal,$stateParams,MyOrder,$location,ReHistory) {
-    $scope.devList = [
-      { id:'01',text: "皮革" },
-      { id:'01',text: "燃油" },
-      { id:'01',text: "催化剂" }
-    ];
+.controller('CreateProduct',function ($scope,$ionicModal,$stateParams,MyOrder,$location,ReHistory,Material) {
+    $scope.MaterialList= Material.getAllMaterialList();
+    $scope.MaterialListAll=Material.getMaterialAll();
+    $scope.addMAll = function (resources) {
+      Material.setMaterial(resources);
+      $scope.material.hide();
+    };
     $scope.addgongxu = function () {
       var a= new Date()
-      console.info(a.getMilliseconds());
       document.getElementById("addgx").hidden=false;
-      $scope.modal.hide();
-      console.info(a.getMilliseconds());
     }
     var orderId = $stateParams.orderId;
     $scope.itemList = MyOrder.getSalOrderInfo(orderId);
@@ -485,10 +498,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.$on('History.removed', function() {
       // Execute action
     });
-    $scope.addMaterial = function () {
-      $scope.material.hide();
-    }
 })
+
 .controller('ProDet',function($scope,$stateParams,ProductionDetails){
     var productionId=$stateParams.ProductionId;
     $scope.productionList=ProductionDetails.getInfo();
@@ -795,7 +806,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.goInfo = function (timeId,infoId) {
       $location.path('/app/tiemInfo/'+timeId+'/'+infoId);
     }
-
+    $scope.goMyTimeList = function (timeId) {
+      $location.path('/app/timeList/'+timeId);
+    }
+})
+.controller('TimeList',function ($scope, $stateParams, $ionicModal, $location, MyTime) {
+    $scope.timeId = $stateParams.timeId;
+    $scope.timeListInfo = MyTime.getTimeList($scope.timeId);
+    $scope.goTimeInfo = function (infoId) {
+      //alert('testest');
+      $location.path('/app/tiemInfo/'+$scope.timeId+'/'+infoId);
+    }
 })
 .controller('TiemInfo',function ($scope, $stateParams, MyTime, ionicDatePicker, ionicTimePicker) {
     var timeId = $stateParams.timeId;
