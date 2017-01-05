@@ -1,9 +1,28 @@
 <ion-view title="订单详情">
   <ion-content>
+    <div class="list card cardupdate" style="margin: 5px 10px;" >
+      <div class="item">
+        <div class="item item-divider"><b>订单项</b></div>
+        <table class="item">
+          <tr>
+            <td>产品 Id</td>
+            <td>&nbsp;&nbsp;&nbsp;10001</td>
+          </tr>
+          <tr>
+            <td>货运 ID</td>
+            <td>&nbsp;&nbsp;&nbsp;13320</td>
+          </tr>
+          <tr>
+            <td>数量</td>
+            <td><input type="number" placeholder="数量" ></td>
+          </tr>
+        </table>
+      </div>
+    </div>
     <div class="list card cardupdate" style="margin: 5px 10px;">
       <div class="item" style="margin: -17px 0px;">
         <label class="">
-          <span class="input-label">地址</span>
+          <span class="input-label">收货地址</span>
           <input type="text" placeholder="地址" value="{{orderInfo.address}}">
         </label>
       </div>

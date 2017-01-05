@@ -395,13 +395,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   }
 })
     .state('app.createOrder',{
-      url:'/createOrder/:resourcesId/:personInfo',
+      url:'/createOrder/:typeId/:resourcesId/:personId',
       disableBack:true,
       cache :false,
       views: {
         'menuContent': {
-          templateUrl: 'templates/createPo.html',
-          controller: 'CreatePo'
+          templateUrl: 'templates/createOrder.html',
+          controller: 'CreateOrder'
         }
       }
     })

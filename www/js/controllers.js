@@ -230,42 +230,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path("/app/myResourcesInfo/"+resourcesId);
     }
 })
-.controller('CreatePo',function ($scope,$location,myresources,$stateParams,Contact,$ionicModal,$ionicPopup,CreateOrder) {
-    var resourcesId = $stateParams.resourcesId;
-    var id = $stateParams.personInfo;
-    var personId = $stateParams.personInfo;
-    $scope.resourcesList = myresources.getPersonList(personId);
-    $scope.resourcesNew = myresources.getPersonInfo(personId,resourcesId);
-    $scope.personInfo= Contact.get(id);
-    $ionicModal.fromTemplateUrl('templates/addResourcesToOrder.html', function(modal) {
-      $scope.resources = modal;
-    }, {
-      scope: $scope
-    });
-    $scope.showContact = function () {
-      $scope.contact.show();
-    }
-    $scope.hiddenContact = function () {
-      $scope.contact.hide();
-    }
-    $scope.showResources = function () {
-      $scope.resources.show();
-    }
-    $scope.hiddenResources = function () {
-      $scope.resources.hide();
-    }
-    $scope.closeAddressConfim = function () {
-      $scope.addressConfirm.close();
-    }
-    $scope.addResources = function (resourcesId) {
-      $scope.resourcesP = myresources.getPersonInfo(personId,resourcesId);
-      $scope.resources.hide();
-    }
-    $scope.editOrderInfo = function () {
-      $location.path("/app/editOrderInfo");
-    }
 
-})
 .controller('PersonResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
     $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;
@@ -273,8 +238,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.resources = myresources.getPersonInfo(personId,resourcesId);
     $scope.resourcesOther = myresources.getResourceOtherInfo(resourcesId);
     $scope.personId=personId;
-    $scope.goInfo = function (id,personId) {
-      $location.path('/app/createOrder/'+id+"/"+personId);
+    $scope.createOrder = function (resourcesId,personId) {
+      $location.path('/app/createOrder/pur/'+resourcesId+"/"+personId);
     }
     $ionicModal.fromTemplateUrl('templates/priceToPerson.html', {
         scope: $scope,
@@ -712,8 +677,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     });
   };
 })
-.controller('CreateOrder',function ($scope,$stateParams,$ionicModal,$ionicPopup,CreateOrder,Contact,myresources) {
+.controller('CreateOrder',function ($scope,$stateParams,$ionicModal,$ionicPopup,CreateOrder,Contact,myresources,$location) {
   var typeId = $stateParams.typeId;
+  var resourcesId = $stateParams.resourcesId;
+  var id = $stateParams.personId;
+  var personId = $stateParams.personId;
+  $scope.personInfo= Contact.get(id);
+  //$scope.resourcesList = myresources.getPersonList(personId);
+  $scope.resourcesNew = myresources.getPersonInfo(personId,resourcesId);
   $scope.contactList = Contact.getAll();
   $scope.resourcesList = myresources.getResourcesAll();
   $scope.typeId = typeId;
@@ -808,6 +779,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }else if(typeId == 'pur'){
       CreateOrder.removeResourcesToPurOrder(resources);
     }
+  }
+  $scope.editOrderInfo = function () {
+    $location.path("/app/editOrderInfo");
   }
 
   // $scope.orderInfo.partyId = '100020';
