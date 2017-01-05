@@ -1,4 +1,4 @@
-<ion-view view-title="资源详情">
+<ion-view view-title="订单详情">
   <ion-content>
     <div class="content ionic-pseudo">
       <div class="list card">
@@ -27,7 +27,7 @@
             {{resources.price}}{{resourcesOther.price}}
           </label>
           <br>
-          <p><button class="button button-energized" ng-click="createOrder()">下单</button>
+          <p><button class="button button-energized" ng-click="goInfo(resources.id,personId)">购买</button>
         </div>
       </div>
     </div>

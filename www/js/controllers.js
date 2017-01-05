@@ -230,16 +230,52 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path("/app/myResourcesInfo/"+resourcesId);
     }
 })
+.controller('CreatePo',function ($scope,$location,myresources,$stateParams,Contact,$ionicModal,$ionicPopup,CreateOrder) {
+    var resourcesId = $stateParams.resourcesId;
+    var id = $stateParams.personInfo;
+    var personId = $stateParams.personInfo;
+    $scope.resourcesList = myresources.getPersonList(personId);
+    $scope.resourcesNew = myresources.getPersonInfo(personId,resourcesId);
+    $scope.personInfo= Contact.get(id);
+    $ionicModal.fromTemplateUrl('templates/addResourcesToOrder.html', function(modal) {
+      $scope.resources = modal;
+    }, {
+      scope: $scope
+    });
+    $scope.showContact = function () {
+      $scope.contact.show();
+    }
+    $scope.hiddenContact = function () {
+      $scope.contact.hide();
+    }
+    $scope.showResources = function () {
+      $scope.resources.show();
+    }
+    $scope.hiddenResources = function () {
+      $scope.resources.hide();
+    }
+    $scope.closeAddressConfim = function () {
+      $scope.addressConfirm.close();
+    }
+    $scope.addResources = function (resourcesId) {
+      $scope.resourcesP = myresources.getPersonInfo(personId,resourcesId);
+      $scope.resources.hide();
+    }
+    $scope.editOrderInfo = function () {
+      $location.path("/app/editOrderInfo");
+    }
+
+})
 .controller('PersonResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
     $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;
     var personId = $stateParams.personId;
-
     $scope.resources = myresources.getPersonInfo(personId,resourcesId);
     $scope.resourcesOther = myresources.getResourceOtherInfo(resourcesId);
-    $scope.createOrder = function(){
-        $location.path("/app/createOrder/pur");
-    };
+    $scope.personId=personId;
+    $scope.goInfo = function (id,personId) {
+      $location.path('/app/createOrder/'+id+"/"+personId);
+    }
     $ionicModal.fromTemplateUrl('templates/priceToPerson.html', {
         scope: $scope,
         animation: 'slide-in-up'

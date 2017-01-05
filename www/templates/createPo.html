@@ -1,0 +1,62 @@
+<ion-view title="购物车">
+  <ion-content>
+
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">供货商</span>
+          <input type="text" placeholder="供货商" value="{{personInfo.name}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">产品或服务</span>
+          <input type="text" placeholder="产品或服务" value="{{resourcesNew.title}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">价格</span>
+          <input type="text" placeholder="价格" value="{{resourcesNew.price}}">
+        </label>
+      </div>
+    </div>
+    <div class="list card cardupdate" style="margin: 5px 10px;">
+      <div class="item" style="margin: -17px 0px;">
+        <label class="">
+          <span class="input-label">数量</span>
+          <input type="text" placeholder="数量" value="">
+        </label>
+      </div>
+    </div>
+    <div class="list card" style="margin-bottom: 40px;margin-top: 10px;">
+      <div class="item item-divider"><b>资源</b><button style="margin-left: 10px;" ng-click="showResources()">添加产品或服务</button></div>
+      <ion-list >
+        <ion-item class="item-remove-animate item-avatar item-icon-right"  type="item-text-wrap" >
+          <img ng-src="{{resourcesP.img}}">
+          <h2>{{resourcesP.title}}</h2>
+          <p>{{resourcesP.price}}</p>
+          <ion-option-button class="button-assertive" ng-click="removeResourcesToOrder(resources)">
+            删除
+          </ion-option-button>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="col-demo">
+          <button class="button button-positive" style="width: 100%;" ng-click="editOrderInfo()">下单</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="col-demo">
+          <button class="button button-assertive" style="width: 100%;">取消</button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

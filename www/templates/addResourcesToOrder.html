@@ -5,7 +5,7 @@
   </div>
   <ion-content>
     <div style="margin-top: 55px;">
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="resources in resourcesList" type="item-text-wrap" ng-click="addResources(resources)">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="resources in resourcesList" type="item-text-wrap" ng-click="addResources(resources.id)">
         <img ng-src="{{resources.img}}">
         <h2>{{resources.desc}}</h2>
         <p>{{resources.name}} {{resources.company}}</p>
