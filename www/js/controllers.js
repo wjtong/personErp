@@ -188,8 +188,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.personList = Activity.getAllPerson();
 
 })
-.controller('AboutMe',function ($scope) {
-    $scope.myInfo = { id:'1',name:'张文文',img:'img/team/img3-md.jpg',account:'zhangwenwen',sex:'男',address:'上海市松江区泗凯路61弄20号201室',phone:'15072200010'};
+.controller('AboutMe',function ($scope,AboutMe) {
+  $scope.myInfo=AboutMe.get();
+  //$scope.myInfo = { id:'1',name:'张文文',img:'img/team/img3-md.jpg',account:'zhangwenwen',sex:'男',address:'上海市松江区泗凯路61弄20号201室',phone:'15072200010'};
 })
 .controller('EditAddress',function ($scope) {
     $scope.countrys = [

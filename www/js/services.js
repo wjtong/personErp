@@ -48,6 +48,36 @@ angular.module('starter.services', [])
     }
   };
 })
+.factory('AboutMe',function () {
+
+  return{
+    get:function () {
+      $.ajax({
+        type: "POST",
+        url: $rootScope.interfaceUrl + "findPerson",
+        async: false,
+        data: {
+          "partyId": "10000",
+        },
+        success: function (data) {
+          var personInfo =data.personInfo || [];
+          personDetail = $.map(personInfo, function (o) {
+            return {
+              personName: o.personName,
+              gender: o.gender,
+              contactNumber: o.contactNumber,
+              contactAddress: o.contactAddress,
+            }
+          });
+        },
+        error: function (e) {
+          $ionicPopup.alert({
+          })
+        }
+      })
+    },
+  }
+})
 .factory('MyOrder',function () {
     var selOrder = [
         {
