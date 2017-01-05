@@ -601,9 +601,7 @@ angular.module('starter.services', [])
     var personmainLists = [
         {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',price:'80',
           phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
-        {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',price:'90',
-          phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:'2'},
-        {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',price:'100',
+        {id:'PERS_10002',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',price:'100',
           phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'},
         {id:'PERS_10004',img:'img/team/wangkun.jpg',name:'王坤',company:'上海班富电子商务',address:'中国,上海，长宁',price:'110',
           phone:'18772115070',sex:'F',email:'kun.wang@banff-tech.com',labelId:'4'},
@@ -1548,6 +1546,30 @@ angular.module('starter.services', [])
               }
             }
           }
+        }
+    }
+})
+.factory("Personata", function () {
+    var url = "http://127.0.0.1:3400/personContacts/control/";
+
+    return{
+        getPersonInfo:function (partyId, cb) {
+          $.ajax({
+            url:url+"findPerson",
+            data:{partyId:partyId},
+            async : false,
+            type:'POST',
+            success: function(result){
+              if(jQuery.type(result) === "string"){
+                 result =   jQuery.parseJSON(result);
+              }
+              if(result.resultMap!=null){
+                if($.type(cb)==='function' ){
+                  cb(result.resultMap);
+                }
+              }
+            }
+          });
         }
     }
 })

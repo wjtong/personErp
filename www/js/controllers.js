@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-timepicker'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -18,6 +18,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   }).then(function(modal) {
     $scope.modal = modal;
   });
+
+  if(localStorage['partyId'] == null){
+    localStorage['partyId'] = 'zhangwenwen';
+  }
+  $rootScope.partyId = localStorage['partyId'];
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
@@ -188,9 +193,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.personList = Activity.getAllPerson();
 
 })
-.controller('AboutMe',function ($scope,AboutMe) {
-  $scope.myInfo=AboutMe.get();
-  //$scope.myInfo = { id:'1',name:'张文文',img:'img/team/img3-md.jpg',account:'zhangwenwen',sex:'男',address:'上海市松江区泗凯路61弄20号201室',phone:'15072200010'};
+.controller('AboutMe',function ($scope, $rootScope, Personata) {
+    Personata.getPersonInfo($rootScope.partyId , function (data){
+      $scope.myInfo = data;
+    });
+    //alert($scope.myInfo.personName);
 })
 .controller('EditAddress',function ($scope) {
     $scope.countrys = [

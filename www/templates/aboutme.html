@@ -4,25 +4,25 @@
       <div class="list card">
         <a class="item">
           <div class="item item-avatar" style="margin-top: -20px;margin-bottom: -20px;margin-left: -15px;">
-            <img ng-src="{{myInfo.img}}">
-            <div style="margin-top: 8px;">{{myInfo.name}}</div>
+            <img ng-src="{{myInfo.headPortrait}}">
+            <div style="margin-top: 8px;">{{myInfo.personName}}</div>
           </div>
         </a>
         <a class="item">
           <div style="font-weight: bold;">帐号:</div>
-          {{myInfo.account}}
+          {{partyId}}
         </a>
         <a class="item">
           <div style="font-weight: bold;">性别:</div>
-          {{myInfo.sex}}
+          {{myInfo.gender}}
         </a>
-        <a class="item" href="#/app/editAddress/{{myInfo.id}}">
+        <a class="item" href="#/app/editAddress/{{partyId}}">
           <div style="font-weight: bold;">地址:</div>
-          {{myInfo.address}}
+          {{myInfo.contactAddress}}
         </a>
         <a class="item">
           <div style="font-weight: bold;">电话:</div>
-          {{myInfo.phone}}
+          {{myInfo.contactNumber}}
         </a>
       </div>
     </div>
