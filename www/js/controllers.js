@@ -238,16 +238,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $location.path("/app/myResourcesInfo/"+resourcesId);
     }
 })
+
 .controller('PersonResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
     $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;
     var personId = $stateParams.personId;
-
     $scope.resources = myresources.getPersonInfo(personId,resourcesId);
     $scope.resourcesOther = myresources.getResourceOtherInfo(resourcesId);
-    $scope.createOrder = function(){
-        $location.path("/app/createOrder/pur");
-    };
+    $scope.personId=personId;
+    $scope.createOrder = function (resourcesId,personId) {
+      $location.path('/app/createOrder/pur/'+resourcesId+"/"+personId);
+    }
     $ionicModal.fromTemplateUrl('templates/priceToPerson.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -684,8 +685,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     });
   };
 })
-.controller('CreateOrder',function ($scope,$stateParams,$ionicModal,$ionicPopup,CreateOrder,Contact,myresources) {
+.controller('CreateOrder',function ($scope,$stateParams,$ionicModal,$ionicPopup,CreateOrder,Contact,myresources,$location) {
   var typeId = $stateParams.typeId;
+  var resourcesId = $stateParams.resourcesId;
+  var id = $stateParams.personId;
+  var personId = $stateParams.personId;
+  $scope.personInfo= Contact.get(id);
+  //$scope.resourcesList = myresources.getPersonList(personId);
+  $scope.resourcesNew = myresources.getPersonInfo(personId,resourcesId);
   $scope.contactList = Contact.getAll();
   $scope.resourcesList = myresources.getResourcesAll();
   $scope.typeId = typeId;
@@ -780,6 +787,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }else if(typeId == 'pur'){
       CreateOrder.removeResourcesToPurOrder(resources);
     }
+  }
+  $scope.editOrderInfo = function () {
+    $location.path("/app/editOrderInfo");
   }
 
   // $scope.orderInfo.partyId = '100020';

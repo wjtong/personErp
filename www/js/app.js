@@ -263,6 +263,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+  .state('app.editOrderInfo', {
+    url: '/editOrderInfo',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/editOrderInfo.html',
+        //controller: ''
+      }
+    }
+  })
   .state('app.getEvents', {
     url: '/getEvents/',
     disableBack:true,
@@ -384,7 +395,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   }
 })
     .state('app.createOrder',{
-      url:'/createOrder/:typeId',
+      url:'/createOrder/:typeId/:resourcesId/:personId',
       disableBack:true,
       cache :false,
       views: {
