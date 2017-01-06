@@ -20,7 +20,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   });
 
   if(localStorage['partyId'] == null){
-    localStorage['partyId'] = 'zhangwenwen';
+    localStorage['partyId'] = '10000';
   }
   $rootScope.partyId = localStorage['partyId'];
 
@@ -111,15 +111,26 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 })
 
-.controller('ContactlistCtrl', function($scope,Contact,$location) {
-    $scope.personmainLists = Contact.getAll();
+.controller('ContactlistCtrl', function($scope,Contact,$location,$rootScope) {
+    //$scope.personmainLists = Contact.getAll();
+    Contact.getAll($rootScope.partyId , function (data){
+      $scope.personmainLists = data;
+    });
     $scope.goInfo = function (id) {
         $location.path('/app/abouthim/'+id);
     }
 })
-.controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,PersonLabel) {
-    var id = $stateParams.personId;
-    $scope.personInfo = Contact.get(id);
+.controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,Personata,PersonLabel) {
+    var partyId = $stateParams.personId;
+
+    Personata.getPersonInfo(partyId, function (data){
+      $scope.personInfo = data;
+    });
+    var gender=$scope.personInfo.gender;
+    if(gender=='女'){
+        document.getElementById("sex").selected=true;
+    }
+    //$scope.personInfo = Contact.get(id);
     $scope.label = PersonLabel.getAllLabl();
 })
 .controller('UpdateProduction',function ($scope,$stateParams,ReHistory) {
@@ -130,9 +141,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('AddPerson',function ($scope,PersonLabel) {
     $scope.label = PersonLabel.getAllLabl();
 })
-.controller('AboutHim',function ($scope,Contact,$stateParams,$location) {
-  var id = $stateParams.personId;
-  $scope.personInfo = Contact.get(id);
+.controller('AboutHim',function ($scope,Contact,$stateParams,$location,Personata) {
+  var partyId = $stateParams.personId;
+  Personata.getPersonInfo(partyId, function (data){
+    $scope.personInfo = data;
+  });
+  //$scope.personInfo = Contact.get(id);
   $scope.goInfo = function (id) {
     $location.path('/app/editPerson/'+id);
   };

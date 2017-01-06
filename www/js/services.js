@@ -598,6 +598,7 @@ angular.module('starter.services', [])
   }
 })
 .factory('Contact',function () {
+    var url = "http://127.0.0.1:3400/personContacts/control/";
     var personmainLists = [
         {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',price:'80',
           phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
@@ -615,8 +616,23 @@ angular.module('starter.services', [])
           phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:'1'}
     ];
     return {
-        getAll:function () {
-            return personmainLists;
+        getAll:function (partyId, cb) {
+          $.ajax({
+            url:url+"findContects",
+            data:{partyId:partyId},
+            async : false,
+            type:'POST',
+            success: function(result){
+              if(jQuery.type(result) === "string"){
+                result =   jQuery.parseJSON(result);
+              }
+              if(result.resultMap!=null){
+                if($.type(cb)==='function' ){
+                  cb(result.resultMap);
+                }
+              }
+            }
+          });
         },
         get:function (id) {
             for(var i=0 ;i<personmainLists.length; i++){

@@ -4,7 +4,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">姓名</span>
-                    <input type="text" placeholder="姓名" ng-model="personInfo.name" value="">
+                    <input type="text" placeholder="姓名"  value="{{personInfo.personName}}">
                 </label>
             </div>
         </div>
@@ -12,7 +12,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">电话</span>
-                    <input type="text" placeholder="电话" ng-model="personInfo.phone" value="">
+                    <input type="text" placeholder="电话"  value="{{personInfo.contactNumber}}">
                 </label>
             </div>
         </div>
@@ -20,9 +20,9 @@
             <div class="item item-select" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">性别</span>
-                    <select ng-model="sex" ng-init="sex = personInfo.sex">
+                    <select >
                         <option value="F">男</option>
-                        <option value="M">女</option>
+                        <option value="M" id="sex">女</option>
                     </select>
                 </label>
             </div>
@@ -41,7 +41,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">地址</span>
-                    <input type="text" placeholder="地址" value="{{personInfo.address}}">
+                    <input type="text" placeholder="地址" value="{{personInfo.contactAddress}}">
                 </label>
             </div>
         </div>

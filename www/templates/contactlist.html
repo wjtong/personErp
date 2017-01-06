@@ -10,10 +10,10 @@
         </div>
         <div class="list" style="margin-bottom: 50px;">
             <ion-list>
-              <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personmainLists | orderBy:'name':false" type="item-text-wrap" ng-click="goInfo(personmain.id)">
+              <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personmainLists.contact | orderBy:'name':false" type="item-text-wrap" ng-click="goInfo(personmain.partyId)">
                 <img ng-src="{{personmain.img}}">
-                <h2>{{personmain.name}} {{personmain.company}}</h2>
-                <p>{{personmain.address}}</p>
+                <h2>{{personmain.personName}} {{personmain.gender}}  {{personmain.company}}</h2>
+                <p>{{personmain.contactAddress}}</p>
               </ion-item>
             </ion-list>
         </div>

@@ -3,13 +3,13 @@
 
     <div class="list card cardupdate">
 
-      <div  class="item item-icon-left" ng-click="goInfo(personInfo.id)">
+      <div  class="item item-icon-left" ng-click="goInfo(personInfo.partyId)">
         <i class="icon ion-ios-paper"></i>
         个人信息
         <div class="item item-avatar">
           <img ng-src="{{personInfo.img}}">
-          <h2>{{personInfo.name}} {{resources.personInfo}}</h2>
-          <p>{{personInfo.address}}</p>
+          <h2>{{personInfo.personName}} {{personInfo.gender}} {{personInfo.company}}</h2>
+          <p>{{personInfo.contactAddress}}</p>
         </div>
       </div>
 
