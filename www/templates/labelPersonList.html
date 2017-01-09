@@ -5,10 +5,10 @@
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personList" type="item-text-wrap">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personList.person" type="item-text-wrap">
         <img ng-src="{{personmain.img}}">
-        <h2>{{personmain.name}} {{personmain.company}}</h2>
-        <p>{{personmain.address}}</p>
+        <h2>{{personmain.personName}} {{personmain.gender}} {{personmain.company}}</h2>
+        <p>{{personmain.contactAddress}}</p>
         <ion-option-button class="button-assertive" ng-click="">
           Delete
         </ion-option-button>

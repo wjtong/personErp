@@ -22,6 +22,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   if(localStorage['partyId'] == null){
     localStorage['partyId'] = '10000';
   }
+  $rootScope.userLoginId = localStorage['userLoginId'];
+  if(localStorage['userLoginId'] == null){
+    localStorage['userLoginId'] = 'admin';
+  }
   $rootScope.partyId = localStorage['partyId'];
 
   // Triggered in the login modal to close it
@@ -120,9 +124,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $location.path('/app/abouthim/'+id);
     }
 })
-.controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,Personata,PersonLabel) {
+.controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,Personata,PersonLabel,$rootScope) {
     var partyId = $stateParams.personId;
-
+    $scope.title="编辑人员";
     Personata.getPersonInfo(partyId, function (data){
       $scope.personInfo = data;
     });
@@ -131,15 +135,34 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         document.getElementById("sex").selected=true;
     }
     //$scope.personInfo = Contact.get(id);
-    $scope.label = PersonLabel.getAllLabl();
-})
-.controller('UpdateProduction',function ($scope,$stateParams,ReHistory) {
-  var id = $stateParams.proId;
-  $scope.productionList=ReHistory.getInfo(id)
+    //$scope.label = PersonLabel.getAllLabl();
+    PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+      $scope.labelList = data;
+    });
+    //编辑人员时页面调整
+    $(function(){
+      $("#addPerson").hide();
+    });
 
 })
-.controller('AddPerson',function ($scope,PersonLabel) {
-    $scope.label = PersonLabel.getAllLabl();
+.controller('UpdateProduction',function ($scope,$stateParams,ReHistory) {
+    var id = $stateParams.proId;
+    $scope.productionList=ReHistory.getInfo(id)
+
+})
+.controller('AddPerson',function ($scope,PersonLabel,$rootScope) {
+    //$scope.label = PersonLabel.getAllLabl();
+    $scope.title="添加人员"
+    PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+      $scope.labelList = data;
+    });
+    //添加人员时页面调整
+    $(function(){
+        $("#editPerson").hide();
+    });
+    $scope.addContects = function(){
+
+    }
 })
 .controller('AboutHim',function ($scope,Contact,$stateParams,$location,Personata) {
   var partyId = $stateParams.personId;
@@ -832,8 +855,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('ChatPersonList',function ($scope, $stateParams,ChatList) {
     $scope.chat = ChatList.getChatInfo($stateParams.chatId);
 })
-.controller('PersonLabel', function ($scope, $location,$ionicPopup, PersonLabel) {
-    $scope.labelList = PersonLabel.getAllLabl();
+.controller('PersonLabel', function ($scope, $location,$ionicPopup, PersonLabel,$rootScope) {
+    //$scope.labelList = PersonLabel.getAllLabl();
+    PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+      $scope.labelList = data;
+    });
     $scope.goLabelInPerson = function (labelId) {
       $location.path('/app/labelPersonList/'+labelId);
     };
@@ -866,10 +892,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 
 })
 .controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel,ChatList,GroupChat) {
+    var partyId=$stateParams.labelId
+    PersonLabel.getLablPersonList(partyId, function (data){
+      $scope.personList = data;
+    });
     $scope.devList = GroupChat.getAll();
     $scope.chat = ChatList.getChatInfo($stateParams.chatId);
-    $scope.labelId = $stateParams.labelId;
-    $scope.personList = Contact.getPersonLabel($scope.labelId);
+    //$scope.labelId = $stateParams.labelId;
+    //$scope.personList = Contact.getPersonLabel($scope.labelId);
     $scope.labelInfo = PersonLabel.getInfo($scope.labelId);
     $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
     $ionicModal.fromTemplateUrl('templates/lablePersonmodle.html', {

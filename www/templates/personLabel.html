@@ -6,11 +6,11 @@
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <div class="list" ng-repeat="label in labelList" style="margin-bottom: 5px;" ng-click="goLabelInPerson(label.id)">
+      <div class="list" ng-repeat="label in labelList.lable" style="margin-bottom: 5px;" ng-click="goLabelInPerson(label.partyId)">
         <div class="item item-toggle toggle-large ng-not-empty ng-valid" style="">
           <div>
             <span>
-              {{label.title}}
+              {{label.groupName}}
             </span>
           </div>
         </div>

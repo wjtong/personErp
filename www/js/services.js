@@ -1027,10 +1027,43 @@ angular.module('starter.services', [])
       {id:'3',title:'同学'},
       {id:'4',title:'同事'}
     ];
-
+    var url = "http://127.0.0.1:3400/personContacts/control/";
     return{
-      getAllLabl:function () {
-        return listLabel;
+      getAllLabl:function (userLoginId, cb) {
+        $.ajax({
+          url:url+"findLable",
+          data:{userLoginId:userLoginId},
+          async : false,
+          type:'POST',
+          success: function(result){
+            if(jQuery.type(result) === "string"){
+              result =   jQuery.parseJSON(result);
+            }
+            if(result.resultMap!=null){
+              if($.type(cb)==='function' ){
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      getLablPersonList:function (partyId, cb) {
+        $.ajax({
+          url:url+"findLablePerson",
+          data:{partyId:partyId},
+          async : false,
+          type:'POST',
+          success: function(result){
+            if(jQuery.type(result) === "string"){
+              result =   jQuery.parseJSON(result);
+            }
+            if(result.resultMap!=null){
+              if($.type(cb)==='function' ){
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
       },
       remove:function (label) {
         listLabel.splice(chats.indexOf(label), 1);
@@ -1042,9 +1075,55 @@ angular.module('starter.services', [])
           }
         }
       },
-      addPersonLab:function (title) {
-          var label = {id:listLabel.length+1,title:title};
-          listLabel.push(label);
+      addPersonLab:function (lableName) {
+        $.ajax({
+          url:url+"createLable",
+          data:{lableName:lableName},
+          async : false,
+          type:'POST',
+          success: function(result){
+            if(jQuery.type(result) === "string"){
+              result =   jQuery.parseJSON(result);
+            }
+            if(result.resultMap!=null){
+              if($.type(cb)==='function' ){
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      createPerson:function (partyId,firstName,contactEmail,contactCompany,contactGroup,lastName,gender,contactAddress1,contactCity,contactPostalCode,contactGeoName,contactAddress2) {
+        $.ajax({
+          url:url+"addContects",
+          data:{
+            firstName:firstName,
+            lastName:lastName,
+            gender:gender,
+            contactNumber:contactNumber,
+            contactAddress1:contactAddress1,
+            contactCity:contactCity,
+            contactPostalCode:contactPostalCode,
+            contactAddress2:contactAddress2,
+            contactEmail:contactEmail,
+            contactGroup:contactGroup,
+            contactGeoName:contactGeoName,
+            contactCompany:contactCompany,
+            partyId:partyId
+          },
+          async : false,
+          type:'POST',
+          success: function(result){
+            if(jQuery.type(result) === "string"){
+              result =   jQuery.parseJSON(result);
+            }
+            if(result.resultMap!=null){
+              if($.type(cb)==='function' ){
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
       }
     }
 

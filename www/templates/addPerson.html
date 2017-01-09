@@ -1,18 +1,30 @@
-<ion-view view-title="添加人员">
+<ion-view view-title="{{title}}">
     <ion-content>
-        <div class="list card cardupdate" style="margin: 5px 10px;">
+        <div class="list card cardupdate" style="margin: 5px 10px;" id="editPerson">
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">姓名</span>
-                    <input type="text" placeholder="姓名"  value="{{personInfo.personName}}">
+                    <input type="text" placeholder="姓名"  value="{{personInfo.personName}}" ng-model="personInfo.personName" >
                 </label>
             </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;" id="addPerson">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">姓</span>
+              <input type="text" placeholder="姓"  value="" ng-model="personInfo.firstName">
+            </label>
+            <label class="">
+              <span class="input-label">名</span>
+              <input type="text" placeholder="名"  value="" ng-model="personInfo.lastName">
+            </label>
+          </div>
         </div>
         <div class="list card cardupdate" style="margin: 5px 10px;">
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">电话</span>
-                    <input type="text" placeholder="电话"  value="{{personInfo.contactNumber}}">
+                    <input type="text" placeholder="电话"  value="{{personInfo.contactNumber}}" ng-model="personInfo.contactNumber" >
                 </label>
             </div>
         </div>
@@ -31,8 +43,7 @@
             <div class="item item-select" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">标签</span>
-                    <select ng-model="lab" ng-init="lab = personInfo.labelId">
-                        <option value="{{label.id}}" ng-repeat="label in label">{{label.title}}</option>
+                    <select ng-model="selectedLable" ng-init="selectedLable = labelList.lable[0]" ng-options="x.groupName for x in labelList.lable">
                     </select>
                 </label>
             </div>
@@ -41,7 +52,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">地址</span>
-                    <input type="text" placeholder="地址" value="{{personInfo.contactAddress}}">
+                    <input type="text" placeholder="地址" value="{{personInfo.contactAddress}}" ng-model="personInfo.contactAddress">
                 </label>
             </div>
         </div>
@@ -49,7 +60,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">电子邮箱</span>
-                    <input type="text" placeholder="电子邮箱" value="{{personInfo.email}}">
+                    <input type="text" placeholder="电子邮箱" value="{{personInfo.email}}" ng-model="personInfo.email">
                 </label>
             </div>
         </div>
@@ -57,12 +68,12 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">公司</span>
-                    <input type="text" placeholder="公司" value="{{personInfo.company}}">
+                    <input type="text" placeholder="公司" value="{{personInfo.company}}" ng-model="personInfo.company">
                 </label>
             </div>
         </div>
         <div class="padding">
-            <button class="button button-block button-positive">提交</button>
+            <button class="button button-block button-positive" ng-click="addContects()">提交</button>
         </div>
     </ion-content>
 </ion-view>
