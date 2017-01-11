@@ -20,14 +20,19 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   });
 
   if(localStorage['partyId'] == null){
-    localStorage['partyId'] = '10000';
-  }
-  $rootScope.userLoginId = localStorage['userLoginId'];
-  if(localStorage['userLoginId'] == null){
-    localStorage['userLoginId'] = 'admin';
+    localStorage['partyId'] = 'zhangwenwen';
   }
   $rootScope.partyId = localStorage['partyId'];
 
+  if(localStorage['userLoginId'] == null){
+    localStorage['userLoginId'] = 'admin';
+  }
+  $rootScope.userLoginId = localStorage['userLoginId'];
+
+  if(localStorage['countryGeoId'] == null){
+    localStorage['countryGeoId'] = 'CHN';
+  }
+  $rootScope.countryGeoId = localStorage['countryGeoId'];
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
@@ -125,6 +130,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 })
 .controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,Personata,PersonLabel,$rootScope) {
+
     var partyId = $stateParams.personId;
     $scope.title="编辑人员";
     Personata.getPersonInfo(partyId, function (data){
@@ -132,36 +138,30 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     });
     var gender=$scope.personInfo.gender;
     if(gender=='女'){
-        document.getElementById("sex").selected=true;
+        var val="M";
+        document.getElementById("sex").value=val;
     }
     //$scope.personInfo = Contact.get(id);
     //$scope.label = PersonLabel.getAllLabl();
     PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
       $scope.labelList = data;
     });
-    //编辑人员时页面调整
-    $(function(){
-      $("#addPerson").hide();
-    });
-
 })
 .controller('UpdateProduction',function ($scope,$stateParams,ReHistory) {
     var id = $stateParams.proId;
     $scope.productionList=ReHistory.getInfo(id)
 
 })
-.controller('AddPerson',function ($scope,PersonLabel,$rootScope) {
+.controller('AddPerson',function ($scope,PersonLabel,$rootScope,$location) {
     //$scope.label = PersonLabel.getAllLabl();
     $scope.title="添加人员"
     PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
       $scope.labelList = data;
-    });
-    //添加人员时页面调整
-    $(function(){
-        $("#editPerson").hide();
-    });
-    $scope.addContects = function(){
+    })
+    var partyId=""
 
+    $scope.addAddress = function () {
+      $location.path("/app/addAddress");
     }
 })
 .controller('AboutHim',function ($scope,Contact,$stateParams,$location,Personata) {
@@ -236,7 +236,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     });
     //alert($scope.myInfo.personName);
 })
-.controller('EditAddress',function ($scope) {
+.controller('EditAddress',function ($scope,Personata,$rootScope) {
+    Personata.getPersonInfo($rootScope.partyId , function (data){
+      $scope.myInfo = data;
+    });
+
     $scope.countrys = [
         {id:'China',name:'中国'},
         {id:'America',name:'美国'},
@@ -253,6 +257,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         {id:'tianjin',name:'天津'},
         {id:'chongqing',name:'重庆'},
     ];
+      var geoName=$scope.myInfo.geoName;
+      alert(geoName);
+      if(geoName!=""){
+        document.getElementById("pro").value=geoName;
+      }
     $scope.citys = [
         {id:'hangzhou',name:'杭州'},
         {id:'ningbo',name:'宁波'},
@@ -261,9 +270,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         {id:'quzhou',name:'衢州'},
         {id:'jinhua',name:'金华'}
     ];
-    $scope.address = '泗凯路61弄20号201室';
-    $scope.phone = '0086 15072200010' ;
-    $scope.emails = 'zhangwenwen1556@163.com';
+    // $scope.address = '泗凯路61弄20号201室';
+    // $scope.phone = '0086 15072200010' ;
+    // $scope.emails = 'zhangwenwen1556@163.com';
 })
 .controller('myresources',function ($scope,$location,myresources) {
     $scope.resourcesList = myresources.getResourcesAll();
@@ -867,7 +876,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.showAddLab = function() {
         $scope.data = {};
         var myPopup = $ionicPopup.show({
-            template: '<input type="text" ng-model="data.addLabel"/>' +
+            template:
+            '<input type="text" ng-model="data.addLabel"/>' +
             '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
             '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">关闭</button>' ,
             title: '创建标签',

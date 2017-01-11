@@ -5,7 +5,7 @@
         <a class="item">
           <div class="item item-avatar" style="margin-top: -20px;margin-bottom: -20px;margin-left: -15px;">
             <img ng-src="{{myInfo.headPortrait}}">
-            <div style="margin-top: 8px;">{{myInfo.personName}}</div>
+            <div style="margin-top: 8px;">{{myInfo.lastName}}{{myInfo.firstName}}</div>
           </div>
         </a>
         <a class="item">
@@ -18,7 +18,7 @@
         </a>
         <a class="item" href="#/app/editAddress/{{partyId}}">
           <div style="font-weight: bold;">地址:</div>
-          {{myInfo.contactAddress}}
+          {{myInfo.geoName}} {{myInfo.city}} {{myInfo.address1}} {{myInfo.address2}}
         </a>
         <a class="item">
           <div style="font-weight: bold;">电话:</div>

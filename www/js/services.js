@@ -598,7 +598,7 @@ angular.module('starter.services', [])
   }
 })
 .factory('Contact',function () {
-    var url = "http://127.0.0.1:3400/personContacts/control/";
+    var url = "http://114.215.200.46:3400/personContacts/control/";
     var personmainLists = [
         {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',price:'80',
           phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
@@ -1027,7 +1027,7 @@ angular.module('starter.services', [])
       {id:'3',title:'同学'},
       {id:'4',title:'同事'}
     ];
-    var url = "http://127.0.0.1:3400/personContacts/control/";
+    var url = "http://114.215.200.46:3400/personContacts/control/";
     return{
       getAllLabl:function (userLoginId, cb) {
         $.ajax({
@@ -1047,6 +1047,7 @@ angular.module('starter.services', [])
           }
         });
       },
+
       getLablPersonList:function (partyId, cb) {
         $.ajax({
           url:url+"findLablePerson",
@@ -1645,7 +1646,7 @@ angular.module('starter.services', [])
     }
 })
 .factory("Personata", function () {
-    var url = "http://127.0.0.1:3400/personContacts/control/";
+    var url = "http://114.215.200.46:3400/personContacts/control/";
 
     return{
         getPersonInfo:function (partyId, cb) {
@@ -1665,7 +1666,25 @@ angular.module('starter.services', [])
               }
             }
           });
-        }
+        },
+        getStateList:function (countryGeoId, cb) {
+          $.ajax({
+            url:url+"getProvince",
+            data:{countryGeoId:countryGeoId},
+            async : false,
+            type:'POST',
+            success: function(result){
+              if(jQuery.type(result) === "string"){
+                result =   jQuery.parseJSON(result);
+              }
+              if(result.stateList!=null){
+                if($.type(cb)==='function' ){
+                  cb(result.stateList.provincelist);
+                }
+              }
+            }
+          });
+        },
     }
 })
 ;

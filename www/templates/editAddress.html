@@ -14,37 +14,43 @@
                     <div class="input-label">
                         省份
                     </div>
-                    <select>
+                    <select id="pro">
                         <option ng-repeat="province in provinces" value="{{province.id}}">{{province.name}}</option>
                     </select>
                 </div>
-                <div class="item item-input item-select">
-                    <div class="input-label">
-                        市
-                    </div>
-                    <select>
-                        <option ng-repeat="city in citys" value="{{city.id}}">{{city.name}}</option>
-                    </select>
+                <div class="item">
+                  <label class="">
+                    <span class="input-label">市</span>
+                    <!--<input type="text" placeholder="地址" value="{{address}}" style="width: 100%">-->
+                    <textarea placeholder="市" style="width: 100%;">{{myInfo.city}}</textarea>
+                  </label>
+                </div>
+                <div class="item">
+                  <label class="">
+                    <span class="input-label">区</span>
+                    <!--<input type="text" placeholder="地址" value="{{address}}" style="width: 100%">-->
+                    <textarea placeholder="区" style="width: 100%;">{{myInfo.address1}}</textarea>
+                  </label>
                 </div>
                 <div class="item">
                     <label class="">
                         <span class="input-label">地址</span>
                         <!--<input type="text" placeholder="地址" value="{{address}}" style="width: 100%">-->
-                        <textarea placeholder="地址" style="width: 100%;">{{address}}</textarea>
+                        <textarea placeholder="地址" style="width: 100%;">{{myInfo.address2}}</textarea>
                     </label>
                 </div>
-                <div class="item">
-                    <label class="">
-                        <span class="input-label">联系电话</span>
-                        <input type="text" placeholder="联系电话" value="{{phone}}" style="width: 100%">
-                    </label>
-                </div>
-                <div class="item">
-                    <label class="">
-                        <span class="input-label">电子邮箱</span>
-                        <input type="text" placeholder="电子邮箱" value="{{emails}}" style="width: 100%">
-                    </label>
-                </div>
+                <!--<div class="item">-->
+                    <!--<label class="">-->
+                        <!--<span class="input-label">联系电话</span>-->
+                        <!--<input type="text" placeholder="联系电话" value="{{phone}}" style="width: 100%">-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<div class="item">-->
+                    <!--<label class="">-->
+                        <!--<span class="input-label">电子邮箱</span>-->
+                        <!--<input type="text" placeholder="电子邮箱" value="{{emails}}" style="width: 100%">-->
+                    <!--</label>-->
+                <!--</div>-->
                 <div class="item">
                     <button class="button button-block button-stable">提交</button>
                 </div>

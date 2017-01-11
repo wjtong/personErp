@@ -342,6 +342,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
       }
   })
+  .state('app.addAddress', {
+    url: '/addAddress',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/editAddress.html',
+        controller: 'EditAddress'
+      }
+    }
+  })
   .state('app.newResources', {
       url: '/newResources',
       views: {

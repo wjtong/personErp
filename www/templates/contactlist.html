@@ -11,8 +11,8 @@
         <div class="list" style="margin-bottom: 50px;">
             <ion-list>
               <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personmainLists.contact | orderBy:'name':false" type="item-text-wrap" ng-click="goInfo(personmain.partyId)">
-                <img ng-src="{{personmain.img}}">
-                <h2>{{personmain.personName}} {{personmain.gender}}  {{personmain.company}}</h2>
+                <img ng-src="{{personmain.headPortrait}}">
+                <h2>{{personmain.firstName}}{{personmain.lastName}} {{personmain.gender}}  {{personmain.company}}</h2>
                 <p>{{personmain.contactAddress}}</p>
               </ion-item>
             </ion-list>
