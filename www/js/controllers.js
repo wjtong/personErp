@@ -146,6 +146,22 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
       $scope.labelList = data;
     });
+    $scope.provinces = [
+      {id:'zhejiang',name:'浙江'},
+      {id:'beijing',name:'北京'},
+      {id:'shanghai',name:'上海'},
+      {id:'tianjin',name:'天津'},
+      {id:'chongqing',name:'重庆'},
+    ];
+    var geoName=$scope.personInfo.geoName;
+    var obj = document.getElementById('pro');
+
+    $.each(obj .options, function (i, n) {
+      if (n.value === 'shanghai') {
+        n.selected = true;
+      }
+    });
+
 })
 .controller('UpdateProduction',function ($scope,$stateParams,ReHistory) {
     var id = $stateParams.proId;
@@ -163,6 +179,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.addAddress = function () {
       $location.path("/app/addAddress");
     }
+    $scope.provinces = [
+      {id:'zhejiang',name:'浙江'},
+      {id:'beijing',name:'北京'},
+      {id:'shanghai',name:'上海'},
+      {id:'tianjin',name:'天津'},
+      {id:'chongqing',name:'重庆'},
+    ];
 })
 .controller('AboutHim',function ($scope,Contact,$stateParams,$location,Personata) {
   var partyId = $stateParams.personId;

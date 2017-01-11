@@ -783,7 +783,7 @@ angular.module('starter.services', [])
 
     var personList = [
         {
-            personId:'PERS_10001',
+            personId:'10001',
             infoList:[
                 {
                     id:'RES_100010',
@@ -816,7 +816,7 @@ angular.module('starter.services', [])
             ]
         },
         {
-            personId:'PERS_10002',
+            personId:'10002',
             infoList:[
                 {
                     id:'RES_100012',
@@ -849,7 +849,7 @@ angular.module('starter.services', [])
             ]
         },
         {
-            personId:'PERS_10005',
+            personId:'10003',
             infoList:[
                 {
                     id:'RES_100014',
@@ -1361,6 +1361,21 @@ angular.module('starter.services', [])
   return{
     getAllOtherTime:function () {
       return time;
+    },
+  }
+})
+.factory('Provinces',function () {
+  var provinces = [
+      {id:'zhejiang',name:'浙江'},
+      {id:'beijing',name:'北京'},
+      {id:'shanghai',name:'上海'},
+      {id:'tianjin',name:'天津'},
+      {id:'chongqing',name:'重庆'},
+  ];
+
+  return{
+    getAll:function () {
+      return provinces;
     },
   }
 })

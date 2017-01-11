@@ -40,13 +40,40 @@
                 </label>
             </div>
         </div>
+
         <div class="list card cardupdate" style="margin: 5px 10px;">
-            <div class="item" style="margin: -17px 0px;">
+            <div class="item item-select" style="margin: -17px 0px;">
                 <label class="">
-                    <span class="input-label">地址</span>
-                    <input type="text" placeholder="地址" value="{{personInfo.geoName}} {{personInfo.city}} {{personInfo.address1}} {{personInfo.address2}}" >
+                    <span class="input-label">省／直辖市</span>
+                    <select id="pro">
+                      <option ng-repeat="x in provinces" value="{{x.id}}">{{x.name}}</option>
+                    </select>
                 </label>
             </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">市</span>
+              <input type="text" placeholder="市" value="{{personInfo.city}}" >
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">区</span>
+              <input type="text" placeholder="区" value="{{personInfo.address1}}" >
+            </label>
+          </div>
+        </div>
+        <div class="list card cardupdate" style="margin: 5px 10px;">
+          <div class="item" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">地址</span>
+              <input type="text" placeholder="地址" value="{{personInfo.geoName}} {{personInfo.city}} {{personInfo.address1}} {{personInfo.address2}}" >
+            </label>
+          </div>
         </div>
         <div class="list card cardupdate" style="margin: 5px 10px;">
             <div class="item" style="margin: -17px 0px;">
