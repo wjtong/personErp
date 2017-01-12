@@ -474,7 +474,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
     .state('app.labelPersonList',{
-      url:'/labelPersonList/:labelId',
+      url:'/labelPersonList/:partyId',
       disableBack:true,
       cache :false,
       views: {

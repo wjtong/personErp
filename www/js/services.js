@@ -604,6 +604,9 @@ angular.module('starter.services', [])
   //联系人列表
 .factory('Contact',function () {
     var url = "http://114.215.200.46:3400/personContacts/control/";
+    //var url = "http://localhost:3400/personContacts/control/";
+
+
     var personmainLists = [
         {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',price:'80',
           phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
@@ -621,6 +624,7 @@ angular.module('starter.services', [])
           phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:'1'}
     ];
     return {
+        //获得联系人
         getAll:function (partyId, cb) {
           $.ajax({
             url:url+"findContects",
@@ -1076,9 +1080,9 @@ angular.module('starter.services', [])
           }
         });
       },
-      remove:function (label) {
-        listLabel.splice(chats.indexOf(label), 1);
-      },
+      // remove:function (label) {
+      //   listLabel.splice(chats.indexOf(label), 1);
+      // },
       // getInfo:function (labelId) {
       //   for(var i=0;i<listLabel.length;i++){
       //     if(labelId == listLabel[i].id){
@@ -1091,6 +1095,28 @@ angular.module('starter.services', [])
         $.ajax({
           url:url+"deleteLable",
           data:{partyId:partyId},
+          async : false,
+          type:'POST',
+          success: function(result){
+            if(jQuery.type(result) === "string"){
+              result =   jQuery.parseJSON(result);
+            }
+            if(result.resultMap!=null){
+              if($.type(cb)==='function' ){
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //添加标签内成员
+        addLablePerson:function (partyIdFrom,partyIdTo) {
+        $.ajax({
+          url:url+"addLablePerson",
+          data:{
+            partyIdFrom:partyIdFrom,
+            partyIdTo:partyIdTo,
+          },
           async : false,
           type:'POST',
           success: function(result){
@@ -1124,9 +1150,7 @@ angular.module('starter.services', [])
           }
         });
       },
-
     }
-
 })
 
 //参考历史工序
@@ -1665,7 +1689,7 @@ angular.module('starter.services', [])
   //联系人
 .factory("Personata", function () {
     var url = "http://114.215.200.46:3400/personContacts/control/";
-
+    //var url = "http://localhost:3400/personContacts/control/";
     return{
       //获得用户信息（关于我，联系人信息）
         getPersonInfo:function (partyId, cb) {

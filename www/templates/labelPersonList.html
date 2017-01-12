@@ -1,14 +1,14 @@
-<ion-view title="标签中人员({{labelInfo.title}})">
+<ion-view title="标签中人员">
   <ion-nav-buttons side="right">
-    <button class="button button-icon ion-plus-round ion-navicon" menu-toggle="right" ng-click="modal.show()">
+    <button class="button button-icon ion-plus-round ion-navicon" menu-toggle="right" ng-click="openModal()">
     </button>
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personList.person" type="item-text-wrap">
-        <img ng-src="{{personmain.headPortrait}}">
-        <h2>{{personmain.firstName}}{{personmain.lastName}} {{personmain.gender}} {{personmain.company}}</h2>
-        <p>{{personmain.contactAddress}}</p>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="person in personList.person" type="item-text-wrap">
+        <img ng-src="{{person.headPortrait}}">
+        <h2>{{person.firstName}}{{person.lastName}} {{person.gender}} {{person.company}}</h2>
+        <p>{{person.contactAddress}}</p>
         <ion-option-button class="button-assertive" ng-click="">
           Delete
         </ion-option-button>

@@ -755,114 +755,114 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   };
 })
 .controller('CreateOrder',function ($scope,$stateParams,$ionicModal,$ionicPopup,CreateOrder,Contact,myresources,$location) {
-  var typeId = $stateParams.typeId;
-  var resourcesId = $stateParams.resourcesId;
-  var id = $stateParams.personId;
-  var personId = $stateParams.personId;
-  $scope.personInfo= Contact.get(id);
-  //$scope.resourcesList = myresources.getPersonList(personId);
-  $scope.resourcesNew = myresources.getPersonInfo(personId,resourcesId);
-  $scope.contactList = Contact.getAll();
-  $scope.resourcesList = myresources.getResourcesAll();
-  $scope.typeId = typeId;
-  if(typeId == 'sal'){
-    $scope.pageTitle = '销售订单录入' ;
-    $scope.orderInfo = CreateOrder.getSalOrderInfo();
-  }else if(typeId == 'pur'){
-    $scope.pageTitle = '采购订单录入' ;
-    $scope.orderInfo = CreateOrder.getPurOrderInfo();
-  }
+    var typeId = $stateParams.typeId;
+    var resourcesId = $stateParams.resourcesId;
+    var id = $stateParams.personId;
+    var personId = $stateParams.personId;
+    $scope.personInfo= Contact.get(id);
+    //$scope.resourcesList = myresources.getPersonList(personId);
+    $scope.resourcesNew = myresources.getPersonInfo(personId,resourcesId);
+    $scope.contactList = Contact.getAll();
+    $scope.resourcesList = myresources.getResourcesAll();
+    $scope.typeId = typeId;
+    if(typeId == 'sal'){
+      $scope.pageTitle = '销售订单录入' ;
+      $scope.orderInfo = CreateOrder.getSalOrderInfo();
+    }else if(typeId == 'pur'){
+      $scope.pageTitle = '采购订单录入' ;
+      $scope.orderInfo = CreateOrder.getPurOrderInfo();
+    }
 
-  $ionicModal.fromTemplateUrl('templates/orderContact.html', function(modal) {
-    $scope.contact = modal;
-  }, {
-    scope: $scope
-  });
-
-  $ionicModal.fromTemplateUrl('templates/addResourcesToOrder.html', function(modal) {
-    $scope.resources = modal;
-  }, {
-    scope: $scope
-  });
-
-  $scope.addressConfirm = null;
-  //我的地址是否应用到订单状态弹出
-  $scope.showAddressConfirm = function(partyId) {
-    $scope.partyId = partyId;
-    $scope.used = 'Y';
-    $scope.notUsed = 'N' ;
-    $scope.data = {}
-    var myPopup = $ionicPopup.show({
-      template: '<button class="button" style="width:100%;background-color: wheat;" ng-click="addAddressToOrder(used)">应用</button><br/>' +
-      '<button class="button" style="width: 100%;background-color: wheat;margin-top: 2px;" ng-click="addAddressToOrder(notUsed)">不应用</button><br/>' +
-      '<button class="button" style="width: 100%;background-color: red;margin-top: 2px;" ng-click="closeAddressConfim();">关闭</button>',
-      title: '自己的联系地址是否应用到订单',
+    $ionicModal.fromTemplateUrl('templates/orderContact.html', function(modal) {
+      $scope.contact = modal;
+    }, {
       scope: $scope
-
     });
-    myPopup.then(function(res) {
-      console.log('Tapped!', res);
+
+    $ionicModal.fromTemplateUrl('templates/addResourcesToOrder.html', function(modal) {
+      $scope.resources = modal;
+    }, {
+      scope: $scope
     });
-    $scope.addressConfirm = myPopup;
-  };
 
-  $scope.showContact = function () {
-    $scope.contact.show();
-  }
-  $scope.hiddenContact = function () {
-    $scope.contact.hide();
-  }
-  $scope.showResources = function () {
-    $scope.resources.show();
-  }
-  $scope.hiddenResources = function () {
-    $scope.resources.hide();
-  }
+    $scope.addressConfirm = null;
+    //我的地址是否应用到订单状态弹出
+    $scope.showAddressConfirm = function(partyId) {
+      $scope.partyId = partyId;
+      $scope.used = 'Y';
+      $scope.notUsed = 'N' ;
+      $scope.data = {}
+      var myPopup = $ionicPopup.show({
+        template: '<button class="button" style="width:100%;background-color: wheat;" ng-click="addAddressToOrder(used)">应用</button><br/>' +
+        '<button class="button" style="width: 100%;background-color: wheat;margin-top: 2px;" ng-click="addAddressToOrder(notUsed)">不应用</button><br/>' +
+        '<button class="button" style="width: 100%;background-color: red;margin-top: 2px;" ng-click="closeAddressConfim();">关闭</button>',
+        title: '自己的联系地址是否应用到订单',
+        scope: $scope
 
-  $scope.closeAddressConfim = function () {
-    $scope.addressConfirm.close();
-  }
-  $scope.addAddressToOrder = function (flag) {
-    var contect = Contact.get($scope.partyId);
-    if(typeId=='sal'){
-      CreateOrder.setPartyToSalOrder(contect.id,contect.name,contect.phone);
-      if(flag=='Y'){
-        CreateOrder.setAddressToSalOrder(contect.address);
-      }else{
-        CreateOrder.setAddressToSalOrder("");
+      });
+      myPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+      $scope.addressConfirm = myPopup;
+    };
+
+    $scope.showContact = function () {
+      $scope.contact.show();
+    }
+    $scope.hiddenContact = function () {
+      $scope.contact.hide();
+    }
+    $scope.showResources = function () {
+      $scope.resources.show();
+    }
+    $scope.hiddenResources = function () {
+      $scope.resources.hide();
+    }
+
+    $scope.closeAddressConfim = function () {
+      $scope.addressConfirm.close();
+    }
+    $scope.addAddressToOrder = function (flag) {
+      var contect = Contact.get($scope.partyId);
+      if(typeId=='sal'){
+        CreateOrder.setPartyToSalOrder(contect.id,contect.name,contect.phone);
+        if(flag=='Y'){
+          CreateOrder.setAddressToSalOrder(contect.address);
+        }else{
+          CreateOrder.setAddressToSalOrder("");
+        }
+      }else if(typeId == 'pur'){
+        CreateOrder.setPartyToPurOrder(contect.id,contect.name,contect.phone);
+        if(flag=='Y'){
+          CreateOrder.setAddressToPurOrder(contect.address);
+        }else{
+          CreateOrder.setAddressToPurOrder("");
+        }
       }
-    }else if(typeId == 'pur'){
-      CreateOrder.setPartyToPurOrder(contect.id,contect.name,contect.phone);
-      if(flag=='Y'){
-        CreateOrder.setAddressToPurOrder(contect.address);
-      }else{
-        CreateOrder.setAddressToPurOrder("");
+      $scope.addressConfirm.close();
+      $scope.contact.hide();
+    }
+    $scope.addResources = function (resources) {
+      if(typeId == 'sal'){
+        CreateOrder.setSalResources(resources);
+      }else if(typeId == 'pur'){
+        CreateOrder.setPurResources(resources);
+      }
+      $scope.resources.hide();
+    }
+    $scope.removeResourcesToOrder = function (resources) {
+      if(typeId == 'sal'){
+        CreateOrder.removeResourcesToSalOrder(resources);
+      }else if(typeId == 'pur'){
+        CreateOrder.removeResourcesToPurOrder(resources);
       }
     }
-    $scope.addressConfirm.close();
-    $scope.contact.hide();
-  }
-  $scope.addResources = function (resources) {
-    if(typeId == 'sal'){
-      CreateOrder.setSalResources(resources);
-    }else if(typeId == 'pur'){
-      CreateOrder.setPurResources(resources);
+    $scope.editOrderInfo = function () {
+      $location.path("/app/editOrderInfo");
     }
-    $scope.resources.hide();
-  }
-  $scope.removeResourcesToOrder = function (resources) {
-    if(typeId == 'sal'){
-      CreateOrder.removeResourcesToSalOrder(resources);
-    }else if(typeId == 'pur'){
-      CreateOrder.removeResourcesToPurOrder(resources);
-    }
-  }
-  $scope.editOrderInfo = function () {
-    $location.path("/app/editOrderInfo");
-  }
 
-  // $scope.orderInfo.partyId = '100020';
-  // $scope.orderInfo.partyName = '张文文';
+    // $scope.orderInfo.partyId = '100020';
+    // $scope.orderInfo.partyName = '张文文';
 })
 .controller('ChatList',function ($scope,$location,ChatList) {
     $scope.ChatList = ChatList.getChatList();
@@ -887,13 +887,15 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('ChatPersonList',function ($scope, $stateParams,ChatList) {
     $scope.chat = ChatList.getChatInfo($stateParams.chatId);
 })
+  //标签
 .controller('PersonLabel', function ($scope, $location,$ionicPopup, PersonLabel,$rootScope) {
     //$scope.labelList = PersonLabel.getAllLabl();
+    //查询用户拥有标签
     PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
       $scope.labelList = data;
     });
-    $scope.goLabelInPerson = function (labelId) {
-      $location.path('/app/labelPersonList/'+labelId);
+    $scope.goLableInfo = function (partyId) {
+      $location.path("/app/labelPersonList/"+partyId);
     };
     //创建标签
     $scope.showAddLab = function() {
@@ -916,6 +918,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         }else{
             PersonLabel.addPersonLab($scope.data.addLabel);
             $scope.addLab.close();
+            PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+              $scope.labelList = data;
+            });
         }
     }
     $scope.closeLab = function () {
@@ -928,7 +933,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
         $scope.labelList = data;
       });
-      location.replace("http://localhost:63342/personErp/www/index.html?_ijt=tvc45tmh1jv443vv2cp2mvnf6j#/app/personLabel")
+     // location.replace("http://localhost:63342/personErp/www/index.html?_ijt=tvc45tmh1jv443vv2cp2mvnf6j#/app/personLabel")
     }
     //下拉刷新
     $scope.doRefresh = function() {
@@ -939,24 +944,45 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     };
 
 })
-.controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel,ChatList,GroupChat) {
-    var partyId=$stateParams.labelId
+  //标签内人员
+.controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel,ChatList,GroupChat,$rootScope) {
+    var partyId=$stateParams.partyId;
+    //获得标签内人员
     PersonLabel.getLablPersonList(partyId, function (data){
       $scope.personList = data;
     });
+    $scope.partyId=partyId;
+    //获得联系人列表
+    Contact.getAll($rootScope.partyId , function (data){
+      $scope.personmainLists = data;
+    });
+    // $scope.getPersonListInLable=function () {
+    //   var personInfoi=$scope.personmainLists.contact;
+    //   var personInfoj=$scope.personList.person;
+    //   var lableInpersonList=[];
+    //   for(var i=0 ;i<personInfoi.length; i++){
+    //     for(var j=0;j<personInfoj.length; j++){
+    //       if(personInfoi[i].partyId!=personInfoj[j].partyId){
+    //         lableInpersonList.push(personInfoi[i])
+    //       }
+    //     }
+    //   }
+    //   return lableInpersonList;
+    // }
     $scope.devList = GroupChat.getAll();
     $scope.chat = ChatList.getChatInfo($stateParams.chatId);
     //$scope.labelId = $stateParams.labelId;
     //$scope.personList = Contact.getPersonLabel($scope.labelId);
-    $scope.labelInfo = PersonLabel.getInfo($scope.labelId);
+    //$scope.labelInfo = PersonLabel.getInfo($scope.labelId);
     $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
+    //添加联系人到标签(弹出框)
     $ionicModal.fromTemplateUrl('templates/lablePersonmodle.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
       $scope.modal = modal;
     });
-    $scope.openModal = function() {
+    $scope.openModal = function(personId) {
       $scope.modal.show();
     };
     $scope.closeModal = function() {
@@ -974,6 +1000,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.$on('modal.removed', function() {
       // Execute action
     })
+    //标签内添加联系人
+    $scope.addLablePerson= function (partyId) {
+      var partyIdTo=partyId;
+      var partyIdFrom=$scope.partyId;
+      PersonLabel.addLablePerson(partyIdFrom,partyIdTo);
+      $scope.modal.hide();
+      PersonLabel.getLablPersonList(partyIdFrom, function (data){
+        $scope.personList = data;
+      });
+    };
 })
 .controller('MyTime',function ($scope,MyTime,$location) {
     $scope.myTimes = MyTime.getAllMyTime();
@@ -997,18 +1033,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     var timeId = $stateParams.timeId;
     var infoId = $stateParams.infoId;
     $scope.time = MyTime.getTimeInfo(timeId,infoId);
-
     $scope.date = $scope.time.biginTime;
-
     $scope.beginTime = $scope.time.biginTime;
     $scope.endTime = $scope.time.endTime;
-
     var today=new Date();
     var fromYear= today.getYear()+1900;
     var toYear= today.getYear()+1901;
     var intMonth=today.getMonth();
     var intDay=today.getDate();
-
     var ipObj1 = {
         callback: function (val) {  //Mandatory
             $scope.date = new Date(val);
@@ -1094,17 +1126,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.itemInfo.close();
     }
 
-  $ionicModal.fromTemplateUrl('templates/stockOut.html', function(modal) {
-    $scope.stockout = modal;
-  }, {
-    scope: $scope
-  });
-  $scope.showStockOut = function () {
-    $scope.stockout.show();
-  }
-  $scope.hideStockOut = function () {
-    $scope.stockout.hide();
-  }
+    $ionicModal.fromTemplateUrl('templates/stockOut.html', function(modal) {
+      $scope.stockout = modal;
+    }, {
+      scope: $scope
+    });
+    $scope.showStockOut = function () {
+      $scope.stockout.show();
+    }
+    $scope.hideStockOut = function () {
+      $scope.stockout.hide();
+    }
 
 })
 .controller('ReceiveStock',function ($scope,$ionicModal, myresources,Contact) {
@@ -1153,34 +1185,33 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 })
 .controller('ReceivePurOrderList',function ($scope,$location,MyOrder) {
-  $scope.purOrderList = MyOrder.getPurOrder();
-  $scope.goInfo = function (orderId) {
-    $location.path('/app/receiveOrderInfo/'+orderId);
-  }
+    $scope.purOrderList = MyOrder.getPurOrder();
+    $scope.goInfo = function (orderId) {
+      $location.path('/app/receiveOrderInfo/'+orderId);
+    }
 }).controller('ReceiveOrderInfo',function ($scope, $stateParams,$ionicModal, MyOrder,MyOrderInfo) {
-  var orderId = $stateParams.orderId;
-  $scope.orderInfo = MyOrder.getPurOrderInfo(orderId);
-  $scope.itemList = MyOrderInfo.getInfo(orderId);
-  $ionicModal.fromTemplateUrl('templates/receiveOrderInfoConfirm.html', function(modal) {
-    $scope.orderInfoConfirm = modal;
-  }, {
-    scope: $scope
-  });
-  $scope.orderInfoConfirmShow = function () {
-    $scope.orderInfoConfirm.show();
-  }
-  $scope.orderInfoConfirmHidden = function () {
-    $scope.orderInfoConfirm.hide();
-  }
-  $scope.receiveOne = function (productInfo) {
-    var productList = [productInfo];
-    $scope.itemListReceive = productList;
-    $scope.orderInfoConfirm.show();
-  }
-  $scope.receiveAll = function (productInfo) {
-    $scope.itemListReceive = MyOrderInfo.getInfo(orderId);
-    $scope.orderInfoConfirm.show();
-  }
-
+    var orderId = $stateParams.orderId;
+    $scope.orderInfo = MyOrder.getPurOrderInfo(orderId);
+    $scope.itemList = MyOrderInfo.getInfo(orderId);
+    $ionicModal.fromTemplateUrl('templates/receiveOrderInfoConfirm.html', function(modal) {
+      $scope.orderInfoConfirm = modal;
+    }, {
+      scope: $scope
+    });
+    $scope.orderInfoConfirmShow = function () {
+      $scope.orderInfoConfirm.show();
+    }
+    $scope.orderInfoConfirmHidden = function () {
+      $scope.orderInfoConfirm.hide();
+    }
+    $scope.receiveOne = function (productInfo) {
+      var productList = [productInfo];
+      $scope.itemListReceive = productList;
+      $scope.orderInfoConfirm.show();
+    }
+    $scope.receiveAll = function (productInfo) {
+      $scope.itemListReceive = MyOrderInfo.getInfo(orderId);
+      $scope.orderInfoConfirm.show();
+    }
 })
 ;

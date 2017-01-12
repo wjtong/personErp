@@ -3,25 +3,22 @@
     <button class="button button-icon ion-plus-round " menu-toggle="left" ng-click="">
       确定添加
     </button>
-    <button class="button button-icon  " menu-toggle="left" ng-click="modal.hide()">
+    <button class="button button-icon  " menu-toggle="left" ng-click="closeModal()">
       取消
     </button>
   </ion-header-bar>
   <ion-content>
     <div class="list card cardupdate" style="margin: 5px 10px;">
       <div class="item" style="margin: -17px 0px;">
-        <label class="">
           <div class="list">
-            <ion-checkbox ng-repeat="item in personNoinLabel" >
-              <div>
-                <ion-item class="item item-avatar item-icon-right"  type="item-text-wrap">
-                  <img ng-src="{{item.img}}">
-                  <h2>{{item.name}}</h2>
-                </ion-item>
-              </div>
-            </ion-checkbox>
+            <ion-list>
+              <ion-item class="item-remove-animate item-avatar item-icon-right"  ng-click="addLablePerson(personmain.partyId)" ng-repeat="personmain in personmainLists.contact"  type="item-text-wrap">
+                <img ng-src="{{personmain.headPortrait}}">
+                <h2>{{personmain.firstName}}{{personmain.lastName}} {{personmain.gender}}  {{personmain.company}}</h2>
+                <p>{{personmain.contactAddress}}</p>
+              </ion-item>
+            </ion-list>
           </div>
-        </label>
       </div>
     </div>
   </ion-content>
