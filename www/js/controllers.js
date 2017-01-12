@@ -895,7 +895,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.goLabelInPerson = function (labelId) {
       $location.path('/app/labelPersonList/'+labelId);
     };
-
+    //创建标签
     $scope.showAddLab = function() {
         $scope.data = {};
         var myPopup = $ionicPopup.show({
@@ -912,7 +912,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $scope.addLab = myPopup;
     };
     $scope.createLabel = function () {
-
         if($scope.data.addLabel == null || $scope.data.addLabel == ''){
         }else{
             PersonLabel.addPersonLab($scope.data.addLabel);
@@ -922,6 +921,22 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.closeLab = function () {
         $scope.addLab.close();
     }
+    //删除标签
+    $scope.deleteLable=function (partyId) {
+      //alert(partyId);
+      PersonLabel.removeLable(partyId);
+      PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+        $scope.labelList = data;
+      });
+      location.replace("http://localhost:63342/personErp/www/index.html?_ijt=tvc45tmh1jv443vv2cp2mvnf6j#/app/personLabel")
+    }
+    //下拉刷新
+    $scope.doRefresh = function() {
+      PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+        $scope.labelList = data;
+      });
+      $scope.$broadcast("scroll.refreshComplete");
+    };
 
 })
 .controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel,ChatList,GroupChat) {

@@ -48,8 +48,8 @@ angular.module('starter.services', [])
     }
   };
 })
+  //关于我（用户信息）
 .factory('AboutMe',function () {
-
   return{
     get:function () {
       $.ajax({
@@ -78,6 +78,7 @@ angular.module('starter.services', [])
     },
   }
 })
+  //订单
 .factory('MyOrder',function () {
     var selOrder = [
         {
@@ -347,6 +348,7 @@ angular.module('starter.services', [])
     }
 
 })
+  //订单信息
 .factory('MyOrderInfo',function () {
     var orderInfo = [
       {
@@ -568,6 +570,7 @@ angular.module('starter.services', [])
       }
     }
 })
+  //主页
 .factory("Home",function () {
     var mainLists = [
         {img:'img/team/img1-md.jpg', id:1, type:'order', orderTypeId:'sal', name:'张总', company:'德阳工厂', address:'海宁，浙江，中国',desc:'500公斤皮料已送到，450公斤接收入库，50公斤未接收，2016/10/08',like:3,comments:5},
@@ -582,6 +585,7 @@ angular.module('starter.services', [])
         }
     }
 })
+  //标签组
 .factory("GroupChat",function () {
   var groupList = [
     {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
@@ -597,6 +601,7 @@ angular.module('starter.services', [])
     }
   }
 })
+  //联系人列表
 .factory('Contact',function () {
     var url = "http://114.215.200.46:3400/personContacts/control/";
     var personmainLists = [
@@ -661,6 +666,7 @@ angular.module('starter.services', [])
         }
     }
 })
+  //资源
 .factory('myresources',function () {
     var resourcesList = [
       {
@@ -937,6 +943,7 @@ angular.module('starter.services', [])
         }
     }
 })
+  //群聊
 .factory('ChatList',function () {
     var personList = [
       {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
@@ -1020,15 +1027,18 @@ angular.module('starter.services', [])
       }
     }
 })
+  //标签
 .factory('PersonLabel', function () {
-    var listLabel = [
-      {id:'1',title:'亲人'},
-      {id:'2',title:'朋友'},
-      {id:'3',title:'同学'},
-      {id:'4',title:'同事'}
-    ];
+    // var listLabel = [
+    //   {id:'1',title:'亲人'},
+    //   {id:'2',title:'朋友'},
+    //   {id:'3',title:'同学'},
+    //   {id:'4',title:'同事'}
+    // ];
+    //var url = "http://localhost:3400/personContacts/control/";
     var url = "http://114.215.200.46:3400/personContacts/control/";
     return{
+      //获得全部标签
       getAllLabl:function (userLoginId, cb) {
         $.ajax({
           url:url+"findLable",
@@ -1047,7 +1057,7 @@ angular.module('starter.services', [])
           }
         });
       },
-
+      //获得标签内人员
       getLablPersonList:function (partyId, cb) {
         $.ajax({
           url:url+"findLablePerson",
@@ -1069,13 +1079,33 @@ angular.module('starter.services', [])
       remove:function (label) {
         listLabel.splice(chats.indexOf(label), 1);
       },
-      getInfo:function (labelId) {
-        for(var i=0;i<listLabel.length;i++){
-          if(labelId == listLabel[i].id){
-            return listLabel[i];
+      // getInfo:function (labelId) {
+      //   for(var i=0;i<listLabel.length;i++){
+      //     if(labelId == listLabel[i].id){
+      //       return listLabel[i];
+      //     }
+      //   }
+      // },
+      //删除标签
+      removeLable:function (partyId) {
+        $.ajax({
+          url:url+"deleteLable",
+          data:{partyId:partyId},
+          async : false,
+          type:'POST',
+          success: function(result){
+            if(jQuery.type(result) === "string"){
+              result =   jQuery.parseJSON(result);
+            }
+            if(result.resultMap!=null){
+              if($.type(cb)==='function' ){
+                cb(result.resultMap);
+              }
+            }
           }
-        }
+        });
       },
+      //创建标签
       addPersonLab:function (lableName) {
         $.ajax({
           url:url+"createLable",
@@ -1094,43 +1124,12 @@ angular.module('starter.services', [])
           }
         });
       },
-      createPerson:function (partyId,firstName,contactEmail,contactCompany,contactGroup,lastName,gender,contactAddress1,contactCity,contactPostalCode,contactGeoName,contactAddress2) {
-        $.ajax({
-          url:url+"addContects",
-          data:{
-            firstName:firstName,
-            lastName:lastName,
-            gender:gender,
-            contactNumber:contactNumber,
-            contactAddress1:contactAddress1,
-            contactCity:contactCity,
-            contactPostalCode:contactPostalCode,
-            contactAddress2:contactAddress2,
-            contactEmail:contactEmail,
-            contactGroup:contactGroup,
-            contactGeoName:contactGeoName,
-            contactCompany:contactCompany,
-            partyId:partyId
-          },
-          async : false,
-          type:'POST',
-          success: function(result){
-            if(jQuery.type(result) === "string"){
-              result =   jQuery.parseJSON(result);
-            }
-            if(result.resultMap!=null){
-              if($.type(cb)==='function' ){
-                cb(result.resultMap);
-              }
-            }
-          }
-        });
-      }
+
     }
 
 })
 
-
+//参考历史工序
 .factory('ReHistory',function () {
   var history = [
     {id:'REHI_001',name:'准备',chargeProduction:'100吨',dowMaterial:'15吨'},
@@ -1154,7 +1153,7 @@ angular.module('starter.services', [])
     },
   }
 })
-
+//生产
 .factory('ProductionDetails',function () {
   var Details = [
     {productionId:'PRO_10001',
@@ -1216,7 +1215,7 @@ angular.module('starter.services', [])
     },
   }
 })
-
+//活动
 .factory('Activity',function () {
   var activity = [
     {id:'ACT_001',title:'登山',createTime:'2016-12-7',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁'},
@@ -1283,7 +1282,7 @@ angular.module('starter.services', [])
   }
 
 })
-
+//我的时间安排
 .factory('MyTime',function () {
     var time = [
       {
@@ -1338,6 +1337,7 @@ angular.module('starter.services', [])
       }
     }
 })
+  //联系人的时间安排
 .factory('OtherTime',function () {
   var time = [
     {
@@ -1379,6 +1379,7 @@ angular.module('starter.services', [])
     },
   }
 })
+  //收藏
 .factory('Favorites',function () {
   var favoriteOrders = [
     {
@@ -1529,6 +1530,7 @@ angular.module('starter.services', [])
     }
   }
 })
+  //仓库
 .factory('Stock', function () {
     var stockList = [
         {
@@ -1660,10 +1662,12 @@ angular.module('starter.services', [])
         }
     }
 })
+  //联系人
 .factory("Personata", function () {
     var url = "http://114.215.200.46:3400/personContacts/control/";
 
     return{
+      //获得用户信息（关于我，联系人信息）
         getPersonInfo:function (partyId, cb) {
           $.ajax({
             url:url+"findPerson",
@@ -1682,6 +1686,7 @@ angular.module('starter.services', [])
             }
           });
         },
+      //获得省列表
         getStateList:function (countryGeoId, cb) {
           $.ajax({
             url:url+"getProvince",
@@ -1700,6 +1705,39 @@ angular.module('starter.services', [])
             }
           });
         },
+        //添加联系人
+        createPerson:function (partyId,firstName,contactEmail,contactCompany,contactGroup,lastName,gender,contactAddress1,contactCity,contactPostalCode,contactGeoName,contactAddress2) {
+          $.ajax({
+            url:url+"addContects",
+            data:{
+              firstName:firstName,
+              lastName:lastName,
+              gender:gender,
+              contactNumber:contactNumber,
+              contactAddress1:contactAddress1,
+              contactCity:contactCity,
+              contactPostalCode:contactPostalCode,
+              contactAddress2:contactAddress2,
+              contactEmail:contactEmail,
+              contactGroup:contactGroup,
+              contactGeoName:contactGeoName,
+              contactCompany:contactCompany,
+              partyId:partyId
+            },
+            async : false,
+            type:'POST',
+            success: function(result){
+              if(jQuery.type(result) === "string"){
+                result =   jQuery.parseJSON(result);
+              }
+              if(result.resultMap!=null){
+                if($.type(cb)==='function' ){
+                  cb(result.resultMap);
+                }
+              }
+            }
+          });
+        }
     }
 })
 ;
