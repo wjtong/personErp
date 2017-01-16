@@ -1109,6 +1109,24 @@ angular.module('starter.services', [])
           }
         });
       },
+      //获得便签内添加联系人列表（去除已添加到标签内的人员）
+      getLableInContact:function (partyId1,partyId2) {
+        var personList=[];
+        var contactList=function () {
+          Contact.getAll(partyId2).contact;
+        }
+        var personInLable=function () {
+          PersonLabel.getLablPersonList(partyId1).person;
+        }
+        for(var i;i<contactList.length;i++){
+          for(var j;j<personInLable.length;j++){
+            if(contactList[i].partyId!=personInLable[j].partyId){
+              personList.push(contactList[i]);
+            }
+          }
+        }
+        return personList;
+      },
       //添加标签内成员
         addLablePerson:function (partyIdFrom,partyIdTo) {
         $.ajax({
@@ -1155,156 +1173,155 @@ angular.module('starter.services', [])
 
 //参考历史工序
 .factory('ReHistory',function () {
-  var history = [
-    {id:'REHI_001',name:'准备',chargeProduction:'100吨',dowMaterial:'15吨'},
-    {id:'REHI_002',name:'制作',chargeProduction:'80吨',dowMaterial:'30吨'},
-    {id:'REHI_003',name:'生产',chargeProduction:'105吨',dowMaterial:'20吨'},
-    {id:'REHI_004',name:'加工',chargeProduction:'75吨',dowMaterial:'30吨'},
-    {id:'REHI_005',name:'冶炼',chargeProduction:'200吨',dowMaterial:'30吨'},
+    var history = [
+      {id:'REHI_001',name:'准备',chargeProduction:'100吨',dowMaterial:'15吨'},
+      {id:'REHI_002',name:'制作',chargeProduction:'80吨',dowMaterial:'30吨'},
+      {id:'REHI_003',name:'生产',chargeProduction:'105吨',dowMaterial:'20吨'},
+      {id:'REHI_004',name:'加工',chargeProduction:'75吨',dowMaterial:'30吨'},
+      {id:'REHI_005',name:'冶炼',chargeProduction:'200吨',dowMaterial:'30吨'},
 
 
-  ];
-  return{
-    getAllHistory:function (){
-      return history;
-    },
-    getInfo:function (id) {
-      for(var i=0;i<history.length;i++){
-        if(id == history[i].id){
-          return history[i];
+    ];
+    return{
+      getAllHistory:function (){
+        return history;
+      },
+      getInfo:function (id) {
+        for(var i=0;i<history.length;i++){
+          if(id == history[i].id){
+            return history[i];
+          }
         }
-      }
-    },
-  }
+      },
+    }
 })
 //生产
 .factory('ProductionDetails',function () {
-  var Details = [
-    {productionId:'PRO_10001',
-      startTime:'2016-12-1',
-      endTime:'2017-3-03',
-      proname:'皮革',
-      material:'原料一',
-      quantity:'30吨',
-      processone:{id:'REHI_001',name:'准备',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
-      processtwo:{id:'REHI_002',name:'加工',quantityY:'30吨',quantityN:'25吨',chargeProduction:'30吨',dowMaterial:'15吨'},
-    },
-    {productionId:'PRO_10002',
-      startTime:'2016-12-5',
-      endTime:'2017-04-04',
-      proname:'插排',
-      material:'原料三',
-      quantity:'50件',
-      processone:{id:'REHI_003',name:'加热',quantityY:'44吨',quantityN:'3吨',chargeProduction:'590吨',dowMaterial:'150吨'},
-      processtwo:{id:'REHI_004',name:'精炼',quantityY:'33吨',quantityN:'6吨',chargeProduction:'70吨',dowMaterial:'8吨'},
-    },
-    {productionId:'PRO_10003',
-      startTime:'2016-12-18',
-      endTime:'2017-5-05',
-      proname:'打印机',
-      material:'原料一',
-      quantity:'100台',
-      processone:{id:'REHI_005',name:'提纯',quantityY:'30吨',quantityN:'44吨',chargeProduction:'100吨',dowMaterial:'15吨'},
-      processtwo:{id:'REHI_006',name:'精炼',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
-    },
-    {productionId:'PRO_10004',
-      startTime:'2016-12-22',
-      endTime:'2017-5-06',
-      proname:'硬盘',
-      material:'原料二',
-      quantity:'500块',
-      processone:{id:'REHI_007',name:'精炼',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
-      processtwo:{id:'REHI_008',name:'提纯',quantityY:'30吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
-    },
-    {productionId:'PRO_10005',
-      startTime:'2016-12-11',
-      endTime:'2017-7-07',
-      proname:'皮革',
-      material:'原料一',
-      quantity:'1000吨',
-      processone:{id:'REHI_009',name:'精炼',quantityY:'30吨',quantityN:'25吨',chargeProduction:'25吨',dowMaterial:'15吨'},
-      processtwo:{id:'REHI_0010',name:'精炼',quantityY:'44吨',quantityN:'44吨',chargeProduction:'100吨',dowMaterial:'15吨'},
-    },
-  ];
-  return{
-    getAllDetails:function (){
-      return Details;
-    },
-    getInfo:function (id) {
-      for(var i=0;i<Details.length;i++){
-        if(id == Details[i].id){
-          return Details[i];
+    var Details = [
+      {productionId:'PRO_10001',
+        startTime:'2016-12-1',
+        endTime:'2017-3-03',
+        proname:'皮革',
+        material:'原料一',
+        quantity:'30吨',
+        processone:{id:'REHI_001',name:'准备',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+        processtwo:{id:'REHI_002',name:'加工',quantityY:'30吨',quantityN:'25吨',chargeProduction:'30吨',dowMaterial:'15吨'},
+      },
+      {productionId:'PRO_10002',
+        startTime:'2016-12-5',
+        endTime:'2017-04-04',
+        proname:'插排',
+        material:'原料三',
+        quantity:'50件',
+        processone:{id:'REHI_003',name:'加热',quantityY:'44吨',quantityN:'3吨',chargeProduction:'590吨',dowMaterial:'150吨'},
+        processtwo:{id:'REHI_004',name:'精炼',quantityY:'33吨',quantityN:'6吨',chargeProduction:'70吨',dowMaterial:'8吨'},
+      },
+      {productionId:'PRO_10003',
+        startTime:'2016-12-18',
+        endTime:'2017-5-05',
+        proname:'打印机',
+        material:'原料一',
+        quantity:'100台',
+        processone:{id:'REHI_005',name:'提纯',quantityY:'30吨',quantityN:'44吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+        processtwo:{id:'REHI_006',name:'精炼',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+      },
+      {productionId:'PRO_10004',
+        startTime:'2016-12-22',
+        endTime:'2017-5-06',
+        proname:'硬盘',
+        material:'原料二',
+        quantity:'500块',
+        processone:{id:'REHI_007',name:'精炼',quantityY:'75吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+        processtwo:{id:'REHI_008',name:'提纯',quantityY:'30吨',quantityN:'25吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+      },
+      {productionId:'PRO_10005',
+        startTime:'2016-12-11',
+        endTime:'2017-7-07',
+        proname:'皮革',
+        material:'原料一',
+        quantity:'1000吨',
+        processone:{id:'REHI_009',name:'精炼',quantityY:'30吨',quantityN:'25吨',chargeProduction:'25吨',dowMaterial:'15吨'},
+        processtwo:{id:'REHI_0010',name:'精炼',quantityY:'44吨',quantityN:'44吨',chargeProduction:'100吨',dowMaterial:'15吨'},
+      },
+    ];
+    return{
+      getAllDetails:function (){
+        return Details;
+      },
+      getInfo:function (id) {
+        for(var i=0;i<Details.length;i++){
+          if(id == Details[i].id){
+            return Details[i];
+          }
         }
-      }
-    },
-  }
+      },
+    }
 })
 //活动
 .factory('Activity',function () {
-  var activity = [
-    {id:'ACT_001',title:'登山',createTime:'2016-12-7',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁'},
-    {id:'ACT_002',title:'公司培训',createTime:'2016-12-7',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁'}
+    var activity = [
+      {id:'ACT_001',title:'登山',createTime:'2016-12-7',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁'},
+      {id:'ACT_002',title:'公司培训',createTime:'2016-12-7',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁'}
 
-  ];
-  var personList = [
-    {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
-      phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
-    {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
-      phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:'2'},
-    {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
-      phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'},
-  ];
+    ];
+    var personList = [
+      {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
+        phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
+      {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
+        phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:'2'},
+      {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
+        phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'},
+    ];
 
-  return {
-    getAllActivity: function () {
-      return activity
-    },
-    getAllPerson: function () {
-      return personList
-    },
-    getActivityInfo: function (id) {
-      for (var i = 0; i < activity.length; i++) {
-        if (id == activity[i].id) {
-          return activity[i];
+    return {
+      getAllActivity: function () {
+        return activity
+      },
+      getAllPerson: function () {
+        return personList
+      },
+      getActivityInfo: function (id) {
+        for (var i = 0; i < activity.length; i++) {
+          if (id == activity[i].id) {
+            return activity[i];
+          }
         }
       }
     }
-  }
 })
 .factory('Material',function () {
-  var MaterialList = [
-    {id:'Mat_10001',name:'皮革',price:'15',dosage:''},
-    {id:'Mat_10002',name:'石油',price:'20',dosage:''},
-    {id:'Mat_10003',name:'催化剂',price:'25',dosage:''},
-    {id:'Mat_10004',name:'石墨',price:'30',dosage:''},
-  ];
-  var MaterialAll =[];
-  return{
-    getAllMaterialList:function () {
-      return MaterialList;
-    },
-    getMaterialAll:function(){
-      return  MaterialAll;
-    },
-    setMaterial:function (resources) {
-      if(MaterialAll.resources == null){
-        var resourcesList = [];
-        resourcesList.push(resources);
-        MaterialAll.resources = resourcesList;
-      }else{
-        var flag = true;
-        for(var i=0;i<MaterialAll.resources.length;i++){
-          if(MaterialAll.resources[i].id == resources.id){
-            flag = false;
+    var MaterialList = [
+      {id:'Mat_10001',name:'皮革',price:'15',dosage:''},
+      {id:'Mat_10002',name:'石油',price:'20',dosage:''},
+      {id:'Mat_10003',name:'催化剂',price:'25',dosage:''},
+      {id:'Mat_10004',name:'石墨',price:'30',dosage:''},
+    ];
+    var MaterialAll =[];
+    return{
+      getAllMaterialList:function () {
+        return MaterialList;
+      },
+      getMaterialAll:function(){
+        return  MaterialAll;
+      },
+      setMaterial:function (resources) {
+        if(MaterialAll.resources == null){
+          var resourcesList = [];
+          resourcesList.push(resources);
+          MaterialAll.resources = resourcesList;
+        }else{
+          var flag = true;
+          for(var i=0;i<MaterialAll.resources.length;i++){
+            if(MaterialAll.resources[i].id == resources.id){
+              flag = false;
+            }
+          }
+          if(flag){
+            MaterialAll.resources.push(resources);
           }
         }
-        if(flag){
-          MaterialAll.resources.push(resources);
-        }
-      }
-    },
-  }
-
+      },
+    }
 })
 //我的时间安排
 .factory('MyTime',function () {
@@ -1363,128 +1380,128 @@ angular.module('starter.services', [])
 })
   //联系人的时间安排
 .factory('OtherTime',function () {
-  var time = [
-    {
-      id:1,
-      data:'2016-11-20',
-      info:[
-        {id:101,title:'公司人员篮球赛',biginTime:'2016-11-20T10:00:00',endTime:'2016-11-20T12:00:00'},
-        {id:102,title:'公司人员午餐会',biginTime:'2016-11-20T12:30:00',endTime:'2016-11-20T14:300:00'},
-      ]
-    },
-    {
-      id:2,
-      data:'2016-11-23',
-      info:[
-        {id:201,title:'电话会议',biginTime:'2016-11-23T08:00:00',endTime:'2016-11-23T10:00:00'},
-        {id:202,title:'和王总去深圳出差',biginTime:'2016-11-23T13:00:00',endTime:'2016-11-27T8:00:00'},
-      ]
-    },
-  ];
+    var time = [
+      {
+        id:1,
+        data:'2016-11-20',
+        info:[
+          {id:101,title:'公司人员篮球赛',biginTime:'2016-11-20T10:00:00',endTime:'2016-11-20T12:00:00'},
+          {id:102,title:'公司人员午餐会',biginTime:'2016-11-20T12:30:00',endTime:'2016-11-20T14:300:00'},
+        ]
+      },
+      {
+        id:2,
+        data:'2016-11-23',
+        info:[
+          {id:201,title:'电话会议',biginTime:'2016-11-23T08:00:00',endTime:'2016-11-23T10:00:00'},
+          {id:202,title:'和王总去深圳出差',biginTime:'2016-11-23T13:00:00',endTime:'2016-11-27T8:00:00'},
+        ]
+      },
+    ];
 
-  return{
-    getAllOtherTime:function () {
-      return time;
-    },
-  }
+    return{
+      getAllOtherTime:function () {
+        return time;
+      },
+    }
 })
 .factory('Provinces',function () {
-  var provinces = [
-      {id:'zhejiang',name:'浙江'},
-      {id:'beijing',name:'北京'},
-      {id:'shanghai',name:'上海'},
-      {id:'tianjin',name:'天津'},
-      {id:'chongqing',name:'重庆'},
-  ];
+    var provinces = [
+        {id:'zhejiang',name:'浙江'},
+        {id:'beijing',name:'北京'},
+        {id:'shanghai',name:'上海'},
+        {id:'tianjin',name:'天津'},
+        {id:'chongqing',name:'重庆'},
+    ];
 
-  return{
-    getAll:function () {
-      return provinces;
-    },
-  }
+    return{
+      getAll:function () {
+        return provinces;
+      },
+    }
 })
   //收藏
 .factory('Favorites',function () {
-  var favoriteOrders = [
-    {
-      orderId:'SAL_10002',
-      noReadMessages:'17',
-      type:'订单',
-      img:'img/team/fenghao.png',
-      orderTypeId:'sal',
-      orderType:'销售订单',
-      name:'冯浩',
-      company:'上海班富电子商务_经理',
-      address:'中国，浙江，杭州',
-      desc:'更换汽车零件',
-      orderTime:'2016-11-20 10:21:22',
-      lastUPdateTime:'2016-11-20 14:34:11',
-      grandTotal:4530,
-      orderStatus:'已完成',
-      paymentMethod:'现金',
-      pushed:5,
-      collect:3,
-      comments:4
-    },
-    {
-      orderId:'PUR_10001',
-      type:'订单',
-      noReadMessages:'3',
-      img:'',
-      orderTypeId:'pur',
-      orderType:'采购订单',
-      name:'童文戟',
-      company:'素然服饰',
-      address:'加拿大',
-      desc:'采购服饰',
-      orderTime:'2016-11-22 14:21:22',
-      lastUPdateTime:'2016-11-23 10:34:11',
-      grandTotal:400,
-      orderStatus:'已批准',
-      paymentMethod:'支付宝、微信',
-      pushed:3,
-      collect:3,
-      comments:4
-    },
-    {
-      id:'RES_100001',
-      noReadMessages:'4',
-      type:'资源',
-      img:'',
-      descImg:"img/resources/facility.png",
-      title:"软件服务",
-      name:'童文戟',
-      company:'素然服饰',
-      address:'加拿大',
-      desc:'ofbiz仓库的讲解',
-      pushed:5,
-      price:124.00,
-      collect:3,
-      comments:4
-    },
-    {
-      id:'RES_100002',
-      noReadMessages:'10',
-      type:'资源',
-      img:'img/team/zhangwenwen.jpeg',
-      descImg:"img/resources/chongzhuang.png",
-      title:"电脑系统维护",
-      name:'张文文',
-      company:'上海班富电子商务',
-      address:'中国，上海，松江',
-      desc:'电脑系统崩溃，系统重装',
-      pushed:5,
-      price:50.00,
-      collect:3,
-      comments:4
-    }
-  ];
+    var favoriteOrders = [
+      {
+        orderId:'SAL_10002',
+        noReadMessages:'17',
+        type:'订单',
+        img:'img/team/fenghao.png',
+        orderTypeId:'sal',
+        orderType:'销售订单',
+        name:'冯浩',
+        company:'上海班富电子商务_经理',
+        address:'中国，浙江，杭州',
+        desc:'更换汽车零件',
+        orderTime:'2016-11-20 10:21:22',
+        lastUPdateTime:'2016-11-20 14:34:11',
+        grandTotal:4530,
+        orderStatus:'已完成',
+        paymentMethod:'现金',
+        pushed:5,
+        collect:3,
+        comments:4
+      },
+      {
+        orderId:'PUR_10001',
+        type:'订单',
+        noReadMessages:'3',
+        img:'',
+        orderTypeId:'pur',
+        orderType:'采购订单',
+        name:'童文戟',
+        company:'素然服饰',
+        address:'加拿大',
+        desc:'采购服饰',
+        orderTime:'2016-11-22 14:21:22',
+        lastUPdateTime:'2016-11-23 10:34:11',
+        grandTotal:400,
+        orderStatus:'已批准',
+        paymentMethod:'支付宝、微信',
+        pushed:3,
+        collect:3,
+        comments:4
+      },
+      {
+        id:'RES_100001',
+        noReadMessages:'4',
+        type:'资源',
+        img:'',
+        descImg:"img/resources/facility.png",
+        title:"软件服务",
+        name:'童文戟',
+        company:'素然服饰',
+        address:'加拿大',
+        desc:'ofbiz仓库的讲解',
+        pushed:5,
+        price:124.00,
+        collect:3,
+        comments:4
+      },
+      {
+        id:'RES_100002',
+        noReadMessages:'10',
+        type:'资源',
+        img:'img/team/zhangwenwen.jpeg',
+        descImg:"img/resources/chongzhuang.png",
+        title:"电脑系统维护",
+        name:'张文文',
+        company:'上海班富电子商务',
+        address:'中国，上海，松江',
+        desc:'电脑系统崩溃，系统重装',
+        pushed:5,
+        price:50.00,
+        collect:3,
+        comments:4
+      }
+    ];
 
-  return{
-    getAllfavorites:function () {
-      return favoriteOrders;
-    },
-  }
+    return{
+      getAllfavorites:function () {
+        return favoriteOrders;
+      },
+    }
 })
 .factory('CreateOrder',function () {
   var salOrderInfo = {};
@@ -1723,7 +1740,7 @@ angular.module('starter.services', [])
               }
               if(result.stateList!=null){
                 if($.type(cb)==='function' ){
-                  cb(result.stateList.provincelist);
+                  cb(result.resultMap);
                 }
               }
             }

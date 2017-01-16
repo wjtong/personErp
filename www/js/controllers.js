@@ -136,23 +136,28 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     Personata.getPersonInfo(partyId, function (data){
       $scope.personInfo = data;
     });
-    var gender=$scope.personInfo.gender;
-    if(gender=='女'){
-        var val="M";
-        document.getElementById("sex").value=val;
-    }
-    //$scope.personInfo = Contact.get(id);
-    //$scope.label = PersonLabel.getAllLabl();
+    $scope.data=$scope.personInfo;
+    //选中性别
+    var val=$scope.personInfo.gender
+    $(function(){
+      $("#sex").value(val)
+    });
+    //获得拥有的标签
     PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
       $scope.labelList = data;
     });
+    //选中标签
+    var val1=$scope.personInfo.lable;
+    $(function(){
+      $("#lable").value(val1)
+    });
     $scope.provinces = [
-      {id:'zhejiang',name:'浙江'},
-      {id:'beijing',name:'北京'},
-      {id:'shanghai',name:'上海'},
-      {id:'tianjin',name:'天津'},
-      {id:'chongqing',name:'重庆'},
-    ];
+        {id:'zhejiang',name:'浙江'},
+        {id:'beijing',name:'北京'},
+        {id:'shanghai',name:'上海'},
+        {id:'tianjin',name:'天津'},
+        {id:'chongqing',name:'重庆'},
+      ];
     var geoName=$scope.personInfo.geoName;
     var obj = document.getElementById('pro');
 
@@ -171,6 +176,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('AddPerson',function ($scope,PersonLabel,$rootScope,$location) {
     //$scope.label = PersonLabel.getAllLabl();
     $scope.title="添加人员"
+    //获得全部标签
     PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
       $scope.labelList = data;
     })
@@ -186,6 +192,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       {id:'tianjin',name:'天津'},
       {id:'chongqing',name:'重庆'},
     ];
+    $scope.data={};
+    $scope.addContact=function () {
+      if($scope.data.lable == null || $scope.data.lable == ''){
+        alert(123);
+      }
+      else{
+        alert($scope.data.lable);
+      }
+
+    }
 })
 .controller('AboutHim',function ($scope,Contact,$stateParams,$location,Personata) {
   var partyId = $stateParams.personId;
@@ -281,7 +297,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         {id:'chongqing',name:'重庆'},
     ];
       var geoName=$scope.myInfo.geoName;
-      alert(geoName);
+      //alert(geoName);
       if(geoName!=""){
         document.getElementById("pro").value=geoName;
       }
@@ -928,7 +944,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
     //删除标签
     $scope.deleteLable=function (partyId) {
-      //alert(partyId);
       PersonLabel.removeLable(partyId);
       PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
         $scope.labelList = data;
@@ -956,19 +971,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     Contact.getAll($rootScope.partyId , function (data){
       $scope.personmainLists = data;
     });
-    // $scope.getPersonListInLable=function () {
-    //   var personInfoi=$scope.personmainLists.contact;
-    //   var personInfoj=$scope.personList.person;
-    //   var lableInpersonList=[];
-    //   for(var i=0 ;i<personInfoi.length; i++){
-    //     for(var j=0;j<personInfoj.length; j++){
-    //       if(personInfoi[i].partyId!=personInfoj[j].partyId){
-    //         lableInpersonList.push(personInfoi[i])
-    //       }
-    //     }
-    //   }
-    //   return lableInpersonList;
-    // }
     $scope.devList = GroupChat.getAll();
     $scope.chat = ChatList.getChatInfo($stateParams.chatId);
     //$scope.labelId = $stateParams.labelId;
@@ -1010,6 +1012,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $scope.personList = data;
       });
     };
+    //删除内添加联系人
+    $scope.deletePerson=function (partyId) {
+
+    }
 })
 .controller('MyTime',function ($scope,MyTime,$location) {
     $scope.myTimes = MyTime.getAllMyTime();
