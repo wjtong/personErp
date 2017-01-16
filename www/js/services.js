@@ -603,8 +603,8 @@ angular.module('starter.services', [])
 })
   //联系人列表
 .factory('Contact',function () {
-    //var url = "http://114.215.200.46:3400/personContacts/control/";
-    var url = "http://localhost:3400/personContacts/control/";
+    var url = "http://114.215.200.46:3400/personContacts/control/";
+    //var url = "http://localhost:3400/personContacts/control/";
 
 
     var personmainLists = [
@@ -793,7 +793,7 @@ angular.module('starter.services', [])
 
     var personList = [
         {
-            personId:'10000',
+            personId:'10001',
             infoList:[
                 {
                     id:'RES_100010',
@@ -826,7 +826,7 @@ angular.module('starter.services', [])
             ]
         },
         {
-            personId:'10030',
+            personId:'10002',
             infoList:[
                 {
                     id:'RES_100012',
@@ -1039,8 +1039,8 @@ angular.module('starter.services', [])
     //   {id:'3',title:'同学'},
     //   {id:'4',title:'同事'}
     // ];
-    var url = "http://localhost:3400/personContacts/control/";
-    //var url = "http://114.215.200.46:3400/personContacts/control/";
+    //var url = "http://localhost:3400/personContacts/control/";
+    var url = "http://114.215.200.46:3400/personContacts/control/";
     return{
       //获得全部标签
       getAllLabl:function (userLoginId, cb) {
@@ -1772,8 +1772,8 @@ angular.module('starter.services', [])
 })
   //联系人
 .factory("Personata", function () {
-    //var url = "http://114.215.200.46:3400/personContacts/control/";
-    var url = "http://localhost:3400/personContacts/control/";
+    var url = "http://114.215.200.46:3400/personContacts/control/";
+    //var url = "http://localhost:3400/personContacts/control/";
     return{
       //获得用户信息（关于我，联系人信息）
         getPersonInfo:function (partyId, cb) {
