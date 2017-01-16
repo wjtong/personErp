@@ -129,11 +129,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $location.path('/app/abouthim/'+id);
     }
 })
-.controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,Personata,PersonLabel,$rootScope) {
+.controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,PersonData,PersonLabel,$rootScope) {
 
     var partyId = $stateParams.personId;
     $scope.title="编辑人员";
-    Personata.getPersonInfo(partyId, function (data){
+    PersonData.getPersonInfo(partyId, function (data){
       $scope.personInfo = data;
     });
     var gender=$scope.personInfo.gender;
@@ -187,9 +187,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       {id:'chongqing',name:'重庆'},
     ];
 })
-.controller('AboutHim',function ($scope,Contact,$stateParams,$location,Personata) {
+.controller('AboutHim',function ($scope,Contact,$stateParams,$location,PersonData) {
   var partyId = $stateParams.personId;
-  Personata.getPersonInfo(partyId, function (data){
+  PersonData.getPersonInfo(partyId, function (data){
     $scope.personInfo = data;
   });
   //$scope.personInfo = Contact.get(id);
@@ -253,49 +253,88 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.personList = Activity.getAllPerson();
 
 })
-.controller('AboutMe',function ($scope, $rootScope, Personata) {
-    Personata.getPersonInfo($rootScope.partyId , function (data){
+.controller('AboutMe',function ($scope, $rootScope, PersonData) {
+  PersonData.getPersonInfo($rootScope.partyId , function (data){
       $scope.myInfo = data;
     });
     //alert($scope.myInfo.personName);
 })
-.controller('EditAddress',function ($scope,Personata,$rootScope) {
-    Personata.getPersonInfo($rootScope.partyId , function (data){
-      $scope.myInfo = data;
+.controller('EditAddress',function ($scope,PersonData,$rootScope) {
+
+    PersonData.showPersonAddress($rootScope.partyId , function (data){
+      //alert($rootScope.partyId);
+      $scope.data = data;
+      $scope.provinceList = [];
+      $scope.stateProvinceGeoId = data.stateProvinceGeoId;
+      $scope.geoIdCity = data.geoIdCity;
+      $scope.geoIdArea = data.geoIdArea;
+      //alert(data.addressSelectData.length);
+      //alert("asdadf");
+      if(data.addressSelectData!=null){
+        for(var i=0;i<data.addressSelectData.length;i++){
+          var provinceMap = {'id':data.addressSelectData[i].geoId,"name":data.addressSelectData[i].geoName};
+          $scope.provinceList.push(provinceMap);
+
+          if($scope.stateProvinceGeoId!=null && $scope.stateProvinceGeoId == data.addressSelectData[i].geoId){
+            $scope.cityList = [];
+            var thisCityList = data.addressSelectData[i].child;
+            for(var j=0;j<thisCityList.length;j++){
+              var cityMap = {"id":thisCityList[j].geoId,"name":thisCityList[j].geoName};
+              $scope.cityList.push(cityMap);
+
+              if($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId){
+                $scope.areaList = [];
+                var areaList = thisCityList[j].child;
+                for(var w=0;w<areaList.length;w++){
+                  var areaMap = {"id":areaList[w].geoId,"name":areaList[w].geoName};
+                  $scope.areaList.push(areaMap);
+                }
+              }
+
+            }
+
+          }
+        }
+      }
     });
 
-    $scope.countrys = [
-        {id:'China',name:'中国'},
-        {id:'America',name:'美国'},
-        {id:'Japan',name:'日本'},
-        {id:'Russia',name:'俄罗斯'},
-        {id:'England',name:'英国'},
-        {id:'Canada',name:'加拿大'},
-        {id:'Australian',name:'澳大利亚'}
-    ];
-    $scope.provinces = [
-        {id:'zhejiang',name:'浙江'},
-        {id:'beijing',name:'北京'},
-        {id:'shanghai',name:'上海'},
-        {id:'tianjin',name:'天津'},
-        {id:'chongqing',name:'重庆'},
-    ];
-      var geoName=$scope.myInfo.geoName;
-      alert(geoName);
-      if(geoName!=""){
-        document.getElementById("pro").value=geoName;
+    $scope.changeProvince = function (stateProvinceGeoId) {
+      $scope.stateProvinceGeoId = stateProvinceGeoId;
+      $scope.cityList = [];
+      if($scope.data.addressSelectData!=null){
+        for(var i=0;i<$scope.data.addressSelectData.length;i++){
+          if($scope.stateProvinceGeoId!=null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId){
+            var thisCityList = $scope.data.addressSelectData[i].child;
+            for(var j=0;j<thisCityList.length;j++){
+              var cityMap = {"id":thisCityList[j].geoId,"name":thisCityList[j].geoName};
+              $scope.cityList.push(cityMap);
+            }
+          }
+        }
+        $scope.areaList = [];
       }
-    $scope.citys = [
-        {id:'hangzhou',name:'杭州'},
-        {id:'ningbo',name:'宁波'},
-        {id:'wenzhou',name:'温州'},
-        {id:'taizhou',name:'台州'},
-        {id:'quzhou',name:'衢州'},
-        {id:'jinhua',name:'金华'}
-    ];
-    // $scope.address = '泗凯路61弄20号201室';
-    // $scope.phone = '0086 15072200010' ;
-    // $scope.emails = 'zhangwenwen1556@163.com';
+    }
+
+    $scope.changeCity = function (geoIdCity) {
+      $scope.geoIdCity = geoIdCity;
+      if($scope.data.addressSelectData!=null){
+        for(var i=0;i<$scope.data.addressSelectData.length;i++){
+          if($scope.stateProvinceGeoId!=null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId){
+            var thisCityList = $scope.data.addressSelectData[i].child;
+            for(var j=0;j<thisCityList.length;j++){
+              if($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId){
+                $scope.areaList = [];
+                var areaList = thisCityList[j].child;
+                for(var w=0;w<areaList.length;w++){
+                  var areaMap = {"id":areaList[w].geoId,"name":areaList[w].geoName};
+                  $scope.areaList.push(areaMap);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 })
 .controller('myresources',function ($scope,$location,myresources) {
     $scope.resourcesList = myresources.getResourcesAll();

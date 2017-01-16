@@ -1687,7 +1687,7 @@ angular.module('starter.services', [])
     }
 })
   //联系人
-.factory("Personata", function () {
+.factory("PersonData", function () {
     var url = "http://114.215.200.46:3400/personContacts/control/";
     //var url = "http://localhost:3400/personContacts/control/";
     return{
@@ -1711,19 +1711,20 @@ angular.module('starter.services', [])
           });
         },
       //获得省列表
-        getStateList:function (countryGeoId, cb) {
+      showPersonAddress:function (partyId, cb) {
           $.ajax({
-            url:url+"getProvince",
-            data:{countryGeoId:countryGeoId},
+            url:url+"showPersonAddress",
+            data:{partyId:partyId},
             async : false,
             type:'POST',
             success: function(result){
+              //alert("testSuccess");
               if(jQuery.type(result) === "string"){
                 result =   jQuery.parseJSON(result);
               }
-              if(result.stateList!=null){
+              if(result.resultMap!=null){
                 if($.type(cb)==='function' ){
-                  cb(result.stateList.provincelist);
+                  cb(result.resultMap);
                 }
               }
             }
