@@ -603,8 +603,8 @@ angular.module('starter.services', [])
 })
   //联系人列表
 .factory('Contact',function () {
-    var url = "http://114.215.200.46:3400/personContacts/control/";
-    //var url = "http://localhost:3400/personContacts/control/";
+    //var url = "http://114.215.200.46:3400/personContacts/control/";
+    var url = "http://localhost:3400/personContacts/control/";
 
 
     var personmainLists = [
@@ -793,7 +793,7 @@ angular.module('starter.services', [])
 
     var personList = [
         {
-            personId:'10001',
+            personId:'10000',
             infoList:[
                 {
                     id:'RES_100010',
@@ -826,7 +826,7 @@ angular.module('starter.services', [])
             ]
         },
         {
-            personId:'10002',
+            personId:'10030',
             infoList:[
                 {
                     id:'RES_100012',
@@ -1039,8 +1039,8 @@ angular.module('starter.services', [])
     //   {id:'3',title:'同学'},
     //   {id:'4',title:'同事'}
     // ];
-    //var url = "http://localhost:3400/personContacts/control/";
-    var url = "http://114.215.200.46:3400/personContacts/control/";
+    var url = "http://localhost:3400/personContacts/control/";
+    //var url = "http://114.215.200.46:3400/personContacts/control/";
     return{
       //获得全部标签
       getAllLabl:function (userLoginId, cb) {
@@ -1288,6 +1288,73 @@ angular.module('starter.services', [])
         }
       }
     }
+})
+.factory('ShoppingCart',function () {
+
+  var ShoppingCartList = [
+    {
+      id:'RES_100005',
+      img:'img/resources/nianzhong.jpeg',
+      descImg:"img/resources/pige5.jpg",
+      title:"人造皮革，镂空印花",
+      name:'冯浩',
+      company:'上海班富电子商务',
+      address:'中国，上海',
+      desc:'人造皮革，镂空印花',
+      pushed:5,
+      price:'500',
+      collect:3,
+      comments:4
+    },
+    {
+      id:'RES_100006',
+      img:'img/resources/fabu.jpeg',
+      descImg:"img/resources/pige6.jpg",
+      title:"南京换彩皮革",
+      name:'张文文',
+      company:'上海班富电子商务',
+      address:'中国，上海，松江',
+      desc:'南京换彩皮革',
+      pushed:5,
+      price:'890',
+      collect:3,
+      comments:4
+    },
+    {
+      id:'RES_100007',
+      img:'',
+      descImg:"img/resources/pige7.jpg",
+      title:"珠光压纹人造皮革",
+      name:'王亮',
+      company:'素然服饰',
+      address:'中国，安徽，池州',
+      desc:'珠光压纹人造皮革',
+      pushed:5,
+      price:200.00,
+      collect:3,
+      comments:4
+    },
+    {
+      id:'RES_100008',
+      img:'img/team/shenyinling.png',
+      descImg:"img/resources/pige8.jpg",
+      title:"半皮皮革",
+      name:'沈寅麟',
+      company:'上海班富电子商务',
+      address:'中国，上海',
+      desc:'半皮皮革',
+      pushed:5,
+      price:10000.00,
+      collect:3,
+      comments:4
+    }
+  ];
+
+  return {
+    getAll: function () {
+      return ShoppingCartList
+    },
+  }
 })
 .factory('Material',function () {
     var MaterialList = [
@@ -1705,8 +1772,8 @@ angular.module('starter.services', [])
 })
   //联系人
 .factory("Personata", function () {
-    var url = "http://114.215.200.46:3400/personContacts/control/";
-    //var url = "http://localhost:3400/personContacts/control/";
+    //var url = "http://114.215.200.46:3400/personContacts/control/";
+    var url = "http://localhost:3400/personContacts/control/";
     return{
       //获得用户信息（关于我，联系人信息）
         getPersonInfo:function (partyId, cb) {

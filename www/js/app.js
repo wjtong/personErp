@@ -190,15 +190,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
+  .state('app.playlists', {
+    url: '/playlists',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/playlists.html',
+        controller: 'PlaylistsCtrl'
       }
-    })
+    }
+  })
 
   .state('app.personhome', {
     url: '/contactlist/:contactId',
@@ -206,6 +206,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'menuContent': {
         templateUrl: 'templates/personhome.html',
         controller: 'PersonHomeCtrl'
+      }
+    }
+  })
+  .state('app.shoppingcart', {
+    url: '/shoppingcart',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/shoppingCart.html',
+        controller: 'ShoppingCart'
       }
     }
   })

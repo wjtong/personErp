@@ -76,6 +76,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     { name: '运输纸箱大号', id: 6, price: 190, image: '/img/product/006.jpg', description: '用于运输的大号包装纸箱' }
   ];
 })
+.controller('ShoppingCart', function($scope,ShoppingCart,$location) {
+  $scope.shoppingCartList=ShoppingCart.getAll();
+  $scope.editOrderInfo = function () {
+    $location.path("/app/editOrderInfo");
+  }
+})
 
 .controller('HomeCtrl', function($scope,$ionicModal,Home,$location,MyOrder,myresources) {
     var salOrderList = MyOrder.getSalOrder();
@@ -364,14 +370,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 
         // 自定义弹窗
         var myPopup = $ionicPopup.show({
-            template: '<input type="text" >',
-            title: '请输入你要修改的价格',
+            template: '',
+            title: '已加入购物车',
             scope: $scope,
             buttons: [
-                { text: '保存',
-                    type: 'button-positive',},
+
                 {
-                    text: '取消',
+                    text: '返回',
                 },
             ]
         });
@@ -382,6 +387,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
             myPopup.close(); // 3秒后关闭弹窗
         }, 3000);
     };
+
 })
 
 

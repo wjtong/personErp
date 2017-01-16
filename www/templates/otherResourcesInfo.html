@@ -1,35 +1,78 @@
-<ion-view view-title="">
-  <ion-content>
-    <div class="content ionic-pseudo">
-      <div class="list card">
-        <div class="item">
-          <label class="">
-            <span class="input-label">标题</span>
-            {{resources.title}}{{resourcesOther.title}}
-          </label>
+<ion-view view-title="他的资源">
+  <div class="bar bar-header bar-light">
+    <h1 class="title">bar-light</h1>
+  </div>
+  <ion-content >
+    <ion-slide-box slide-tabs-scrollable="false"  show-pager="false" ion-slide-tabs>
+      <ion-slide ion-slide-tab-label="商品／服务">
+        <div class="content ionic-pseudo">
+          <div class="list card">
+            <div class="item">
+              <label class="">
+                <img ng-src="{{resources.descImg}}" style="max-width: 100%;">
+                <img ng-src="{{resourcesOther.descImg}}" style="max-width: 100%;">
+              </label>
+            </div>
+            <div class="item">
+              <label class="">
+                <span class="input-label">品名</span>
+                {{resources.title}}{{resourcesOther.title}}
+                <span class="input-label">价格</span>
+                {{resources.price}}{{resourcesOther.price}}
+              </label>
+            </div>
+          </div>
         </div>
-        <div class="item">
-          <label class="">
-            <span class="input-label">产品或服务描述</span>
-            {{resources.desc}}{{resourcesOther.desc}}
-          </label>
+      </ion-slide>
+      <ion-slide ion-slide-tab-label="详情">
+        <div class="content ionic-pseudo">
+          <div class="list card">
+            <div class="item">
+              <label class="">
+                <span class="input-label">标题</span>
+                {{resources.title}}{{resourcesOther.title}}
+              </label>
+            </div>
+            <div class="item">
+              <label class="">
+                <span class="input-label">产品或服务描述</span>
+                {{resources.desc}}{{resourcesOther.desc}}
+              </label>
+            </div>
+            <div class="item">
+              <label class="">
+                <img ng-src="{{resources.descImg}}" style="max-width: 100%;">
+                <img ng-src="{{resourcesOther.descImg}}" style="max-width: 100%;">
+              </label>
+            </div>
+            <div class="item">
+              <label class="">
+                <span class="input-label">价格</span>
+                {{resources.price}}{{resourcesOther.price}}
+              </label>
+            </div>
+          </div>
         </div>
-        <div class="item">
-          <label class="">
-            <span class="input-label">图片</span>
-            <img ng-src="{{resources.descImg}}" style="max-width: 100%;">
-            <img ng-src="{{resourcesOther.descImg}}" style="max-width: 100%;">
-          </label>
-        </div>
-        <div class="item">
-          <label class="">
-            <span class="input-label">价格</span>
-            {{resources.price}}{{resourcesOther.price}}
-          </label>
-          <br>
-          <p><button class="button button-energized" ng-click="createOrder(resources.id,personId)">购买</button>
-        </div>
-      </div>
-    </div>
+      </ion-slide>
+      <ion-slide ion-slide-tab-label="评价">
+        <h1>评价</h1>
+      </ion-slide>
+    </ion-slide-box>
   </ion-content>
+  <div class="bar bar-footer" style="margin-left: -6px;">
+    <div class="tab-nav tabs">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" href="">
+        <i class="icon ion-ios-heart-outline" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">关注</span>
+      </a>
+      <a class="tab-item tab-item-active" style="line-height: 12px;" href="#/app/shoppingcart">
+        <i class="icon ion-ios-cart-outline" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">购物车</span>
+      </a>
+      <button class="button button-energized" style="font-size: 20px;"  ng-click="showPopup()">加入购物车</button>
+      <button class="button button-assertive" style="font-size: 20px;"  ng-click="createOrder(resources.id,personId)">立即购买</button>
+    </div>
+  </div>
 </ion-view>
