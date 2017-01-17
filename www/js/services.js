@@ -1794,6 +1794,26 @@ angular.module('starter.services', [])
             }
           });
         },
+      //获得省列表
+      showPersonAddress:function (partyId, cb) {
+          $.ajax({
+            url:url+"showPersonAddress",
+            data:{partyId:partyId},
+            async : false,
+            type:'POST',
+            success: function(result){
+              //alert("testSuccess");
+              if(jQuery.type(result) === "string"){
+                result =   jQuery.parseJSON(result);
+              }
+              if(result.resultMap!=null){
+                if($.type(cb)==='function' ){
+                  cb(result.resultMap);
+                }
+              }
+            }
+          });
+        },
         //添加联系人
         createPerson:function (partyId,firstName,contactEmail,contactCompany,contactGroup,lastName,gender,contactAddress1,contactCity,contactPostalCode,contactGeoName,contactAddress2) {
           $.ajax({
