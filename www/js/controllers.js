@@ -369,7 +369,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 })
 
-.controller('PersonResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
+.controller('PersonResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup,$timeout) {
     $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;
     var personId = $stateParams.personId;

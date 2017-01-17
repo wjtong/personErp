@@ -24,35 +24,48 @@
           </div>
         </div>
       </ion-slide>
-      <ion-slide ion-slide-tab-label="详情">
-        <div class="content ionic-pseudo">
-          <div class="list card">
-            <div class="item">
-              <label class="">
-                <span class="input-label">标题</span>
-                {{resources.title}}{{resourcesOther.title}}
-              </label>
-            </div>
-            <div class="item">
-              <label class="">
-                <span class="input-label">产品或服务描述</span>
-                {{resources.desc}}{{resourcesOther.desc}}
-              </label>
-            </div>
-            <div class="item">
-              <label class="">
-                <img ng-src="{{resources.descImg}}" style="max-width: 100%;">
-                <img ng-src="{{resourcesOther.descImg}}" style="max-width: 100%;">
-              </label>
-            </div>
-            <div class="item">
-              <label class="">
-                <span class="input-label">价格</span>
-                {{resources.price}}{{resourcesOther.price}}
-              </label>
-            </div>
+      <ion-slide ion-slide-tab-label="详情" >
+        <ion-list>
+          <div class="content ionic-pseudo">
+              <div class="item">
+                <div class="tabs">
+                  <a class="tab-item active" href="#">
+                    商品介绍
+                  </a>
+                  <a class="tab-item" href="#">
+                    规格参数
+                  </a>
+                  <a class="tab-item" href="#">
+                    包装售后
+                  </a>
+                </div>
+              </div>
+              <div class="item">
+                <label class="">
+                  <span class="input-label">标题</span>
+                  {{resources.title}}{{resourcesOther.title}}
+                </label>
+              </div>
+              <div class="item">
+                <label class="">
+                  <span class="input-label">产品或服务描述</span>
+                  {{resources.desc}}{{resourcesOther.desc}}
+                </label>
+              </div>
+              <div class="item">
+                <label class="">
+                  <img ng-src="{{resources.descImg}}" style="max-width: 100%;">
+                  <img ng-src="{{resourcesOther.descImg}}" style="max-width: 100%;">
+                </label>
+              </div>
+              <div class="item">
+                <label class="">
+                  <span class="input-label">价格</span>
+                  {{resources.price}}{{resourcesOther.price}}
+                </label>
+              </div>
           </div>
-        </div>
+        </ion-list>
       </ion-slide>
       <ion-slide ion-slide-tab-label="评价">
         <h1>评价</h1>
