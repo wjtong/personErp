@@ -426,7 +426,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
             myPopup.close(); // 3秒后关闭弹窗
         }, 3000);
     };
-
+    //规格参数
+    $scope.addgongxu = function () {
+      $(function () {
+        $("#de").hide()
+      })
+    }
+    $scope.show = function () {
+      $(function () {
+        $("#de").show()
+      })
+    }
 })
 
 
@@ -610,8 +620,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.material.hide();
     };
     $scope.addgongxu = function () {
-      var a= new Date()
-      document.getElementById("addgx").hidden=false;
+      $(function () {
+        $("#addgx").removeAttr("hidden");
+      })
     }
     var orderId = $stateParams.orderId;
     $scope.itemList = MyOrder.getSalOrderInfo(orderId);
