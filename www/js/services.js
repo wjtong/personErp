@@ -1690,6 +1690,7 @@ angular.module('starter.services', [])
             }
           });
         },
+
         //编辑联系人
         updatePerson:function (partyId,personName,contactNumber,contactEmail,contactCompany,contactGroup,gender,contactAddress1,contactCity,contactGeoName,contactAddress2,cb) {
           $.ajax({
@@ -1751,6 +1752,28 @@ angular.module('starter.services', [])
       $.ajax({
         url:url+"findContects",
         data:{partyId:partyId},
+        async : false,
+        type:'POST',
+        success: function(result){
+          if(jQuery.type(result) === "string"){
+            result =   jQuery.parseJSON(result);
+          }
+          if(result.resultMap!=null){
+            if($.type(cb)==='function' ){
+              cb(result.resultMap);
+            }
+          }
+        }
+      });
+    },
+    //删除联系人
+    deleteContects:function (partyIdTo,partyIdFrom, cb) {
+      $.ajax({
+        url:url+"deleteContects",
+        data:{
+          partyIdTo:partyIdTo,
+          partyIdFrom:partyIdFrom
+        },
         async : false,
         type:'POST',
         success: function(result){

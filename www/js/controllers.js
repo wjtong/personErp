@@ -127,10 +127,19 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 })
 
 .controller('ContactlistCtrl', function($scope,Contact,$location,$rootScope) {
-    //$scope.personmainLists = Contact.getAll();
+    //获得全部联系人
     Contact.getAll($rootScope.partyId , function (data){
       $scope.personmainLists = data;
     });
+    //删除联系人
+    $scope.deletePerson=function (partyIdFrom) {
+      Contact.deleteContects($rootScope.partyId,partyIdFrom,function (data) {
+        $scope.reInfo = data;
+      });
+      Contact.getAll($rootScope.partyId , function (data){
+        $scope.personmainLists = data;
+      });
+    }
     $scope.goInfo = function (id) {
         $location.path('/app/abouthim/'+id);
     }
@@ -241,7 +250,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.productionList=ReHistory.getInfo(id)
 
 })
-.controller('AddPerson',function ($scope,PersonLabel,$rootScope,$location,PersonData) {
+.controller('AddPerson',function ($scope,PersonLabel,$rootScope,$location,PersonData,$ionicHistory) {
     $scope.title="添加人员"
     //获得全部标签
     PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
@@ -258,8 +267,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       PersonData.createPerson($rootScope.partyId,$scope.Persondata.personName,$scope.Persondata.contactNumber,$scope.Persondata.email,$scope.Persondata.company,
         $scope.Persondata.lable,$scope.Persondata.gender,$scope.Persondata.area,$scope.Persondata.city,$scope.Persondata.stateProvinceGeoId,$scope.Persondata.address,function (data) {
           $scope.infoList = data;
-        })
-      $location.path("/app/contactlist");
+        });
+      $ionicHistory.goBack();
+
     }
     //省市区下拉菜单
     PersonData.showPersonAddress($rootScope.partyId , function (data){
