@@ -92,6 +92,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
   .state('app.contactlist', {
     url: '/contactlist',
+    cache :false,
     views: {
       'menuContent': {
         templateUrl: 'templates/contactlist.html',

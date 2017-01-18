@@ -127,86 +127,218 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 })
 
 .controller('ContactlistCtrl', function($scope,Contact,$location,$rootScope) {
-    //$scope.personmainLists = Contact.getAll();
+    //获得全部联系人
     Contact.getAll($rootScope.partyId , function (data){
       $scope.personmainLists = data;
     });
+    //删除联系人
+    $scope.deletePerson=function (partyIdFrom) {
+      Contact.deleteContects($rootScope.partyId,partyIdFrom,function (data) {
+        $scope.reInfo = data;
+      });
+      Contact.getAll($rootScope.partyId , function (data){
+        $scope.personmainLists = data;
+      });
+    }
     $scope.goInfo = function (id) {
         $location.path('/app/abouthim/'+id);
     }
 })
 .controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,PersonData,PersonLabel,$rootScope) {
-
     var partyId = $stateParams.personId;
+    $scope.partyId=partyId
     $scope.title="编辑人员";
-    PersonData.getPersonInfo(partyId, function (data){
+    $scope.Persondata={};
+    //获取联系人个人信息
+    PersonData.getContactInfo($scope.partyId, function (data){
       $scope.personInfo = data;
+      $scope.Persondata.personName=data.personName;
+      $scope.Persondata.contactNumber=data.contactNumber;
+      $scope.Persondata.gender=data.gender;
+      $scope.Persondata.lable=data.lable;
+      $scope.Persondata.email=data.email;
+      $scope.Persondata.company=data.company;
     });
-    $scope.data=$scope.personInfo;
-    //选中性别
-    var val=$scope.personInfo.gender
-    $(function(){
-      $("#sex").value(val)
-    });
-    //获得拥有的标签
+    //更新联系人信息
+    $scope.addContact=function () {
+      PersonData.updatePerson($scope.partyId,$scope.Persondata.personName,$scope.Persondata.contactNumber,$scope.Persondata.email,$scope.Persondata.company,
+        $scope.Persondata.lable,$scope.Persondata.gender,$scope.Persondata.area,$scope.Persondata.city,$scope.Persondata.stateProvinceGeoId,$scope.Persondata.address,function (data) {
+          $scope.infoList = data;
+        })
+      $scope.$ionicGoBack();
+    }
+    //获取用户拥有的标签
     PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
       $scope.labelList = data;
     });
-    //选中标签
-    var val1=$scope.personInfo.lable;
-    $(function(){
-      $("#lable").value(val1)
-    });
-    $scope.provinces = [
-        {id:'zhejiang',name:'浙江'},
-        {id:'beijing',name:'北京'},
-        {id:'shanghai',name:'上海'},
-        {id:'tianjin',name:'天津'},
-        {id:'chongqing',name:'重庆'},
-      ];
-    var geoName=$scope.personInfo.geoName;
-    var obj = document.getElementById('pro');
+    //省市区下拉菜单
+    PersonData.showPersonAddress($scope.partyId , function (data){
+      $scope.data = data;
+      $scope.provinceList = [];
+      $scope.Persondata.stateProvinceGeoId=data.stateProvinceGeoId;
+      $scope.Persondata.area=data.geoIdArea;
+      $scope.Persondata.city=data.geoIdCity;
+      $scope.Persondata.address=data.address1
+      if(data.addressSelectData!=null){
+        for(var i=0;i<data.addressSelectData.length;i++){
+          var provinceMap = {'id':data.addressSelectData[i].geoId,"name":data.addressSelectData[i].geoName};
+          $scope.provinceList.push(provinceMap);
 
-    $.each(obj .options, function (i, n) {
-      if (n.value === 'shanghai') {
-        n.selected = true;
+          if($scope.Persondata.stateProvinceGeoId!=null && $scope.Persondata.stateProvinceGeoId == data.addressSelectData[i].geoId){
+            $scope.cityList = [];
+            var thisCityList = data.addressSelectData[i].child;
+            for(var j=0;j<thisCityList.length;j++){
+              var cityMap = {"id":thisCityList[j].geoId,"name":thisCityList[j].geoName};
+              $scope.cityList.push(cityMap);
+
+              if($scope.Persondata.city != null && $scope.Persondata.city == thisCityList[j].geoId){
+                $scope.areaList = [];
+                var areaList = thisCityList[j].child;
+                for(var w=0;w<areaList.length;w++){
+                  var areaMap = {"id":areaList[w].geoId,"name":areaList[w].geoName};
+                  $scope.areaList.push(areaMap);
+                }
+              }
+
+            }
+
+          }
+        }
       }
     });
 
+    $scope.changeProvince = function (stateProvinceGeoId) {
+      $scope.stateProvinceGeoId = stateProvinceGeoId;
+      $scope.cityList = [];
+      if($scope.data.addressSelectData!=null) {
+        for (var i = 0; i < $scope.data.addressSelectData.length; i++) {
+          if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
+            var thisCityList = $scope.data.addressSelectData[i].child;
+            for (var j = 0; j < thisCityList.length; j++) {
+              var cityMap = {"id": thisCityList[j].geoId, "name": thisCityList[j].geoName};
+              $scope.cityList.push(cityMap);
+            }
+          }
+        }
+        $scope.areaList = [];
+      }
+    }
+
+    $scope.changeCity = function (geoIdCity) {
+      $scope.geoIdCity = geoIdCity;
+      if($scope.data.addressSelectData!=null){
+        for(var i=0;i<$scope.data.addressSelectData.length;i++){
+          if($scope.stateProvinceGeoId!=null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId){
+            var thisCityList = $scope.data.addressSelectData[i].child;
+            for(var j=0;j<thisCityList.length;j++){
+              if($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId){
+                $scope.areaList = [];
+                var areaList = thisCityList[j].child;
+                for(var w=0;w<areaList.length;w++){
+                  var areaMap = {"id":areaList[w].geoId,"name":areaList[w].geoName};
+                  $scope.areaList.push(areaMap);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 })
 .controller('UpdateProduction',function ($scope,$stateParams,ReHistory) {
     var id = $stateParams.proId;
     $scope.productionList=ReHistory.getInfo(id)
 
 })
-.controller('AddPerson',function ($scope,PersonLabel,$rootScope,$location) {
-    //$scope.label = PersonLabel.getAllLabl();
+.controller('AddPerson',function ($scope,PersonLabel,$rootScope,$location,PersonData,$ionicHistory) {
     $scope.title="添加人员"
     //获得全部标签
     PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
       $scope.labelList = data;
     })
     var partyId=""
-
+    //编辑地址
     $scope.addAddress = function () {
       $location.path("/app/addAddress");
     }
-    $scope.provinces = [
-      {id:'zhejiang',name:'浙江'},
-      {id:'beijing',name:'北京'},
-      {id:'shanghai',name:'上海'},
-      {id:'tianjin',name:'天津'},
-      {id:'chongqing',name:'重庆'},
-    ];
-    $scope.data={};
+    //提交联系人数据
+    $scope.Persondata={};
     $scope.addContact=function () {
-      if($scope.data.lable == null || $scope.data.lable == ''){
-        alert(123);
-      }
-      else{
-        alert($scope.data.lable);
-      }
+      PersonData.createPerson($rootScope.partyId,$scope.Persondata.personName,$scope.Persondata.contactNumber,$scope.Persondata.email,$scope.Persondata.company,
+        $scope.Persondata.lable,$scope.Persondata.gender,$scope.Persondata.area,$scope.Persondata.city,$scope.Persondata.stateProvinceGeoId,$scope.Persondata.address,function (data) {
+          $scope.infoList = data;
+        });
+      $ionicHistory.goBack();
 
+    }
+    //省市区下拉菜单
+    PersonData.showPersonAddress($rootScope.partyId , function (data){
+      $scope.data = data;
+      $scope.provinceList = [];
+      if(data.addressSelectData!=null){
+        for(var i=0;i<data.addressSelectData.length;i++){
+          var provinceMap = {'id':data.addressSelectData[i].geoId,"name":data.addressSelectData[i].geoName};
+          $scope.provinceList.push(provinceMap);
+
+          if($scope.stateProvinceGeoId!=null && $scope.stateProvinceGeoId == data.addressSelectData[i].geoId){
+            $scope.cityList = [];
+            var thisCityList = data.addressSelectData[i].child;
+            for(var j=0;j<thisCityList.length;j++){
+              var cityMap = {"id":thisCityList[j].geoId,"name":thisCityList[j].geoName};
+              $scope.cityList.push(cityMap);
+
+              if($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId){
+                $scope.areaList = [];
+                var areaList = thisCityList[j].child;
+                for(var w=0;w<areaList.length;w++){
+                  var areaMap = {"id":areaList[w].geoId,"name":areaList[w].geoName};
+                  $scope.areaList.push(areaMap);
+                }
+              }
+
+            }
+
+          }
+        }
+      }
+    });
+
+    $scope.changeProvince = function (stateProvinceGeoId) {
+      $scope.stateProvinceGeoId = stateProvinceGeoId;
+      $scope.cityList = [];
+      if($scope.data.addressSelectData!=null) {
+        for (var i = 0; i < $scope.data.addressSelectData.length; i++) {
+          if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
+            var thisCityList = $scope.data.addressSelectData[i].child;
+            for (var j = 0; j < thisCityList.length; j++) {
+              var cityMap = {"id": thisCityList[j].geoId, "name": thisCityList[j].geoName};
+              $scope.cityList.push(cityMap);
+            }
+          }
+        }
+        $scope.areaList = [];
+      }
+    }
+
+    $scope.changeCity = function (geoIdCity) {
+      $scope.geoIdCity = geoIdCity;
+      if($scope.data.addressSelectData!=null){
+        for(var i=0;i<$scope.data.addressSelectData.length;i++){
+          if($scope.stateProvinceGeoId!=null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId){
+            var thisCityList = $scope.data.addressSelectData[i].child;
+            for(var j=0;j<thisCityList.length;j++){
+              if($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId){
+                $scope.areaList = [];
+                var areaList = thisCityList[j].child;
+                for(var w=0;w<areaList.length;w++){
+                  var areaMap = {"id":areaList[w].geoId,"name":areaList[w].geoName};
+                  $scope.areaList.push(areaMap);
+                }
+              }
+            }
+          }
+        }
+      }
     }
 })
 .controller('AboutHim',function ($scope,Contact,$stateParams,$location,PersonData) {
@@ -416,7 +548,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
 })
 
-.controller('PersonResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
+.controller('PersonResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup,$timeout) {
     $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;
     var personId = $stateParams.personId;
@@ -450,7 +582,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.$on('modal.removed', function() {
         // Execute action
     });
-    //编辑价格弹出框
+    //加入购物车
     $scope.showPopup = function() {
         $scope.data = {}
 
@@ -470,10 +602,20 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
             console.log('Tapped!', res);
         });
         $timeout(function() {
-            myPopup.close(); // 3秒后关闭弹窗
-        }, 3000);
+            myPopup.close(); // 1.5秒后关闭弹窗
+        }, 1500);
     };
-
+    //规格参数
+    $scope.addgongxu = function () {
+      $(function () {
+        $("#de").hide()
+      })
+    }
+    $scope.show = function () {
+      $(function () {
+        $("#de").show()
+      })
+    }
 })
 
 
@@ -657,8 +799,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.material.hide();
     };
     $scope.addgongxu = function () {
-      var a= new Date()
-      document.getElementById("addgx").hidden=false;
+      $(function () {
+        $("#addgx").removeAttr("hidden");
+      })
     }
     var orderId = $stateParams.orderId;
     $scope.itemList = MyOrder.getSalOrderInfo(orderId);

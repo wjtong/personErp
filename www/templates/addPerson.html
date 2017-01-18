@@ -4,7 +4,7 @@
           <div class="item" style="margin: -17px 0px;">
             <label class="">
               <span class="input-label">姓名</span>
-              <input type="text" placeholder="姓名"  value="{{personInfo.personName}}" ng-model="data.personName">
+              <input type="text" placeholder="姓名" value="{{Persondata.personName}}"  ng-model="Persondata.personName">
             </label>
           </div>
         </div>
@@ -12,7 +12,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">电话</span>
-                    <input type="text" placeholder="电话"  value="{{personInfo.contactNumber}}" ng-model="data.contactNumber" >
+                    <input type="text" placeholder="电话"  value="{{personInfo.contactNumber}}" ng-model="Persondata.contactNumber" >
                 </label>
             </div>
         </div>
@@ -20,9 +20,9 @@
             <div class="item item-select" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">性别</span>
-                    <select id="sex" ng-model="data.gender">
-                        <option value="男">男</option>
-                        <option value="女" >女</option>
+                    <select id="sex" ng-model="Persondata.gender">
+                        <option value="M">男</option>
+                        <option value="F" >女</option>
                     </select>
                 </label>
             </div>
@@ -32,7 +32,7 @@
                 <label class="">
                     <span class="input-label">标签</span>
 
-                  <select ng-model="data.lable" id="lable">
+                  <select ng-model="Persondata.lable" id="lable">
                     <option ng-repeat="x in labelList.lable" value="{{x.partyId}}">{{x.groupName}}</option>
                   </select>
 
@@ -44,25 +44,29 @@
             <div class="item item-select" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">省／直辖市</span>
-                    <select id="pro" ng-model="data.province">
-                      <option ng-repeat="x in provinces" value="{{x.id}}">{{x.name}}</option>
+                    <select  ng-model="Persondata.stateProvinceGeoId" ng-change="changeProvince(Persondata.stateProvinceGeoId)">
+                      <option ng-repeat="x in provinceList" value="{{x.id}}">{{x.name}}</option>
                     </select>
                 </label>
             </div>
         </div>
         <div class="list card cardupdate" style="margin: 5px 10px;">
-          <div class="item" style="margin: -17px 0px;">
+          <div class="item item-select" style="margin: -17px 0px;">
             <label class="">
               <span class="input-label">市</span>
-              <input type="text" placeholder="市" value="{{personInfo.city}}" >
+              <select  ng-model="Persondata.city" ng-change="changeCity(Persondata.city)">
+                <option ng-repeat="x in cityList" value="{{x.id}}">{{x.name}}</option>
+              </select>
             </label>
           </div>
         </div>
         <div class="list card cardupdate" style="margin: 5px 10px;">
-          <div class="item" style="margin: -17px 0px;">
+          <div class="item item-select" style="margin: -17px 0px;">
             <label class="">
               <span class="input-label">区</span>
-              <input type="text" placeholder="区" value="{{personInfo.address1}}" >
+              <select  ng-model="Persondata.area">
+                <option ng-repeat="x in areaList" value="{{x.id}}">{{x.name}}</option>
+              </select>
             </label>
           </div>
         </div>
@@ -70,7 +74,7 @@
           <div class="item" style="margin: -17px 0px;">
             <label class="">
               <span class="input-label">地址</span>
-              <input type="text" placeholder="地址" value="{{personInfo.geoName}} {{personInfo.city}} {{personInfo.address1}} {{personInfo.address2}}" >
+              <input type="text" placeholder="地址" value="{{personInfo.address2}}" ng-model="Persondata.address" >
             </label>
           </div>
         </div>
@@ -78,7 +82,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">电子邮箱</span>
-                    <input type="text" placeholder="电子邮箱" value="{{personInfo.email}}" ng-model="personInfo.email">
+                    <input type="text" placeholder="电子邮箱" value="{{personInfo.email}}" ng-model="Persondata.email">
                 </label>
             </div>
         </div>
@@ -86,7 +90,7 @@
             <div class="item" style="margin: -17px 0px;">
                 <label class="">
                     <span class="input-label">公司</span>
-                    <input type="text" placeholder="公司" value="{{personInfo.company}}" ng-model="data.company">
+                    <input type="text" placeholder="公司" value="{{personInfo.company}}" ng-model="Persondata.company">
                 </label>
             </div>
         </div>
