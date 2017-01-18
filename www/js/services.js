@@ -1619,6 +1619,25 @@ angular.module('starter.services', [])
             }
           });
         },
+      //获得联系人的个人信息
+      getContactInfo:function (partyId, cb) {
+        $.ajax({
+          url:url+"findContactInfo",
+          data:{partyId:partyId},
+          async : false,
+          type:'POST',
+          success: function(result){
+            if(jQuery.type(result) === "string"){
+              result =   jQuery.parseJSON(result);
+            }
+            if(result.resultMap!=null){
+              if($.type(cb)==='function' ){
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //获得省列表
       showPersonAddress:function (partyId, cb) {
           $.ajax({
@@ -1640,17 +1659,48 @@ angular.module('starter.services', [])
           });
         },
         //添加联系人
-        createPerson:function (partyId,firstName,contactEmail,contactCompany,contactGroup,lastName,gender,contactAddress1,contactCity,contactPostalCode,contactGeoName,contactAddress2) {
+        createPerson:function (partyId,personName,contactNumber,contactEmail,contactCompany,contactGroup,gender,contactAddress1,contactCity,contactGeoName,contactAddress2,cb) {
           $.ajax({
             url:url+"addContects",
             data:{
-              firstName:firstName,
-              lastName:lastName,
+              personName:personName,
               gender:gender,
               contactNumber:contactNumber,
               contactAddress1:contactAddress1,
               contactCity:contactCity,
-              contactPostalCode:contactPostalCode,
+              contactPostalCode:"123456",
+              contactAddress2:contactAddress2,
+              contactEmail:contactEmail,
+              contactGroup:contactGroup,
+              contactGeoName:contactGeoName,
+              contactCompany:contactCompany,
+              partyId:partyId
+            },
+            async : false,
+            type:'POST',
+            success: function(result){
+              if(jQuery.type(result) === "string"){
+                result =   jQuery.parseJSON(result);
+              }
+              if(result.resultMap!=null){
+                if($.type(cb)==='function' ){
+                  cb(result.resultMap);
+                }
+              }
+            }
+          });
+        },
+        //编辑联系人
+        updatePerson:function (partyId,personName,contactNumber,contactEmail,contactCompany,contactGroup,gender,contactAddress1,contactCity,contactGeoName,contactAddress2,cb) {
+          $.ajax({
+            url:url+"updateContects",
+            data:{
+              personName:personName,
+              gender:gender,
+              contactNumber:contactNumber,
+              contactAddress1:contactAddress1,
+              contactCity:contactCity,
+              contactPostalCode:"123456",
               contactAddress2:contactAddress2,
               contactEmail:contactEmail,
               contactGroup:contactGroup,
