@@ -2,19 +2,12 @@
     <ion-content>
         <div class="content ionic-pseudo">
             <div class="list card">
-                <!--<div class="item item-input item-select">-->
-                    <!--<div class="input-label">-->
-                        <!--国家-->
-                    <!--</div>-->
-                    <!--<select>-->
-                        <!--<option ng-repeat="country in provinceList" value="{{country.id}}">{{country.name}}</option>-->
-                    <!--</select>-->
-                <!--</div>-->
+                <form ng-submit="submintFrom(data);">
                 <div class="item item-input item-select">
                     <div class="input-label">
                         省份
                     </div>
-                    <select ng-model="stateProvinceGeoId" ng-change="changeProvince(stateProvinceGeoId);">
+                    <select ng-model="data.stateProvinceGeoId" ng-change="changeProvince(data.stateProvinceGeoId);">
                         <option ng-repeat="province in provinceList" value="{{province.id}}">{{province.name}}</option>
                     </select>
                 </div>
@@ -22,7 +15,7 @@
                     <div class="input-label">
                         市
                     </div>
-                    <select ng-model="geoIdCity" ng-change="changeCity(geoIdCity);">
+                    <select ng-model="data.geoIdCity" ng-change="changeCity(data.geoIdCity);">
                         <option ng-repeat="city in cityList" value="{{city.id}}">{{city.name}}</option>
                     </select>
                 </div>
@@ -30,33 +23,33 @@
                     <div class="input-label">
                         区
                     </div>
-                    <select ng-model="geoIdArea">
+                    <select ng-model="data.geoIdArea">
                         <option ng-repeat="area in areaList" value="{{area.id}}">{{area.name}}</option>
                     </select>
                 </div>
                 <div class="item">
                     <label class="">
                         <span class="input-label">详细地址</span>
-                        <!--<input type="text" placeholder="地址" value="{{address}}" style="width: 100%">-->
-                        <textarea placeholder="地址" style="width: 100%;">{{data.address1}}</textarea>
+                        <input type="text" placeholder="地址" ng-model="data.address1" style="width: 100%">
+                        <!--<textarea placeholder="地址" ng-mode="address1" style="width: 100%;"></textarea>-->
                     </label>
                 </div>
                 <div class="item">
                     <label class="">
                         <span class="input-label">联系电话</span>
-                        <input type="text" placeholder="联系电话" value="{{data.contactNumber}}" style="width: 100%">
+                        <input type="text" placeholder="联系电话" ng-model="data.contactNumber" style="width: 100%">
                     </label>
                 </div>
                 <div class="item">
                     <label class="">
                         <span class="input-label">电子邮箱</span>
-                        <input type="text" placeholder="电子邮箱" value="{{data.email}}" style="width: 100%">
+                        <input type="text" placeholder="电子邮箱" ng-model="data.email" style="width: 100%">
                     </label>
                 </div>
                 <div class="item">
-                    <button class="button button-block button-stable">提交</button>
+                    <button class="button button-block button-stable" type="submit">提交</button>
                 </div>
-
+                </form>
             </div>
         </div>
     </ion-content>

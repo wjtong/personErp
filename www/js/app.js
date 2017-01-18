@@ -82,6 +82,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
   .state('app.aboutme', {
     url: '/aboutme',
+    cache:false,
     views: {
       'menuContent': {
         templateUrl: 'templates/aboutme.html',

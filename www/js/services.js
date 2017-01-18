@@ -1814,6 +1814,27 @@ angular.module('starter.services', [])
             }
           });
         },
+
+
+        editPersonAddress:function (dataMap, cb) {
+            $.ajax({
+                url:url+"editPersonAddress",
+                data:dataMap,
+                async : false,
+                type:'POST',
+                success: function(result){
+                    //alert("testSuccess");
+                    if(jQuery.type(result) === "string"){
+                        result =   jQuery.parseJSON(result);
+                    }
+                    if(result.resultMap!=null){
+                        if($.type(cb)==='function' ){
+                            cb(result.resultMap);
+                        }
+                    }
+                }
+            });
+        },
         //添加联系人
         createPerson:function (partyId,firstName,contactEmail,contactCompany,contactGroup,lastName,gender,contactAddress1,contactCity,contactPostalCode,contactGeoName,contactAddress2) {
           $.ajax({
@@ -1849,4 +1870,26 @@ angular.module('starter.services', [])
         }
     }
 })
+
+.provider('popupUtil', function(){
+    this.$get = function($ionicPopup){
+        var popupUtil = {};
+        popupUtil.showConfirm = function(titleTxt, contentTxt){
+            var confirmPopup = $ionicPopup.confirm({
+                title: titleTxt,
+                template: contentTxt
+            });
+            return confirmPopup;
+        };
+        popupUtil.showAlert = function(titleTxt, contentTxt) {
+            var alert = $ionicPopup.alert({
+                title: titleTxt,
+                template: contentTxt
+            });
+            return alert;
+        };
+        return popupUtil;
+    }
+})
+
 ;

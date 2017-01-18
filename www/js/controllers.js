@@ -281,8 +281,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     });
     //alert($scope.myInfo.personName);
 })
-.controller('EditAddress',function ($scope,PersonData,$rootScope) {
-
+.controller('EditAddress',function ($scope,PersonData,$rootScope,popupUtil,$ionicLoading,$ionicHistory) {
     PersonData.showPersonAddress($rootScope.partyId , function (data){
       //alert($rootScope.partyId);
       $scope.data = data;
@@ -290,6 +289,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.stateProvinceGeoId = data.stateProvinceGeoId;
       $scope.geoIdCity = data.geoIdCity;
       $scope.geoIdArea = data.geoIdArea;
+      $scope.address1 = data.address1;
       //alert(data.addressSelectData.length);
       //alert("asdadf");
       if(data.addressSelectData!=null){
@@ -319,13 +319,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         }
       }
     });
-
     $scope.changeProvince = function (stateProvinceGeoId) {
-      $scope.stateProvinceGeoId = stateProvinceGeoId;
+      $scope.data.stateProvinceGeoId = stateProvinceGeoId;
       $scope.cityList = [];
+      $scope.data.geoIdCity = '';
       if($scope.data.addressSelectData!=null) {
           for (var i = 0; i < $scope.data.addressSelectData.length; i++) {
-              if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
+              if ($scope.data.stateProvinceGeoId != null && $scope.data.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
                   var thisCityList = $scope.data.addressSelectData[i].child;
                   for (var j = 0; j < thisCityList.length; j++) {
                       var cityMap = {"id": thisCityList[j].geoId, "name": thisCityList[j].geoName};
@@ -334,11 +334,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
               }
           }
           $scope.areaList = [];
+          $scope.data.geoIdArea = '';
       }
     }
-
     $scope.changeCity = function (geoIdCity) {
-      $scope.geoIdCity = geoIdCity;
+      $scope.data.geoIdCity = geoIdCity;
+      $scope.data.geoIdArea = '';
       if($scope.data.addressSelectData!=null){
         for(var i=0;i<$scope.data.addressSelectData.length;i++){
           if($scope.stateProvinceGeoId!=null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId){
@@ -357,6 +358,52 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         }
       }
     }
+
+    $scope.submintFrom = function (input) {
+        //alert(input.address1);
+        //验证表单
+        var msg = "" ;
+        if(input.geoIdCity == null || input.geoIdCity == '')msg += '市不能为空<br>';
+        if(input.geoIdArea == null || input.geoIdArea == '')msg += '区不能为空<br>';
+        if(input.address1 == null || input.address1 == '')msg += '详细地址不能为空<br>';
+        if(input.contactNumber == null || input.contactNumber == '')msg += '电话号码不能为空<br>';
+        if(input.email == null || input.email == '')msg += '电子邮箱不能为空<br>';
+        if(msg != ""){
+            popupUtil.showAlert('error',msg);
+            return ;
+        }
+        //加载动画
+        $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
+
+        var dataMap = {
+            stateProvinceGeoId:$scope.data.stateProvinceGeoId,
+            geoIdCity:$scope.data.geoIdCity,
+            geoIdArea:$scope.data.geoIdArea,
+            address1:$scope.data.address1,
+            contactNumber:$scope.data.contactNumber,
+            email:$scope.data.email,
+            partyId:$rootScope.partyId
+        };
+        //alert("test");
+
+        PersonData.editPersonAddress(dataMap,function (data) {
+            //alert("成功了");
+            $ionicLoading.hide();
+            if(data.resultMsg == 'Success' ||  data.resultMsg == '成功'){
+                $ionicHistory.goBack();
+            }else{
+                popupUtil.showAlert('error',data.resultMsg);
+            }
+        });
+
+    }
+
 })
 .controller('myresources',function ($scope,$location,myresources) {
     $scope.resourcesList = myresources.getResourcesAll();
