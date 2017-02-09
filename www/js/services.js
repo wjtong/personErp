@@ -1085,8 +1085,9 @@ angular.module('starter.services', [])
 //活动
 .factory('Activity',function () {
     var activity = [
-      {id:'ACT_001',title:'登山',createTime:'2016-12-7',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁'},
-      {id:'ACT_002',title:'公司培训',createTime:'2016-12-7',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁'}
+      {id:'ACT_001',title:'登山',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光'},
+      {id:'ACT_002',title:'Python培训',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光'},
+      {id:'ACT_003',title:'慢跑',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光'}
 
     ];
     var personList = [
@@ -1114,6 +1115,7 @@ angular.module('starter.services', [])
       }
     }
 })
+//购物车
 .factory('ShoppingCart',function () {
 
   var ShoppingCartList = [
@@ -1597,8 +1599,8 @@ angular.module('starter.services', [])
 })
   //个人信息
 .factory("PersonData", function () {
-    var url = "http://114.215.200.46:3400/personContacts/control/";
-    //var url = "http://localhost:3400/personContacts/control/";
+    //var url = "http://114.215.200.46:3400/personContacts/control/";
+    var url = "http://localhost:3400/personContacts/control/";
     return{
       //获得用户信息（关于我，联系人信息）
         getPersonInfo:function (partyId, cb) {
@@ -1748,8 +1750,8 @@ angular.module('starter.services', [])
 })
 //联系人列表
 .factory('Contact',function () {
-  var url = "http://114.215.200.46:3400/personContacts/control/";
-  //var url = "http://localhost:3400/personContacts/control/";
+  //var url = "http://114.215.200.46:3400/personContacts/control/";
+  var url = "http://localhost:3400/personContacts/control/";
 
   var personmainLists = [
     {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',price:'80',
@@ -1838,8 +1840,8 @@ angular.module('starter.services', [])
 })
 //标签
 .factory('PersonLabel', function () {
-  //var url = "http://localhost:3400/personContacts/control/";
-  var url = "http://114.215.200.46:3400/personContacts/control/";
+  var url = "http://localhost:3400/personContacts/control/";
+  //var url = "http://114.215.200.46:3400/personContacts/control/";
   return{
     //获得全部标签
     getAllLabl:function (userLoginId, cb) {

@@ -2,29 +2,66 @@
   <ion-content>
     <div class="list" >
       <div class="item">
-      <label class="">
-        <span class="input-label">活动标题</span>
-        <input type="text"  value="{{activityList.title}}" style="width: 100%">
-      </label>
+        <div id="the-image-id" class="elastic-image" style="background-image: url({{activityList.img}})">
+
+        </div>
       </div>
       <div class="item">
         <label class="">
-          <span class="input-label">发起人</span>
-          <input type="text"  value="{{activityList.name}}" style="width: 100%">
+          <p><b>活动安排：{{activityList.title}}</b></p>
+          时间：{{activityList.createTime}}
+          组织者：{{activityList.name}}
         </label>
+      </div>
+      <div class="item tabs tabs-secondary tabs-icon-left" >
+        <a class="tab-item">
+          <i class="icon ion-ios-star-outline"></i>
+          有兴趣
+        </a>
+        <a class="tab-item">
+          <i class="icon ion-checkmark-round"></i>
+          参与
+        </a>
+        <a class="tab-item">
+          <i class="icon ion-share"></i>
+          分享
+        </a>
+        <a class="tab-item" ng-click="showMessage()">
+          <i class="icon ion-ios-more"></i>
+          更多
+        </a>
       </div>
       <div class="item">
         <label class="">
-          <span class="input-label">地点</span>
-          <input type="text"  value="{{activityList.address}}" style="width: 100%">
+          <i class="icon ion-ios-clock"> {{activityList.createTime}}  {{activityList.time}}</i>
+          <br>
+          <i class="icon ion-ios-location"> {{activityList.address}}  {{activityList.addressDet}}</i>
         </label>
       </div>
-      <div class="item">
+      <div class="item" type="item-text-wrap">
         <label class="">
-          <span class="input-label">时间</span>
-          <input type="text"  value="{{activityList.createTime}}" style="width: 100%">
+          <p><b>详细信息</b></p>
+          {{activityList.information}}
         </label>
       </div>
+      <div class="item" >
+        <button class="button button-block button-positive icon-left "  ng-click="tirarFoto()">
+          获取地理定位
+        </button>
+        </br>
+        </br>
+        <p>定位数据</p></br></br>
+        {{data}}
+        <p>数据2</p>
+        {{team}}</br></br>
+        <div id="allmap"></div>
+        <div id="r-result">
+          经度: <input id="longitude" type="text" style="width:100px; margin-right:10px;" />
+          纬度: <input id="latitude" type="text" style="width:100px; margin-right:10px;" />
+          <input type="button" value="查询" onclick="theLocation()" />
+        </div>
+      </div>
+
       <div><p>参与人员：</p></div>
       <div class="item item-avatar" style="margin-left: -16px;">
         <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="

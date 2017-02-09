@@ -65,5 +65,25 @@
             "CAMERA_USAGE_DESCRIPTION": " ",
             "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
         }
+    },
+    "com.qdc.plugins.baidu.location": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mrwutong/cordova-qdc-baidu-location",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.hewz.plugins.baidu.location": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/hewz/cordova-baidu-location",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {
+            "API_KEY": "P4oAA9kaIHVdqHmLvx6bSU64Gw5fhanD"
+        }
     }
 }
