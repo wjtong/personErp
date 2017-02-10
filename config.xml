@@ -26,7 +26,19 @@
   <plugin name="cordova-plugin-splashscreen" spec="~4.0.0"/>
   <plugin name="cordova-plugin-statusbar" spec="~2.2.0"/>
   <plugin name="ionic-plugin-keyboard" spec="~2.2.1"/>
-  <plugin name="icordova-plugin-camera" spec=""/>
+  <plugin name="cordova-plugin-camera" spec="~2.3.0"/>
+
+  <!--定位插件使用-->
+  <!-- android 使用本插件 -->
+  <platform name="android">
+    <plugin name="cordova-plugin-baidu-geolocation" spec="https://github.com/ETENG-OSP/cordova-plugin-baidu-geolocation">
+      <variable name="API_KEY" value="z89D54HRzvzF8jobhBktAbqRIKue8gQN" />
+    </plugin>
+  </platform>
+  <!-- iOS 使用官方插件 -->
+  <platform name="ios">
+    <plugin name="cordova-plugin-geolocation" spec="~2.4.1" />
+  </platform>
   <platform name="ios">
     <icon src="resources/ios/icon/icon.png" width="57" height="57"/>
     <icon src="resources/ios/icon/icon@2x.png" width="114" height="114"/>

@@ -406,6 +406,22 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
   //百度地图
+  $scope.tirarFoto=function(){
+    navigator.geolocation.getCurrentPosition(function (data) {
+      alert(data.coords.latitude);
+      alert(data.coords.longitude);
+      var map = new BMap.Map("allmap");
+      var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
+      map.centerAndZoom(point, 19);
+      var marker = new BMap.Marker(point);
+      map.addOverlay(marker);   // 将标注添加到地图中
+    }, function (error) {
+      alert("网络不可用，请打开网络!!");
+      console.log(error);
+
+    },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
+  }
+
 })
 .controller('AboutMe',function ($scope, $rootScope, PersonData) {
   PersonData.getPersonInfo($rootScope.partyId , function (data){
