@@ -9,11 +9,11 @@
         <option value="4">近3个月</option>
       </select>
       <div class="input-label" style="float:right">
-        <button class="button button-outline button-positive ion-compose"  ng-click="newActivity()">创建</button>
+        <button class="button button-clear button-positive ion-compose"  ng-click="newActivity()">创建</button>
       </div>
     </div>
     <div>
-      <textarea name="content" cols="36" rows="8"   style="border: 0px solid #888888;width:380px;height:150px;background-image: url('img/resources/anpai.jpeg');">近期没有活动安排
+      <textarea name="content" cols="20" rows="8"   style="border: 0px solid #888888;width:380px;height:80px;background-image: url('img/resources/anpai.jpeg');">近期没有活动安排
       </textarea>
     </div>
     <div class="content-bar" >
@@ -21,8 +21,8 @@
       <button class="pull-right button button-icon icon ion-ios-arrow-right "></button>
     </div>
     <ion-scroll direction="x" class="wide-as-needed">
-      <a class="button" ng-repeat="matter in active" ng-click="activityDetails(matter.id)">
-        <img ng-src="{{matter.img}}"style="width:260px;height:180px">
+      <a class="button ng-binding" ng-repeat="matter in active" ng-click="activityDetails(matter.id)">
+        <img ng-src="{{matter.img}}"style="width:260px;height:180px" >
         <div class="huodong" >
           <br>
           <p><b>活动安排：{{matter.title}}</b></p>
@@ -41,4 +41,29 @@
     </ion-scroll>
     </div>
   </ion-content>
+  <div class="bar bar-footer" style="margin-left: -6px;">
+    <div class="tab-nav tabs">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" href="">
+        <i class="icon ion-aperture" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">由我组织</span>
+      </a>
+      <a class="tab-item tab-item-active" style="line-height: 12px;" href="">
+        <i class="icon ion-earth" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">往期活动</span>
+      </a>
+      <a class="tab-item tab-item-active" style="line-height: 12px;" href="">
+        <i class="icon ion-ios-flag-outline " style="line-height: 14px;">
+        </i>
+        <span ng-class="{true:'red-point',false:''}[true]">活动邀请</span>
+
+      </a>
+      <a class="tab-item tab-item-active" style="line-height: 12px;">
+        <i class="icon ion-ios-pricetags-outline" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">以收藏</span>
+      </a>
+    </div>
+  </div>
 </ion-view>

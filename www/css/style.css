@@ -266,3 +266,34 @@ a.autolinker {
   padding-left: 5px;
   padding-bottom: 5px;
 }
+.tab-red-point:after,.red-point:after{
+
+  position: absolute;
+
+  content: '';
+
+  height: 12px;
+
+  width: 12px;
+
+  border-radius: 6px;
+
+  background-color: red;
+
+}
+
+.tab-red-point:after{
+
+  top: 7px;
+
+  right: 5030%;
+
+}
+
+.red-point:after{
+
+  top: 6px;
+
+  right: 30%;
+
+}
