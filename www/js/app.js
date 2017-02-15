@@ -62,6 +62,45 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     controller: 'AppCtrl'
   })
 
+    .state('app.tabs', {
+      url: "/tabs",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/tabs.html"
+        }
+      }
+    })
+    .state('app.tabs.activityDetails',{
+      url:'/activityDetails/:activityId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'home-tab': {
+          templateUrl: 'templates/activityDetails.html',
+          controller:'ActivityCrl'
+        }
+      }
+    })
+    .state('app.tabs.search', {
+      url: "/search",
+      disableBack:true,
+      cache :false,
+      views: {
+        'search-tab': {
+          templateUrl: "templates/search.html",
+          controller:'ActivtyVode'
+        }
+      }
+    })
+    .state('app.tabs.about', {
+      url: "/about",
+      views: {
+        'about-tab': {
+          templateUrl: "templates/about.html"
+        }
+      }
+    })
+
   .state('app.search', {
     url: '/search',
     views: {
@@ -395,6 +434,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+    .state('app.themeImage', {
+      url: '/themeImage',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/themeImage.html',
+          controller:'ThemeImage'
+        }
+      }
+    })
   .state('app.newActivity', {
     url: '/newActivity',
     disableBack:true,
@@ -518,14 +568,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
 
-    .state('app.activityDetails',{
-      url:'/activityDetails/:activityId',
+
+    .state('app.activityList',{
+      url:'/activityList/:type',
       disableBack:true,
       cache :false,
       views: {
         'menuContent': {
-          templateUrl: 'templates/activityDetails.html',
-          controller:'ActivityCrl'
+          templateUrl: 'templates/activityList.html',
+          controller:'ActivityList'
         }
       }
     })

@@ -78,6 +78,51 @@ angular.module('starter.services', [])
     },
   }
 })
+//主题图片
+.factory('ThemeImage',function () {
+    var partyImg = [
+      {id:'Pic_10001',img:'img/theme/juhui1.jpeg'},
+      {id:'Pic_10002',img:'img/theme/juhui2.jpeg'},
+      {id:'Pic_10003',img:'img/theme/juhui3.jpeg'},
+      {id:'Pic_10004',img:'img/theme/juhui4.jpeg'},
+      {id:'Pic_10005',img:'img/theme/juhui5.jpeg'},
+     ];
+    var sportsImg = [
+      {id:'Pic_10006',img:'img/theme/yundong1.jpeg'},
+      {id:'Pic_10007',img:'img/theme/yundong2.jpeg'},
+      {id:'Pic_10008',img:'img/theme/yundong3.jpeg'},
+      {id:'Pic_10009',img:'img/theme/yundong4.jpeg'},
+      {id:'Pic_10010',img:'img/theme/yundong5.jpeg'}
+    ];
+    var familyImg = [
+      {id:'Pic_10011',img:'img/theme/jiating1.jpeg'},
+      {id:'Pic_10012',img:'img/theme/jiating2.jpeg'},
+      {id:'Pic_10013',img:'img/theme/jiating3.jpeg'},
+      {id:'Pic_10014',img:'img/theme/jiating4.jpeg'},
+      {id:'Pic_10015',img:'img/theme/jiating5.jpeg'}
+    ];
+    var businessImg = [
+      {id:'Pic_10016',img:'img/theme/shangwu1.jpeg'},
+      {id:'Pic_10017',img:'img/theme/shangwu2.jpeg'},
+      {id:'Pic_10018',img:'img/theme/shangwu3.jpeg'},
+      {id:'Pic_10019',img:'img/theme/shangwu4.jpeg'},
+      {id:'Pic_10020',img:'img/theme/shangwu5.jpeg'}
+    ];
+  return{
+    getPartyImg:function () {
+      return partyImg;
+    },
+    getSportsImg:function () {
+      return sportsImg;
+    },
+    getFamilyImg:function () {
+      return familyImg;
+    },
+    getBusinessImg:function () {
+      return businessImg;
+    }
+  }
+})
   //订单
 .factory('MyOrder',function () {
     var selOrder = [
@@ -1085,10 +1130,52 @@ angular.module('starter.services', [])
 //活动
 .factory('Activity',function () {
     var activity = [
-      {id:'ACT_001',title:'登山',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光'},
-      {id:'ACT_002',title:'Python培训',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光'},
-      {id:'ACT_003',title:'慢跑',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光'}
-
+      {id:'ACT_001',title:'登山',organizer:'jinlongxi',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      picture:[
+        {img:'img/resources/dengshan1.jpeg'},
+        {img:'img/resources/dengshan2.jpeg'},
+        {img:'img/resources/dengshan5.jpeg'},
+        {img:'img/resources/dengshan6.jpeg'},
+        {img:'img/resources/dengshan7.jpeg'}
+      ]},
+      {id:'ACT_002',title:'Python培训',organizer:'zhangwenwen',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+        picture:[
+          {img:'img/resources/python1.jpeg'},
+          {img:'img/resources/python2.png'},
+          {img:'img/resources/python3.jpeg'},
+          {img:'img/resources/python4.jpeg'},
+          {img:'img/resources/python5.jpeg'}
+        ]},
+      {id:'ACT_003',title:'慢跑',createTime:'2016-12-7',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+        picture:[
+          {img:'img/resources/paobu1.jpeg'},
+          {img:'img/resources/paobu2.jpeg'},
+          {img:'img/resources/paobu3.jpeg'},
+          {img:'img/resources/paobu4.jpeg'},
+          {img:'img/resources/paobu5.jpeg'}
+        ]},
+      {id:'ACT_004',title:'斯诺克游戏赛',type:'finish',createTime:'2016-12-7',organizer:'lining',time:'20:00-21:00',img:'img/resources/snk3.jpeg',name:'李宁',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+        picture:[
+          {img:'img/resources/snk1.jpeg'},
+          {img:'img/resources/snk2.jpeg'}
+        ]}
+    ];
+    var finishActivty = [
+      {id:'ACT_004',title:'斯诺克游戏赛',createTime:'2016-12-7',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/snk3.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+        picture:[
+          {img:'img/resources/snk1.jpeg'},
+          {img:'img/resources/snk2.jpeg'}
+        ]}
+    ];
+    var collectActivty = [
+      {id:'ACT_003',title:'慢跑',createTime:'2016-12-7',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+        picture:[
+          {img:'img/resources/paobu1.jpeg'},
+          {img:'img/resources/paobu2.jpeg'},
+          {img:'img/resources/paobu3.jpeg'},
+          {img:'img/resources/paobu4.jpeg'},
+          {img:'img/resources/paobu5.jpeg'}
+        ]}
     ];
     var personList = [
       {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
@@ -1096,15 +1183,38 @@ angular.module('starter.services', [])
       {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
         phone:'13162707331',sex:'F',email:'wenwen.zhang@banff-tech.com',labelId:'2'},
       {id:'PERS_10003',img:'img/team/shenyinling.png',name:'沈寅麟',company:'上海班富电子商务',address:'中国，上海',
-        phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'},
+        phone:'15000035538',sex:'F',email:'yinlin.shen@banff-tech.com',labelId:'3'}
     ];
 
+    var discuss = [
+      {id:'DIS_10001',discuss:'很期待一起去运动',name:'王坤',img:'img/team/wangkun.jpg',date:'2017-02-01 20:18'},
+      {id:'DIS_10002',discuss:'时间可以变动吗？',name:'金龙熙',img:'img/team/jinlongxi.png',date:'2017-02-12 12:00' },
+      {id:'DIS_10003',discuss:'下次活动还想参加',name:'李宁',img:'img/team/lining.jpg',date:'2017-02-01 12:00'}
+    ];
     return {
       getAllActivity: function () {
         return activity
       },
+      getCollectActivity: function () {
+        return collectActivty
+      },
+      getFinishActivity: function () {
+        return finishActivty
+      },
+      getAllDiscuss:function(){
+        return discuss
+      },
       getAllPerson: function () {
         return personList
+      },
+      getMyActivty: function(organizer){
+        var myActivtyList=[];
+        for (var i = 0; i < activity.length; i++) {
+          if (organizer == activity[i].organizer) {
+            myActivtyList.push(activity[i]);
+          }
+        }
+        return myActivtyList;
       },
       getActivityInfo: function (id) {
         for (var i = 0; i < activity.length; i++) {

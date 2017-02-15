@@ -4,34 +4,41 @@
       <div class="list card">
         <div class="item">
           <label class="">
-            <span class="input-label">活动标题</span>
-            <input type="text" placeholder="标题" value="" style="width: 100%">
+            <button class="button button-block button-stable" ng-click="selectImg()">添加背景图片</button>
+            <img ng-src="{{imageSrc}}"  id="myImage" class="full-image" >
+            <ion-list>
+              <div class="row row-wrap">
+                <div class="col full-image" ng-repeat="image in imageSrc1">
+                  <img src={{image}} width="100%"/>
+                </div>
+              </div>
+            </ion-list>
           </label>
         </div>
         <div class="item">
           <label class="">
-            <span class="input-label">描述</span>
-            <input type="text" placeholder="描述" value="" style="width: 100%">
+            <input type="text" placeholder="活动标题" value="" style="width: 100%"></span>
           </label>
         </div>
         <div class="item">
           <label class="">
-            <span class="input-label">图片</span>
-            <button class="button button-block button-stable" ng-click="takePhoto()">图片选择</button>
-            <img ng-src="{{imageSrc}}" ng-click="takePhoto()" id="myImage" class="full-image">
+            <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动"></textarea>
           </label>
         </div>
         <div class="item">
           <label class="">
-            <span class="input-label">时间</span>
-            <input type="text" placeholder="时间" value="" style="width: 100%">
+            <input type="datetime-local" placeholder="时间" value="" style="width: 100%">
           </label>
         </div>
         <div class="item">
           <label class="">
-            <span class="input-label">地点</span>
-            <input type="date" placeholder="地点" value="" style="width: 100%">
+            <input type="text" placeholder="地点" value="" style="width: 100%">
           </label>
+        </div>
+        <div class="item">
+          <ion-toggle class="handle">
+            宾客可以邀请好友
+          </ion-toggle>
         </div>
         <div class="item">
           <label class="">

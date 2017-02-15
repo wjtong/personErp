@@ -1,19 +1,36 @@
 <ion-view view-title="活动详情">
   <ion-content>
-    <div class="list" >
+    <div class="list "  ng-if="bigImage" ng-click="hideBigImage()" >
+      <h2>大图片</h2>
+      <img src="{{Url}}"/>
+    </div>
+    <div class="list" id="huodong">
       <div class="item">
         <div id="the-image-id" class="elastic-image" style="background-image: url({{activityList.img}})">
-
-        </div>
       </div>
       <div class="item">
         <label class="">
           <p><b>活动安排：{{activityList.title}}</b></p>
           时间：{{activityList.createTime}}
           组织者：{{activityList.name}}
+          <p style="text-align:right"></button><button class="button button-small button-clear button-positive "  ng-click="showDiscuss()">3条评论</button></p>
         </label>
       </div>
-      <div class="item tabs tabs-secondary tabs-icon-left" >
+      <br>
+      <div class="list list-left-editing" style="display: none;" id="discuss">
+        <ion-list>
+          <h2>近期评论</h2>
+          <hr>
+          <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="Discuss in DiscussList ">
+            <img src="{{Discuss.img}}">
+            <h3>{{Discuss.name}}</h3>
+            <p>{{Discuss.discuss}}</p>
+            <p>{{Discuss.date}}</p>
+          </ion-item>
+          <p style="text-align:right"></button><button class="button button-small button-clear button-positive "  ng-click="showAddLab()">评论</button><button class="button button-small button-clear button-positive "  ng-click="hideDiscuss()">收起</button></p>
+        </ion-list>
+      </div>
+      <div class="item tabs tabs-secondary tabs-icon-left">
         <a class="tab-item">
           <i class="icon ion-ios-star-outline"></i>
           有兴趣
@@ -31,6 +48,7 @@
           更多
         </a>
       </div>
+
       <div class="item">
         <label class="">
           <i class="icon ion-ios-clock"> {{activityList.createTime}}  {{activityList.time}}</i>
@@ -44,14 +62,22 @@
           {{activityList.information}}
         </label>
       </div>
+      <br>
+      <h2>照片墙</h2>
+      <hr>
+      <div class="row padding row-wrap">
+        <div class="col col-33"
+             style="width: 100px;height: 100px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center" ng-repeat="picture in activityList.picture" ng-click="shouBigImage(picture.img)">
+          <img class="img-responsive" style="height: 100%;width: 100px; border:1px solid #ffffff;"
+               src="{{picture.img}}">
+        </div>
+      </div>
       <div class="item" >
         <button class="button button-block button-positive icon-left "  ng-click="tirarFoto()">
           获取地理定位
         </button>
-        <div id="allmap" style="height: 300px;"></div>
-
+        <div id="allmap" style="height: 300px;" ng-if="map"></div>
       </div>
-
       <div><p>参与人员：</p></div>
       <div class="item item-avatar" style="margin-left: -16px;">
         <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="
@@ -73,6 +99,7 @@
             <button class="button button-positive" style="width: 100%;">赞</button>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </ion-content>

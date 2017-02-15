@@ -392,21 +392,113 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.active=Activity.getAllActivity();
   $scope.newActivity=function () {
     $location.path('/app/newActivity')
-  }
+  };
   $scope.myTime=function () {
     $location.path('/app/myTime')
-  }
+  };
   $scope.activityDetails=function (id) {
-    $location.path("/app/activityDetails/"+id);
+    $location.path("/app/tabs/activityDetails/"+id);
+  };
+  //定义：有我组织  往期活动 收藏
+  $scope.typefinish='finish';
+  $scope.typeMy='my';
+  $scope.typeCollect='collect';
+  $scope.goInfo=function (type) {
+    $location.path("/app/activityList/"+type);
   }
-
 })
-.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope) {
+.controller('ActivityList',function($scope,Activity,$location,$rootScope,$stateParams){
+  var type=$stateParams.type;
+  var organizer=$rootScope.partyId;
+  if(type=='finish'){
+    $scope.myActivtyList=Activity.getFinishActivity();
+    $scope.title='往期活动';
+  }else if(type=='my'){
+    $scope.myActivtyList=Activity.getMyActivty(organizer);
+    $scope.title='由我组织'
+  }else{
+    $scope.myActivtyList=Activity.getCollectActivity();
+    $scope.title='活动收藏'
+  }
+  $scope.goInfo=function(id){
+    $location.path("/app/tabs/activityDetails/"+id);
+  }
+})
+  //活动投票
+.controller('ActivtyVode',function($scope){
+  $scope.vote=function(){
+    for(var i = 0; i < document.getElementsByName("option").length; i++){
+      if(document.getElementsByName("option")[i].checked == true){
+        var width = document.getElementById(i).style.width; //获取到当前选项的宽度。
+        width = parseInt(width);//将宽度转化为int型，因为获取到的width的单位是px
+        width += 10;//改变width的值，这里就是定义每次投票的进度条的增速
+        document.getElementById(i).style.width = width+"px";//修改原div的宽度
+        var label = "label"+i;//lable标签里面写的是当前的投票数目。
+        var num = document.getElementById(label).innerText;//获取到当前的票数
+        document.getElementById(label).innerText = ++num;//票数加1，并修改原值
+      }
+    }
+  }
+})
+  //活动详情
+.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup) {
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
+  //获取讨论信息
+  $scope.DiscussList=Activity.getAllDiscuss();
+  //显示讨论
+  $scope.showDiscuss=function(){
+    document.getElementById("discuss").style.display="";
+  };
+  $scope.hideDiscuss=function(){
+    document.getElementById("discuss").style.display="none"
+  };
+  //发表评论
+  $scope.showAddLab = function() {
+    $scope.data = {};
+    var myPopup = $ionicPopup.show({
+      template:
+      '<textarea name="content" cols="20" rows="8" ">评论内容</textarea>'+
+      '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">发表</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>' ,
+      title: '编辑评论',
+      scope: $scope
+    });
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+    $scope.addLab = myPopup;
+  };
+  $scope.createLabel = function () {
+    if($scope.data.addLabel == null || $scope.data.addLabel == ''){
+    }else{
+      PersonLabel.addPersonLab($scope.data.addLabel);
+      $scope.addLab.close();
+      PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+        $scope.labelList = data;
+      });
+    }
+  }
+  $scope.closeLab = function () {
+    $scope.addLab.close();
+  },
+  //显示照片墙大图片
+  $scope.shouBigImage=function(imageName){
+    document.getElementById("huodong").style.display="none"
+    $scope.bigImage = true;
+    $scope.Url = imageName;
+  };
+  //隐藏大图片
+  $scope.bigImage = false;    //初始默认大图是隐藏的
+  $scope.hideBigImage = function () {
+    $scope.bigImage = false;
+    document.getElementById("huodong").style.display=""
+  };
   //百度地图
+  $scope.map=false;
   $scope.tirarFoto=function(){
+    $scope.map=true;
     navigator.geolocation.getCurrentPosition(function (data) {
       alert(data.coords.latitude);
       alert(data.coords.longitude);
@@ -418,10 +510,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }, function (error) {
       alert("网络不可用，请打开网络!!");
       console.log(error);
-
     },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
   }
-
 })
 .controller('AboutMe',function ($scope, $rootScope, PersonData) {
   PersonData.getPersonInfo($rootScope.partyId , function (data){
@@ -633,10 +723,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       })
     }
 })
-
-
-
-
 .controller('MyResourcesInfo',function ($scope,$stateParams,myresources,$location,$ionicModal,Contact,$ionicPopup) {
     $scope.personList = Contact.getAll();
     var resourcesId = $stateParams.resourcesId;
@@ -694,8 +780,59 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       }, 3000);
     };
   })
+//主题图片界面
+.controller('ThemeImage',function ($scope,$ionicSlideBoxDelegate,ThemeImage) {
+  //滑动选择类型
+  $scope.slideIndex = 0;
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+    console.log("slide Change");
+    if ($scope.slideIndex == 0){
+      console.log("slide 1");
+    }
+    else if ($scope.slideIndex == 1){
+      console.log("slide 2");
+    }
+    else if ($scope.slideIndex == 2){
+      console.log("slide 3");
+    }
+  };
+  $scope.activeSlide = function (index) {
+    $ionicSlideBoxDelegate.slide(index);
+  };
+  //获得不同类型图片
+  $scope.partyImgList=ThemeImage.getPartyImg();
+  $scope.sportsImgList=ThemeImage.getSportsImg();
+  $scope.fimilyImgList=ThemeImage.getFamilyImg()
+  $scope.businessImgList=ThemeImage.getBusinessImg()
+})
 //新建活动
-.controller('NewActivity',function ($scope,$cordovaCamera) {
+.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location) {
+  //选择插入图片方式
+  $scope.selectImg = function() {
+    $scope.data = {}
+    var myPopup = $ionicPopup.show({
+      template: '<button class="button" style="width:100%;background-color: mintcream;" ng-click="selectPhoto()">相册</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: mintcream;margin-top: 2px;" ng-click="takePhoto()">照相机</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: mintcream;margin-top: 2px;" ng-click="goThemeImage()">主题</button>' +
+      '<button class="button" style="width: 100%;background-color: cadetblue;margin-top: 2px;" ng-click="closeMyPopup()">取消</button>',
+      title: '添加方式',
+      scope: $scope
+    });
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+    $scope.statusPopup = myPopup;
+  };
+  //关闭选择框
+  $scope.closeMyPopup = function () {
+    $scope.statusPopup.close();
+  };
+  $scope.goThemeImage = function () {
+    $scope.statusPopup.close();
+    $location.path('/app/themeImage');
+  }
+  //调用照相机
   $scope.imageSrc = "";
   $scope.takePhoto=function(){
     var options = {
@@ -721,7 +858,28 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       // error
       //CommonJs.AlertPopup(err.message);
     });
+    $scope.statusPopup.close();
   };
+  //调用手机相册
+  $scope.imageSrc1 = "";
+  $scope.selectPhoto=function () {
+    var options = {
+      maximumImagesCount: 10,
+      width: 800,
+      height: 800,
+      quality: 100
+    };
+    $cordovaImagePicker.getPictures(options)
+      .then(function (results) {
+        $scope.imageSrc1 = results;
+        for (var i = 0; i < results.length; i++) {
+          console.log('Image URI: ' + results[i]);//返回参数是图片地址 results 是一个数组
+        }
+      }, function(error) {
+        // error getting photos
+      });
+    $scope.statusPopup.close();
+  }
 })
 .controller('NewDevOrder',function ($scope,$cordovaCamera) {
   $scope.imageSrc = "";

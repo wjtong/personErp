@@ -43,12 +43,12 @@
   </ion-content>
   <div class="bar bar-footer" style="margin-left: -6px;">
     <div class="tab-nav tabs">
-      <a class="tab-item tab-item-active" style="line-height: 12px;" href="">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeMy)">
         <i class="icon ion-aperture" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">由我组织</span>
       </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" href="">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typefinish)">
         <i class="icon ion-earth" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">往期活动</span>
@@ -57,9 +57,8 @@
         <i class="icon ion-ios-flag-outline " style="line-height: 14px;">
         </i>
         <span ng-class="{true:'red-point',false:''}[true]">活动邀请</span>
-
       </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeCollect)">
         <i class="icon ion-ios-pricetags-outline" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">以收藏</span>

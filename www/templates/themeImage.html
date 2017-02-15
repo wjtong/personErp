@@ -1,0 +1,53 @@
+<ion-view view-title="主题">
+  <ion-content>
+    <div class="row">
+      <ul class="slide-tab">
+        <li ng-class="slideIndex == 0 ? 'current':''"><a  ng-click="activeSlide(0)">聚会</a></li>
+        <li ng-class="slideIndex == 1 ? 'current':''"><a  ng-click="activeSlide(1)">运动</a></li>
+        <li ng-class="slideIndex == 2 ? 'current':''"><a  ng-click="activeSlide(2)">家庭</a></li>
+        <li ng-class="slideIndex == 3 ? 'current':''"><a  ng-click="activeSlide(3)">商务</a></li>
+      </ul> <!-- / tabs -->
+    </div>
+    <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="padding">
+      <ion-slide>
+        <div class="padding">
+          <div class="list-img"
+               style="width: 330px;height: 200px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center" ng-repeat="item in partyImgList">
+            <img class="img-responsive" style="height: 200px;width: 330px; border:1px solid #ffffff;"
+                 src="{{item.img}}">
+          </div>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="padding">
+          <div class="list-img"
+               style="width: 330px;height: 200px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center" ng-repeat="picture in sportsImgList">
+            <img class="img-responsive" style="height: 200px;width: 330px; border:1px solid #ffffff;"
+                 src="{{picture.img}}">
+          </div>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="padding">
+          <div class="list-img"
+               style="width: 330px;height: 200px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center" ng-repeat="item in fimilyImgList">
+            <img class="img-responsive" style="height: 200px;width: 330px; border:1px solid #ffffff;"
+                 src="{{item.img}}">
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="padding">
+          <div class="list-img"
+               style="width: 330px;height: 200px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center" ng-repeat="item in businessImgList">
+            <img class="img-responsive" style="height: 200px;width: 330px; border:1px solid #ffffff;"
+                 src="{{item.img}}">
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
+
+</ion-view>

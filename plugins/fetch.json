@@ -85,5 +85,33 @@
         "variables": {
             "API_KEY": "P4oAA9kaIHVdqHmLvx6bSU64Gw5fhanD"
         }
+    },
+    "cordova-plugin-baidu-geolocation": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ETENG-OSP/cordova-plugin-baidu-geolocation.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {
+            "API_KEY": "jNTpqTSSOlYQUNQfg8PLB25576NwYAkL"
+        }
+    },
+    "cordova-plugin-geolocation": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-geolocation"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-image-picker": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/wymsee/cordova-imagePicker.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
