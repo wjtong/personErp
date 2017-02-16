@@ -1,11 +1,6 @@
 <ion-view view-title="活动详情">
-  <ion-content>
-    <div class="list "  ng-if="bigImage" ng-click="hideBigImage()" >
-      <h2>大图片</h2>
-      <img ng-src="{{Url}}"/>
-    </div>
-    <div id="huodong">
-    <div class="row">
+  <div class="bar bar-header " style="margin-top: 35px" >
+    <div class="row" >
       <ul class="slide-tab">
         <li ng-class="slideIndex == 0 ? 'current':''"><a  ng-click="activeSlide(0)">活动详情</a></li>
         <li ng-class="slideIndex == 1 ? 'current':''"><a  ng-click="activeSlide(1)">投票</a></li>
@@ -13,8 +8,15 @@
         <li ng-class="slideIndex == 3 ? 'current':''"><a  ng-click="activeSlide(3)">备用2</a></li>
       </ul> <!-- / tabs -->
     </div>
-    <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" >
-      <ion-slide style="width: 349px">
+  </div>
+  <ion-content>
+    <div class="list "  ng-if="bigImage" ng-click="hideBigImage()" style="margin-top: 80px">
+      <h2>大图片</h2>
+      <img ng-src="{{Url}}"/>
+    </div>
+    <div id="huodong">
+    <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="has-header">
+      <ion-slide >
           <div class="list"   >
             <div class="item">
               <img ng-src="{{activityList.img}}" class="full-image"/>
@@ -87,12 +89,14 @@
                 </div>
               </div>
             </div>
+
             <div class="item" >
               <button class="button button-block button-positive icon-left "  ng-click="tirarFoto()">
                 获取地理定位
               </button>
               <div id="allmap" style="height: 300px;" ng-if="map"></div>
             </div>
+
             <div><p>参与人员：</p></div>
             <div class="item item-avatar" style="margin-left: -16px;">
               <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="

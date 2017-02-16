@@ -5,35 +5,41 @@
         <div class="item">
           <label class="">
             <button class="button button-block button-stable" ng-click="selectImg()">添加背景图片</button>
-            <img ng-src="{{imageSrc}}"  id="myImage" class="full-image" >
-            <ion-list>
-              <div class="row row-wrap">
-                <div class="col full-image" ng-repeat="image in imageSrc1">
-                  <img ng-src={{image}} width="100%"/>
-                </div>
-              </div>
-            </ion-list>
+            <img ng-src="{{imageSrc}}{{myActivtyList.img}}"  id="myImage" class="full-image" >
           </label>
         </div>
         <div class="item">
           <label class="">
-            <input type="text" placeholder="活动标题" value="" style="width: 100%">
+            <input type="text" placeholder="活动标题" value="{{myActivtyList.title}}" style="width: 100%">
           </label>
         </div>
         <div class="item">
           <label class="">
-            <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动"></textarea>
+            <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动" >{{myActivtyList.information}}</textarea>
           </label>
         </div>
         <div class="item">
           <label class="">
-            <input type="datetime-local" placeholder="时间" value="" style="width: 100%">
+            <input type="date" placeholder="时间" value="{{myActivtyList.createTime}}" style="width: 100%">
           </label>
         </div>
         <div class="item">
           <label class="">
-            <input type="text" placeholder="地点" value="" style="width: 100%">
+            <input type="text" placeholder="地点" value="{{myActivtyList.address}}{{myActivtyList.addressDet}}" style="width: 100%">
           </label>
+        </div>
+        <div class="item">
+          <button class="button button-clear button-positive ion-images"  ng-click="getPhoto()">照片墙</button>
+          <div class="row row-wrap">
+            <div class="col full-image" ng-repeat="image in myActivtyList.picture">
+              <img ng-src={{image.img}} width="100%"/>
+            </div>
+          </div>
+          <div class="row row-wrap">
+            <div class="col full-image" ng-repeat="image in imageSrc1">
+              <img ng-src={{image}} width="100%"/>
+            </div>
+          </div>
         </div>
         <div class="item">
           <ion-toggle class="handle">
@@ -50,7 +56,7 @@
     <div class="row">
       <div class="col">
         <div class="col-demo">
-          <button class="button button-positive" style="width: 100%;">创建</button>
+          <button class="button button-positive" style="width: 100%;">提交</button>
         </div>
       </div>
       <div class="col">

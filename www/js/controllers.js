@@ -420,8 +420,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.myActivtyList=Activity.getCollectActivity();
     $scope.title='活动收藏'
   }
+  $scope.type=type;
   $scope.goInfo=function(id){
     $location.path("/app/activityDetails/"+id);
+  }
+  //编辑活动
+  $scope.editActivty=function(id){
+    $location.path("/app/editActivty/"+id);
   }
 })
   //活动投票
@@ -894,8 +899,27 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.statusPopup.close();
   };
   //调用手机相册
-  $scope.imageSrc1 = "";
   $scope.selectPhoto=function () {
+    var options = {
+      maximumImagesCount: 1,
+      width: 800,
+      height: 800,
+      quality: 100
+    };
+    $cordovaImagePicker.getPictures(options)
+      .then(function (results) {
+        var image = document.getElementById('myImage');
+        for (var i = 0; i < results.length; i++) {
+          console.log('Image URI: ' + results[i]);//返回参数是图片地址 results 是一个数组
+          image.src=results[i];
+        }
+      }, function(error) {
+        // error getting photos
+      });
+    $scope.statusPopup.close();
+  }
+  //添加照片墙
+  $scope.getPhoto=function(){
     var options = {
       maximumImagesCount: 10,
       width: 800,
@@ -913,6 +937,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       });
     $scope.statusPopup.close();
   }
+
 })
 .controller('NewDevOrder',function ($scope,$cordovaCamera) {
   $scope.imageSrc = "";
@@ -941,6 +966,82 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       //CommonJs.AlertPopup(err.message);
     });
   };
+})
+.controller('EditActivity',function($scope,$stateParams,Activity,$ionicPopup,$cordovaCamera,$cordovaImagePicker){
+  var id=$stateParams.id;
+  $scope.myActivtyList=Activity.getActivityInfo(id);
+  //选择插入图片方式
+  $scope.selectImg = function() {
+    $scope.data = {}
+    var myPopup = $ionicPopup.show({
+      template: '<button class="button" style="width:100%;background-color: mintcream;" ng-click="selectPhoto()">相册</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: mintcream;margin-top: 2px;" ng-click="takePhoto()">照相机</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: mintcream;margin-top: 2px;" ng-click="goThemeImage()">主题</button>' +
+      '<button class="button" style="width: 100%;background-color: cadetblue;margin-top: 2px;" ng-click="closeMyPopup()">取消</button>',
+      title: '添加方式',
+      scope: $scope
+    });
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+    $scope.statusPopup = myPopup;
+  };
+  //关闭选择框
+  $scope.closeMyPopup = function () {
+    $scope.statusPopup.close();
+  };
+  $scope.goThemeImage = function () {
+    $scope.statusPopup.close();
+    $location.path('/app/themeImage');
+  }
+  //调用照相机
+  $scope.imageSrc = "";
+  $scope.takePhoto=function(){
+    var options = {
+      //这些参数可能要配合着使用，比如选择了sourcetype是0，destinationtype要相应的设置
+      quality: 100,                                            //相片质量0-100
+      destinationType: Camera.DestinationType.FILE_URI,        //返回类型：DATA_URL= 0，返回作为 base64 編碼字串。 FILE_URI=1，返回影像档的 URI。NATIVE_URI=2，返回图像本机URI (例如，資產庫)
+      sourceType: Camera.PictureSourceType.CAMERA,             //从哪里选择图片：PHOTOLIBRARY=0，相机拍照=1，SAVEDPHOTOALBUM=2。0和1其实都是本地图库
+      allowEdit: false,                                        //在选择之前允许修改截图
+      encodingType:Camera.EncodingType.JPEG,                   //保存的图片格式： JPEG = 0, PNG = 1
+      targetWidth: 200,                                        //照片宽度
+      targetHeight: 200,                                       //照片高度
+      mediaType:0,                                             //可选媒体类型：圖片=0，只允许选择图片將返回指定DestinationType的参数。 視頻格式=1，允许选择视频，最终返回 FILE_URI。ALLMEDIA= 2，允许所有媒体类型的选择。
+      cameraDirection:0,                                       //枪后摄像头类型：Back= 0,Front-facing = 1
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: true                                   //保存进手机相册
+    };
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      //CommonJs.AlertPopup(imageData);
+      var image = document.getElementById('myImage');
+      image.src=imageData;
+      //image.src = "data:image/jpeg;base64," + imageData;
+    }, function(err) {
+      // error
+      //CommonJs.AlertPopup(err.message);
+    });
+    $scope.statusPopup.close();
+  };
+  //调用手机相册
+  $scope.imageSrc1 = "";
+  $scope.selectPhoto=function () {
+    var options = {
+      maximumImagesCount: 10,
+      width: 800,
+      height: 800,
+      quality: 100
+    };
+    $cordovaImagePicker.getPictures(options)
+      .then(function (results) {
+        $scope.imageSrc1 = results;
+        for (var i = 0; i < results.length; i++) {
+          console.log('Image URI: ' + results[i]);//返回参数是图片地址 results 是一个数组
+        }
+      }, function(error) {
+        // error getting photos
+      });
+    $scope.statusPopup.close();
+  }
 })
 .controller('MyOrder',function ($scope,$location, $ionicPopup, MyOrder,$stateParams) {
     var personName = $stateParams.personName;

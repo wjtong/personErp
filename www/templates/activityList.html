@@ -1,12 +1,13 @@
 <ion-view view-title="{{title}}">
   <ion-content>
-    <div class="list">
-      <a class="item item-thumbnail-left" ng-click="goInfo(myActivty.id)" ng-repeat="myActivty in myActivtyList">
+    <div class="list" ng-repeat="myActivty in myActivtyList">
+      <a class="item item-thumbnail-left" ng-click="goInfo(myActivty.id)" >
         <img ng-src="{{myActivty.img}}">
         <h2>{{myActivty.title}}</h2>
         <p>{{myActivty.address}} {{myActivty.addressDet}}</p>
         <p>{{myActivty.createTime}}{{myActivty.time}}</p>
       </a>
+      <p style="text-align:right"><button class="button button-small button-clear button-positive "  ng-click="editActivty(myActivty.id)">编辑活动</button></p>
     </div>
   </ion-content>
 </ion-view>

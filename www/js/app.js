@@ -22,9 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   });
 })
-.config(function (ionicDatePickerProvider, $ionicConfigProvider) {
-    $ionicConfigProvider.views.swipeBackEnabled(false); // 防止ios左滑出现白屏
-
+.config(function (ionicDatePickerProvider) {
     var datePickerObj = {
         inputDate: new Date(),
         titleLabel: 'Select a Date',
@@ -464,6 +462,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'menuContent': {
         templateUrl: 'templates/newActivity.html',
         controller:'NewActivity'
+      }
+    }
+  })
+  .state('app.editActivty', {
+    url: '/editActivty/:id',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/newActivity.html',
+        controller:'EditActivity'
       }
     }
   })

@@ -1130,7 +1130,7 @@ angular.module('starter.services', [])
 //活动
 .factory('Activity',function () {
     var activity = [
-      {id:'ACT_001',title:'登山',organizer:'jinlongxi',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_001',title:'登山',organizer:'jinlongxi',createTime:'2016-12-07',time:'20:00-21:00',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
       picture:[
         {img:'img/resources/dengshan1.jpeg'},
         {img:'img/resources/dengshan2.jpeg'},
@@ -1138,7 +1138,7 @@ angular.module('starter.services', [])
         {img:'img/resources/dengshan6.jpeg'},
         {img:'img/resources/dengshan7.jpeg'}
       ]},
-      {id:'ACT_002',title:'Python培训',organizer:'zhangwenwen',createTime:'2016-12-7',time:'20:00-21:00',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_002',title:'Python培训',organizer:'zhangwenwen',createTime:'2016-12-07',time:'20:00-21:00',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/python1.jpeg'},
           {img:'img/resources/python2.png'},
@@ -1146,7 +1146,7 @@ angular.module('starter.services', [])
           {img:'img/resources/python4.jpeg'},
           {img:'img/resources/python5.jpeg'}
         ]},
-      {id:'ACT_003',title:'慢跑',createTime:'2016-12-7',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_003',title:'慢跑',createTime:'2016-12-07',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/paobu1.jpeg'},
           {img:'img/resources/paobu2.jpeg'},
