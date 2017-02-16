@@ -22,8 +22,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   });
 })
-.config(function (ionicDatePickerProvider) {
-    var datePickerObj = {
+.config(function (ionicDatePickerProvider,$ionicConfigProvider) {
+  $ionicConfigProvider.views.swipeBackEnabled(false); // 防止ios左滑出现白屏
+
+  var datePickerObj = {
         inputDate: new Date(),
         titleLabel: 'Select a Date',
         setLabel: '选择',
