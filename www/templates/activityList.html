@@ -2,7 +2,7 @@
   <ion-content>
     <div class="list">
       <a class="item item-thumbnail-left" ng-click="goInfo(myActivty.id)" ng-repeat="myActivty in myActivtyList">
-        <img src="{{myActivty.img}}">
+        <img ng-src="{{myActivty.img}}">
         <h2>{{myActivty.title}}</h2>
         <p>{{myActivty.address}} {{myActivty.addressDet}}</p>
         <p>{{myActivty.createTime}}{{myActivty.time}}</p>

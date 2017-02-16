@@ -397,7 +397,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $location.path('/app/myTime')
   };
   $scope.activityDetails=function (id) {
-    $location.path("/app/tabs/activityDetails/"+id);
+    $location.path("/app/activityDetails/"+id);
   };
   //定义：有我组织  往期活动 收藏
   $scope.typefinish='finish';
@@ -421,7 +421,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.title='活动收藏'
   }
   $scope.goInfo=function(id){
-    $location.path("/app/tabs/activityDetails/"+id);
+    $location.path("/app/activityDetails/"+id);
   }
 })
   //活动投票
@@ -441,7 +441,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   }
 })
   //活动详情
-.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup) {
+.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicSlideBoxDelegate) {
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
@@ -479,13 +479,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         $scope.labelList = data;
       });
     }
-  }
+  };
   $scope.closeLab = function () {
     $scope.addLab.close();
-  },
+  };
   //显示照片墙大图片
   $scope.shouBigImage=function(imageName){
-    document.getElementById("huodong").style.display="none"
+    document.getElementById("huodong").style.display="none";
     $scope.bigImage = true;
     $scope.Url = imageName;
   };
@@ -511,7 +511,40 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       alert("网络不可用，请打开网络!!");
       console.log(error);
     },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
-  }
+  };
+  //投票
+  $scope.vote=function(){
+    for(var i = 0; i < document.getElementsByName("option").length; i++){
+      if(document.getElementsByName("option")[i].checked == true){
+        var width = document.getElementById(i).style.width; //获取到当前选项的宽度。
+        width = parseInt(width);//将宽度转化为int型，因为获取到的width的单位是px
+        width += 10;//改变width的值，这里就是定义每次投票的进度条的增速
+        document.getElementById(i).style.width = width+"px";//修改原div的宽度
+        var label = "label"+i;//lable标签里面写的是当前的投票数目。
+        var num = document.getElementById(label).innerText;//获取到当前的票数
+        document.getElementById(label).innerText = ++num;//票数加1，并修改原值
+      }
+    }
+  };
+  //滑动选择类型
+  $scope.slideIndex = 0;
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+    console.log("slide Change");
+    if ($scope.slideIndex == 0){
+      console.log("slide 1");
+    }
+    else if ($scope.slideIndex == 1){
+      console.log("slide 2");
+    }
+    else if ($scope.slideIndex == 2){
+      console.log("slide 3");
+    }
+  };
+  $scope.activeSlide = function (index) {
+    $ionicSlideBoxDelegate.slide(index);
+  };
+
 })
 .controller('AboutMe',function ($scope, $rootScope, PersonData) {
   PersonData.getPersonInfo($rootScope.partyId , function (data){
@@ -937,7 +970,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.choiceOrderType = function () {
       $scope.selOrder = 'sal';
       $scope.purOrder = 'pur' ;
-      $scope.data = {}
+      $scope.data = {};
       var orderType = $ionicPopup.show({
         template: '<button class="button" style="width:100%;background-color: wheat;" ng-click="goCreateOrder(purOrder)">采购订单</button><br/>' +
         '<button class="button" style="width: 100%;background-color: wheat;margin-top: 2px;" ng-click="goCreateOrder(selOrder)">销售订单</button><br/>' +

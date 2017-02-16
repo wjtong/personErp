@@ -1,20 +1,24 @@
 <ion-view view-title="活动">
   <ion-content>
     <div class="item item-input item-select" >
-      <select>
-        <option value="0" selected>近期活动</option>
-        <option value="1">近三天</option>
-        <option value="2">近一周</option>
-        <option value="3">近一个月</option>
-        <option value="4">近3个月</option>
-      </select>
+      <label>
+        <select>
+          <option value="0" selected>近期活动</option>
+          <option value="1">近三天</option>
+          <option value="2">近一周</option>
+          <option value="3">近一个月</option>
+          <option value="4">近3个月</option>
+        </select>
+      </label>
       <div class="input-label" style="float:right">
         <button class="button button-clear button-positive ion-compose"  ng-click="newActivity()">创建</button>
       </div>
     </div>
     <div>
-      <textarea name="content" cols="20" rows="8"   style="border: 0px solid #888888;width:380px;height:80px;background-image: url('img/resources/anpai.jpeg');">近期没有活动安排
-      </textarea>
+      <label>
+        <textarea name="content" cols="20" rows="8"   style="border: 0px solid #888888;width:380px;height:80px;background-image: url('img/resources/anpai.jpeg');">近期没有活动安排1111
+        </textarea>
+      </label>
     </div>
     <div class="content-bar" >
       <h3>热门</h3>
@@ -22,7 +26,7 @@
     </div>
     <ion-scroll direction="x" class="wide-as-needed">
       <a class="button ng-binding" ng-repeat="matter in active" ng-click="activityDetails(matter.id)">
-        <img ng-src="{{matter.img}}"style="width:260px;height:180px" >
+        <img ng-src="{{matter.img}}" style="width:260px;height:180px" >
         <div class="huodong" >
           <br>
           <p><b>活动安排：{{matter.title}}</b></p>
@@ -30,16 +34,15 @@
           地点：{{matter.address}}
         </div>
         <div class="item tabs">
-          <p class="tab-item" href="#">
+          <p class="tab-item">
             参与：39位
           </p>
-          <p class="tab-item" href="#">
+          <p class="tab-item">
             感兴趣：120位
           </p>
         </div>
       </a>
     </ion-scroll>
-    </div>
   </ion-content>
   <div class="bar bar-footer" style="margin-left: -6px;">
     <div class="tab-nav tabs">
@@ -61,7 +64,7 @@
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeCollect)">
         <i class="icon ion-ios-pricetags-outline" style="line-height: 14px;">
         </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">以收藏</span>
+        <span class="tab-title ng-binding" style="font-size: 10px;">已收藏</span>
       </a>
     </div>
   </div>
