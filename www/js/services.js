@@ -1191,9 +1191,20 @@ angular.module('starter.services', [])
       {id:'DIS_10002',discuss:'时间可以变动吗？',name:'金龙熙',img:'img/team/jinlongxi.png',date:'2017-02-12 12:00' },
       {id:'DIS_10003',discuss:'下次活动还想参加',name:'李宁',img:'img/team/lining.jpg',date:'2017-02-01 12:00'}
     ];
+
+    var button =[
+      {id:'But_10001',name:'电话号码'},
+      {id:'But_10002',name:'姓名'},
+      {id:'But_10003',name:'身份证号'},
+      {id:'But_10004',name:'地址'},
+      {id:'But_10005',name:'性别'}
+    ];
     return {
       getAllActivity: function () {
         return activity
+      },
+      getAllButton: function () {
+        return button
       },
       getCollectActivity: function () {
         return collectActivty

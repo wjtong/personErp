@@ -30,26 +30,80 @@
         </div>
         <div class="item">
           <button class="button button-clear button-positive ion-images"  ng-click="getPhoto()">照片墙</button>
-          <div class="row row-wrap">
-            <div class="col full-image" ng-repeat="image in myActivtyList.picture">
+          <div class="row  row-wrap">
+            <div class="col col-20 full-image" ng-repeat="image in myActivtyList.picture">
               <img ng-src={{image.img}} width="100%"/>
             </div>
           </div>
           <div class="row row-wrap">
-            <div class="col full-image" ng-repeat="image in imageSrc1">
+            <div class="col col-20 full-image" ng-repeat="image in imageSrc1">
               <img ng-src={{image}} width="100%"/>
             </div>
           </div>
         </div>
         <div class="item">
-          <ion-toggle class="handle">
-            宾客可以邀请好友
-          </ion-toggle>
+          <div class="row">
+            <div class="col">
+              <div class="col-demo">
+                <button class="button button-clear button-calm ion-android-list"  ng-click="openModal()">邀请</button>              </div>
+            </div>
+            <div class="col">
+              <div class="col-demo">
+                <button class="button button-clear button-balanced ion-paper-airplane"  ng-click="openModal()">分享</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="col-demo">
+                <button class="button button-clear button-royal ion-android-happy"  ng-click="openModal()">签到</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="item">
-          <label class="">
-            <button class="button button-outline button-positive ion-paper-airplane"  ng-click="openModal()">推送好友</button>
-          </label>
+          <div>
+            <p style="text-align: right" ng-click="advancedOptions()" >高级选项<i class="icon ion-android-arrow-down" style="line-height: 14px;">
+            </i></p>
+          </div>
+          <br>
+          <div ng-if="hight" class="list">
+            <div class="item item-select" style="margin: -17px 0px;">
+              <label class="">
+                <span class="input-label">筹款方式</span>
+                <select>
+                  <option value="1">AA</option>
+                  <option value="2" >免费</option>
+                </select>
+              </label>
+            </div>
+            <div class="item item-select" style="margin: -17px 0px;">
+              <label class="">
+                <span class="input-label">可见范围</span>
+                <select>
+                  <option value="1">仅好友</option>
+                  <option value="2" >全局可见</option>
+                </select>
+              </label>
+            </div>
+            <div class="item">
+              <ion-toggle class="handle">
+                允许参与者分享和邀请
+              </ion-toggle>
+              <ion-toggle class="handle">
+                推荐给参与者好友
+              </ion-toggle>
+              <ion-toggle class="handle">
+                需要审核申请者
+              </ion-toggle>
+            </div>
+            <div>
+              <span>参与者必填项</span>
+              <div class="row row-wrap" >
+                <div class="col col-33" ng-repeat="button in buttonList">
+                    <button class="button button-calm"   id="{{button.id}}" ng-click="changeColor(button.id)">{{button.name}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

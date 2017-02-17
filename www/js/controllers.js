@@ -410,6 +410,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('ActivityList',function($scope,Activity,$location,$rootScope,$stateParams){
   var type=$stateParams.type;
   var organizer=$rootScope.partyId;
+  //定义由我组织的活动可以编辑
+  $scope.edit=false;
+  if(type=='my'){
+    $scope.edit=true;
+  }
   if(type=='finish'){
     $scope.myActivtyList=Activity.getFinishActivity();
     $scope.title='往期活动';
@@ -423,11 +428,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.type=type;
   $scope.goInfo=function(id){
     $location.path("/app/activityDetails/"+id);
-  }
+  };
   //编辑活动
   $scope.editActivty=function(id){
     $location.path("/app/editActivty/"+id);
-  }
+  };
 })
   //活动投票
 .controller('ActivtyVode',function($scope){
@@ -845,7 +850,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.businessImgList=ThemeImage.getBusinessImg()
 })
 //新建活动
-.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location) {
+.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location,Activity) {
   //选择插入图片方式
   $scope.selectImg = function() {
     $scope.data = {}
@@ -937,7 +942,24 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       });
     $scope.statusPopup.close();
   }
-
+  //高级选项
+  $scope.hight=false;
+  $scope.advancedOptions=function () {
+    if($scope.hight==false){
+      $scope.hight=true;
+    }else if($scope.hight==true){
+      $scope.hight=false;
+    }
+  }
+  //获取参与者必选项
+  $scope.buttonList=Activity.getAllButton();
+  $scope.changeColor=function (id) {
+    if(document.getElementById(id).style.background=='red'){
+      document.getElementById(id).style.background='#11c1f3'
+    }else {
+      document.getElementById(id).style.background='red';
+    }
+  }
 })
 .controller('NewDevOrder',function ($scope,$cordovaCamera) {
   $scope.imageSrc = "";
@@ -1023,8 +1045,27 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.statusPopup.close();
   };
   //调用手机相册
-  $scope.imageSrc1 = "";
   $scope.selectPhoto=function () {
+    var options = {
+      maximumImagesCount: 1,
+      width: 800,
+      height: 800,
+      quality: 100
+    };
+    $cordovaImagePicker.getPictures(options)
+      .then(function (results) {
+        var image = document.getElementById('myImage');
+        for (var i = 0; i < results.length; i++) {
+          console.log('Image URI: ' + results[i]);//返回参数是图片地址 results 是一个数组
+          image.src=results[i];
+        }
+      }, function(error) {
+        // error getting photos
+      });
+    $scope.statusPopup.close();
+  }
+  //添加照片墙
+  $scope.getPhoto=function() {
     var options = {
       maximumImagesCount: 10,
       width: 800,
@@ -1037,7 +1078,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         for (var i = 0; i < results.length; i++) {
           console.log('Image URI: ' + results[i]);//返回参数是图片地址 results 是一个数组
         }
-      }, function(error) {
+      }, function (error) {
         // error getting photos
       });
     $scope.statusPopup.close();
