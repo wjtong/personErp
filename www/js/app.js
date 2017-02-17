@@ -676,6 +676,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
+  .state('app.goEditVote', {
+      url: '/goEditVote/',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/vote/editVote.html',
+          controller: 'editVoteCtrl'
+        }
+      }
+  })
+
+
   ;
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/app/playlists');
