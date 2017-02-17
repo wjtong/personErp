@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-timepicker'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope,$ionicPopover) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -451,7 +451,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   }
 })
   //活动详情
-.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicSlideBoxDelegate) {
+.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory) {
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
@@ -536,25 +536,41 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       }
     }
   };
-  //滑动选择类型
-  $scope.slideIndex = 0;
-  $scope.slideChanged = function(index) {
-    $scope.slideIndex = index;
-    console.log("slide Change");
-    if ($scope.slideIndex == 0){
-      console.log("slide 1");
-    }
-    else if ($scope.slideIndex == 1){
-      console.log("slide 2");
-    }
-    else if ($scope.slideIndex == 2){
-      console.log("slide 3");
-    }
-  };
-  $scope.activeSlide = function (index) {
-    $ionicSlideBoxDelegate.slide(index);
-  };
+  //显示活动相关菜单
+  $scope.popover = $ionicPopover.fromTemplateUrl('templates/my-popover.html', {
+    scope: $scope
+  });
 
+  // .fromTemplateUrl() 方法
+  $ionicPopover.fromTemplateUrl('templates/my-popover.html', {
+    scope: $scope
+  }).then(function(popover) {
+    $scope.popover = popover;
+  });
+
+
+  $scope.openPopover = function($event) {
+    $scope.popover.show($event);
+  };
+  $scope.closePopover = function() {
+    $scope.popover.hide();
+  };
+  // 清除浮动框
+  $scope.$on('$destroy', function() {
+    $scope.popover.remove();
+  });
+  // 在隐藏浮动框后执行
+  $scope.$on('popover.hidden', function() {
+    // 执行代码
+  });
+  // 移除浮动框后执行
+  $scope.$on('popover.removed', function() {
+    // 执行代码
+  });
+  //返回
+  $scope.goback=function () {
+    $ionicHistory.goBack();
+  }
 })
 .controller('AboutMe',function ($scope, $rootScope, PersonData) {
   PersonData.getPersonInfo($rootScope.partyId , function (data){

@@ -1,25 +1,27 @@
 <ion-view view-title="活动详情">
-  <div class="bar bar-header " style="margin-top: 35px" >
-    <div class="row" >
-      <ul class="slide-tab">
-        <li ng-class="slideIndex == 0 ? 'current':''"><a  ng-click="activeSlide(0)">活动详情</a></li>
-        <li ng-class="slideIndex == 1 ? 'current':''"><a  ng-click="activeSlide(1)">投票</a></li>
-        <li ng-class="slideIndex == 2 ? 'current':''"><a  ng-click="activeSlide(2)">备用1</a></li>
-        <li ng-class="slideIndex == 3 ? 'current':''"><a  ng-click="activeSlide(3)">备用2</a></li>
-      </ul> <!-- / tabs -->
-    </div>
-  </div>
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="goback()">
+        <i class="icon ion-android-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear" ng-click="openPopover($event)">
+        <i class="icon ion-more"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content>
     <div class="list "  ng-if="bigImage" ng-click="hideBigImage()" style="margin-top: 80px">
       <h2>大图片</h2>
       <img ng-src="{{Url}}"/>
     </div>
     <div id="huodong">
-    <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="has-header">
-      <ion-slide >
+      <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex">
+        <ion-slide >
           <div class="list"   >
             <div class="item">
-              <img ng-src="{{activityList.img}}" class="full-image"/>
+              <img ng-src="{{activityList.img}}" style="width: 330px;height: 200px"/>
             </div>
             <div class="item">
               <label class="">
@@ -107,126 +109,6 @@
             height: 100%;
             border-radius: 50%;margin-left: 16px;">
             </div>
-            <div class="row">
-              <div class="col">
-                <div class="col-demo">
-                  <button class="button button-positive" style="width: 100%;">参与</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="col-demo">
-                  <button class="button button-positive" style="width: 100%;">赞</button>
-                </div>
-              </div>
-            </div>
-          </div>
-      </ion-slide>
 
-      <ion-slide>
-          <div  align="center">
-            <h4>活动地点</h4>
-            <table id="main" style="padding: 1px">
-              <tr >
-                <td>
-                  <label>
-                    <input type="radio" name="option" checked="checked"/>泰山
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:550px">
-                  <div id=0 style="background-color:#acd6ff; width:0; height:20px; border-width:0;">
-                  </div>
-                </td>
-                <td>
-                  <label id="label0">0</label>票
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label>
-                    <input type="radio" name="option"  />华山
-                  </label>
-                </td>
-              </tr>
-              <tr >
-                <td>
-                  <div id=1 style="background-color:#0066cc; height:20px; width:0; border-width:0; border-color:blue; border-style:solid ; text-align:right;" ></div>
-                </td>
-                <td>
-                  <label id="label1">0</label>票
-                </td>
-              </tr>
-              <tr >
-                <td>
-                  <label>
-                    <input type="radio" name="option"  />黄山
-                  </label>
-                </td>
-              </tr>
-              <tr >
-                <td>
-                  <div id=2 style="background-color:#ff7575; height:20px;width:0;  border-width:0; border-color:blue; border-style:solid ; text-align:right;" ></div>
-                </td>
-                <td>
-                  <label id="label2">0</label>票
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label>
-                    <input type="radio" name="option" />其他
-                  </label>
-                </td>
-              </tr>
-              <tr >
-                <td>
-                  <div id=3 style="background-color:#5cadad;height:20px;width:0; border-width:0; border-color:blue; border-style:solid ; text-align:right;" ></div>
-                </td>
-                <td>
-                  <label id="label3">0</label>票
-                </td>
-              </tr>
-              <tr>
-                <td><p>
-                  <label>
-                    <input type="button" value="确认投票" ng-click="vote()"/>
-                  </label>
-                </td>
-              </tr>
-            </table>
-          </div>
-      </ion-slide>
-
-      <ion-slide>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-      </ion-slide>
-      <ion-slide>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-        备用1<br>
-      </ion-slide>
-    </ion-slide-box>
-    </div>
   </ion-content>
 </ion-view>
