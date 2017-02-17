@@ -1158,6 +1158,11 @@ angular.module('starter.services', [])
         picture:[
           {img:'img/resources/snk1.jpeg'},
           {img:'img/resources/snk2.jpeg'}
+        ]},
+      {id:'ACT_005',title:'广场舞',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/resources/guangchang.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+        picture:[
+          {img:'img/resources/guangchang1.jpeg'},
+          {img:'img/resources/guangchang2.jpeg'}
         ]}
     ];
     var finishActivty = [
@@ -1891,24 +1896,28 @@ angular.module('starter.services', [])
       phone:'15618323607',sex:'F',email:'longxi.mei@banff-tech.com',labelId:'1'}
   ];
   return {
-    //获得联系人
-    getAll:function (partyId, cb) {
-      $.ajax({
-        url:url+"findContects",
-        data:{partyId:partyId},
-        async : false,
-        type:'POST',
-        success: function(result){
-          if(jQuery.type(result) === "string"){
-            result =   jQuery.parseJSON(result);
-          }
-          if(result.resultMap!=null){
-            if($.type(cb)==='function' ){
-              cb(result.resultMap);
-            }
-          }
-        }
-      });
+    //获得联系人(联动)
+    // getAll:function (partyId, cb) {
+    //   $.ajax({
+    //     url:url+"findContects",
+    //     data:{partyId:partyId},
+    //     async : false,
+    //     type:'POST',
+    //     success: function(result){
+    //       if(jQuery.type(result) === "string"){
+    //         result =   jQuery.parseJSON(result);
+    //       }
+    //       if(result.resultMap!=null){
+    //         if($.type(cb)==='function' ){
+    //           cb(result.resultMap);
+    //         }
+    //       }
+    //     }
+    //   });
+    // },
+    //获得联系人（死数据）
+    getAll:function(){
+      return personmainLists;
     },
     //删除联系人
     deleteContects:function (partyIdTo,partyIdFrom, cb) {

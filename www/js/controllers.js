@@ -128,9 +128,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 
 .controller('ContactlistCtrl', function($scope,Contact,$location,$rootScope) {
     //获得全部联系人
-    Contact.getAll($rootScope.partyId , function (data){
-      $scope.personmainLists = data;
-    });
+    // Contact.getAll($rootScope.partyId , function (data){
+    //   $scope.personmainLists = data;
+    // });
+    $scope.personmainLists=Contact.getAll();
     //删除联系人
     $scope.deletePerson=function (partyIdFrom) {
       Contact.deleteContects($rootScope.partyId,partyIdFrom,function (data) {
