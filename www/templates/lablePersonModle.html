@@ -10,13 +10,31 @@
   <ion-content>
     <div class="list card cardupdate" style="margin: 5px 10px;">
       <div class="item" style="margin: -17px 0px;">
-          <div class="list">
+          <div class="list"  ng-controller="selectAllCtrl">
             <ion-list>
-              <ion-item class="item-remove-animate item-avatar item-icon-right"  ng-click="addLablePerson(personmain.partyId)" ng-repeat="personmain in personmainLists.contact"  type="item-text-wrap">
+              <label><ion-checkbox ng-model="qx" ng-click="selectAll(personmainLists.contact)">全选/全不选</ion-checkbox></label>
+              <ion-checkbox name="selected" ng-repeat="personmain in personmainLists.contact" ng-model="personmain.checked" ng-click="selectOne(personmain)">
+              <ion-item class="item-remove-animate item-avatar item-icon-right"  ng-click="addLablePerson(personmain.partyId)"   type="item-text-wrap">
+
                 <img ng-src="{{personmain.headPortrait}}">
+
                 <h2>{{personmain.personName}} {{personmain.gender}}</h2>
                 <p> {{personmain.company}}</p>
+
               </ion-item>
+              </ion-checkbox>
+              <div class="row">
+                <div class="col">
+                  <div class="col-demo">
+                    <button class="button button-positive" style="width: 100%;">收款</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="col-demo">
+                    <button class="button button-positive" style="width: 100%;">取消</button>
+                  </div>
+                </div>
+              </div>
             </ion-list>
           </div>
       </div>

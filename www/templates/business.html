@@ -1,16 +1,10 @@
 <ion-view view-title="活动">
   <ion-content>
-    <div class="item item-input item-select" >
-      <label>
-        <select>
-          <option value="0" selected>近期活动</option>
-          <option value="1">近三天</option>
-          <option value="2">近一周</option>
-          <option value="3">近一个月</option>
-          <option value="4">近3个月</option>
-        </select>
-      </label>
-      <div class="input-label" style="float:right">
+    <div class="item" >
+      <div class="input-label" style="float:right" >
+        <button class="button button-clear button-positive "   ng-click="newActivity()"><i class="ion ion-calendar"></i></button>
+      </div>
+      <div class="input-label" style="float:left">
         <button class="button button-clear button-positive ion-compose"  ng-click="newActivity()">创建</button>
       </div>
     </div>

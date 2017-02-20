@@ -65,6 +65,31 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     { title: 'Cowbell', id: 6 }
   ];
 })
+  //联系人的全选和全不选
+.controller('selectAllCtrl', function($scope) {
+  $scope.selectAll=function(personmain){
+    //进入的时候检查复选框是否被选中
+    if($scope.qx==true){
+      for(var i=0;i<personmain.length;i++){
+        //alert(personmain[i].partyId+":"+personmain[i].personName);
+        personmain[i].checked=true;//这是全选的操作
+      }
+    }else{
+      for(var i=0;i<personmain.length;i++){
+        personmain[i].checked=false;//这是取消全选的操作
+      }
+    }
+  }
+  //单独选一个的传值
+  $scope.selectOne=function(person){
+    //alert(person.partyId);
+  }
+//111
+  $scope.join=function(obj){
+
+    console.log(obj);
+  }
+})
 
 .controller('PersonHomeCtrl', function($scope) {
   $scope.productlist = [
@@ -128,9 +153,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 
 .controller('ContactlistCtrl', function($scope,Contact,$location,$rootScope) {
     //获得全部联系人
-    Contact.getAll($rootScope.partyId , function (data){
-      $scope.personmainLists = data;
-    });
+    // Contact.getAll($rootScope.partyId , function (data){
+    //   $scope.personmainLists = data;
+    // });
+    $scope.personmainLists=Contact.getAll();
     //删除联系人
     $scope.deletePerson=function (partyIdFrom) {
       Contact.deleteContects($rootScope.partyId,partyIdFrom,function (data) {
@@ -1558,6 +1584,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       });
       $scope.$broadcast("scroll.refreshComplete");
     };
+
 
 })
   //标签内人员

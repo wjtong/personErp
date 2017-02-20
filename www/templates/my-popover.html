@@ -1,14 +1,17 @@
-<ion-popover-view style="margin-top: 13px;height: 200px;width: 120px">
+<ion-popover-view style="margin-top: 13px;height: 245px;width: 120px">
   <ion-content>
     <div class="list">
       <p>
-        <button class="button  button-full icon-left ion-compose">活动详情</button>
+        <button class="button  button-full icon-left ion-compose" ng-click="closePopover()">活动详情</button>
       </p>
       <p>
         <button class="button button-full icon-left ion-laptop">投票</button>
       </p>
       <p>
-        <button class="button button-full icon-left ion-speakerphone" ng-click="showDiscuss()">讨论</button>
+        <button class="button button-full icon-left ion-speakerphone" ng-click="">讨论</button>
+      </p>
+      <p>
+        <button class="button button-full icon-left ion-flag" ng-click="">相关活动</button>
       </p>
     </div>
   </ion-content>
