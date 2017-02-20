@@ -448,8 +448,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.myActivtyList=Activity.getMyActivty(organizer);
     $scope.title='由我组织'
   }else{
-    $scope.myActivtyList=Activity.getRelatedActivities();
-    $scope.title='相关活动'
+    $scope.myActivtyList=Activity.getCollectActivity();
+    $scope.title='活动收藏'
   }
   $scope.type=type;
   $scope.goInfo=function(id){
@@ -458,7 +458,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   //编辑活动
   $scope.editActivty=function(id){
     $location.path("/app/editActivty/"+id);
-};
+  };
 })
   //活动投票
 .controller('ActivtyVode',function($scope){
@@ -477,7 +477,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   }
 })
   //活动详情
-.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location) {
+.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory) {
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
@@ -596,10 +596,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   //返回
   $scope.goback=function () {
     $ionicHistory.goBack();
-  }
-  //相关活动
-  $scope.relatedActivity=function (type) {
-    $location.path("/app/activityList/"+type);
   }
 })
 .controller('AboutMe',function ($scope, $rootScope, PersonData) {
@@ -1852,4 +1848,20 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.orderInfoConfirm.show();
     }
 })
+
+  .controller('editVoteCtrl', function($scope) {
+
+    $scope.addVotes = function () {
+      $("#votes").append("" +
+        "<textarea style='display: inline-block;width: 80%'></textarea>" +
+        "<img src='img/delNode.gif' onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><br>" +
+        "");
+    };
+  })
+
+  .controller('castVoteCtrl', function($scope) {
+
+  })
+
+
 ;

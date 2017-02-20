@@ -1163,11 +1163,6 @@ angular.module('starter.services', [])
         picture:[
           {img:'img/resources/guangchang1.jpeg'},
           {img:'img/resources/guangchang2.jpeg'}
-        ]},
-      {id:'ACT_006',title:'活动后聚会',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/theme/juhui1.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
-        picture:[
-          {img:'img/theme/juhui2.jpeg'},
-          {img:'img/theme/juhui3.jpeg'}
         ]}
     ];
     var finishActivty = [
@@ -1187,19 +1182,7 @@ angular.module('starter.services', [])
           {img:'img/resources/paobu5.jpeg'}
         ]}
     ];
-    var relatedActivities=[
-      {id:'ACT_005',title:'广场舞',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/resources/guangchang.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
-        picture:[
-          {img:'img/resources/guangchang1.jpeg'},
-          {img:'img/resources/guangchang2.jpeg'}
-        ]},
-      {id:'ACT_006',title:'活动后聚会',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/theme/juhui1.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
-        picture:[
-          {img:'img/theme/juhui2.jpeg'},
-          {img:'img/theme/juhui3.jpeg'}
-        ]}
-    ];
-  var personList = [
+    var personList = [
       {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',
         phone:'13801887706',sex:'F',email:'hao.feng@banff-tech.com',labelId:'1'},
       {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',company:'上海班富电子商务',address:'中国，上海，松江',
@@ -1222,9 +1205,6 @@ angular.module('starter.services', [])
       {id:'But_10005',name:'性别'}
     ];
     return {
-      getRelatedActivities: function () {
-        return relatedActivities
-      },
       getAllActivity: function () {
         return activity
       },

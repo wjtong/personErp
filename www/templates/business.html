@@ -1,11 +1,11 @@
 <ion-view view-title="活动">
   <ion-content>
     <div class="item" >
-      <div class="input-label" style="float:right;" >
-        <button class="button button-clear button-positive ion-calendar" ng-click="myTime()">&nbsp;时间</button>
+      <div class="input-label" style="float:right" >
+        <button class="button button-clear button-positive "   ng-click="newActivity()"><i class="ion ion-calendar"></i></button>
       </div>
       <div class="input-label" style="float:left">
-        <button class="button button-clear button-positive ion-compose"  ng-click="newActivity()">&nbsp;创建</button>
+        <button class="button button-clear button-positive ion-compose"  ng-click="newActivity()">创建</button>
       </div>
     </div>
     <div>
@@ -41,29 +41,24 @@
   <div class="bar bar-footer" style="margin-left: -6px;">
     <div class="tab-nav tabs">
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeMy)">
-        <i class="icon ion-ios-eye-outline" style="line-height: 14px;">
+        <i class="icon ion-aperture" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">由我组织</span>
       </a>
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typefinish)">
-        <i class="icon ion-ios-bolt-outline" style="line-height: 14px;">
+        <i class="icon ion-earth" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">往期活动</span>
-      </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="newTask()">
-        <i class="icon ion-ios-plus-outline" style="line-height: 14px;">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">发布活动</span>
       </a>
       <a class="tab-item tab-item-active" style="line-height: 12px;" href="">
         <i class="icon ion-ios-flag-outline " style="line-height: 14px;">
         </i>
         <span ng-class="{true:'red-point',false:''}[true]">活动邀请</span>
       </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" href="">
-        <i class="icon ion-ios-person-outline " style="line-height: 14px;">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeCollect)">
+        <i class="icon ion-ios-pricetags-outline" style="line-height: 14px;">
         </i>
-        <span ng-class="{true:'red-point',false:''}[true]">我的信息</span>
+        <span class="tab-title ng-binding" style="font-size: 10px;">已收藏</span>
       </a>
     </div>
   </div>
