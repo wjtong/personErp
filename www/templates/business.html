@@ -5,36 +5,40 @@
     </button>
   </ion-nav-buttons>
   <ion-content>
-    <div class="item" style="padding: 0">
+    <div class="list">
+      <div class="content-bar" >
+        <h3>活动提醒</h3>
+      </div>
+      <div class="item" style="padding: 0">
         <label>
-           <textarea name="content" cols="20" rows="8"   style="border: 0 solid #888888;background-image: url('img/resources/anpai.jpeg');">近期没有活动安排
+           <textarea name="content" cols="20" rows="8"  style="border: 0 solid #888888;background-image: url('img/resources/anpai.jpeg');">近期没有活动安排
            </textarea>
         </label>
-    </div>
-    <div>
-      <div class="content-bar" >
-        <h3>热门</h3>
-        <button class="pull-right button button-icon icon ion-ios-arrow-right "></button>
       </div>
-      <ion-scroll direction="x" class="wide-as-needed">
-        <a class="button ng-binding" ng-repeat="matter in active" ng-click="activityDetails(matter.id)">
-          <img ng-src="{{matter.img}}" style="width:260px;height:180px" >
-          <div class="huodong" >
-            <br>
-            <p><b>活动安排：{{matter.title}}</b></p>
-            时间：{{matter.createTime}}
-            地点：{{matter.address}}
-          </div>
-          <div class="item tabs">
-            <p class="tab-item">
-              参与：39位
-            </p>
-            <p class="tab-item">
-              感兴趣：120位
-            </p>
-          </div>
-        </a>
-      </ion-scroll>
+      <div >
+        <div class="content-bar" >
+          <h3>圈内热门</h3>
+        </div>
+        <ion-scroll direction="x" class="wide-as-needed">
+          <a class="button ng-binding" ng-repeat="matter in active" ng-click="activityDetails(matter.id)">
+            <img ng-src="{{matter.img}}" style="width:260px;height:180px" >
+            <div class="huodong" >
+              <br>
+              <p><b>活动安排：{{matter.title}}</b></p>
+              时间：{{matter.createTime}}
+              地点：{{matter.address}}
+            </div>
+            <div class="item tabs">
+              <p class="tab-item">
+                参与：39位
+              </p>
+              <p class="tab-item">
+                感兴趣：120位
+              </p>
+            </div>
+          </a>
+        </ion-scroll>
+      </div>
     </div>
   </ion-content>
   <div class="bar bar-footer" style="margin-left: -6px;">
@@ -49,8 +53,8 @@
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">往期活动</span>
       </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="newActivity()">
-        <i class="icon ion-ios-plus-outline" style="line-height: 14px;">
+      <a class="tab-item tab-item-active"  style="line-height: 12px;" ng-click="newActivity()">
+        <i class="icon ion-ios-plus-outline" style="line-height: 14px;color: #0a9dc7">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">发布活动</span>
       </a>
