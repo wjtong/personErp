@@ -1,0 +1,26 @@
+<ion-view view-title="">
+  <ion-nav-bar class=""></ion-nav-bar>
+  <ion-nav-buttons side="left" >
+    <a class="button icon ion-ios-undo" ng-click="$ionicGoBack()"></a>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <a class="button icon-left" ui-sref="app.goEditVote">
+      <i class="icon ion-ios-compose"></i>
+    </a>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <div class="list">
+      <ion-checkbox ng-model="filter.red">北岳恒山<i class="badge badge-balanced">10 票</i></ion-checkbox>
+      <ion-checkbox ng-model="filter.yellow">西岳华山<i class="badge badge-balanced">10 票</i></ion-checkbox>
+      <ion-checkbox ng-model="filter.pink">中岳嵩山<i class="badge badge-balanced">10 票</i></ion-checkbox>
+      <ion-checkbox ng-model="filter.pinks">东岳泰山<i class="badge badge-balanced">10 票</i></ion-checkbox>
+      <ion-checkbox ng-model="filter.pinksss">南岳衡山<i class="badge badge-balanced">10 票</i></ion-checkbox>
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="exitLogin()">投票</button>
+      </div>
+    </div>
+  </ion-content>
+
+</ion-view>

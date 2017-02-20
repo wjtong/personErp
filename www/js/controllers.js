@@ -1857,7 +1857,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         "<img src='img/delNode.gif' onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><br>" +
         "");
     };
+  })
 
+  .controller('castVoteCtrl', function($scope) {
 
   })
+
+
 ;

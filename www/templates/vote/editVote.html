@@ -1,11 +1,9 @@
 <ion-view view-title="投票编辑">
-  <ion-nav-bar class="bar-positive"></ion-nav-bar>
-  <ion-nav-buttons side="left">
-    <a class="button icon ion-ios-undo" ui-sref="login"></a>
-  </ion-nav-buttons>
-  <ion-nav-buttons side="right">
-    <a class="button icon ion-ios-heart" ui-sref="setting"></a>
-  </ion-nav-buttons>
+  <div class="bar bar-header">
+    <button class="button icon ion-navicon"></button>
+    <h1 class="title">Header Buttons</h1>
+    <button class="button">Edit</button>
+  </div>
 
   <ion-content>
     <div class="list">
@@ -20,7 +18,9 @@
       <div class="item">
         <button class="button icon-left ion-plus-round button-balanced" ng-click="addVotes()">添加投票项</button>
       </div>
-      <button class="button button-block button-positive" ng-click="createCircle()">确定</button>
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="exitLogin()">保存</button>
+      </div>
     </div>
   </ion-content>
 
