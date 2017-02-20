@@ -11,8 +11,8 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content>
-    <div class="list "  ng-if="bigImage" ng-click="hideBigImage()" style="margin-top: 80px">
+  <ion-content >
+    <div class="list "  ng-if="bigImage" ng-click="hideBigImage()" style="margin-top: 80px;">
       <h2>大图片</h2>
       <img ng-src="{{Url}}"/>
     </div>
@@ -29,7 +29,6 @@
               <p style="text-align:right"><button class="button button-small button-clear button-positive "  ng-click="showDiscuss()">3条评论</button></p>
             </label>
           </div>
-          <br>
           <div class="list list-left-editing" style="display: none;" id="discuss">
             <ion-list>
               <h2>近期评论</h2>
@@ -45,24 +44,6 @@
               </ion-item>
             </ion-list>
           </div>
-          <div class="item tabs tabs-secondary tabs-icon-left">
-            <a class="tab-item">
-              <i class="icon ion-ios-star-outline"></i>
-              有兴趣
-            </a>
-            <a class="tab-item">
-              <i class="icon ion-checkmark-round"></i>
-              参与
-            </a>
-            <a class="tab-item">
-              <i class="icon ion-share"></i>
-              分享
-            </a>
-            <a class="tab-item" ng-click="showMessage()">
-              <i class="icon ion-ios-more"></i>
-              更多
-            </a>
-          </div>
           <div class="item">
             <label class="">
               <i class="icon ion-ios-clock"> {{activityList.createTime}}  {{activityList.time}}</i>
@@ -70,11 +51,9 @@
               <i class="icon ion-ios-location"> {{activityList.address}}  {{activityList.addressDet}}</i>
             </label>
           </div>
-          <div class="item">
-            <label class="">
+          <div class="item item-text-wrap" >
               <b>详细信息</b>
-              {{activityList.information}}
-            </label>
+              <p >&nbsp;&nbsp;{{activityList.information}}</p>
           </div>
           <div class="item">
             <br>
@@ -107,5 +86,28 @@
           </div>
         </div>
       </div>
+    <br>
+    <br>
+    <br>
+    <br>
   </ion-content>
+  <br>
+  <br>
+  <div class="bar bar-footer" style="margin-left: -6px;">
+    <div class="tab-nav tabs">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeMy)">
+        <i class="icon ion-chatbubble-working" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">与他交谈</span>
+      </a>
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typefinish)">
+        <i class="icon icon-left ion-android-happy" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">签到</span>
+      </a>
+      <div  style="float:right">
+        <button class="button  button-positive ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="newActivity()">我要报名</button>
+      </div>
+    </div>
+  </div>
 </ion-view>

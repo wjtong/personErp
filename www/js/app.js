@@ -437,7 +437,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .state('app.Business', {
     url: '/Business',
     disableBack:true,
-    cache :false,
+    cache :true,
     views: {
       'menuContent': {
         templateUrl: 'templates/business.html',
