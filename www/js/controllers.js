@@ -66,17 +66,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   ];
 })
   //联系人的全选和全不选
-.controller('selectAllCtrl', function($scope) {
-  $scope.selectAll=function(personmain){
+.controller('selectAllCtrl', function($scope,$ionicPopup) {
+  $scope.selectAll = function (personmain) {
     //进入的时候检查复选框是否被选中
-    if($scope.qx==true){
-      for(var i=0;i<personmain.length;i++){
+    if ($scope.qx == true) {
+      for (var i = 0; i < personmain.length; i++) {
         //alert(personmain[i].partyId+":"+personmain[i].personName);
-        personmain[i].checked=true;//这是全选的操作
+        personmain[i].checked = true;//这是全选的操作
       }
-    }else{
-      for(var i=0;i<personmain.length;i++){
-        personmain[i].checked=false;//这是取消全选的操作
+    } else {
+      for (var i = 0; i < personmain.length; i++) {
+        personmain[i].checked = false;//这是取消全选的操作
       }
     }
   }
@@ -85,10 +85,70 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     //alert(person.partyId);
   }
 //111
-  $scope.join=function(obj){
 
-    console.log(obj);
-  }
+//参与人员的详细页面展示
+
+     //打开模态框的显示
+  $scope.takeMoney = function () {
+    $scope.data = {}
+    // 一个精心制作的自定义弹窗
+    var myPopup = $ionicPopup.show({
+      template: '<input type="text" ng-model="data.money"  placeholder="请输入金额" required style="text-align: center">',
+      title: '向客户筹款',
+      scope: $scope,
+      buttons: [
+        {
+          text: '取消',
+          type: 'button-positive'
+        },
+        {
+          text: '<b>发送</b>',
+          type: 'button-positive',
+          onTap: function (e) {
+            if (!$scope.data.money) {
+              //为了避免用户填入空的内容，我循环死你，让你对着干。。
+              e.preventDefault();
+              $ionicPopup.alert({
+                title: "温馨提示",
+                template: "请将内容填写完整",
+                okText: "确定",
+              })
+            } else {
+
+              return $scope.data.money;
+            }
+          }
+        },
+      ]
+    });
+    //弹出框弹出后的验证
+    myPopup.then(function (res) {
+      //正则验证输入金额是否合法
+      if (res) {//判断所选的是确定还是取消
+        var moneyReg = /^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/;
+        if (moneyReg.test(res)) {
+          if (res > 0) {//如果输入的金额大于0的话，说明输入的数字是正确的，什么也不提示
+
+          } else {
+            $ionicPopup.alert({
+              title: "温馨提示",
+              template: "您输入的数字没有意义",
+              okText: "确定",
+            })
+          }
+        } else {
+          $ionicPopup.alert({
+            title: "温馨提示",
+            template: "金额输入有误,请重新输入",
+            okText: "确定",
+          })
+        }
+
+      }
+
+    });
+  };
+
 })
 
 .controller('PersonHomeCtrl', function($scope) {
@@ -631,6 +691,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.modal.hide();
     };
   })
+  
 
   .controller('AboutMe',function ($scope, $rootScope, PersonData) {
   PersonData.getPersonInfo($rootScope.partyId , function (data){
