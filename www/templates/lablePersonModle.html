@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view ng-controller="floatCtrl">
   <ion-header-bar>
     <button class="button button-icon ion-plus-round " menu-toggle="left" ng-click="">
       确定添加
@@ -12,13 +12,13 @@
       <div class="item" style="margin: -17px 0px;">
           <div class="list"  ng-controller="selectAllCtrl">
             <ion-list>
-              <label><ion-checkbox ng-model="qx" ng-click="selectAll(personmainLists.contact)">全选/全不选</ion-checkbox></label>
-              <ion-checkbox name="selected" ng-repeat="personmain in personmainLists.contact" ng-model="personmain.checked" ng-click="selectOne(personmain)">
+              <label><ion-checkbox ng-model="qx" ng-click="selectAll(plist)">全选/全不选</ion-checkbox></label>
+              <ion-checkbox name="selected" ng-repeat="personmain in plist" ng-model="personmain.checked" ng-click="selectOne(personmain)">
               <ion-item class="item-remove-animate item-avatar item-icon-right"  ng-click="addLablePerson(personmain.partyId)"   type="item-text-wrap">
 
-                <img ng-src="{{personmain.headPortrait}}">
+                <img ng-src="{{personmain.img}}">
 
-                <h2>{{personmain.personName}} {{personmain.gender}}</h2>
+                <h2>{{personmain.name}} {{personmain.address}}</h2>
                 <p> {{personmain.company}}</p>
 
               </ion-item>

@@ -477,13 +477,27 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   }
 })
   //活动详情
-.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory) {
+.controller('ActivityCrl',function ($stateParams,$scope,$ionicModal,Contact,$location,$state,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory) {
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
   //获取讨论信息
   $scope.DiscussList=Activity.getAllDiscuss();
   //显示讨论
+  
+  //参与人员的详细页面展示
+    $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', function (modal) {
+      $scope.modal = modal;
+    }, {
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    });
+     //打开模态框的显示
+    $scope.openModal = function () {
+      $scope.modal.show();
+    };
+
+
   $scope.showDiscuss=function(){
     document.getElementById("discuss").style.display="";
   };
@@ -598,7 +612,20 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $ionicHistory.goBack();
   }
 })
-.controller('AboutMe',function ($scope, $rootScope, PersonData) {
+
+  //浮动框的弹出
+  .controller('floatCtrl',function ($scope,Contact, $rootScope, PersonData) {
+    //查找所有的联系人
+    $scope.plist=Contact.getAll();
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+  })
+
+  .controller('AboutMe',function ($scope, $rootScope, PersonData) {
   PersonData.getPersonInfo($rootScope.partyId , function (data){
       $scope.myInfo = data;
     });
@@ -1596,11 +1623,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     });
     $scope.partyId=partyId;
     //获得联系人列表
-    Contact.getAll($rootScope.partyId , function (data){
-      $scope.personmainLists = data;
-    });
+    //Contact.getAll($rootScope.partyId , function (data){
+  //  $scope.personmainLists = data;
+  //});
+  $scope.plist=Contact.getAll();
     $scope.devList = GroupChat.getAll();
-    $scope.chat = ChatList.getChatInfo($stateParams.chatId);
+    //$scope.chat = ChatList.getChatInfo($stateParams.chatId);
+  //为了数据保持统一,尽量与参与人员数保持一致
+    $scope.personList = Contact.getAll();
     //$scope.labelId = $stateParams.labelId;
     //$scope.personList = Contact.getPersonLabel($scope.labelId);
     //$scope.labelInfo = PersonLabel.getInfo($scope.labelId);

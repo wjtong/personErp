@@ -95,7 +95,7 @@
             <div id="allmap" style="height: 300px;" ng-if="map"></div>
           </div>
           <div><p>参与人员：</p></div>
-          <div class="item item-avatar" style="margin-left: -16px;">
+          <div class="item item-avatar" type="item-text-wrap" style="margin-left: -16px;" ng-click="openModal();" ng-controller="ActivityCrl">
             <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="
             top: 16px;
             max-width: 40px;
