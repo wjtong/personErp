@@ -63,53 +63,50 @@
             </div>
           </div>
         </div>
-        <div class="item" style="padding: 0">
-          <div>
-            <p style="text-align: right" ng-click="advancedOptions()" >高级选项<i class="icon ion-android-arrow-down" style="line-height: 14px;">
-            </i></p>
+        <div class="item">
+          <p style="text-align: right" ng-click="advancedOptions()" >高级选项<i class="icon ion-android-arrow-down" style="line-height: 14px;">
+          </i></p>
+        </div>
+        <div class="item" ng-if="hight" >
+          <div class="item item-select" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">筹款方式</span>
+              <select>
+                <option value="1">AA</option>
+                <option value="2" >免费</option>
+              </select>
+            </label>
           </div>
-          <br>
-          <div ng-if="hight" class="list">
-            <div class="item item-select" style="margin: -17px 0px;">
-              <label class="">
-                <span class="input-label">筹款方式</span>
-                <select>
-                  <option value="1">AA</option>
-                  <option value="2" >免费</option>
-                </select>
-              </label>
-            </div>
-            <div class="item">
-              <label class="">
-                <input type="text" placeholder="活动报名费用" value="" style="width: 100%">
-              </label>
-            </div>
-            <div class="item item-select" style="margin: -17px 0px;">
-              <label class="">
-                <span class="input-label">可见范围</span>
-                <select>
-                  <option value="1">仅好友</option>
-                  <option value="2" >全局可见</option>
-                </select>
-              </label>
-            </div>
-            <div class="item">
-              <ion-toggle class="handle">
-                允许参与者分享和邀请
-              </ion-toggle>
-              <ion-toggle class="handle">
-                推荐给参与者好友
-              </ion-toggle>
-              <ion-toggle class="handle">
-                需要审核申请者
-              </ion-toggle>
-            </div>
-            <div>
-              <span>参与者必填项</span>
-              <div class="row row-wrap" >
-                <div class="col col-33" ng-repeat="button in buttonList">
-                    <button class="button button-calm"   id="{{button.id}}" ng-click="changeColor(button.id)">{{button.name}}</button>
-                </div>
+          <div class="item">
+            <label class="">
+              <input type="text" placeholder="活动报名费用" value="" style="width: 100%">
+            </label>
+          </div>
+          <div class="item item-select" style="margin: -17px 0px;">
+            <label class="">
+              <span class="input-label">可见范围</span>
+              <select>
+                <option value="1">仅好友</option>
+                <option value="2" >全局可见</option>
+              </select>
+            </label>
+          </div>
+          <div class="item">
+            <ion-toggle class="handle">
+              允许参与者分享和邀请
+            </ion-toggle>
+            <ion-toggle class="handle">
+              推荐给参与者好友
+            </ion-toggle>
+            <ion-toggle class="handle">
+              需要审核申请者
+            </ion-toggle>
+          </div>
+          <div>
+            <span>参与者必填项</span>
+            <div class="row row-wrap" >
+              <div class="col col-33" ng-repeat="button in buttonList">
+                  <button class="button button-calm"   id="{{button.id}}" ng-click="changeColor(button.id)">{{button.name}}</button>
               </div>
             </div>
           </div>
