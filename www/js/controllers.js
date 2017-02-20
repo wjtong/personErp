@@ -539,28 +539,25 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   //活动详情
 
 
-.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel) {
+.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
 
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
   //获取讨论信息
   $scope.DiscussList=Activity.getAllDiscuss();
-  //显示讨论
-
   //参与人员的详细页面展示
-    $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', function (modal) {
-      $scope.modal = modal;
-    }, {
-      animation: 'slide-in-up',
-      focusFirstInput: true
-    });
-     //打开模态框的显示
-    $scope.openModal = function () {
-      $scope.modal.show();
-    };
-
-
+  $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', function (modal) {
+    $scope.modal = modal;
+  }, {
+    animation: 'slide-in-up',
+    focusFirstInput: true
+  });
+   //打开模态框的显示
+  $scope.openModal = function () {
+    $scope.modal.show();
+  };
+  //显示讨论
   $scope.showDiscuss=function(){
     document.getElementById("discuss").style.display="";
   };
@@ -643,15 +640,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.popover = $ionicPopover.fromTemplateUrl('templates/my-popover.html', {
     scope: $scope
   });
-
-  // .fromTemplateUrl() 方法
   $ionicPopover.fromTemplateUrl('templates/my-popover.html', {
     scope: $scope
   }).then(function(popover) {
     $scope.popover = popover;
   });
-
-
   $scope.openPopover = function($event) {
     $scope.popover.show($event);
   };
@@ -678,6 +671,29 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.relatedActivity=function (type) {
     $location.path("/app/activityList/"+type);
   }
+  //报名
+  $scope.showPopup = function() {
+    $scope.data = {}
+
+    // 自定义弹窗
+    var myPopup = $ionicPopup.show({
+      template: '',
+      title: '已加入当前活动中',
+      scope: $scope,
+      buttons: [
+
+        {
+          text: '返回',
+        },
+      ]
+    });
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+    $timeout(function() {
+      myPopup.close(); // 1.5秒后关闭弹窗
+    }, 1500);
+  };
 })
 
   //浮动框的弹出
@@ -691,7 +707,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.modal.hide();
     };
   })
-  
+
 
   .controller('AboutMe',function ($scope, $rootScope, PersonData) {
   PersonData.getPersonInfo($rootScope.partyId , function (data){
