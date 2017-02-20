@@ -1885,4 +1885,18 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       $scope.orderInfoConfirm.show();
     }
 })
+
+  .controller('editVoteCtrl', function($scope) {
+
+    $scope.addVotes = function () {
+      $("#votes").append("" +
+        "<textarea style='display: inline-block;width: 80%'></textarea>" +
+        "<img src='img/delNode.gif' onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><br>" +
+        "");
+    };
+  })
+
+  .controller('castVoteCtrl', function($scope) {
+
+  })
 ;
