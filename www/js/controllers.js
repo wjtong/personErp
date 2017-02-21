@@ -1045,6 +1045,8 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       //CommonJs.AlertPopup(imageData);
       var image = document.getElementById('myImage');
       image.src=imageData;
+      image.style.height='200px';
+      image.style.width='330px';
       //image.src = "data:image/jpeg;base64," + imageData;
     }, function(err) {
       // error
@@ -1066,6 +1068,8 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
         for (var i = 0; i < results.length; i++) {
           console.log('Image URI: ' + results[i]);//返回参数是图片地址 results 是一个数组
           image.src=results[i];
+          image.style.height='200px';
+          image.style.width='330px';
         }
       }, function(error) {
         // error getting photos
