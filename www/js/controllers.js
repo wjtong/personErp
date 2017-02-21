@@ -1290,7 +1290,6 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
         {id:'oneYear',desc:'过去一年'},
         {id:'oneYear',desc:'一年前'},
     ];
-
     $scope.choiceOrderType = function () {
       $scope.selOrder = 'sal';
       $scope.purOrder = 'pur' ;
