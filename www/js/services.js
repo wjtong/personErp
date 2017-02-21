@@ -1135,7 +1135,7 @@ angular.module('starter.services', [])
             return Details[i];
           }
         }
-      },
+      }
     }
 })
 //活动
@@ -1148,7 +1148,20 @@ angular.module('starter.services', [])
         {img:'img/resources/dengshan5.jpeg'},
         {img:'img/resources/dengshan6.jpeg'},
         {img:'img/resources/dengshan7.jpeg'}
-      ]},
+      ],
+      after:[
+        {id:'AFT_001',title:'足球赛',organizer:'jinlongxi',createTime:'2017-12-07',time:'20:00-21:00',img:'img/resources/zuqiu1.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+          picture:[
+            {img:'img/resources/zuqiu2.jpeg'},
+            {img:'img/resources/zuqiu3.jpeg'}
+          ]},
+        {id:'AFT_002',title:'足球赛',organizer:'jinlongxi',createTime:'2018-12-07',time:'20:00-21:00',img:'img/resources/zuqiu4.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+          picture:[
+            {img:'img/resources/zuqiu4.jpeg'},
+            {img:'img/resources/zuqiu5.jpeg'}
+          ]}
+      ]
+      },
       {id:'ACT_002',title:'Python培训',organizer:'zhangwenwen',createTime:'2016-12-07',time:'20:00-21:00',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/python1.jpeg'},
