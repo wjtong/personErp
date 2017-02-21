@@ -359,6 +359,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+  //照片墙
+  .state('app.slide',{
+    url:'/slide/:activityId',
+    disableBack:true,
+    cache :true,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/slide.html',
+        controller:'slideCrl'
+      }
+    }
+  })
   .state('app.abouthim', {
     url: '/abouthim/:personId',
     disableBack:true,

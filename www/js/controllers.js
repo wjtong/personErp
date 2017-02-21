@@ -594,16 +594,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.addLab.close();
   };
   //显示照片墙大图片
-  $scope.shouBigImage=function(imageName){
-    document.getElementById("huodong").style.display="none";
-    $scope.bigImage = true;
-    $scope.Url = imageName;
-  };
-  //隐藏大图片
-  $scope.bigImage = false;    //初始默认大图是隐藏的
-  $scope.hideBigImage = function () {
-    $scope.bigImage = false;
-    document.getElementById("huodong").style.display=""
+  $scope.shouBigImage=function(id){
+    $location.path("/app/slide/"+id);
   };
   //百度地图
   $scope.map=false;
@@ -695,25 +687,34 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }, 1500);
   };
 })
+//照片墙（大图片）
+.controller('slideCrl',function ($scope,$stateParams,Activity,$ionicHistory) {
+  var id=$stateParams.activityId;
+  //获取活动照片墙图片
+  $scope.pictureList=Activity.getActivityInfo(id);
+  //返回活动详情
+  $scope.goback=function () {
+    $ionicHistory.goBack();
+  }
+})
+//浮动框的弹出
+.controller('floatCtrl',function ($scope,Contact, $rootScope, PersonData) {
+  //查找所有的联系人
+  $scope.plist=Contact.getAll();
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+})
 
-  //浮动框的弹出
-  .controller('floatCtrl',function ($scope,Contact, $rootScope, PersonData) {
-    //查找所有的联系人
-    $scope.plist=Contact.getAll();
-    $scope.openModal = function() {
-      $scope.modal.show();
-    };
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
-  })
 
-
-  .controller('AboutMe',function ($scope, $rootScope, PersonData) {
-  PersonData.getPersonInfo($rootScope.partyId , function (data){
-      $scope.myInfo = data;
-    });
-    //alert($scope.myInfo.personName);
+.controller('AboutMe',function ($scope, $rootScope, PersonData) {
+PersonData.getPersonInfo($rootScope.partyId , function (data){
+    $scope.myInfo = data;
+  });
+  //alert($scope.myInfo.personName);
 })
 .controller('EditAddress',function ($scope,PersonData,$rootScope,popupUtil,$ionicLoading,$ionicHistory) {
     PersonData.showPersonAddress($rootScope.partyId , function (data){
