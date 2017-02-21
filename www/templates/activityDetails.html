@@ -14,7 +14,7 @@
   <ion-content >
       <div class="list"   >
         <div class="item">
-          <img ng-src="{{activityList.img}}" style="width: 330px;height: 200px"/>
+          <img ng-src="{{activityList.img}}" style="width: 100%;height: 200px;margin: 0"/>
         </div>
         <div class="item">
           <label class="">
@@ -46,9 +46,18 @@
             <i class="icon ion-ios-location"> {{activityList.address}}  {{activityList.addressDet}}</i>
           </label>
         </div>
-        <div class="item item-text-wrap" >
-            <b>详细信息</b>
-            <p >&nbsp;&nbsp;{{activityList.information}}</p>
+        <div class="item">
+          <p style="float: left"><b>子活动</b></p>
+          <p style="text-align: right;" ng-click="advancedOptions()" >查看全部<i class="icon ion-android-arrow-down" style="line-height: 14px;">
+          </i></p>
+        </div>
+        <div class="list">
+          <div class="item" ng-repeat="after in activityList.after">
+            <img ng-src="{{after.img}}" style="width:100%;height:200px" >
+              <p><b>活动安排：{{after.title}}</b></p>
+              时间：{{after.createTime}}
+              地点：{{after.address}}
+          </div>
         </div>
         <div class="item">
           <br>

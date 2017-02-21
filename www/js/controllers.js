@@ -537,10 +537,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   }
 })
   //活动详情
-
-
 .controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
-
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
@@ -658,16 +655,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   //返回
   $scope.goback=function () {
     $ionicHistory.goBack();
-  }
+  };
   //相关活动
   $scope.relatedActivity=function (type) {
     $location.path("/app/activityList/"+type);
-  }
+  };
   //报名
   $scope.showPopup = function() {
-    $scope.data = {}
-
-    // 自定义弹窗
+    $scope.data = {};
     var myPopup = $ionicPopup.show({
       template: '',
       title: '已加入当前活动中',
@@ -675,8 +670,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       buttons: [
 
         {
-          text: '返回',
-        },
+          text: '返回'
+        }
       ]
     });
     myPopup.then(function(res) {
@@ -708,6 +703,20 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $scope.modal.hide();
   };
 })
+
+
+  //浮动框的弹出
+  .controller('floatCtrl',function ($scope,Contact, $rootScope, PersonData) {
+    //查找所有的联系人
+    $scope.plist=Contact.getAll();
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+  })
+
 
 
 .controller('AboutMe',function ($scope, $rootScope, PersonData) {
@@ -1004,7 +1013,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.businessImgList=ThemeImage.getBusinessImg()
 })
 //新建活动
-.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location,Activity) {
+.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location,Activity,$ionicModal,ThemeImage) {
   //选择插入图片方式
   $scope.selectImg = function() {
     $scope.data = {}
@@ -1050,6 +1059,8 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       //CommonJs.AlertPopup(imageData);
       var image = document.getElementById('myImage');
       image.src=imageData;
+      image.style.height='200px';
+      image.style.width='330px';
       //image.src = "data:image/jpeg;base64," + imageData;
     }, function(err) {
       // error
@@ -1071,6 +1082,8 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
         for (var i = 0; i < results.length; i++) {
           console.log('Image URI: ' + results[i]);//返回参数是图片地址 results 是一个数组
           image.src=results[i];
+          image.style.height='200px';
+          image.style.width='330px';
         }
       }, function(error) {
         // error getting photos
@@ -1114,6 +1127,35 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       document.getElementById(id).style.background='red';
     }
   }
+  //邀请好友
+  $scope.invite=false;
+  $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', function (modal) {
+    $scope.modal = modal;
+  }, {
+    animation: 'slide-in-up',
+    focusFirstInput: true
+  });
+  $scope.inviteFriends=function (type) {
+    $scope.modal.show();
+    if(type='invite'){
+      alert(type)
+      document.getElementById("invite").style.display="none"
+    }
+  }
+  //分享好友
+  $ionicModal.fromTemplateUrl('templates/shareAvtivity.html', function(modal) {
+    $scope.taskModal = modal;
+  }, {
+    scope: $scope
+  });
+
+  $scope.newTask = function() {
+    $scope.taskModal.show();
+  };
+  $scope.closeNewTask = function() {
+    $scope.taskModal.hide();
+  }
+  $scope.shareImgList=ThemeImage.getShareImg()
 })
 .controller('NewDevOrder',function ($scope,$cordovaCamera) {
   $scope.imageSrc = "";
@@ -1262,7 +1304,6 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
         {id:'oneYear',desc:'过去一年'},
         {id:'oneYear',desc:'一年前'},
     ];
-
     $scope.choiceOrderType = function () {
       $scope.selOrder = 'sal';
       $scope.purOrder = 'pur' ;
@@ -1978,9 +2019,84 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
 
   })
 
+
   .controller('voteListCtrl', function($scope) {
 
   })
 
+
+
+  //活动账单的展示页面
+  .controller('activityBillCtrl', function($scope,Contact,$ionicPopup) {
+    $scope.personList = Contact.getAll();
+
+    $scope.addBill = function () {
+      $scope.data = {}
+      // 一个精心制作的自定义弹窗
+      var myPopup = $ionicPopup.show({
+        template: '<input type="text" ng-model="data.name"  placeholder="姓名" required style="text-align: center">'
+                  +'<input type="text" ng-model="data.money"  placeholder="请输入金额" required style="text-align: center">',
+
+
+        title: '账单的添加',
+        scope: $scope,
+        buttons: [
+          {
+            text: '取消',
+            type: 'button-positive'
+          },
+          {
+            text: '<b>确定</b>',
+            type: 'button-positive',
+            onTap: function (e) {
+              if (!$scope.data.money) {
+                //为了避免用户填入空的内容，我循环死你，让你对着干。。
+                e.preventDefault();
+                $ionicPopup.alert({
+                  title: "温馨提示",
+                  template: "请将内容填写完整",
+                  okText: "确定",
+                })
+              } else {
+                //将文本框中的内容返回回去哈，不然得不到所填的内容
+                  var obj={"money":$scope.data.money,"name":$scope.data.name};
+                return obj;
+              }
+            }
+          },
+        ]
+      });
+      //弹出框弹出后的验证
+      myPopup.then(function (res) {
+        //正则验证输入金额是否合法
+        if (res) {//判断所选的是确定还是取消
+          var name=res.name;
+          var money=res.money;
+          alert(name);
+          alert(money);
+          var moneyReg = /^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/;
+          if (moneyReg.test(res.money)) {
+            if (res.money > 0) {//如果输入的金额大于0的话，说明输入的数字是正确的，什么也不提示
+
+            } else {
+              $ionicPopup.alert({
+                title: "温馨提示",
+                template: "您输入的数字没有意义",
+                okText: "确定",
+              })
+            }
+          } else {
+            $ionicPopup.alert({
+              title: "温馨提示",
+              template: "金额输入有误,请重新输入",
+              okText: "确定",
+            })
+          }
+
+        }
+
+      });
+    };
+  })
 
 ;

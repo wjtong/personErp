@@ -8,9 +8,9 @@
           </label>
         </div>
         <div class="item">
-          <label class="">
+          <label>
             <button class="button button-block button-stable" ng-click="selectImg()">添加背景图片</button>
-            <img ng-src="{{imageSrc}}{{myActivtyList.img}}"  id="myImage" class="full-image" >
+            <img ng-src="{{imageSrc}}{{myActivtyList.img}}"  id="myImage" >
           </label>
         </div>
         <div class="item">
@@ -38,11 +38,11 @@
             <i class="icon ion-images"></i>
             照片墙
           </a>
-          <a class="tab-item" ng-click="openModal()">
+          <a class="tab-item" ng-click="inviteFriends('invite')">
             <i class="icon ion-android-list"></i>
             邀请好友
           </a>
-          <a class="tab-item" ng-click="openModal()">
+          <a class="tab-item" ng-click="newTask()">
             <i class="icon ion-share"></i>
             分享
           </a>
