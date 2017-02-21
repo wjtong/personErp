@@ -108,9 +108,20 @@ angular.module('starter.services', [])
       {id:'Pic_10019',img:'img/theme/shangwu4.jpeg'},
       {id:'Pic_10020',img:'img/theme/shangwu5.jpeg'}
     ];
+  var shareImg = [
+      {id:'Pic_10021',img:'img/share/facebook.png',name:'facebook'},
+      {id:'Pic_10022',img:'img/share/QQ.jpeg',name:'QQ'},
+      {id:'Pic_10023',img:'img/share/QQ空间.png',name:'QQ空间'},
+      {id:'Pic_10024',img:'img/share/微信.jpeg',name:'微信'},
+      {id:'Pic_10025',img:'img/share/新浪jpeg.jpeg',name:'新浪微博'},
+      {id:'Pic_10026',img:'img/share/朋友圈.jpeg',name:'朋友圈'}
+    ]
   return{
     getPartyImg:function () {
       return partyImg;
+    },
+    getShareImg:function () {
+      return shareImg;
     },
     getSportsImg:function () {
       return sportsImg;

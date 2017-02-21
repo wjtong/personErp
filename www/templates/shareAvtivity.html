@@ -1,0 +1,22 @@
+<div class="modal">
+  <!-- Modal header bar -->
+  <ion-content>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3 class="has-header" style="text-align: center;background-color:salmon">通过以下方式邀请好友参与活动</h3>
+    <hr>
+    <div class="row  row-wrap" style="border: 0">
+      <div class="col col-50" ng-repeat="share in shareImgList" ng-click="shouBigImage(activityList.id)" >
+        <ion-item class="item-remove-animate item-avatar item-icon-top"  ng-click="goInfo(personmain.partyId)">
+          <img ng-src="{{share.img}}">
+          <p>{{share.name}}</p>
+        </ion-item>
+      </div>
+    </div>
+    <div style="margin-top: 25px;text-align: center;">
+      <a class="ion-close-circled" style="font-size: 35px;color: red;" ng-click="closeNewTask()"></a>
+    </div>
+  </ion-content>
+</div>

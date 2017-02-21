@@ -537,10 +537,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   }
 })
   //活动详情
-
-
 .controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
-
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
@@ -658,16 +655,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   //返回
   $scope.goback=function () {
     $ionicHistory.goBack();
-  }
+  };
   //相关活动
   $scope.relatedActivity=function (type) {
     $location.path("/app/activityList/"+type);
-  }
+  };
   //报名
   $scope.showPopup = function() {
-    $scope.data = {}
-
-    // 自定义弹窗
+    $scope.data = {};
     var myPopup = $ionicPopup.show({
       template: '',
       title: '已加入当前活动中',
@@ -675,8 +670,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       buttons: [
 
         {
-          text: '返回',
-        },
+          text: '返回'
+        }
       ]
     });
     myPopup.then(function(res) {
@@ -1004,7 +999,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.businessImgList=ThemeImage.getBusinessImg()
 })
 //新建活动
-.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location,Activity) {
+.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location,Activity,$ionicModal,ThemeImage) {
   //选择插入图片方式
   $scope.selectImg = function() {
     $scope.data = {}
@@ -1114,6 +1109,35 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       document.getElementById(id).style.background='red';
     }
   }
+  //邀请好友
+  $scope.invite=false;
+  $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', function (modal) {
+    $scope.modal = modal;
+  }, {
+    animation: 'slide-in-up',
+    focusFirstInput: true
+  });
+  $scope.inviteFriends=function (type) {
+    $scope.modal.show();
+    if(type='invite'){
+      alert(type)
+      document.getElementById("invite").style.display="none"
+    }
+  }
+  //分享好友
+  $ionicModal.fromTemplateUrl('templates/shareAvtivity.html', function(modal) {
+    $scope.taskModal = modal;
+  }, {
+    scope: $scope
+  });
+
+  $scope.newTask = function() {
+    $scope.taskModal.show();
+  };
+  $scope.closeNewTask = function() {
+    $scope.taskModal.hide();
+  }
+  $scope.shareImgList=ThemeImage.getShareImg()
 })
 .controller('NewDevOrder',function ($scope,$cordovaCamera) {
   $scope.imageSrc = "";
