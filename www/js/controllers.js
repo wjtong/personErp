@@ -1977,4 +1977,10 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   .controller('castVoteCtrl', function($scope) {
 
   })
+
+  .controller('voteListCtrl', function($scope) {
+
+  })
+
+
 ;

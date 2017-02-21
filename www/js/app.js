@@ -690,8 +690,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     /**************************** 投票 *****************************************/
+    .state('app.voteList', {
+      url: '/voteList',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/vote/voteList.html',
+          controller: 'voteListCtrl'
+        }
+      }
+    })
+
     .state('app.goEditVote', {
-      url: '/goEditVote/',
+      url: '/goEditVote',
       views: {
         'menuContent': {
           templateUrl: 'templates/vote/editVote.html',
@@ -701,7 +711,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     .state('app.goCastVote', {
-      url: '/goCastVote/',
+      url: '/goCastVote',
       views: {
         'menuContent': {
           templateUrl: 'templates/vote/castVote.html',
