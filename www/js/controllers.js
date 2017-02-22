@@ -473,7 +473,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     { time: '2016-10-09', id: 'CO10004' }
   ];
 })
-
+//活动首页
 .controller('GetBusiness',function($scope,Activity,$location){
   $scope.active=Activity.getAllActivity();
   $scope.newActivity=function () {
@@ -493,6 +493,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $location.path("/app/activityList/"+type);
   }
 })
+//由我组织的活动
 .controller('ActivityList',function($scope,Activity,$location,$rootScope,$stateParams){
   var type=$stateParams.type;
   var organizer=$rootScope.partyId;
@@ -518,7 +519,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   //编辑活动
   $scope.editActivty=function(id){
     $location.path("/app/editActivty/"+id);
-};
+  };
+  //发布子活动
+  $scope.newActivity=function () {
+    $location.path('/app/newActivity')
+  };
 })
   //活动投票
 .controller('ActivtyVode',function($scope){
@@ -681,6 +686,21 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
       myPopup.close(); // 1.5秒后关闭弹窗
     }, 1500);
   };
+  //显示子活动详情
+  $scope.childActivity=true;
+  var childtype=$scope.activityList.after;
+  if(childtype==''){
+    $scope.childActivity=false;
+  }
+  $scope.activityDetails=function (id,childId) {
+      var childInfo=Activity.getActivityInfo(id).after;
+      for (var i = 0; i < childInfo.length; i++) {
+        if (childId == childInfo[i].id) {
+          $scope.activityList=childInfo[i];
+          $scope.childActivity=false;
+        }
+      }
+  };
 })
 //照片墙（大图片）
 .controller('slideCrl',function ($scope,$stateParams,Activity,$ionicHistory) {
@@ -702,6 +722,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
+
 })
 
 
