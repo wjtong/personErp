@@ -42,16 +42,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   };
   ionicDatePickerProvider.configDatePicker(datePickerObj);
 })
+
 .config(function (ionicTimePickerProvider) {
-    var timePickerObj = {
-        inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
-        format: 12,
-        step: 15,
-        setLabel: '选择',
-        closeLabel: '关闭'
-    };
-    ionicTimePickerProvider.configTimePicker(timePickerObj);
+  var timePickerObj = {
+    inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
+    format: 24,
+    step: 15,
+    setLabel: '确定',
+    closeLabel: '关闭'
+  };
+  ionicTimePickerProvider.configTimePicker(timePickerObj);
 })
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 

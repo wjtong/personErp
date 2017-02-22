@@ -9,12 +9,14 @@
         </div>
         <div class="item">
           <label class="">
-            <input type="text" placeholder="活动开始时间" value="{{myActivtyList.createTime}}" style="width: 100%">
+            <input type="text" placeholder="活动开始日期" value="{{myActivtyList.createTime}}" style="width: 45%;display: inline-block" id="startDate" ng-click="openDatePicker('start')">
+            <input type="text" placeholder="活动开始时间" value="{{myActivtyList.createTime}}" style="width: 45%;float: right;" id="startTime" ng-click="openTimePicker('start')">
           </label>
         </div>
         <div class="item">
           <label class="">
-            <input type="text" placeholder="活动结束时间" value="" style="width: 100%">
+            <input type="text" placeholder="活动结束日期" value="" style="width: 45%;display: inline-block" id="endDate" ng-click="openDatePicker('end')">
+            <input type="text" placeholder="活动结束时间" value="" style="width: 45%;float: right;" id="endTime" ng-click="openTimePicker('end')">
           </label>
         </div>
         <div class="item">

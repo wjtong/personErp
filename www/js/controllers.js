@@ -1034,7 +1034,65 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.businessImgList=ThemeImage.getBusinessImg()
 })
 //新建活动
-.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location,Activity,$ionicModal,ThemeImage) {
+.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location,Activity,$ionicModal,ThemeImage,ionicDatePicker, ionicTimePicker) {
+  var ipObj1 = {
+    callback: function (val) {  //Mandatory
+      var selectDate = new Date(val);
+      $("#startDate").val(selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate());
+    },
+    templateType: 'modal'       //Optional
+  };
+  var ipObj2 = {
+    callback: function (val) {  //Mandatory
+      var selectDate = new Date(val);
+      $("#endDate").val(selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate());
+    },
+    templateType: 'modal'       //Optional
+  };
+
+
+  $scope.openDatePicker = function(startOrend){
+    if(startOrend == 'start'){
+      ionicDatePicker.openDatePicker(ipObj1);
+    }else{
+      ionicDatePicker.openDatePicker(ipObj2);
+    }
+  };
+
+  var ipObj3 = {
+    callback: function (val) {      //Mandatory
+      if (typeof (val) === 'undefined') {
+        console.log('Time not selected');
+      } else {
+        var selectedTime = new Date(val * 1000);
+        $("#startTime").val(selectedTime.getUTCHours()+":"+selectedTime.getUTCMinutes());
+      }
+    }
+  };
+
+  var ipObj4 = {
+    callback: function (val) {      //Mandatory
+      if (typeof (val) === 'undefined') {
+        console.log('Time not selected');
+      } else {
+        var selectedTime = new Date(val * 1000);
+        $("#endTime").val(selectedTime.getUTCHours()+":"+selectedTime.getUTCMinutes());
+      }
+    }
+  };
+
+
+
+  $scope.openTimePicker = function(startOrend){
+    if(startOrend == 'start'){
+      ionicTimePicker.openTimePicker(ipObj3);
+    }else{
+      ionicTimePicker.openTimePicker(ipObj4);
+    }
+  };
+
+
+
   //选择插入图片方式
   $scope.selectImg = function() {
     $scope.data = {}
