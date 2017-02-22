@@ -701,7 +701,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
         }
       }
   };
+  //活动讨论
+  $scope.activityDiscuss=function(id){
+    $location.path("/app/activityDiscuss/"+id);
+  }
 })
+
 //照片墙（大图片）
 .controller('slideCrl',function ($scope,$stateParams,Activity,$ionicHistory) {
   var id=$stateParams.activityId;
@@ -712,6 +717,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     $ionicHistory.goBack();
   }
 })
+
+//活动讨论
+.controller('ActivityDiscuss',function ($scope, $rootScope,$stateParams,Activity) {
+  var id=$stateParams.id
+  $scope.discussList=Activity.getActivityInfo(id);
+
+})
+
 //浮动框的弹出
 .controller('floatCtrl',function ($scope,Contact, $rootScope, PersonData) {
   //查找所有的联系人
@@ -722,30 +735,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
-
 })
 
-
-  //浮动框的弹出
-  .controller('floatCtrl',function ($scope,Contact, $rootScope, PersonData) {
-    //查找所有的联系人
-    $scope.plist=Contact.getAll();
-    $scope.openModal = function() {
-      $scope.modal.show();
-    };
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
-  })
-
-
-
+//关于我
 .controller('AboutMe',function ($scope, $rootScope, PersonData) {
 PersonData.getPersonInfo($rootScope.partyId , function (data){
     $scope.myInfo = data;
   });
   //alert($scope.myInfo.personName);
 })
+
+//编辑地址
 .controller('EditAddress',function ($scope,PersonData,$rootScope,popupUtil,$ionicLoading,$ionicHistory) {
     PersonData.showPersonAddress($rootScope.partyId , function (data){
       //alert($rootScope.partyId);
@@ -1847,7 +1847,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     }).then(function(modal) {
       $scope.modal = modal;
     });
-    $scope.openModal = function(personId) {
+    $scope.openModal = function() {
       $scope.modal.show();
     };
     $scope.closeModal = function() {

@@ -1,30 +1,25 @@
 <ion-view title="活动讨论">
-    <ion-nav-buttons side="right">
-      <button class="button button-icon ion-person-stalker ion-navicon" menu-toggle="right" ng-click="goPersonList(chat.id)">
-      </button>
-    </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button button-icon ion-person-stalker ion-navicon" menu-toggle="right" ng-click="goPersonList(chat.id)">
+    </button>
+  </ion-nav-buttons>
   <ion-content has-bouncing="true" class="has-header has-footer"
                delegate-handle="userMessageScroll">
-    <div class="list list-inset" style="margin-top: 5px;margin-bottom: 5px;">
-      <button class="button  button-small button-clear button-positive icon ion-gear-a " style="margin-right: 0px"  ng-click="editChat(chat.title)">
-        编辑
-      </button>
-    </div>
-    <div ng-repeat="chat in chat.discuss" class="message-wrapper">
-      <div ng-if="userId !== chat.id">
+    <div ng-repeat="chat in discussList.discuss | orderBy:'date':false" class="message-wrapper">
+      <div ng-if="discussList.name !== chat.name">
         <img ng-click="" class="profile-pic left"
              ng-src="{{chat.img}}" onerror="" />
-          <div class="chat-bubble left">
-            <div class="message" ng-bind-html="chat.speak">
-            </div>
-            <div class="message-detail">
-              <span ng-click=""class="bold">{{chat.name}}</span>,
+        <div class="chat-bubble left">
+          <div class="message" ng-bind-html="chat.speak">
+          </div>
+          <div class="message-detail">
+            <span ng-click=""class="bold">{{chat.name}}</span>,
             <span am-time-ago="message.date"></span>
           </div>
         </div>
       </div>
 
-      <div ng-if="userId == chat.id">
+      <div ng-if="discussList.name == chat.name">
         <img ng-click="" class="profile-pic right"
              ng-src="{{chat.img}}" onerror="" />
         <div class="chat-bubble right">
@@ -42,7 +37,7 @@
   <form name="sendMessageForm" ng-submit="">
     <ion-footer-bar class="bar-stable item-input-inset message-footer">
       <label class="item-input-wrapper">
-        <textarea ng-model="input.message" value="" placeholder="Send {{person.name}} a message..." required minlength="1" maxlength="1500"style="width: 100%" ></textarea>
+        <textarea ng-model="input.message" msd-elastic value="" placeholder="请输入你想要发送的信息。。。" required minlength="1" maxlength="1500" style="width: 100%" ></textarea>
       </label>
       <button class="button button-icon icon ion-android-send" type="submit"
               ng-disabled="!input.message || input.message === ''">

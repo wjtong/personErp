@@ -1149,6 +1149,14 @@ angular.module('starter.services', [])
         {img:'img/resources/dengshan6.jpeg'},
         {img:'img/resources/dengshan7.jpeg'}
       ],
+      discuss:[
+        {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',speak:'远还是近的？',date:'2017-02-06'},
+        {id:'PERS_10002',img:'img/team/zhangwenwen.jpeg',name:'张文文',speak:'大家在好好想想？',date:'2017-02-05'},
+        {id:'PERS_10003',img:'img/team/jinlongxi.png',name:'金龙熙',speak:'那大家觉得哪里比较合理？',date:'2017-02-04'},
+        {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',date:'2017-02-03',speak:'我也希望可以更改，离的有点远'},
+        {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',speak:'活动地点可以更改吗？',date:'2017-02-02'},
+        {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',speak:'请大家踊跃发言',date:'2017-02-01'}
+      ],
       after:[
         {id:'AFT_001',title:'足球赛',organizer:'jinlongxi',createTime:'2017-12-07',time:'20:00-21:00',img:'img/resources/zuqiu1.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
           picture:[
