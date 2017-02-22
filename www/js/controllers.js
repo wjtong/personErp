@@ -737,23 +737,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   };
 })
 
-
-
-  //浮动框的弹出
-  .controller('floatCtrl',function ($scope,Contact, $rootScope, PersonData) {
-    //查找所有的联系人
-    $scope.plist=Contact.getAll();
-    $scope.openModal = function() {
-      $scope.modal.show();
-    };
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
-  })
-
-
-
-
+//关于我
 .controller('AboutMe',function ($scope, $rootScope, PersonData) {
 PersonData.getPersonInfo($rootScope.partyId , function (data){
     $scope.myInfo = data;
