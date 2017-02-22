@@ -1789,7 +1789,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     }).then(function(modal) {
       $scope.modal = modal;
     });
-    $scope.openModal = function(personId) {
+    $scope.openModal = function() {
       $scope.modal.show();
     };
     $scope.closeModal = function() {
