@@ -1790,6 +1790,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       $scope.modal = modal;
     });
     $scope.openModal = function() {
+      alert(555);
       $scope.modal.show();
     };
     $scope.closeModal = function() {
