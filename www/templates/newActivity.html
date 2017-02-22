@@ -8,12 +8,6 @@
           </label>
         </div>
         <div class="item">
-          <label>
-            <button class="button button-block button-stable" ng-click="selectImg()">添加背景图片</button>
-            <img ng-src="{{imageSrc}}{{myActivtyList.img}}"  id="myImage" >
-          </label>
-        </div>
-        <div class="item">
           <label class="">
             <input type="text" placeholder="活动开始时间" value="{{myActivtyList.createTime}}" style="width: 100%">
           </label>
@@ -33,6 +27,35 @@
             <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动" >{{myActivtyList.information}}</textarea>
           </label>
         </div>
+        <div class="item item-select" style="margin: -17px 0px;">
+          <label class="">
+            <span class="input-label">可见范围</span>
+            <select>
+              <option value="1">仅好友</option>
+              <option value="2" >全局可见</option>
+              <option value="3" >上海班富(标签)</option>
+              <option value="2" >同学(标签)</option>
+            </select>
+          </label>
+        </div>
+        <div class="item">
+          <label>
+            <button class="button button-block button-stable" ng-click="selectImg()">添加背景图片</button>
+            <img ng-src="{{imageSrc}}{{myActivtyList.img}}"  id="myImage" >
+          </label>
+        </div>
+        <div class="item" >
+          <div class="row  row-wrap">
+            <div class="col col-20 full-image" ng-repeat="image in myActivtyList.picture">
+              <img ng-src={{image.img}} width="100%"/>
+            </div>
+          </div>
+          <div class="row row-wrap">
+            <div class="col col-20 full-image" ng-repeat="image in imageSrc1">
+              <img ng-src={{image}} width="100%"/>
+            </div>
+          </div>
+        </div>
         <div class="item tabs tabs-secondary tabs-icon-left">
           <a class="tab-item" ng-click="getPhoto()">
             <i class="icon ion-images"></i>
@@ -50,66 +73,6 @@
             <i class="icon ion-android-happy"></i>
             签到
           </a>
-        </div>
-        <div class="item" >
-          <div class="row  row-wrap">
-            <div class="col col-20 full-image" ng-repeat="image in myActivtyList.picture">
-              <img ng-src={{image.img}} width="100%"/>
-            </div>
-          </div>
-          <div class="row row-wrap">
-            <div class="col col-20 full-image" ng-repeat="image in imageSrc1">
-              <img ng-src={{image}} width="100%"/>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <p style="text-align: right" ng-click="advancedOptions()" >高级选项<i class="icon ion-android-arrow-down" style="line-height: 14px;">
-          </i></p>
-        </div>
-        <div class="item" ng-if="hight" >
-          <div class="item item-select" style="margin: -17px 0px;">
-            <label class="">
-              <span class="input-label">筹款方式</span>
-              <select>
-                <option value="1">AA</option>
-                <option value="2" >免费</option>
-              </select>
-            </label>
-          </div>
-          <div class="item">
-            <label class="">
-              <input type="text" placeholder="活动报名费用" value="" style="width: 100%">
-            </label>
-          </div>
-          <div class="item item-select" style="margin: -17px 0px;">
-            <label class="">
-              <span class="input-label">可见范围</span>
-              <select>
-                <option value="1">仅好友</option>
-                <option value="2" >全局可见</option>
-              </select>
-            </label>
-          </div>
-          <div class="item">
-            <ion-toggle class="handle">
-              允许参与者分享和邀请
-            </ion-toggle>
-            <ion-toggle class="handle">
-              推荐给参与者好友
-            </ion-toggle>
-            <ion-toggle class="handle">
-              需要审核申请者
-            </ion-toggle>
-          </div>
-          <div>
-            <span>参与者必填项</span>
-            <div class="row row-wrap" >
-              <div class="col col-33" ng-repeat="button in buttonList">
-                  <button class="button button-calm"   id="{{button.id}}" ng-click="changeColor(button.id)">{{button.name}}</button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
