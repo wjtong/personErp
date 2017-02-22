@@ -1162,7 +1162,7 @@ angular.module('starter.services', [])
           ]}
       ]
       },
-      {id:'ACT_002',title:'Python培训',organizer:'zhangwenwen',createTime:'2016-12-07',time:'20:00-21:00',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_002',after:'',title:'Python培训',organizer:'zhangwenwen',createTime:'2016-12-07',time:'20:00-21:00',img:'img/resources/python.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/python1.jpeg'},
           {img:'img/resources/python2.png'},
@@ -1170,7 +1170,7 @@ angular.module('starter.services', [])
           {img:'img/resources/python4.jpeg'},
           {img:'img/resources/python5.jpeg'}
         ]},
-      {id:'ACT_003',title:'慢跑',createTime:'2016-12-07',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_003',after:'',title:'慢跑',createTime:'2016-12-07',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/paobu1.jpeg'},
           {img:'img/resources/paobu2.jpeg'},
@@ -1178,31 +1178,31 @@ angular.module('starter.services', [])
           {img:'img/resources/paobu4.jpeg'},
           {img:'img/resources/paobu5.jpeg'}
         ]},
-      {id:'ACT_004',title:'斯诺克游戏赛',type:'finish',createTime:'2016-12-7',organizer:'lining',time:'20:00-21:00',img:'img/resources/snk3.jpeg',name:'李宁',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_004',after:'',title:'斯诺克游戏赛',type:'finish',createTime:'2016-12-7',organizer:'lining',time:'20:00-21:00',img:'img/resources/snk3.jpeg',name:'李宁',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/snk1.jpeg'},
           {img:'img/resources/snk2.jpeg'}
         ]},
-      {id:'ACT_005',title:'广场舞',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/resources/guangchang.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_005',after:'',title:'广场舞',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/resources/guangchang.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/guangchang1.jpeg'},
           {img:'img/resources/guangchang2.jpeg'}
         ]},
-      {id:'ACT_006',title:'活动后聚会',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/theme/juhui1.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_006',after:'',title:'活动后聚会',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/theme/juhui1.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/theme/juhui2.jpeg'},
           {img:'img/theme/juhui3.jpeg'}
         ]}
     ];
     var finishActivty = [
-      {id:'ACT_004',title:'斯诺克游戏赛',createTime:'2016-12-7',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/snk3.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_004',after:'',title:'斯诺克游戏赛',createTime:'2016-12-7',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/snk3.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/snk1.jpeg'},
           {img:'img/resources/snk2.jpeg'}
         ]}
     ];
     var collectActivty = [
-      {id:'ACT_003',title:'慢跑',createTime:'2016-12-7',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_003',after:'',title:'慢跑',createTime:'2016-12-7',organizer:'zhangwenwen',time:'20:00-21:00',img:'img/resources/manpao.jpeg',name:'张文文',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/paobu1.jpeg'},
           {img:'img/resources/paobu2.jpeg'},
@@ -1212,12 +1212,12 @@ angular.module('starter.services', [])
         ]}
     ];
     var relatedActivities=[
-      {id:'ACT_005',title:'广场舞',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/resources/guangchang.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_005',after:'',title:'广场舞',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/resources/guangchang.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/guangchang1.jpeg'},
           {img:'img/resources/guangchang2.jpeg'}
         ]},
-      {id:'ACT_006',title:'活动后聚会',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/theme/juhui1.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_006',after:'',title:'活动后聚会',type:'finish',createTime:'2016-12-7',organizer:'shenyanlin',time:'20:00-21:00',img:'img/theme/juhui1.jpeg',name:'沈演麟',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/theme/juhui2.jpeg'},
           {img:'img/theme/juhui3.jpeg'}
@@ -1277,6 +1277,13 @@ angular.module('starter.services', [])
         return myActivtyList;
       },
       getActivityInfo: function (id) {
+        for (var i = 0; i < activity.length; i++) {
+          if (id == activity[i].id) {
+            return activity[i];
+          }
+        }
+      },
+      getChildInfo: function (id) {
         for (var i = 0; i < activity.length; i++) {
           if (id == activity[i].id) {
             return activity[i];
