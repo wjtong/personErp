@@ -24,25 +24,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 })
 .config(function (ionicDatePickerProvider,$ionicConfigProvider) {
   $ionicConfigProvider.views.swipeBackEnabled(false); // 防止ios左滑出现白屏
-
   var datePickerObj = {
-        inputDate: new Date(),
-        titleLabel: 'Select a Date',
-        setLabel: '选择',
-        todayLabel: '今天',
-        closeLabel: '关闭',
-        mondayFirst: false,
-        weeksList: ["S", "M", "T", "W", "T", "F", "S"],
-        monthsList: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-        templateType: 'popup',
-        from: new Date(2012, 8, 1),
-        to: new Date(2018, 8, 1),
-        showTodayButton: true,
-        dateFormat: 'dd MMMM yyyy',
-        closeOnSelect: false,
-        disableWeekdays: []
-    };
-    ionicDatePickerProvider.configDatePicker(datePickerObj);
+    inputDate: new Date(),
+    titleLabel: 'Select a Date',
+    setLabel: '确定',
+    todayLabel: '今天',
+    closeLabel: '关闭',
+    mondayFirst: false,
+    weeksList: ["日", "一", "二", "三", "四", "五", "六"],
+    monthsList: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+    from: new Date(2017, 1, 1),
+    to: new Date(2030, 8, 1),
+    showTodayButton: true,
+    dateFormat: 'yyyy-MM-dd',
+    closeOnSelect: false,
+    disableWeekdays: []
+  };
+  ionicDatePickerProvider.configDatePicker(datePickerObj);
 })
 .config(function (ionicTimePickerProvider) {
     var timePickerObj = {
