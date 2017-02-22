@@ -1841,14 +1841,13 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     //$scope.labelInfo = PersonLabel.getInfo($scope.labelId);
     $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
     //添加联系人到标签(弹出框)
-    $ionicModal.fromTemplateUrl('templates/lablePersonmodle.html', {
+    $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
       $scope.modal = modal;
     });
     $scope.openModal = function() {
-      alert(555);
       $scope.modal.show();
     };
     $scope.closeModal = function() {
