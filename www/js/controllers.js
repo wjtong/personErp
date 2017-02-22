@@ -737,7 +737,23 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   };
 })
 
-//关于我
+
+
+  //浮动框的弹出
+  .controller('floatCtrl',function ($scope,Contact, $rootScope, PersonData) {
+    //查找所有的联系人
+    $scope.plist=Contact.getAll();
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+  })
+
+
+
+
 .controller('AboutMe',function ($scope, $rootScope, PersonData) {
 PersonData.getPersonInfo($rootScope.partyId , function (data){
     $scope.myInfo = data;
@@ -2039,4 +2055,114 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   .controller('castVoteCtrl', function($scope) {
 
   })
+
+
+  .controller('voteListCtrl', function($scope) {
+
+  })
+
+
+
+  //活动账单的展示页面
+  .controller('activityBillCtrl', function($scope, Contact, $ionicPopup, ionicDatePicker) {
+    $scope.personList = Contact.getAll();
+
+    $scope.addBill = function () {
+      $scope.data = {}
+      // 一个精心制作的自定义弹窗
+      var myPopup = $ionicPopup.show({
+        template: '<input type="text" ng-model="data.name"  placeholder="姓名" required style="text-align: center">'
+                  +'<input type="text" ng-model="data.money"  placeholder="请输入金额" required style="text-align: center">'
+                  +'<input ng-model="mydate"  placeholder="请输入时间" id="mydate"  style="text-align: center" ng-click="openDatePicker()">',
+
+        title: '账单的录入',
+        scope: $scope,
+        buttons: [
+          {
+            text: '取消',
+            type: 'button-positive'
+          },
+          {
+            text: '<b>确定</b>',
+            type: 'button-positive',
+            onTap: function (e) {
+              if (!$scope.data.money) {
+                //为了避免用户填入空的内容，我循环死你，让你对着干。。
+                e.preventDefault();
+                $ionicPopup.alert({
+                  title: "温馨提示",
+                  template: "请将内容填写完整",
+                  okText: "确定",
+                })
+              } else {
+                //将文本框中的内容返回回去哈，不然得不到所填的内容
+                  var obj={"money":$scope.data.money,"name":$scope.data.name};
+                return obj;
+              }
+            }
+          },
+        ]
+      });
+      //弹出框弹出后的验证
+      myPopup.then(function (res) {
+        //正则验证输入金额是否合法
+        if (res) {//判断所选的是确定还是取消
+          var name=res.name;
+          var money=res.money;
+          alert(name);
+          alert(money);
+          var moneyReg = /^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/;
+          if (moneyReg.test(res.money)) {
+            if (res.money > 0) {//如果输入的金额大于0的话，说明输入的数字是正确的，什么也不提示
+
+            } else {
+              $ionicPopup.alert({
+                title: "温馨提示",
+                template: "您输入的数字没有意义",
+                okText: "确定",
+              })
+            }
+          } else {
+            $ionicPopup.alert({
+              title: "温馨提示",
+              template: "金额输入有误,请重新输入",
+              okText: "确定",
+            })
+          }
+
+        }
+
+      });
+    };
+
+    var ipObj1 = {
+      callback: function (val) {  //Mandatory
+        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+        var selectDate = new Date(val);
+        console.log(selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate());
+        $("#mydate").val(selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate());
+      },
+      // disabledDates: [            //Optional
+      //   new Date(2016, 2, 16),
+      //   new Date(2015, 3, 16),
+      //   new Date(2015, 4, 16),
+      //   new Date(2015, 5, 16),
+      //   new Date('Wednesday, August 12, 2015'),
+      //   new Date("08-16-2016"),
+      //   new Date(1439676000000)
+      // ],
+      // from: new Date(2017, 1, 1), //Optional
+      to: new Date(2020, 10, 30), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: false,          //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional
+    };
+
+    $scope.openDatePicker = function(){
+      ionicDatePicker.openDatePicker(ipObj1);
+    };
+
+  })
+
 ;

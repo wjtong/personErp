@@ -1,11 +1,13 @@
-<ion-popover-view style="margin-top: 13px;height: 310px;width: 120px">
+
+<ion-popover-view style="margin-top: 13px;height: 275px;width: 120px">
+
   <ion-content>
     <div class="list">
       <p>
         <button class="button  button-full icon-left ion-compose" ng-click="closePopover()">活动详情</button>
       </p>
       <p>
-        <button class="button button-full icon-left ion-laptop" ui-sref="app.goCastVote">相关投票</button>
+        <button class="button button-full icon-left ion-laptop" ui-sref="app.voteList">相关投票</button>
       </p>
       <p>
         <button class="button button-full icon-left ion-speakerphone" ng-click="activityDiscuss(activityList.id)">活动讨论</button>
@@ -14,7 +16,9 @@
         <button class="button button-full icon-left ion-flag" ng-click="relatedActivity('related')">相关活动</button>
       </p>
       <p>
-        <button class="button button-full icon-left ion-social-yen">活动款项</button>
+
+        <button class="button button-full icon-left ion-clipboard" ui-sref="app.activityBill">活动账单</button>
+
       </p>
     </div>
   </ion-content>
