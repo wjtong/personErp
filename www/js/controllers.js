@@ -2035,10 +2035,10 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       // 一个精心制作的自定义弹窗
       var myPopup = $ionicPopup.show({
         template: '<input type="text" ng-model="data.name"  placeholder="姓名" required style="text-align: center">'
-                  +'<input type="text" ng-model="data.money"  placeholder="请输入金额" required style="text-align: center">',
+                  +'<input type="text" ng-model="data.money"  placeholder="请输入金额" required style="text-align: center">'
+                  +'<input type="date" ng-model="mydate"  placeholder="请输入时间"  style="text-align: center">',
 
-
-        title: '账单的添加',
+        title: '账单的录入',
         scope: $scope,
         buttons: [
           {
