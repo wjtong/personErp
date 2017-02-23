@@ -1,14 +1,23 @@
-<ion-view title="活动账单">
+<ion-view title="活动账单"   >
+  <!--hide-back-button="true"-->
+  <!--<ion-nav-buttons side="left">-->
+    <!--<button class="button button-icon ion-arrow-left-c" menu-toggle="left" href="#/app/activityDetails/ACT_001">-->
+    <!--</button>-->
+    <!--</ion-nav-buttons>-->
   <ion-nav-buttons side="right">
     <button class="button button-icon ion-plus" menu-toggle="right" ng-click="addBill()">
     </button>
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in personList" type="item-text-wrap">
-        <img ng-src="{{chat.img}}">
-        <h2>{{chat.name}}</h2>
-        <p> {{chat.company}}</p>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in billList" type="item-text-wrap">
+        <!--这里加入逻辑，如果数据库存在图片就显示数据库里面的图片，否则就给一张默认的图片-->
+        <img ng-src="{{chat.img==''?'img/team/img4-md.jpg':chat.img}}"  style="top: 26px;max-width:55px;max-height:55px">
+        <div style="padding-left: 20px">
+          <h2>{{chat.name}}</h2>
+          <p>金额: {{chat.money}}</p>
+          <p>时间: {{chat.date}}</p>
+        </div>
         <ion-option-button class="button-assertive">
           Delete
         </ion-option-button>

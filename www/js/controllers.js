@@ -2107,8 +2107,8 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
 
 
   //活动账单的展示页面
-  .controller('activityBillCtrl', function($scope, Contact, $ionicPopup, ionicDatePicker) {
-    $scope.personList = Contact.getAll();
+  .controller('activityBillCtrl', function($scope, Account, $ionicPopup, ionicDatePicker) {
+    $scope.billList = Account.getAll();
 
     $scope.addBill = function () {
       $scope.data = {}
@@ -2194,7 +2194,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       //   new Date("08-16-2016"),
       //   new Date(1439676000000)
       // ],
-      // from: new Date(2017, 1, 1), //Optional
+       from: new Date(1990, 1, 1), //Optional
       to: new Date(2020, 10, 30), //Optional
       inputDate: new Date(),      //Optional
       mondayFirst: false,          //Optional
