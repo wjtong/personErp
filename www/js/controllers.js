@@ -1035,6 +1035,8 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
 })
 //新建活动
 .controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location,Activity,$ionicModal,ThemeImage,ionicDatePicker, ionicTimePicker) {
+
+/************************** Start 时间日期控件加入 ********************************/
   var ipObj1 = {
     callback: function (val) {  //Mandatory
       var selectDate = new Date(val);
@@ -1081,8 +1083,6 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     }
   };
 
-
-
   $scope.openTimePicker = function(startOrend){
     if(startOrend == 'start'){
       ionicTimePicker.openTimePicker(ipObj3);
@@ -1090,6 +1090,8 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       ionicTimePicker.openTimePicker(ipObj4);
     }
   };
+
+/************************** End 时间日期控件加入 ********************************/
 
 
 
