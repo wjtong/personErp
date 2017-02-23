@@ -722,7 +722,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('ActivityDiscuss',function ($scope, $rootScope,$stateParams,Activity) {
   var id=$stateParams.id
   $scope.discussList=Activity.getActivityInfo(id);
-
 })
 
 //浮动框的弹出

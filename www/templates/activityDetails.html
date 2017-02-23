@@ -13,16 +13,13 @@
   </ion-nav-bar>
   <ion-content >
       <div class="list"   >
-        <div class="item">
+        <div class="item" style="position: relative">
           <img ng-src="{{activityList.img}}" style="width: 100%;height: 200px;margin: 0"/>
-        </div>
-        <div class="item">
-          <label class="">
-            <p><b>活动安排：{{activityList.title}}</b></p>
-            时间：{{activityList.createTime}}
-            组织者：{{activityList.name}}
-            <p style="text-align:right"><button class="button button-small button-clear button-positive "  ng-click="showDiscuss()">3条评论</button></p>
-          </label>
+          <div style="position: absolute;top: 60%;right: 10%">
+            <p style="color: white;font-size: larger"><b>活动安排：{{activityList.title}}</b></p>
+            <p style="color: white">时间：{{activityList.createTime}}</p>
+            <p style="color: white">组织者：{{activityList.name}}</p>
+          </div>
         </div>
         <div class="list list-left-editing" style="display: none;" id="discuss">
           <ion-list>
@@ -44,7 +41,12 @@
             <i class="icon ion-ios-clock"> {{activityList.createTime}}  {{activityList.time}}</i>
             <br>
             <i class="icon ion-ios-location"> {{activityList.address}}  {{activityList.addressDet}}</i>
+            <p style="text-align:right;float: right;margin: 0"><button class="button button-small button-clear button-positive "  ng-click="showDiscuss()">3条评论</button></p>
           </label>
+        </div>
+        <div class="item">
+          <b>详细信息</b>
+          <p style="word-wrap : break-word">&nbsp;&nbsp;{{activityList.information}}</p>
         </div>
         <div class="item" ng-if="childActivity">
           <p style="float: left"><b>子活动</b></p>
