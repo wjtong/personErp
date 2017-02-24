@@ -742,6 +742,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
+    //活动账单的添加页面
+    .state('app.addPersonBill', {
+      url: '/addPersonBill/',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/addPersonBill.html',
+          controller: 'addPersonBillCtrl'
+        }
+      }
+    })
 
   ;
   // if none of the above states are matched, use this as the fallback
