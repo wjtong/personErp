@@ -2034,13 +2034,13 @@ angular.module('starter.services', [])
     //var url = "http://localhost:3400/personContacts/control/";
 
     var accountList = [
-      {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',money:'500',date:'2017-2-21'},
-      {id:'PERS_10002',img:'img/team/shenyinling.png',name:'沈寅麟',money:'300',date:'2017-2-22'},
-      {id:'PERS_10004',img:'img/team/wangkun.jpg',name:'王坤',money:'800',date:'2017-2-23'},
-      {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',money:'600',date:'2017-2-21'},
-      {id:'PERS_10006',img:'',name:'苏本坤',money:'200',date:'2017-2-21'},
-      {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',money:'50',date:'2017-2-21'},
-      {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',money:'900',date:'2017-2-23'}
+      {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',money:'500',money2:200,date:'2017-2-21'},
+      {id:'PERS_10002',img:'img/team/shenyinling.png',name:'沈寅麟',money:'300',money2:100,date:'2017-2-22'},
+      {id:'PERS_10004',img:'img/team/wangkun.jpg',name:'王坤',money:'800',money2:300,date:'2017-2-23'},
+      {id:'PERS_10005',img:'img/team/lining.jpg',name:'李宁',money:'600',money2:300,date:'2017-2-21'},
+      {id:'PERS_10006',img:'',name:'苏本坤',money:'200',money2:300,date:'2017-2-21'},
+      {id:'PERS_10007',img:'img/team/chenyu.jpg',name:'陈宇',money:'50',money2:300,date:'2017-2-21'},
+      {id:'PERS_10008',img:'img/team/jinlongxi.png',name:'金龙熙',money:'900',money2:300,date:'2017-2-23'}
     ];
     return {
       //获得联系人(联动)
