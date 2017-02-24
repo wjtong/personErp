@@ -20,6 +20,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
   });
 })
 .config(function (ionicDatePickerProvider,$ionicConfigProvider) {
@@ -36,7 +37,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     from: new Date(2017, 1, 1),
     to: new Date(2030, 8, 1),
     showTodayButton: true,
-    dateFormat: 'yyyy-MM-dd',
+    dateFormat: 'yyyy/MM/dd',
     closeOnSelect: false,
     disableWeekdays: []
   };

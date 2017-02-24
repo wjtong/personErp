@@ -4,27 +4,27 @@
       <div class="list card">
         <div class="item">
           <label class="">
-            <input type="text" placeholder="活动标题" value="{{myActivtyList.title}}" style="width: 100%">
+            <input type="text" placeholder="活动标题" value="{{myActivtyList.title}}" style="width: 100%"  ng-model="ActivityData.workEffortName">
           </label>
         </div>
         <div class="item">
             <!--<button class="button button-assertive" id="startDate">活动开始日期</button>-->
             <!--<button class="button button-assertive" id="startTime">活动开始时间</button>-->
-            <input type="text" placeholder="活动开始日期" value="{{myActivtyList.createTime}}" style="width: 45%;display: inline-block" id="startDate" ng-click="openDatePicker('start')">
-            <input type="text" placeholder="活动开始时间" value="{{myActivtyList.createTime}}" style="width: 45%;float: right;" id="startTime" ng-click="openTimePicker('start')">
+            <input type="text" placeholder="活动开始日期" value="{{myActivtyList.createTime}}" style="width: 45%;display: inline-block" id="startDate" ng-click="openDatePicker('start')" >
+            <input type="text" placeholder="活动开始时间" value="{{myActivtyList.createTime}}" style="width: 45%;float: right;" id="startTime" ng-click="openTimePicker('start')" ng-model="ActivityData.startTime">
         </div>
         <div class="item">
-            <input type="text" placeholder="活动结束日期" value="" style="width: 45%;display: inline-block" id="endDate" ng-click="openDatePicker('end')">
-            <input type="text" placeholder="活动结束时间" value="" style="width: 45%;float: right;" id="endTime" ng-click="openTimePicker('end')">
+            <input type="text" placeholder="活动结束日期" value="" style="width: 45%;display: inline-block" id="endDate" ng-click="openDatePicker('end')" >
+            <input type="text" placeholder="活动结束时间" value="" style="width: 45%;float: right;" id="endTime" ng-click="openTimePicker('end')" ng-model="ActivityData.endTime">
         </div>
         <div class="item">
           <label class="">
-            <input type="text" placeholder="活动举办地点" value="{{myActivtyList.address}}{{myActivtyList.addressDet}}" style="width: 100%">
+            <input type="text" placeholder="活动举办地点" value="{{myActivtyList.address}}{{myActivtyList.addressDet}}" style="width: 100%" ng-model="ActivityData.address">
           </label>
         </div>
         <div class="item">
           <label class="">
-            <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动" >{{myActivtyList.information}}</textarea>
+            <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动" ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
           </label>
         </div>
         <div class="item item-select" style="margin: -17px 0px;">
@@ -79,7 +79,7 @@
     <div class="row">
       <div class="col">
         <div class="col-demo">
-          <button class="button button-positive" style="width: 100%;">提交</button>
+          <button class="button button-positive" style="width: 100%;" ng-click="createNewActivity()">提交</button>
         </div>
       </div>
       <div class="col">

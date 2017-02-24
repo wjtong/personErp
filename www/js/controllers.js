@@ -20,7 +20,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   });
 
   if(localStorage['partyId'] == null){
-    localStorage['partyId'] = 'zhangwenwen';
+    localStorage['partyId'] = 'jinlongxi';
   }
   $rootScope.partyId = localStorage['partyId'];
 
@@ -722,6 +722,32 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 .controller('ActivityDiscuss',function ($scope, $rootScope,$stateParams,Activity) {
   var id=$stateParams.id
   $scope.discussList=Activity.getActivityInfo(id);
+  //融云初始化
+  alert('连接融云')
+  RongCloudLibPlugin.init({
+      appKey: 'z3v5yqkbzfup0'},
+    function(ret, err){
+      alert('融云初始化状态:'+ret.status);
+      if (ret.status == 'error')
+        alert(err.code);
+    });
+  //连接融云
+  RongCloudLibPlugin.connect({
+      token: 'qjS0KXGHOGE3sOm0vSXRxwvlHRTZ6CzKR21cRT0lXGG3FC6of4MnjBXOIsxdbSmG5oSPZ5cfNejqUaRhxZpT4GsVsESawrMc'},
+    function(ret, err){
+      alert('融云连接状态:'+ret.status);
+      if (ret.status == 'success')
+        alert('当前用户ID:'+ret.result.userId);
+    });
+  //获取当前用户信息
+  RongCloudLibPlugin.getCurrentUserId( function (ret, err) {
+    alert('当前连接用户:'+ret.result);
+  })
+  //设置连接状态监听器
+  RongCloudLibPlugin.setConnectionStatusListener(function(ret, err){
+    alert('当前连接状态:'+ret.result.connectionStatus);
+  });
+
 })
 
 //浮动框的弹出
@@ -1033,7 +1059,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.businessImgList=ThemeImage.getBusinessImg()
 })
 //新建活动
-.controller('NewActivity',function ($scope,$cordovaCamera,$cordovaImagePicker,$ionicPopup,$location,Activity,$ionicModal,ThemeImage,ionicDatePicker, ionicTimePicker) {
+.controller('NewActivity',function ($scope,$rootScope,$cordovaCamera,$cordovaImagePicker,newActivity,$ionicPopup,$location,Activity,$ionicModal,ThemeImage,ionicDatePicker, ionicTimePicker) {
 
 /************************** Start 时间日期控件加入 ********************************/
   var ipObj1 = {
@@ -1066,7 +1092,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
         console.log('Time not selected');
       } else {
         var selectedTime = new Date(val * 1000);
-        $("#startTime").val(selectedTime.getUTCHours()+":"+selectedTime.getUTCMinutes());
+        $("#startTime").val(selectedTime.getUTCHours()+":"+selectedTime.getUTCMinutes()+":"+"00");
       }
     }
   };
@@ -1077,7 +1103,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
         console.log('Time not selected');
       } else {
         var selectedTime = new Date(val * 1000);
-        $("#endTime").val(selectedTime.getUTCHours()+":"+selectedTime.getUTCMinutes());
+        $("#endTime").val(selectedTime.getUTCHours()+":"+selectedTime.getUTCMinutes()+":"+"00");
       }
     }
   };
@@ -1235,8 +1261,36 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.closeNewTask = function() {
     $scope.taskModal.hide();
   }
-  $scope.shareImgList=ThemeImage.getShareImg()
+  $scope.shareImgList=ThemeImage.getShareImg();
+  //新建活动
+  $scope.ActivityData={};
+  $scope.createNewActivity=function(){
+        $scope.ActivityData.startDate=$("#startDate").val()+" "+$("#startTime").val();
+        $scope.ActivityData.endDate=$("#endDate").val()+" "+$("#endTime").val();
+        console.log(
+          $rootScope.partyId,
+          $scope.ActivityData.workEffortName,
+          $scope.ActivityData.startDate,
+          $scope.ActivityData.endDate,
+          $scope.ActivityData.address,
+          $scope.ActivityData.information
+        );
+    newActivity.createActivity(
+      $rootScope.partyId,
+      $scope.ActivityData.workEffortName,
+      $scope.ActivityData.startDate,
+      $scope.ActivityData.endDate,
+      $scope.ActivityData.address,
+      $scope.ActivityData.information,
+      function(data){
+        $scope.message=data;
+        console.log(data)
+      }
+    )
+  }
 })
+
+//新建开发订单
 .controller('NewDevOrder',function ($scope,$cordovaCamera) {
   $scope.imageSrc = "";
   $scope.takePhoto=function(){
@@ -2107,8 +2161,8 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
 
 
   //活动账单的展示页面
-  .controller('activityBillCtrl', function($scope, Account, $ionicPopup, ionicDatePicker) {
-    $scope.billList = Account.getAll();
+  .controller('activityBillCtrl', function($scope, Contact, $ionicPopup, ionicDatePicker) {
+    $scope.personList = Contact.getAll();
 
     $scope.addBill = function () {
       $scope.data = {}
@@ -2194,7 +2248,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       //   new Date("08-16-2016"),
       //   new Date(1439676000000)
       // ],
-       from: new Date(1990, 1, 1), //Optional
+      // from: new Date(2017, 1, 1), //Optional
       to: new Date(2020, 10, 30), //Optional
       inputDate: new Date(),      //Optional
       mondayFirst: false,          //Optional
