@@ -2059,7 +2059,9 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     $scope.goInfo = function (orderId) {
       $location.path('/app/receiveOrderInfo/'+orderId);
     }
-}).controller('ReceiveOrderInfo',function ($scope, $stateParams,$ionicModal, MyOrder,MyOrderInfo) {
+})
+
+  .controller('ReceiveOrderInfo',function ($scope, $stateParams,$ionicModal, MyOrder,MyOrderInfo) {
     var orderId = $stateParams.orderId;
     $scope.orderInfo = MyOrder.getPurOrderInfo(orderId);
     $scope.itemList = MyOrderInfo.getInfo(orderId);
@@ -2107,75 +2109,11 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
 
 
   //活动账单的展示页面
-  .controller('activityBillCtrl', function($scope, Account, $ionicPopup, ionicDatePicker) {
+  .controller('activityBillCtrl', function($scope, Account, $ionicPopup,Contact, ionicDatePicker,$state) {
     $scope.billList = Account.getAll();
 
     $scope.addBill = function () {
-      $scope.data = {}
-      // 一个精心制作的自定义弹窗
-      var myPopup = $ionicPopup.show({
-        template: '<input type="text" ng-model="data.name"  placeholder="姓名" required style="text-align: center">'
-                  +'<input type="text" ng-model="data.money"  placeholder="请输入金额" required style="text-align: center">'
-                  +'<input ng-model="mydate"  placeholder="请输入时间" id="mydate"  style="text-align: center" ng-click="openDatePicker()">',
-
-        title: '账单的录入',
-        scope: $scope,
-        buttons: [
-          {
-            text: '取消',
-            type: 'button-positive'
-          },
-          {
-            text: '<b>确定</b>',
-            type: 'button-positive',
-            onTap: function (e) {
-              if (!$scope.data.money) {
-                //为了避免用户填入空的内容，我循环死你，让你对着干。。
-                e.preventDefault();
-                $ionicPopup.alert({
-                  title: "温馨提示",
-                  template: "请将内容填写完整",
-                  okText: "确定",
-                })
-              } else {
-                //将文本框中的内容返回回去哈，不然得不到所填的内容
-                  var obj={"money":$scope.data.money,"name":$scope.data.name};
-                return obj;
-              }
-            }
-          },
-        ]
-      });
-      //弹出框弹出后的验证
-      myPopup.then(function (res) {
-        //正则验证输入金额是否合法
-        if (res) {//判断所选的是确定还是取消
-          var name=res.name;
-          var money=res.money;
-          alert(name);
-          alert(money);
-          var moneyReg = /^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/;
-          if (moneyReg.test(res.money)) {
-            if (res.money > 0) {//如果输入的金额大于0的话，说明输入的数字是正确的，什么也不提示
-
-            } else {
-              $ionicPopup.alert({
-                title: "温馨提示",
-                template: "您输入的数字没有意义",
-                okText: "确定",
-              })
-            }
-          } else {
-            $ionicPopup.alert({
-              title: "温馨提示",
-              template: "金额输入有误,请重新输入",
-              okText: "确定",
-            })
-          }
-
-        }
-
-      });
+      $state.go("app.addPersonBill");
     };
 
     var ipObj1 = {
@@ -2205,6 +2143,28 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     $scope.openDatePicker = function(){
       ionicDatePicker.openDatePicker(ipObj1);
     };
+
+
+  })
+   //添加账单的控制
+  .controller('addPersonBillCtrl', function($scope,Contact, ionicDatePicker,$state,$ionicModal) {
+    $scope.plist=Contact.getAll();
+    $ionicModal.fromTemplateUrl('templates/radioPersonList.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+
+    $scope.selectOne=function(person){
+      //将选择的值放入到页面里面
+      $("#pname").val(person.name);
+      //选择完成之后就将模态框关掉
+      $scope.modal.hide();
+    }
 
   })
 
