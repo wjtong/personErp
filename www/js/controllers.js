@@ -491,7 +491,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.typeCollect='collect';
   $scope.goInfo=function (type) {
     $location.path("/app/activityList/"+type);
-  }
+  };
+  //由我组织
+  $(document).ready(function(){
+    $("#jinlongxi").css("display", "");
+  });
 })
 //由我组织的活动
 .controller('ActivityList',function($scope,Activity,$location,$rootScope,$stateParams){
@@ -1117,9 +1121,6 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   };
 
 /************************** End 时间日期控件加入 ********************************/
-
-
-
   //选择插入图片方式
   $scope.selectImg = function() {
     $scope.data = {}
@@ -1244,10 +1245,11 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.inviteFriends=function (type) {
     $scope.modal.show();
     if(type='invite'){
-      alert(type)
-      document.getElementById("invite").style.display="none"
+      $(document).ready(function(){
+        $("#invite").css("display", "none");
+      });
     }
-  }
+  };
   //分享好友
   $ionicModal.fromTemplateUrl('templates/shareAvtivity.html', function(modal) {
     $scope.taskModal = modal;
@@ -1262,7 +1264,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     $scope.taskModal.hide();
   }
   $scope.shareImgList=ThemeImage.getShareImg();
-  //新建活动
+  //新建活动连接后台
   $scope.ActivityData={};
   $scope.createNewActivity=function(){
         $scope.ActivityData.startDate=$("#startDate").val()+" "+$("#startTime").val();
@@ -1287,6 +1289,57 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
         console.log(data)
       }
     )
+  }
+  //可见范围
+  $scope.visualRange=function () {
+    $location.path('/app/visualRange/');
+  }
+})
+
+//新建活动可见范围
+
+.controller('VisualRange',function ($scope,$ionicModal,$ionicPopup) {
+  $scope.clientSideList = [
+    { text: "公开", value: "all" },
+    { text: "仅自己", value: "me" },
+    { text: "部分可见", value: "part" }
+  ];
+  //默认选中
+  $scope.data = {
+    clientSide: 'all'
+  };
+  $scope.lable=false;
+  $scope.serverSideChange=function(item){
+    if(item == 'part'){
+      $scope.lable=true;
+    }else{
+      $scope.lable=false;
+    }
+  };
+  $scope.devList = [
+    { text: "亲人", checked: true ,person:''},
+    { text: "同学", checked: false ,person:''},
+    { text: "上海班富", checked: false,person:'金龙熙，李宁，王坤，沈演麟' }
+  ];
+  //添加新范围
+  $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', function (modal) {
+    $scope.modal = modal;
+  }, {
+    animation: 'slide-in-up',
+    focusFirstInput: true
+  });
+  $scope.inviteFriends=function (type) {
+    $scope.modal.show();
+    if(type='invite'){
+      $(document).ready(function(){
+        $("#invite").css("display", "none");
+        $("#createLable").css("display", "block");
+        $("#newLable").css("display", "block");
+      });
+    }
+  };
+  //创建新的标签
+  $scope.newLable=function(){
   }
 })
 

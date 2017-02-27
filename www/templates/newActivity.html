@@ -27,15 +27,10 @@
             <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动" ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
           </label>
         </div>
-        <div class="item item-select" style="margin: -17px 0px;">
+        <div class="item" ng-click="visualRange()">
           <label class="">
-            <span class="input-label">可见范围</span>
-            <select>
-              <option value="1">仅好友</option>
-              <option value="2" >全局可见</option>
-              <option value="3" >上海班富(标签)</option>
-              <option value="2" >同学(标签)</option>
-            </select>
+            <span class="input-label" style="float: left">可见范围</span>
+            <span class="input-label" style="float: right;text-align: right">公开</span>
           </label>
         </div>
         <div class="item">

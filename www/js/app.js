@@ -535,7 +535,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-
+    .state('app.visualRange',{
+      url:'/visualRange/',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/visualRange.html',
+          controller: 'VisualRange'
+        }
+      }
+    })
     .state('app.chatList',{
       url:'/chatList',
       disableBack:true,

@@ -19,7 +19,7 @@
         <div class="content-bar" >
           <h3>圈内热门</h3>
         </div>
-        <ion-scroll direction="x" class="wide-as-needed">
+        <ion-scroll direction="x" class="wide-as-needed" style="position: relative">
           <a class="button ng-binding" ng-repeat="matter in active" ng-click="activityDetails(matter.id)">
             <img ng-src="{{matter.img}}" style="width:260px;height:200px" >
             <div class="huodong" >
@@ -35,6 +35,9 @@
               <p class="tab-item">
                 感兴趣：120位
               </p>
+            </div>
+            <div id="{{matter.organizer}}" style="display: none">
+              <p style="color: yellow;width: 70px;position: absolute;top: 0;right: 5%;">由我组织</p>
             </div>
           </a>
         </ion-scroll>

@@ -1,0 +1,33 @@
+<ion-view view-title="可见范围">
+    <ion-content>
+      <div class="list">
+        <div class="item">
+          <ion-radio ng-repeat="item in clientSideList"
+                     ng-value="item.value" ng-model="data.clientSide" ng-change="serverSideChange(item.value)">
+            {{ item.text }}
+          </ion-radio>
+        </div>
+        <div class="item" style="border: 0" ng-if="lable">
+          <ion-checkbox ng-repeat="item in devList" style="border: 0">
+            {{ item.text }} <p style="text-indent: 8px">{{item.person}}</p>
+          </ion-checkbox>
+          <div>
+            <p style="text-align: right;color: #0a9dc7" ng-click="inviteFriends()">添加新的范围</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="col-demo">
+            <button class="button button-positive" style="width: 100%;" >确定</button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="col-demo">
+            <button class="button button-assertive" style="width: 100%;">取消</button>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+</ion-view>
+
