@@ -1,0 +1,16 @@
+<ion-view view-title="活动项">
+  <ion-content>
+    <div class="list" ng-repeat="item in activityItemList.item">
+      <div class="item">
+        <div style="float: left">
+          <p><b>时间:&nbsp;&nbsp;{{item.date}}&nbsp;&nbsp;{{item.time}}</b>&nbsp;&nbsp;</p>
+          <p><b>安排:{{item.plan}}&nbsp;&nbsp;</b><b>费用:{{item.price}}</b></p>
+        </div>
+        <div style="float:right">
+          <button class="button  button-positive">参与</button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+

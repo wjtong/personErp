@@ -1,20 +1,15 @@
 <ion-modal-view ng-controller="floatCtrl">
   <ion-header-bar>
-    <button class="button button-icon ion-plus-round " id="createLable" style="display: none" menu-toggle="left" ng-click="newLable()">
-      创建
-    </button>
+    <!--<button class="button button-icon ion-plus-round " id="createLable" style="display: none" menu-toggle="left" ng-click="openModal()">-->
+      <!--确定-->
+    <!--</button>-->
     <button class="button button-icon  " menu-toggle="left" ng-click="closeModal()">
       <i class="ion-close"></i>
     </button>
   </ion-header-bar>
   <ion-content>
     <div class="list card cardupdate" style="margin: 5px 10px;">
-      <div class="item" style="margin: -17px 0px;">
-          <div class="list" id="newLable" style="display: none">
-            <label>
-              <input type="text" placeholder="请输入新的标签名称"  style="width: 100%"  >
-            </label>
-          </div>
+      <div class="item" style="margin: -17px 0">
           <div class="list"  ng-controller="selectAllCtrl">
             <ion-list>
               <label><ion-checkbox ng-model="qx" ng-click="selectAll(plist)">全选/全不选</ion-checkbox></label>
@@ -31,6 +26,18 @@
                 <div class="col">
                   <div class="col-demo">
                     <button class="button button-positive" style="width: 100%;" ng-click="takeMoney()">筹款</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="col-demo">
+                    <button class="button button-positive" style="width: 100%;">取消</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row" id="addPeron">
+                <div class="col">
+                  <div class="col-demo">
+                    <button class="button button-positive" style="width: 100%;" ng-click="">添加</button>
                   </div>
                 </div>
                 <div class="col">

@@ -491,6 +491,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+  .state('app.activityItem', {
+    url: '/activityItem/:id',
+    disableBack:true,
+    cache :false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/activityItem.html',
+        controller:'ActivityItem'
+      }
+    }
+  })
   .state('app.editActivty', {
     url: '/editActivty/:id',
     disableBack:true,

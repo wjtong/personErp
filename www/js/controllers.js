@@ -709,6 +709,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.activityDiscuss=function(id){
     $location.path("/app/activityDiscuss/"+id);
   }
+  //活动项
+  $scope.activityItem=function(id){
+    $location.path("/app/activityItem/"+id);
+  }
 })
 
 //照片墙（大图片）
@@ -752,6 +756,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     alert('当前连接状态:'+ret.result.connectionStatus);
   });
 
+})
+//活动讨论
+.controller('ActivityItem',function ($scope, $rootScope,$stateParams,Activity) {
+  var id=$stateParams.id;
+  $scope.activityItemList=Activity.getActivityInfo(id);
 })
 
 //浮动框的弹出
@@ -1322,24 +1331,58 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     { text: "上海班富", checked: false,person:'金龙熙，李宁，王坤，沈演麟' }
   ];
   //添加新范围
-  $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', function (modal) {
+  $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
     $scope.modal = modal;
-  }, {
-    animation: 'slide-in-up',
-    focusFirstInput: true
   });
-  $scope.inviteFriends=function (type) {
-    $scope.modal.show();
-    if(type='invite'){
-      $(document).ready(function(){
-        $("#invite").css("display", "none");
-        $("#createLable").css("display", "block");
-        $("#newLable").css("display", "block");
-      });
-    }
+  $scope.openModal = function() {
+    alert('1234')
+    $scope.modal.hide();
   };
-  //创建新的标签
-  $scope.newLable=function(){
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+  //创建标签
+  $scope.showAddLab = function() {
+    $scope.data = {};
+    var myPopup = $ionicPopup.show({
+      template:
+      '<input type="text" ng-model="data.addLabel"/>' +
+      '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">关闭</button>' ,
+      title: '创建标签',
+      scope: $scope
+    });
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+    $scope.addLab = myPopup;
+  };
+  $scope.createLabel = function () {
+    $scope.addLab.close();
+    $scope.modal.show();
+    $(document).ready(function(){
+      $("#invite").css("display", "none");
+      $("#createLable").css("display", "block");
+      $("#newLable").css("display", "block");
+    });
+  };
+  $scope.closeLab = function () {
+    $scope.addLab.close();
   }
 })
 
