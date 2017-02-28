@@ -100,7 +100,7 @@
   </ion-content>
   <br>
   <br>
-  <div class="bar bar-footer" style="margin-left: -6px;">
+  <div class="bar bar-footer" style="margin-left: -6px;" ng-if="myActivity">
     <div class="tab-nav tabs">
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeMy)">
         <i class="icon ion-chatbubble-working" style="line-height: 14px;">
@@ -115,6 +115,25 @@
       <div  style="float:right">
         <button class="button  button-positive ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="showPopup()">我要报名</button>
       </div>
+    </div>
+  </div>
+  <div class="bar bar-footer" style="margin-left: -6px;" ng-if="childActivity">
+    <div class="tab-nav tabs">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ui-sref="app.newActivity">
+        <i class="icon ion-merge" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">发布子活动</span>
+      </a>
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="newActivityItem()">
+        <i class="icon icon-left ion-steam" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;">新建活动项</span>
+      </a>
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="editActivty(activityList.id)">
+        <i class="icon icon-left ion-network" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;" >编辑活动</span>
+      </a>
     </div>
   </div>
 </ion-view>

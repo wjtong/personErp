@@ -27,16 +27,16 @@
             <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动" ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
           </label>
         </div>
-        <div class="item" ng-click="visualRange()">
+        <div class="item" ng-click="visualRange()" >
           <label class="">
-            <span class="input-label" style="float: left">可见范围</span>
-            <span class="input-label" style="float: right;text-align: right">公开</span>
+            <span class="input-label" style="float: left" >可见范围</span>
+            <input id="range" class="input-label" style="float: right;text-align: right;border: 0;width: 100%" value="">
           </label>
         </div>
         <div class="item">
           <label>
             <button class="button button-block button-stable" ng-click="selectImg()">添加背景图片</button>
-            <img ng-src="{{imageSrc}}{{myActivtyList.img}}"  id="myImage" >
+            <img ng-src="{{imageSrc}}{{myActivtyList.img}}"  id="myImage">
           </label>
         </div>
         <div class="item" >

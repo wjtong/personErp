@@ -520,16 +520,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   $scope.goInfo=function(id){
     $location.path("/app/activityDetails/"+id);
   };
-  //编辑活动
-  $scope.editActivty=function(id){
-    $location.path("/app/editActivty/"+id);
-  };
-  //发布子活动
-  $scope.newActivity=function () {
-    $location.path('/app/newActivity')
-  };
 })
-  //活动投票
+//活动投票
 .controller('ActivtyVode',function($scope){
   $scope.vote=function(){
     for(var i = 0; i < document.getElementsByName("option").length; i++){
@@ -545,7 +537,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
     }
   }
 })
-  //活动详情
+//活动详情
 .controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
@@ -708,11 +700,53 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
   //活动讨论
   $scope.activityDiscuss=function(id){
     $location.path("/app/activityDiscuss/"+id);
-  }
+  };
   //活动项
   $scope.activityItem=function(id){
     $location.path("/app/activityItem/"+id);
+  };
+  //判断是否是组织者 界面调整
+  $scope.myActivity=true;
+  $scope.childActivity=false;
+  if($scope.activityList.organizer=='jinlongxi'){
+    $scope.myActivity=false;
+    $scope.childActivity=true;
   }
+  //新建活动项
+  $scope.newActivityItem=function () {
+    $scope.itemData = {};
+    var itemPopup = $ionicPopup.show({
+      template:
+      '<input type="text" placeholder="时间"><br>'+
+      '<input type="text" placeholder="安排"><br>'+
+      '<input type="text" placeholder="费用"><br>'+
+      '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>' ,
+      title: '新建活动项',
+      scope: $scope
+    });
+    itemPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+    $scope.addLab = itemPopup;
+  };
+  $scope.createLabel = function () {
+    if($scope.data.addLabel == null || $scope.data.addLabel == ''){
+    }else{
+      PersonLabel.addPersonLab($scope.data.addLabel);
+      $scope.addLab.close();
+      PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+        $scope.labelList = data;
+      });
+    }
+  };
+  $scope.closeLab = function () {
+    $scope.addLab.close();
+  };
+  //编辑活动
+  $scope.editActivty=function(id){
+    $location.path("/app/editActivty/"+id);
+  };
 })
 
 //照片墙（大图片）
@@ -1072,7 +1106,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.businessImgList=ThemeImage.getBusinessImg()
 })
 //新建活动
-.controller('NewActivity',function ($scope,$rootScope,$cordovaCamera,$cordovaImagePicker,newActivity,$ionicPopup,$location,Activity,$ionicModal,ThemeImage,ionicDatePicker, ionicTimePicker) {
+.controller('NewActivity',function ($scope,$rootScope,$stateParams,$cordovaCamera,$cordovaImagePicker,newActivity,$ionicPopup,$location,Activity,$ionicModal,ThemeImage,ionicDatePicker, ionicTimePicker) {
 
 /************************** Start 时间日期控件加入 ********************************/
   var ipObj1 = {
@@ -1302,12 +1336,40 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   //可见范围
   $scope.visualRange=function () {
     $location.path('/app/visualRange/');
+  };
+  //选定可见范围
+  $scope.clientSideList = [
+    { text: "公开", value: "all" },
+    { text: "仅自己", value: "me" },
+    { text: "部分可见", value: "part" }
+  ];
+  var range=$stateParams.range;
+  if(range=='all'||range=='me'){
+    for(var i=0;i<$scope.clientSideList.length;i++){
+      if($scope.clientSideList[i].value==range){
+        var rangeText=$scope.clientSideList[i].text;
+        $(document).ready(function(){
+          $("#range").val(rangeText)
+        });
+      }
+    }
+  }else{
+    if(range){
+      var rangeArr = range.split(',');
+      $(document).ready(function(){
+        $("#range").val(rangeArr)
+      });
+    }else{
+      $(document).ready(function(){
+        $("#range").val('公开')
+      });
+    }
   }
 })
 
 //新建活动可见范围
 
-.controller('VisualRange',function ($scope,$ionicModal,$ionicPopup) {
+.controller('VisualRange',function ($scope,$ionicModal,$ionicPopup,$location,$stateParams) {
   $scope.clientSideList = [
     { text: "公开", value: "all" },
     { text: "仅自己", value: "me" },
@@ -1383,6 +1445,22 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   };
   $scope.closeLab = function () {
     $scope.addLab.close();
+  };
+  //确定范围返回新建活动界面
+  $scope.selectRange=function () {
+    var value=$scope.data.clientSide;
+    if(value!='part'){
+      $location.path("/app/rangeActivity/"+value);
+    }else{
+      var selectedList=[];
+      for(var i=0;i<$scope.devList.length;i++){
+        if($scope.devList[i].checked==true){
+          selectedList.push($scope.devList[i].text);
+        }
+      }
+      console.log(selectedList);
+      $location.path("/app/rangeActivity/"+selectedList);
+    }
   }
 })
 
@@ -1415,9 +1493,11 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     });
   };
 })
+//编辑活动
 .controller('EditActivity',function($scope,$stateParams,Activity,$ionicPopup,$cordovaCamera,$cordovaImagePicker){
   var id=$stateParams.id;
   $scope.myActivtyList=Activity.getActivityInfo(id);
+
   //选择插入图片方式
   $scope.selectImg = function() {
     $scope.data = {}
@@ -1510,6 +1590,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     $scope.statusPopup.close();
   }
 })
+//我的订单
 .controller('MyOrder',function ($scope,$location, $ionicPopup, MyOrder,$stateParams) {
     var personName = $stateParams.personName;
     $scope.personName=personName
