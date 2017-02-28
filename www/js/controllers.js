@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-timepicker'])
+angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope,$ionicPopover) {
 
@@ -2236,27 +2236,6 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       $scope.orderInfoConfirm.show();
     }
 })
-
-  .controller('editVoteCtrl', function($scope) {
-
-    $scope.addVotes = function () {
-      $("#votes").append("" +
-        "<textarea style='display: inline-block;width: 80%'></textarea>" +
-        "<img src='img/delNode.gif' onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><br>" +
-        "");
-    };
-  })
-
-  .controller('castVoteCtrl', function($scope) {
-
-  })
-
-
-  .controller('voteListCtrl', function($scope) {
-
-  })
-
-
 
   //活动账单的展示页面
   .controller('activityBillCtrl', function($scope, Account, $ionicPopup,Contact, ionicDatePicker,$state) {
