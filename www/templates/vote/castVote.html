@@ -1,17 +1,57 @@
 <ion-view view-title="投票">
   <ion-content>
 
-    <div class="list">
+    <ion-list>
       <div class="item item-text-wrap">优先选择攀登的山峰</div>
-      <ion-checkbox ng-model="filter.red">北岳恒山<i class="badge badge-balanced">10 票</i></ion-checkbox>
-      <ion-checkbox ng-model="filter.yellow">西岳华山<i class="badge badge-balanced">10 票</i></ion-checkbox>
-      <ion-checkbox ng-model="filter.pink">中岳嵩山<i class="badge badge-balanced">10 票</i></ion-checkbox>
-      <ion-checkbox ng-model="filter.pinks">东岳泰山<i class="badge badge-balanced">10 票</i></ion-checkbox>
-      <ion-checkbox ng-model="filter.pinksss">南岳衡山<i class="badge badge-balanced">10 票</i></ion-checkbox>
+        <ion-checkbox ng-model="filter.red">
+          北岳恒山
+          <i class="badge badge-balanced">10 票</i>
+        </ion-checkbox>
+
+        <ion-checkbox ng-model="filter.red1">
+          西岳华山
+          <i class="badge badge-balanced">10 票</i>
+        </ion-checkbox>
+        <ion-checkbox ng-model="filter.red2">
+          中岳嵩山
+          <i class="badge badge-balanced">10 票</i>
+        </ion-checkbox>
+        <ion-checkbox ng-model="filter.red3">
+          东岳泰山
+          <i class="badge badge-balanced">10 票</i>
+        </ion-checkbox>
+        <ion-checkbox ng-model="filter.red4">
+          南岳衡山
+          <i class="badge badge-balanced">10 票</i>
+        </ion-checkbox>
+
       <div class="padding">
         <button class="button button-block button-positive" ng-click="exitLogin()">投票</button>
       </div>
-    </div>
+
+      <div class="list">
+        <div class="item item-divider item-icon-right" ng-click="changeOnOff(onOff)">投票详情 <i class="icon {{onOff==true?'ion-android-arrow-dropdown':'ion-android-arrow-dropup'}}"></i></div>
+        <div ng-show="onOff">
+          <div class="item item-text-wrap">
+            <h2>北岳恒山</h2>
+            <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="top: 16px;max-width: 40px;max-height: 40px;width: 100%;height: 100%;border-radius: 50%;margin-left: 16px;">
+          </div>
+          <div class="item item-text-wrap">
+            <h2>北岳恒山</h2>
+            <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="top: 16px;max-width: 40px;max-height: 40px;width: 100%;height: 100%;border-radius: 50%;margin-left: 16px;">
+          </div>
+          <div class="item item-text-wrap">
+            <h2>北岳恒山</h2>
+            <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="top: 16px;max-width: 40px;max-height: 40px;width: 100%;height: 100%;border-radius: 50%;margin-left: 16px;">
+          </div>
+          <div class="item item-text-wrap">
+            <h2>北岳恒山</h2>
+            <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="top: 16px;max-width: 40px;max-height: 40px;width: 100%;height: 100%;border-radius: 50%;margin-left: 16px;">
+          </div>
+        </div>
+
+      </div>
+    </ion-list>
   </ion-content>
 
 </ion-view>
