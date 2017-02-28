@@ -1822,8 +1822,8 @@ angular.module('starter.services', [])
 })
   //个人信息
 .factory("PersonData", function () {
-    var url = "http://114.215.200.46:3400/personContacts/control/";
-    //var url = "http://localhost:3400/personContacts/control/";
+    //var url = "http://114.215.200.46:3400/personContacts/control/";
+    var url = "http://localhost:3400/personContacts/control/";
     return{
       //获得用户信息（关于我，联系人信息）
         getPersonInfo:function (partyId, cb) {
@@ -1973,7 +1973,8 @@ angular.module('starter.services', [])
 })
 //联系人列表
 .factory('Contact',function () {
-  var url = "http://114.215.200.46:3400/personContacts/control/";
+  //var url = "http://114.215.200.46:3400/personContacts/control/";
+  var url = "http://192.168.3.62:3400/personContacts/control/";
   //var url = "http://localhost:3400/personContacts/control/";
 
   var personmainLists = [
@@ -1994,32 +1995,32 @@ angular.module('starter.services', [])
   ];
   return {
     //获得联系人(联动)
-    // getAll:function (partyId, cb) {
-    //   $.ajax({
-    //     url:url+"findContects",
-    //     data:{partyId:partyId},
-    //     async : false,
-    //     type:'POST',
-    //     success: function(result){
-    //       if(jQuery.type(result) === "string"){
-    //         result =   jQuery.parseJSON(result);
-    //       }
-    //       if(result.resultMap!=null){
-    //         if($.type(cb)==='function' ){
-    //           cb(result.resultMap);
-    //         }
-    //       }
-    //     }
-    //   });
-    // },
-    //获得联系人（死数据）
-    getAll:function(){
-      return personmainLists;
+    getAll:function (partyId, cb) {
+      $.ajax({
+        url:url+"findContacts",
+        data:{partyId:partyId},
+        async : false,
+        type:'POST',
+        success: function(result){
+          if(jQuery.type(result) === "string"){
+            result =   jQuery.parseJSON(result);
+          }
+          if(result.resultMap!=null){
+            if($.type(cb)==='function' ){
+              cb(result.resultMap);
+            }
+          }
+        }
+      });
     },
+    // //获得联系人（死数据）
+    // getAll:function(){
+    //   return personmainLists;
+    // },
     //删除联系人
     deleteContects:function (partyIdTo,partyIdFrom, cb) {
       $.ajax({
-        url:url+"deleteContects",
+        url:url+"deleteContacts",
         data:{
           partyIdTo:partyIdTo,
           partyIdFrom:partyIdFrom
@@ -2113,6 +2114,7 @@ angular.module('starter.services', [])
 .factory('PersonLabel', function () {
   //var url = "http://localhost:3400/personContacts/control/";
   var url = "http://114.215.200.46:3400/personContacts/control/";
+  //var url = "https://192.168.3.62:3400/personContacts/control/";
   return{
     //获得全部标签
     getAllLabl:function (userLoginId, cb) {

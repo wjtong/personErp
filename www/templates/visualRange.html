@@ -1,4 +1,4 @@
-<ion-view view-title="可见范围">
+<ion-modal-view ng-controller="VisualRange">
     <ion-content>
       <div class="list">
         <div class="item">
@@ -12,7 +12,7 @@
         <ion-checkbox ng-repeat="item in devList"
                       ng-model="item.checked"
                       ng-checked="item.checked">
-          {{ item.text }}
+          {{ item.text }} <p style="text-indent: 8px">{{item.person}}</p>
         </ion-checkbox>
         <p style="text-align: right;color: #0a9dc7" ng-click="showAddLab()">添加新的范围</p>
       </div>
@@ -24,10 +24,10 @@
         </div>
         <div class="col">
           <div class="col-demo">
-            <button class="button button-assertive" style="width: 100%;">取消</button>
+            <button class="button button-assertive" style="width: 100%;" ng-click="cancelRange()">取消</button>
           </div>
         </div>
       </div>
     </ion-content>
-</ion-view>
+</ion-modal-view>
 

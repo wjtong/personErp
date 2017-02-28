@@ -472,7 +472,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .state('app.newActivity', {
     url: '/newActivity',
     disableBack:true,
-    cache :false,
+    cache :true,
     views: {
       'menuContent': {
         templateUrl: 'templates/newActivity.html',
@@ -483,7 +483,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .state('app.rangeActivity', {
     url: '/rangeActivity/:range',
     disableBack:true,
-    cache :false,
+    cache :true,
     views: {
       'menuContent': {
         templateUrl: 'templates/newActivity.html',

@@ -213,10 +213,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic-datepicker', 'ionic-t
 
 .controller('ContactlistCtrl', function($scope,Contact,$location,$rootScope) {
     //获得全部联系人
-    // Contact.getAll($rootScope.partyId , function (data){
-    //   $scope.personmainLists = data;
-    // });
-    $scope.personmainLists=Contact.getAll();
+    Contact.getAll($rootScope.partyId , function (data){
+      $scope.personmainLists = data;
+    });
+    // $scope.personmainLists=Contact.getAll();
     //删除联系人
     $scope.deletePerson=function (partyIdFrom) {
       Contact.deleteContects($rootScope.partyId,partyIdFrom,function (data) {
@@ -1334,81 +1334,21 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     )
   }
   //可见范围
-  $scope.visualRange=function () {
-    $location.path('/app/visualRange/');
-  };
-  //选定可见范围
-  $scope.clientSideList = [
-    { text: "公开", value: "all" },
-    { text: "仅自己", value: "me" },
-    { text: "部分可见", value: "part" }
-  ];
-  var range=$stateParams.range;
-  if(range=='all'||range=='me'){
-    for(var i=0;i<$scope.clientSideList.length;i++){
-      if($scope.clientSideList[i].value==range){
-        var rangeText=$scope.clientSideList[i].text;
-        $(document).ready(function(){
-          $("#range").val(rangeText)
-        });
-      }
-    }
-  }else{
-    if(range){
-      var rangeArr = range.split(',');
-      $(document).ready(function(){
-        $("#range").val(rangeArr)
-      });
-    }else{
-      $(document).ready(function(){
-        $("#range").val('公开')
-      });
-    }
-  }
-})
-
-//新建活动可见范围
-
-.controller('VisualRange',function ($scope,$ionicModal,$ionicPopup,$location,$stateParams) {
-  $scope.clientSideList = [
-    { text: "公开", value: "all" },
-    { text: "仅自己", value: "me" },
-    { text: "部分可见", value: "part" }
-  ];
-  //默认选中
-  $scope.data = {
-    clientSide: 'all'
-  };
-  $scope.lable=false;
-  $scope.serverSideChange=function(item){
-    if(item == 'part'){
-      $scope.lable=true;
-    }else{
-      $scope.lable=false;
-    }
-  };
-  $scope.devList = [
-    { text: "亲人", checked: true ,person:''},
-    { text: "同学", checked: false ,person:''},
-    { text: "上海班富", checked: false,person:'金龙熙，李宁，王坤，沈演麟' }
-  ];
-  //添加新范围
-  $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', {
+  $ionicModal.fromTemplateUrl('templates/visualRange.html', {
     scope: $scope,
     animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
+  }).then(function(visual) {
+    $scope.visual = visual;
   });
   $scope.openModal = function() {
-    alert('1234')
-    $scope.modal.hide();
+    $scope.visual.show();
   };
   $scope.closeModal = function() {
-    $scope.modal.hide();
+    $scope.visual.hide();
   };
   //Cleanup the modal when we're done with it!
   $scope.$on('$destroy', function() {
-    $scope.modal.remove();
+    $scope.visual.remove();
   });
   // Execute action on hide modal
   $scope.$on('modal.hidden', function() {
@@ -1418,6 +1358,55 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.$on('modal.removed', function() {
     // Execute action
   });
+  //选定可见范围
+  $scope.visualRange=function () {
+    $scope.visual.show();
+    //$location.path('/app/visualRange/');
+  };
+})
+
+//新建活动可见范围
+.controller('VisualRange',function ($scope,$ionicModal,$ionicPopup,$location) {
+  $scope.clientSideList = [
+    { text: "公开", value: "all" },
+    { text: "仅自己", value: "me" },
+    { text: "部分可见", value: "part" }
+  ];
+  $scope.devList = [
+    { text: "亲人", checked: true ,person:''},
+    { text: "同学", checked: false ,person:''},
+    { text: "上海班富", checked: false,person:'金龙熙，李宁，王坤，沈演麟' }
+  ];
+  //默认选中
+  $scope.data = {
+    clientSide: 'all'
+  };
+  //选中部分可见时显示标签列表
+  $scope.lable=false;
+  $scope.serverSideChange=function(item){
+    if(item == 'part'){
+      $scope.lable=true;
+    }else{
+      $scope.lable=false;
+    }
+  };
+  //关闭模态框
+  $scope.cancelRange=function () {
+    $scope.visual.hide();
+  };
+  //添加新范围
+  $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
   //创建标签
   $scope.showAddLab = function() {
     $scope.data = {};
@@ -1446,22 +1435,39 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.closeLab = function () {
     $scope.addLab.close();
   };
-  //确定范围返回新建活动界面
+  //确定范围传值
   $scope.selectRange=function () {
-    var value=$scope.data.clientSide;
-    if(value!='part'){
-      $location.path("/app/rangeActivity/"+value);
+    var range=$scope.data.clientSide;
+    if(range=='all'||range=='me'){
+      for(var i=0;i<$scope.clientSideList.length;i++){
+        if($scope.clientSideList[i].value==range){
+          var rangeText=$scope.clientSideList[i].text;
+          $(document).ready(function(){
+            $("#range").val(rangeText)
+          });
+        }
+      }
     }else{
       var selectedList=[];
-      for(var i=0;i<$scope.devList.length;i++){
-        if($scope.devList[i].checked==true){
-          selectedList.push($scope.devList[i].text);
+      for(var j=0;j<$scope.devList.length;j++){
+        if($scope.devList[j].checked==true){
+          selectedList.push($scope.devList[j].text);
         }
       }
       console.log(selectedList);
-      $location.path("/app/rangeActivity/"+selectedList);
+      if(selectedList){
+        //var rangeArr = selectedList.split(',');
+        $(document).ready(function(){
+          $("#range").val(selectedList)
+        });
+      }else{
+        $(document).ready(function(){
+          $("#range").val('公开')
+        });
+      }
     }
-  }
+    $scope.visual.hide();
+  };
 })
 
 //新建开发订单
