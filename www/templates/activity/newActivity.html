@@ -27,10 +27,11 @@
             <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动" ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
           </label>
         </div>
-        <div class="item" ng-click="visualRange()" >
+        <!--ng-click="visualRange()"-->
+        <div class="item">
           <label class="">
             <span class="input-label" style="float: left" >可见范围</span>
-            <input id="range" class="input-label" placeholder="全局可见" style="float: right;text-align: right;border: 0;width: 100%" value="">
+            <input id="range" class="input-label" placeholder="全局可见" style="float: right;background-color:white;text-align: right;border: 0;width: 100%" value="" readonly="readonly">
           </label>
         </div>
         <div class="item">

@@ -4,7 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker', 'ionic-timepicker', 'vote.controllers', 'vote.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker', 'ionic-timepicker',
+  'vote.controllers', 'vote.services','login.controllers','login.services', 'activity.services','activity.controllers',
+  'activity.services'])
 
 .run(function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
@@ -59,171 +61,59 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $stateProvider
 
     .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
-
-  .state('login', {
-    url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'LoginCtrl'
-  })
-
-  .state('app.ProductionDetails', {
-    disableBack:true,
-    cache :false,
-    url: '/ProductionDetails/:ProductionId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/ProductionDetails.html',
-        controller:'ProDet'
-      }
-    }
-  })
-  .state('app.aboutme', {
-    disableBack:true,
-    url: '/aboutme',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/aboutme.html',
-        controller:'AboutMe'
-      }
-    }
-  })
-  .state('app.contactlist', {
-    url: '/contactlist',
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/contactlist.html',
-        controller: 'ContactlistCtrl'
-      }
-    }
-  })
-
-  .state('app.myresources', {
-    url: '/myresources',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/myresources.html',
-        controller:'myresources'
-      }
-    }
-  })
-    .state('app.myResourcesInfo', {
-      url: '/myResourcesInfo/:resourcesId',
+      url: '/app',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl'
+    })
+    .state('app.aboutme', {
+      disableBack:true,
+      url: '/aboutme',
+      cache:false,
       views: {
         'menuContent': {
-          templateUrl: 'templates/myResourcesInfo.html',
-          controller:'MyResourcesInfo'
+          templateUrl: 'templates/aboutme.html',
+          controller:'AboutMe'
         }
       }
     })
-    .state('app.otherResourcesInfo', {
-      url: '/otherResourcesInfo/:resourcesId',
+    .state('app.contactlist', {
+      url: '/contactlist',
+      cache :false,
       views: {
         'menuContent': {
-          templateUrl: 'templates/otherResourcesInfo.html',
-          controller:'MyResourcesInfo'
+          templateUrl: 'templates/contactlist.html',
+          controller: 'ContactlistCtrl'
         }
       }
     })
-  .state('app.personResourcesInfo', {
-      url: '/personResourcesInfo/:resourcesId/:personId',
-      views: {
-          'menuContent': {
-              templateUrl: 'templates/otherResourcesInfo.html',
-              controller:'PersonResourcesInfo'
-          }
-      }
-  })
-  .state('app.myevents', {
-    url: '/myevents',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/myevents.html'
-      }
-    }
-  })
-  .state('app.newGroupChat', {
-    url: '/newGroupChat',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/newgroupchat.html',
-        controller:'LabelPersonList'
-      }
-    }
-  })
-
-  .state('app.favorites', {
-    url: '/favorites',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/favorites.html',
-        controller:'FavoritesCtrl'
-      }
-    }
-  })
-
-  .state('app.tasks', {
-    url: '/tasks',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/tasks.html'
-      }
-    }
-  })
-
-  .state('app.home', {
-    url: '/home',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/home.html',
-        controller: 'HomeCtrl'
-      }
-    }
-  })
-
-  .state('app.browse', {
-      url: '/browse',
+    .state('app.tasks', {
+      url: '/tasks',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/tasks.html'
         }
       }
     })
-  .state('app.playlists', {
-    url: '/playlists',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlists.html',
-        controller: 'PlaylistsCtrl'
+    .state('app.home', {
+      url: '/home',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/home.html',
+          controller: 'HomeCtrl'
+        }
       }
-    }
-  })
-
-  .state('app.personhome', {
-    url: '/contactlist/:contactId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/personhome.html',
-        controller: 'PersonHomeCtrl'
+    })
+    .state('app.personhome', {
+      url: '/contactlist/:contactId',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/personhome.html',
+          controller: 'PersonHomeCtrl'
+        }
       }
-    }
-  })
-  .state('app.shoppingcart', {
-    url: '/shoppingcart',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/shoppingCart.html',
-        controller: 'ShoppingCart'
-      }
-    }
-  })
-  .state('app.addPerson', {
+    })
+    .state('app.addPerson', {
       url: '/addPerson',
       disableBack:true,
       cache :false,
@@ -233,8 +123,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
               controller: 'AddPerson'
           }
       }
-  })
-  .state('app.editPerson', {
+    })
+    .state('app.editPerson', {
       url: '/editPerson/:personId',
       disableBack:true,
       cache :false,
@@ -244,130 +134,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
               controller: 'UpdatePersonInfo'
           }
       }
-  })
-  .state('app.assOrder', {
-    url: '/assOrder/:personName',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/assOrder.html',
-        controller: 'MyOrder'
+    })
+    .state('app.abouthim', {
+      url: '/abouthim/:personId',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/abouthim.html',
+          controller: 'AboutHim'
+        }
       }
-    }
-  })
-  // .state('app.newGroupChat', {
-  //   url: '/newGroupChat',
-  //   disableBack:true,
-  //   cache :false,
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: 'templates/newgroupchat.html',
-  //       controller: 'NewGroupChat'
-  //     }
-  //   }
-  // })
-  .state('app.getResources', {
-    url: '/getResources/:id',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/otherresources.html',
-        controller: 'GetResources'
-      }
-    }
-  })
-  .state('app.editOrderInfo', {
-    url: '/editOrderInfo',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/editOrderInfo.html',
-        //controller: ''
-      }
-    }
-  })
-  .state('app.getEvents', {
-    url: '/getEvents/',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/othertime.html',
-        controller: 'GetEvent'
-      }
-    }
-  })
-  .state('app.getBusiness', {
-    url: '/getBusiness/',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/business.html',
-        controller:'GetBusiness'
-      }
-    }
-  })
-  .state('app.activityDetails',{
-    url:'/activityDetails/:activityId',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/activityDetails.html',
-        controller:'ActivityCrl'
-      }
-    }
-  })
-  //照片墙
-  .state('app.slide',{
-    url:'/slide/:activityId',
-    disableBack:true,
-    cache :true,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/slide.html',
-        controller:'slideCrl'
-      }
-    }
-  })
-  .state('app.abouthim', {
-    url: '/abouthim/:personId',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/abouthim.html',
-        controller: 'AboutHim'
-      }
-    }
-  })
-  .state('app.createProduction', {
-    url: '/createProduction/:orderId',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/createProduction.html',
-        controller: 'CreateProduct'
-      }
-    }
-  })
-  .state('app.editProduction', {
-    url: '/editProduction/:proId',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/createProduction.html',
-        controller: 'UpdateProduction'
-      }
-    }
-  })
-  .state('app.editAddress', {
+    })
+    .state('app.editAddress', {
       url: '/editAddress/:id',
       disableBack:true,
       cache :false,
@@ -377,156 +156,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
               controller: 'EditAddress'
           }
       }
-  })
-  .state('app.addAddress', {
-    url: '/addAddress',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/editAddress.html',
-        controller: 'EditAddress'
-      }
-    }
-  })
-  .state('app.newResources', {
-      url: '/newResources',
-      views: {
-          'menuContent': {
-              templateUrl: 'templates/newResources.html',
-              controller: 'NewResources'
-          }
-      }
-  })
-  .state('app.myOrder',{
-      url:'/myOrder',
-      disableBack:true,
-      cache :false,
-      views: {
-          'menuContent': {
-              templateUrl: 'templates/myOrder.html',
-              controller: 'MyOrder'
-          }
-      }
-  })
-  .state('app.Business', {
-    url: '/Business',
-    disableBack:true,
-    cache :true,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/business.html',
-        controller:'GetBusiness'
-      }
-    }
-  })
-    .state('app.themeImage', {
-      url: '/themeImage',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/themeImage.html',
-          controller:'ThemeImage'
-        }
-      }
     })
-  .state('app.newActivity', {
-    url: '/newActivity',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/newActivity.html',
-        controller:'NewActivity'
-      }
-    }
-  })
-  .state('app.rangeActivity', {
-    url: '/rangeActivity/:range',
-    disableBack:true,
-    cache :true,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/newActivity.html',
-        controller:'NewActivity'
-      }
-    }
-  })
-  .state('app.activityDiscuss', {
-    url: '/activityDiscuss/:id',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/activityDiscuss.html',
-        controller:'ActivityDiscuss'
-      }
-    }
-  })
-  .state('app.activityItem', {
-    url: '/activityItem/:id',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/activityItem.html',
-        controller:'ActivityItem'
-      }
-    }
-  })
-  .state('app.editActivty', {
-    url: '/editActivty/:id',
-    disableBack:true,
-    cache :false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/newActivity.html',
-        controller:'EditActivity'
-      }
-    }
-  })
-  .state('app.myOrderInfo',{
-  url:'/myOrderInfo/:orderId/:orderTypeId',
-  disableBack:true,
-  cache :false,
-  views: {
-    'menuContent': {
-      templateUrl: 'templates/myOrderInfo.html',
-      controller: 'MyOrderInfo'
-    }
-  }
-})
-    .state('app.createOrder',{
-      url:'/createOrder/:typeId/:resourcesId/:personId',
+    .state('app.addAddress', {
+      url: '/addAddress',
       disableBack:true,
       cache :false,
       views: {
         'menuContent': {
-          templateUrl: 'templates/createOrder.html',
-          controller: 'CreateOrder'
-        }
-      }
-    })
-    .state('app.newDevOrder',{
-      url:'/newDevOrder/',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/newDevOrder.html',
-          controller: 'NewDevOrder'
-        }
-      }
-    })
-    .state('app.visualRange',{
-      url:'/visualRange/',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/visualRange.html',
-          controller: 'VisualRange'
+          templateUrl: 'templates/editAddress.html',
+          controller: 'EditAddress'
         }
       }
     })
@@ -607,19 +245,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-
-
-    .state('app.activityList',{
-      url:'/activityList/:type',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/activityList.html',
-          controller:'ActivityList'
-        }
-      }
-    })
     .state('app.tiemInfo',{
       url:'/tiemInfo/:timeId/:infoId',
       disableBack:true,
@@ -631,71 +256,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  }).state('app.stock', {
-      url: '/stock',
+    .state('app.single', {
+      url: '/playlists/:playlistId',
       views: {
         'menuContent': {
-          templateUrl: 'templates/stock.html',
-          controller: 'Stock'
-        }
-      }
-    }
-  )
-    .state('app.stockInfo', {
-        url: '/stockInfo/:productId/:inventoryId',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/stockInfo.html',
-            controller: 'StockInfo'
-          }
-        }
-      }
-    ).state('app.stockList',{
-      url: '/stockList/:productId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/stockList.html',
-          controller: 'StockList'
+          templateUrl: 'templates/playlist.html',
+          controller: 'PlaylistCtrl'
         }
       }
     })
-    .state('app.receiveStock', {
-      url: '/receiveStock',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/receiveStock.html',
-          controller: 'ReceiveStock'
-        }
-      }
-    })
-    .state('app.receivePurOrderList', {
-      url: '/receivePurOrderList',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/receivePurOrderList.html',
-          controller: 'ReceivePurOrderList'
-        }
-      }
-    })
-    .state('app.receiveOrderInfo', {
-      url: '/receiveOrderInfo/:orderId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/receiveOrderInfo.html',
-          controller: 'ReceiveOrderInfo'
-        }
-      }
-    })
-
-  //活动账单的显示
+    //活动账单的显示
     .state('app.activityBill', {
       url: '/activityBill/',
       views: {

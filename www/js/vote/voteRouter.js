@@ -33,5 +33,16 @@ angular.module('starter')
         }
       }
     })
+    .state('app.visualRange',{
+      url:'/visualRange/',
+      disableBack:true,
+      cache :false,
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/activityVisualRange.html',
+          controller: 'VisualRange'
+        }
+      }
+    })
 
 });

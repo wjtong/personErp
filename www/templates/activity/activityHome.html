@@ -12,12 +12,15 @@
       </ul>
     </div>
     <div class="list card">
-      <div class="item" style="padding: 0;margin-top: 2%;position: relative" ng-click="activityDetails(matter.id)" ng-repeat="matter in active" >
-        <img ng-src="{{matter.img}}" style="width:100%;height:220px" >
+      <div class="item" style="padding: 0;margin-top: 2%;position: relative" ng-click="activityDetails(matter.workEffortId)" ng-repeat="matter in active" >
+        <img ng-src="{{img}}" style="width:100%;height:220px" >
         <div style="position: absolute;right: 5%;top: 50%">
-          <p style="color: white"><b>活动安排：{{matter.title}}</b></p>
-          <p style="color: white">时间：{{matter.createTime}}</p>
-          <p style="color: white">地点：{{matter.address}}</p>
+          <p style="color: white"><b>活动安排：{{matter.workEffortName}}</b></p>
+          <p style="color: white">时间：{{matter.estimatedStartDate}}</p>
+          <p style="color: white">地点：{{matter.locationDesc}}</p>
+        </div>
+        <div class="{{matter.partyId}}" style="display: none">
+          <p style="color: yellow;width: 70px;position: absolute;top: 0;right: 5%;">由我组织</p>
         </div>
         <div class="item tabs">
           <p class="tab-item">
@@ -26,9 +29,6 @@
           <p class="tab-item">
             感兴趣：120位
           </p>
-        </div>
-        <div id="{{matter.organizer}}" style="display: none">
-          <p style="color: yellow;width: 70px;position: absolute;top: 0;right: 5%;">由我组织</p>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">发布活动</span>
       </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" href="">
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeInvitation)">
         <i class="icon ion-ios-flag-outline " style="line-height: 14px;">
         </i>
         <span ng-class="{true:'red-point',false:''}[true]">活动邀请</span>

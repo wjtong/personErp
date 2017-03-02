@@ -1258,7 +1258,12 @@ angular.module('starter.services', [])
       {id:'But_10004',name:'地址'},
       {id:'But_10005',name:'性别'}
     ];
+    var img={img:'img/theme/juhui1.jpeg'};
+
     return {
+      getImg: function () {
+        return img
+      },
       getRelatedActivities: function () {
         return relatedActivities
       },
@@ -1305,94 +1310,7 @@ angular.module('starter.services', [])
       }
     }
 })
-//新建活动
-.factory('newActivity',function(){
-  var url = 'http://192.168.3.62:3400/personContacts/control/';
-  return {
-    //获得全部标签
-    createActivity: function (tarjeta,workEffortName,actualStartDate,estimatedCompletionDate,locationDesc,description, cb) {
-      $.ajax({
-        url: url + "createNewEvent",
-        data: {
-          tarjeta: tarjeta,
-          workEffortName:workEffortName,
-          actualStartDate:actualStartDate,
-          estimatedCompletionDate:estimatedCompletionDate,
-          locationDesc:locationDesc,
-          description:description
-        },
-        async: false,
-        type: 'POST',
-        success: function (result) {
-          if (jQuery.type(result) === "string") {
-            result = jQuery.parseJSON(result);
-          }
-          if (result.resultMap != null) {
-            if ($.type(cb) === 'function') {
-              cb(result.resultMap);
-            }
-          }
-        }
-      });
-    }
-  }
-})
-//由我组织
-.factory('MyActivity',function(){
-  var url='http://192.168.3.62:3400/personContacts/control/'
-  return {
-    //获得全部标签
-    myActivity: function (tarjeta,roleTypeId, cb) {
-      $.ajax({
-        url: url + "findMyEvent",
-        data: {
-          tarjeta: tarjeta,
-          roleTypeId:roleTypeId
-        },
-        async: false,
-        type: 'POST',
-        success: function (result) {
-          if (jQuery.type(result) === "string") {
-            result = jQuery.parseJSON(result);
-          }
-          if (result.resultMap != null) {
-            if ($.type(cb) === 'function') {
-              cb(result.resultMap);
-            }
-          }
-        }
-      });
-    }
-  }
-})
-//活动报名
-.factory('SignUp',function(){
-  var url='http://192.168.3.62:3400/personContacts/control/'
-  return {
-    //获得全部标签
-    signUp: function (tarjeta,workEffortId, cb) {
-      $.ajax({
-        url: url + "translationActivity",
-        data: {
-          tarjeta: tarjeta,
-          workEffortId:workEffortId
-        },
-        async: false,
-        type: 'POST',
-        success: function (result) {
-          if (jQuery.type(result) === "string") {
-            result = jQuery.parseJSON(result);
-          }
-          if (result.resultMap != null) {
-            if ($.type(cb) === 'function') {
-              cb(result.resultMap);
-            }
-          }
-        }
-      });
-    }
-  }
-})
+
 
 //购物车
 .factory('ShoppingCart',function () {
@@ -2028,6 +1946,7 @@ angular.module('starter.services', [])
         }
     }
 })
+
 //联系人列表
 .factory('Contact',function () {
   //var url = "http://114.215.200.46:3400/personContacts/control/";
@@ -2166,33 +2085,7 @@ angular.module('starter.services', [])
 
     }
   })
-//登陆
-.factory('Login',function(){
 
-var url = "http://192.168.3.62:3400/personContacts/control/";
-  return {
-    login:function (userLoginId,cb) {
-      $.ajax({
-        url:url+"userAppLogin",
-        data:{
-          userLoginId:userLoginId
-        },
-        async : false,
-        type:'POST',
-        success: function(result){
-          if(jQuery.type(result) === "string"){
-            result =   jQuery.parseJSON(result);
-          }
-          if(result.resultMap!=null){
-            if($.type(cb)==='function' ){
-              cb(result.resultMap);
-            }
-          }
-        }
-      });
-    }
-  }
-})
 //标签
 .factory('PersonLabel', function () {
   //var url = "http://localhost:3400/personContacts/control/";
