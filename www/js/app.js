@@ -65,49 +65,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     controller: 'AppCtrl'
   })
 
-  // .state('app.tabs', {
-  //   disableBack:true,
-  //   cache :false,
-  //   url: "/tabs",
-  //   views: {
-  //     'menuContent' :{
-  //       templateUrl: "templates/tabs.html"
-  //     }
-  //   }
-  // })
-
-  // .state('app.tabs.search', {
-  //   url: "/search",
-  //   disableBack:true,
-  //   cache :false,
-  //   views: {
-  //     'search-tab': {
-  //       templateUrl: "templates/search.html",
-  //       controller:'ActivtyVode'
-  //     }
-  //   }
-  // })
-  // .state('app.tabs.about', {
-  //   disableBack:true,
-  //   cache :false,
-  //   url: "/about",
-  //   views: {
-  //     'about-tab': {
-  //       templateUrl: "templates/about.html"
-  //     }
-  //   }
-  // })
-
-  // .state('app.search', {
-  //   disableBack:true,
-  //   cache :false,
-  //   url: '/search',
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: 'templates/search.html'
-  //     }
-  //   }
-  // })
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
+  })
 
   .state('app.ProductionDetails', {
     disableBack:true,
@@ -472,7 +434,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .state('app.newActivity', {
     url: '/newActivity',
     disableBack:true,
-    cache :true,
+    cache :false,
     views: {
       'menuContent': {
         templateUrl: 'templates/newActivity.html',
@@ -757,6 +719,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   ;
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/app/playlists');
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/login');
 })
 ;

@@ -1,31 +1,13 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope,$ionicPopover) {
-
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope,$ionicPopover,Login) {
   if(localStorage['partyId'] == null){
     localStorage['partyId'] = 'jinlongxi';
   }
   $rootScope.partyId = localStorage['partyId'];
 
   if(localStorage['userLoginId'] == null){
-    localStorage['userLoginId'] = 'admin';
+    localStorage['userLoginId'] = 'jinlongxi';
   }
   $rootScope.userLoginId = localStorage['userLoginId'];
 
@@ -33,28 +15,34 @@ angular.module('starter.controllers', [])
     localStorage['countryGeoId'] = 'CHN';
   }
   $rootScope.countryGeoId = localStorage['countryGeoId'];
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
 
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
 })
-
+//登陆
+.controller('LoginCtrl',function($http,$scope,Login,$state,$rootScope){
+  $scope.loginData = {};
+  $scope.doLogin = function() {
+    if (Object.keys($scope.loginData).length == 0) {
+      alert("请输入登录信息!!!")
+    } else if ($scope.loginData.username == null) {
+      alert("请输入用户名!!!")
+    } else if ($scope.loginData.password == null) {
+      alert("请输入密码!!!")
+    } else {
+      Login.login($scope.loginData.username, function (data) {
+        console.log(data.tarjeta);
+        //console.log(data.resultMsg);
+        if (data.resultMsg === '成功') {
+          localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+          console.info(localStorage['tarjeta']);
+          //$rootScope.tarjeta = localStorage['tarjeta'];
+          $state.go("app.getBusiness");
+        } else {
+          alert("用户不存在！！！！！！！！！！！！！！！！！！！")
+        }
+      })
+    }
+  }
+})
 .controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
@@ -498,9 +486,9 @@ angular.module('starter.controllers', [])
   });
 })
 //由我组织的活动
-.controller('ActivityList',function($scope,Activity,$location,$rootScope,$stateParams){
+.controller('ActivityList',function($scope,Activity,$location,$rootScope,$stateParams,MyActivity){
   var type=$stateParams.type;
-  var organizer=$rootScope.partyId;
+  //var organizer=$rootScope.partyId;
   //定义由我组织的活动可以编辑
   $scope.edit=false;
   if(type=='my'){
@@ -510,7 +498,13 @@ angular.module('starter.controllers', [])
     $scope.myActivtyList=Activity.getFinishActivity();
     $scope.title='往期活动';
   }else if(type=='my'){
-    $scope.myActivtyList=Activity.getMyActivty(organizer);
+    var roleTypeId='ACTIVITY_ADMIN';
+    var tarjeta=localStorage.getItem("tarjeta");
+    console.log(tarjeta)
+    MyActivity.myActivity(tarjeta,roleTypeId,function (data) {
+      $scope.myActivtyList=data.partyEventsList
+      console.log(data+'返回数据')
+    });
     $scope.title='由我组织'
   }else{
     $scope.myActivtyList=Activity.getRelatedActivities();
@@ -538,7 +532,7 @@ angular.module('starter.controllers', [])
   }
 })
 //活动详情
-.controller('ActivityCrl',function ($stateParams,$scope,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
+.controller('ActivityCrl',function ($stateParams,$scope,SignUp,Activity,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
   var id = $stateParams.activityId;
   $scope.activityList = Activity.getActivityInfo(id);
   $scope.personList = Activity.getAllPerson();
@@ -663,6 +657,12 @@ angular.module('starter.controllers', [])
   };
   //报名
   $scope.showPopup = function() {
+    var tarjeta=localStorage.getItem("tarjeta");
+    $scope.workEffortId='10140';
+    console.log($scope.workEffortId+tarjeta+'11111111');
+    SignUp.signUp(tarjeta,$scope.workEffortId,function (data) {
+
+    });
     $scope.data = {};
     var myPopup = $ionicPopup.show({
       template: '',
@@ -789,8 +789,8 @@ angular.module('starter.controllers', [])
   RongCloudLibPlugin.setConnectionStatusListener(function(ret, err){
     alert('当前连接状态:'+ret.result.connectionStatus);
   });
-
 })
+
 //活动讨论
 .controller('ActivityItem',function ($scope, $rootScope,$stateParams,Activity) {
   var id=$stateParams.id;
@@ -800,7 +800,11 @@ angular.module('starter.controllers', [])
 //浮动框的弹出
 .controller('floatCtrl',function ($scope,Contact, $rootScope, PersonData) {
   //查找所有的联系人
-  $scope.plist=Contact.getAll();
+  //$scope.plist=Contact.getAll();
+  //获得全部联系人
+  Contact.getAll($rootScope.partyId , function (data){
+    $scope.plist = data;
+  });
   $scope.openModal = function() {
     $scope.modal.show();
   };
@@ -1106,7 +1110,7 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   $scope.businessImgList=ThemeImage.getBusinessImg()
 })
 //新建活动
-.controller('NewActivity',function ($scope,$rootScope,$stateParams,$cordovaCamera,$cordovaImagePicker,newActivity,$ionicPopup,$location,Activity,$ionicModal,ThemeImage,ionicDatePicker, ionicTimePicker) {
+.controller('NewActivity',function ($scope,$ionicHistory,$rootScope,$stateParams,$cordovaCamera,$cordovaImagePicker,newActivity,$ionicPopup,$location,Activity,$ionicModal,ThemeImage,ionicDatePicker, ionicTimePicker) {
 
 /************************** Start 时间日期控件加入 ********************************/
   var ipObj1 = {
@@ -1308,31 +1312,40 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   }
   $scope.shareImgList=ThemeImage.getShareImg();
   //新建活动连接后台
+
   $scope.ActivityData={};
   $scope.createNewActivity=function(){
         $scope.ActivityData.startDate=$("#startDate").val()+" "+$("#startTime").val();
         $scope.ActivityData.endDate=$("#endDate").val()+" "+$("#endTime").val();
+        $scope.ActivityData.visualRange=$("#range").val();
+        $scope.Token=localStorage.getItem("tarjeta");
         console.log(
-          $rootScope.partyId,
+          $rootScope.tarjeta,
           $scope.ActivityData.workEffortName,
           $scope.ActivityData.startDate,
           $scope.ActivityData.endDate,
           $scope.ActivityData.address,
-          $scope.ActivityData.information
+          $scope.ActivityData.information,
+          $scope.ActivityData.visualRange
         );
-    newActivity.createActivity(
-      $rootScope.partyId,
-      $scope.ActivityData.workEffortName,
-      $scope.ActivityData.startDate,
-      $scope.ActivityData.endDate,
-      $scope.ActivityData.address,
-      $scope.ActivityData.information,
-      function(data){
-        $scope.message=data;
-        console.log(data)
-      }
-    )
-  }
+
+     newActivity.createActivity(
+         $scope.Token,
+       $scope.ActivityData.workEffortName,
+       $scope.ActivityData.startDate,
+       $scope.ActivityData.endDate,
+       $scope.ActivityData.address,
+       $scope.ActivityData.information,
+       function(data){
+         $scope.message=data;
+         console.log(data)
+         if(data==null){
+           aler("发生错误！！！！！！！")
+         }
+         $ionicHistory.goBack()
+       }
+     )
+  };
   //可见范围
   $ionicModal.fromTemplateUrl('templates/visualRange.html', {
     scope: $scope,
@@ -1361,22 +1374,24 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   //选定可见范围
   $scope.visualRange=function () {
     $scope.visual.show();
-    //$location.path('/app/visualRange/');
   };
 })
 
 //新建活动可见范围
-.controller('VisualRange',function ($scope,$ionicModal,$ionicPopup,$location) {
+.controller('VisualRange',function ($scope,$ionicModal,$ionicPopup,PersonLabel,$rootScope,Contact) {
   $scope.clientSideList = [
-    { text: "公开", value: "all" },
+    { text: "全局可见", value: "all" },
     { text: "仅自己", value: "me" },
     { text: "部分可见", value: "part" }
   ];
-  $scope.devList = [
-    { text: "亲人", checked: true ,person:''},
-    { text: "同学", checked: false ,person:''},
-    { text: "上海班富", checked: false,person:'金龙熙，李宁，王坤，沈演麟' }
-  ];
+  //查询用户拥有标签
+  PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+    $scope.devList = data.lable;
+  });
+  //获得全部联系人
+  Contact.getAll($rootScope.partyId , function (data){
+    $scope.personmainLists = data.contact;
+  });
   //默认选中
   $scope.data = {
     clientSide: 'all'
@@ -1384,38 +1399,58 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
   //选中部分可见时显示标签列表
   $scope.lable=false;
   $scope.serverSideChange=function(item){
-    if(item == 'part'){
+    if(item =='part'){
       $scope.lable=true;
     }else{
       $scope.lable=false;
     }
   };
-  //关闭模态框
   $scope.cancelRange=function () {
     $scope.visual.hide();
   };
-  //添加新范围
-  $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', {
+  //添加新范围选择联系人弹窗
+  $ionicModal.fromTemplateUrl('templates/contactModle.html', {
     scope: $scope,
     animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
+  }).then(function(contact) {
+    $scope.contact = contact;
   });
-  $scope.openModal = function() {
-    $scope.modal.show();
+  $scope.openContact = function() {
+    $scope.contact.show();
   };
   $scope.closeModal = function() {
-    $scope.modal.hide();
+    $scope.contact.hide();
   };
-  //创建标签
-  $scope.showAddLab = function() {
+  //全选联系人弹窗联系人
+  $scope.selectAll = function (personmain) {
+    //进入的时候检查复选框是否被选中
+    if ($scope.all == true) {
+      for (var i = 0; i < personmain.length; i++) {
+        $scope.personmain[i].checked = false;//这是全选的操作
+      }
+    } else {
+      for (var i = 0; i < personmain.length; i++) {
+        personmain[i].checked = true;//这是取消全选的操作
+      }
+    }
+  };
+  //创建新的联系人标签组（可忽略，生成临时联系人组）
+  $scope.createRangeLable=function () {
+    $scope.rangeData = {};
+    var selectedList=[];
+    for(var j=0;j<$scope.personmainLists.length;j++){
+      if($scope.personmainLists[j].checked==true){
+        selectedList.push($scope.personmainLists[j].partyId);
+      }
+    }
+    alert(selectedList);
     $scope.data = {};
     var myPopup = $ionicPopup.show({
       template:
-      '<input type="text" ng-model="data.addLabel"/>' +
-      '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
-      '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">关闭</button>' ,
-      title: '创建标签',
+      '<input type="text" placeholder="新建标签名称" ng-model="data.addLabel"/>' +
+      '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">存为标签</button><br/>' +
+      '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">忽略</button>' ,
+      title: '保存为标签，下次可直接选用',
       scope: $scope
     });
     myPopup.then(function(res) {
@@ -1424,26 +1459,38 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     $scope.addLab = myPopup;
   };
   $scope.createLabel = function () {
-    $scope.addLab.close();
-    $scope.modal.show();
-    $(document).ready(function(){
-      $("#invite").css("display", "none");
-      $("#createLable").css("display", "block");
-      $("#newLable").css("display", "block");
-    });
+    if($scope.data.addLabel == null || $scope.data.addLabel == ''){
+      alert('标签名不能为空')
+    }else{
+      PersonLabel.addPersonLab($scope.data.addLabel,$rootScope.userLoginId,function (data) {
+        console.log(data.partyId)
+        $scope.lableId=data.partyId;
+      });
+      $scope.addLab.close();//成功后关闭弹框
+      $scope.contact.hide();
+      PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
+        $scope.devList = data.lable;
+      });
+      $scope.addLab.close();
+    }
+  }
+  //创建标签＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+  $scope.showAddLab = function() {
+
   };
   $scope.closeLab = function () {
     $scope.addLab.close();
   };
+
   //确定范围传值
   $scope.selectRange=function () {
     var range=$scope.data.clientSide;
     if(range=='all'||range=='me'){
       for(var i=0;i<$scope.clientSideList.length;i++){
         if($scope.clientSideList[i].value==range){
-          var rangeText=$scope.clientSideList[i].text;
+          var rangeText=$scope.clientSideList[i];
           $(document).ready(function(){
-            $("#range").val(rangeText)
+            $("#range").val(rangeText.text)
           });
         }
       }
@@ -1451,12 +1498,11 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
       var selectedList=[];
       for(var j=0;j<$scope.devList.length;j++){
         if($scope.devList[j].checked==true){
-          selectedList.push($scope.devList[j].text);
+          selectedList.push($scope.devList[j].groupName);
         }
       }
       console.log(selectedList);
       if(selectedList){
-        //var rangeArr = selectedList.split(',');
         $(document).ready(function(){
           $("#range").val(selectedList)
         });
@@ -2029,7 +2075,9 @@ PersonData.getPersonInfo($rootScope.partyId , function (data){
     $scope.createLabel = function () {
         if($scope.data.addLabel == null || $scope.data.addLabel == ''){
         }else{
-            PersonLabel.addPersonLab($scope.data.addLabel);
+            PersonLabel.addPersonLab($scope.data.addLabel,$rootScope.userLoginId,function (data) {
+              console.log(data.partyId)
+            });
             $scope.addLab.close();
             PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
               $scope.labelList = data;

@@ -13,7 +13,7 @@
               <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="personmain in personmainLists.contact | orderBy:'name':false" type="item-text-wrap" ng-click="goInfo(personmain.partyId)">
                 <img ng-src="{{personmain.headPortrait}}">
                 <h2>{{personmain.personName}} {{personmain.gender}}</h2>
-                <p>{{personmain.company}}</p>
+                <p>{{personmain.email}}</p>
               <ion-option-button class="button-assertive" ng-click="deletePerson(personmain.partyId)">
                 Delete
               </ion-option-button>

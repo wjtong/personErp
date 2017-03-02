@@ -1,5 +1,11 @@
 <ion-modal-view ng-controller="VisualRange">
-    <ion-content>
+  <button class="button button-icon" menu-toggle="left" ng-click="openModal()">
+  取消
+  </button>
+  <button class="button button-icon" menu-toggle="right" ng-click="closeModal()">
+    完成
+  </button>
+    <ion-content class="has-header">
       <div class="list">
         <div class="item">
           <ion-radio ng-repeat="item in clientSideList"
@@ -12,10 +18,13 @@
         <ion-checkbox ng-repeat="item in devList"
                       ng-model="item.checked"
                       ng-checked="item.checked">
-          {{ item.text }} <p style="text-indent: 8px">{{item.person}}</p>
+          {{ item.groupName}}
         </ion-checkbox>
-        <p style="text-align: right;color: #0a9dc7" ng-click="showAddLab()">添加新的范围</p>
+        <div class="item">
+          <p style="color: #0a9dc7" ng-click="openContact()">从联系人选择</p>
+        </div>
       </div>
+
       <div class="row">
         <div class="col">
           <div class="col-demo">

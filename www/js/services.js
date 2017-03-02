@@ -1310,16 +1310,72 @@ angular.module('starter.services', [])
   var url = 'http://192.168.3.62:3400/personContacts/control/';
   return {
     //获得全部标签
-    createActivity: function (partyId,workEffortName,actualStartDate,estimatedCompletionDate,locationDesc,description, cb) {
+    createActivity: function (tarjeta,workEffortName,actualStartDate,estimatedCompletionDate,locationDesc,description, cb) {
       $.ajax({
         url: url + "createNewEvent",
         data: {
-          partyId: partyId,
+          tarjeta: tarjeta,
           workEffortName:workEffortName,
           actualStartDate:actualStartDate,
           estimatedCompletionDate:estimatedCompletionDate,
           locationDesc:locationDesc,
           description:description
+        },
+        async: false,
+        type: 'POST',
+        success: function (result) {
+          if (jQuery.type(result) === "string") {
+            result = jQuery.parseJSON(result);
+          }
+          if (result.resultMap != null) {
+            if ($.type(cb) === 'function') {
+              cb(result.resultMap);
+            }
+          }
+        }
+      });
+    }
+  }
+})
+//由我组织
+.factory('MyActivity',function(){
+  var url='http://192.168.3.62:3400/personContacts/control/'
+  return {
+    //获得全部标签
+    myActivity: function (tarjeta,roleTypeId, cb) {
+      $.ajax({
+        url: url + "findMyEvent",
+        data: {
+          tarjeta: tarjeta,
+          roleTypeId:roleTypeId
+        },
+        async: false,
+        type: 'POST',
+        success: function (result) {
+          if (jQuery.type(result) === "string") {
+            result = jQuery.parseJSON(result);
+          }
+          if (result.resultMap != null) {
+            if ($.type(cb) === 'function') {
+              cb(result.resultMap);
+            }
+          }
+        }
+      });
+    }
+  }
+})
+//活动报名
+.factory('SignUp',function(){
+  var url='http://192.168.3.62:3400/personContacts/control/'
+  return {
+    //获得全部标签
+    signUp: function (tarjeta,workEffortId, cb) {
+      $.ajax({
+        url: url + "translationActivity",
+        data: {
+          tarjeta: tarjeta,
+          workEffortId:workEffortId
         },
         async: false,
         type: 'POST',
@@ -1823,7 +1879,8 @@ angular.module('starter.services', [])
   //个人信息
 .factory("PersonData", function () {
     //var url = "http://114.215.200.46:3400/personContacts/control/";
-    var url = "http://localhost:3400/personContacts/control/";
+    //var url = "http://localhost:3400/personContacts/control/";
+    var url = "http://192.168.3.62:3400/personContacts/control/";
     return{
       //获得用户信息（关于我，联系人信息）
         getPersonInfo:function (partyId, cb) {
@@ -2109,12 +2166,38 @@ angular.module('starter.services', [])
 
     }
   })
+//登陆
+.factory('Login',function(){
 
+var url = "http://192.168.3.62:3400/personContacts/control/";
+  return {
+    login:function (userLoginId,cb) {
+      $.ajax({
+        url:url+"userAppLogin",
+        data:{
+          userLoginId:userLoginId
+        },
+        async : false,
+        type:'POST',
+        success: function(result){
+          if(jQuery.type(result) === "string"){
+            result =   jQuery.parseJSON(result);
+          }
+          if(result.resultMap!=null){
+            if($.type(cb)==='function' ){
+              cb(result.resultMap);
+            }
+          }
+        }
+      });
+    }
+  }
+})
 //标签
 .factory('PersonLabel', function () {
   //var url = "http://localhost:3400/personContacts/control/";
-  var url = "http://114.215.200.46:3400/personContacts/control/";
-  //var url = "https://192.168.3.62:3400/personContacts/control/";
+  //var url = "http://114.215.200.46:3400/personContacts/control/";
+  var url = "http://192.168.3.62:3400/personContacts/control/";
   return{
     //获得全部标签
     getAllLabl:function (userLoginId, cb) {
@@ -2154,18 +2237,8 @@ angular.module('starter.services', [])
         }
       });
     },
-    // remove:function (label) {
-    //   listLabel.splice(chats.indexOf(label), 1);
-    // },
-    // getInfo:function (labelId) {
-    //   for(var i=0;i<listLabel.length;i++){
-    //     if(labelId == listLabel[i].id){
-    //       return listLabel[i];
-    //     }
-    //   }
-    // },
     //删除标签
-    removeLable:function (partyId) {
+    removeLable:function (partyId,cb) {
       $.ajax({
         url:url+"deleteLable",
         data:{partyId:partyId},
@@ -2224,10 +2297,13 @@ angular.module('starter.services', [])
       });
     },
     //创建标签
-    addPersonLab:function (lableName) {
+    addPersonLab:function (lableName,userLoginId,cb) {
       $.ajax({
         url:url+"createLable",
-        data:{lableName:lableName},
+        data:{
+          lableName:lableName,
+          userLoginId:userLoginId
+        },
         async : false,
         type:'POST',
         success: function(result){
@@ -2241,7 +2317,7 @@ angular.module('starter.services', [])
           }
         }
       });
-    },
+    }
   }
 })
 

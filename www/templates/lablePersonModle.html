@@ -13,12 +13,12 @@
           <div class="list"  ng-controller="selectAllCtrl">
             <ion-list>
               <label><ion-checkbox ng-model="qx" ng-click="selectAll(plist)">全选/全不选</ion-checkbox></label>
-              <ion-checkbox name="selected" ng-repeat="personmain in plist" ng-model="personmain.checked" ng-click="selectOne(personmain)">
+              <ion-checkbox name="selected" ng-repeat="personmain in plist.contact" ng-model="personmain.checked" ng-click="selectOne(personmain)">
               <ion-item class="item-remove-animate item-avatar item-icon-right"  ng-click="addLablePerson(personmain.partyId)"   type="item-text-wrap">
 
                 <img ng-src="{{personmain.img}}">
-                <h2>{{personmain.name}} </h2>
-                <p> {{personmain.company}}</p>
+                <h2>{{personmain.personName}} </h2>
+                <p> {{personmain.email}}</p>
                 <p> {{personmain.address}}</p>
               </ion-item>
               </ion-checkbox>
@@ -37,7 +37,7 @@
               <div class="row" id="addPeron">
                 <div class="col">
                   <div class="col-demo">
-                    <button class="button button-positive" style="width: 100%;" ng-click="">添加</button>
+                    <button class="button button-positive" style="width: 100%;" ng-click="createRangeLable()">添加</button>
                   </div>
                 </div>
                 <div class="col">
