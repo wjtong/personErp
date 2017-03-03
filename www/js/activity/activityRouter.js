@@ -26,6 +26,17 @@ angular.module('starter')
           }
         }
       })
+      .state('app.activityDetails2',{
+        url:'/activityDetails2/:activityId/:type',
+        disableBack:true,
+        cache :false,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activity/activityDetails.html',
+            controller:'ActivityCrl'
+          }
+        }
+      })
       //照片墙
       .state('app.slide',{
         url:'/slide/:activityId',
@@ -40,6 +51,18 @@ angular.module('starter')
       })
       .state('app.newActivity', {
         url: '/newActivity',
+        disableBack:true,
+        cache :false,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activity/newActivity.html',
+            controller:'NewActivity'
+          }
+        }
+      })
+      //新建子活动
+      .state('app.newActivityChild', {
+        url: '/newActivityChild/:id',
         disableBack:true,
         cache :false,
         views: {

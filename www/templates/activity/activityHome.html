@@ -7,12 +7,12 @@
   <ion-content>
     <div id="nav">
       <ul>
-        <li><a href="#######">我发起的活动</a></li>
-        <li><a href="###">我参与的活动</a></li>
+        <li><a ng-click="selectType(typeMy)">我发起的活动</a></li>
+        <li><a ng-click="selectType(typeInvitation)">我参与的活动</a></li>
       </ul>
     </div>
-    <div class="list card">
-      <div class="item" style="padding: 0;margin-top: 2%;position: relative" ng-click="activityDetails(matter.workEffortId)" ng-repeat="matter in active" >
+    <div class="list card" ng-repeat="matter in active">
+      <div class="item" style="padding: 0;margin-top: 2%;position: relative" ng-click="activityDetails(matter.workEffortId)"  >
         <img ng-src="{{img}}" style="width:100%;height:220px" >
         <div style="position: absolute;right: 5%;top: 50%">
           <p style="color: white"><b>活动安排：{{matter.workEffortName}}</b></p>

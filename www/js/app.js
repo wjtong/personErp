@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker', 'ionic-timepicker',
   'vote.controllers', 'vote.services','login.controllers','login.services', 'activity.services','activity.controllers',
-  'activity.services'])
+  'activity.services','contact.services','contact.controllers'])
 
 .run(function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
@@ -77,16 +77,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('app.contactlist', {
-      url: '/contactlist',
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/contactlist.html',
-          controller: 'ContactlistCtrl'
-        }
-      }
-    })
+
     .state('app.tasks', {
       url: '/tasks',
       views: {
@@ -104,125 +95,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('app.personhome', {
-      url: '/contactlist/:contactId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/personhome.html',
-          controller: 'PersonHomeCtrl'
-        }
-      }
-    })
-    .state('app.addPerson', {
-      url: '/addPerson',
-      disableBack:true,
-      cache :false,
-      views: {
-          'menuContent': {
-              templateUrl: 'templates/addPerson.html',
-              controller: 'AddPerson'
-          }
-      }
-    })
-    .state('app.editPerson', {
-      url: '/editPerson/:personId',
-      disableBack:true,
-      cache :false,
-      views: {
-          'menuContent': {
-              templateUrl: 'templates/addPerson.html',
-              controller: 'UpdatePersonInfo'
-          }
-      }
-    })
-    .state('app.abouthim', {
-      url: '/abouthim/:personId',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/abouthim.html',
-          controller: 'AboutHim'
-        }
-      }
-    })
-    .state('app.editAddress', {
-      url: '/editAddress/:id',
-      disableBack:true,
-      cache :false,
-      views: {
-          'menuContent': {
-              templateUrl: 'templates/editAddress.html',
-              controller: 'EditAddress'
-          }
-      }
-    })
-    .state('app.addAddress', {
-      url: '/addAddress',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/editAddress.html',
-          controller: 'EditAddress'
-        }
-      }
-    })
-    .state('app.chatList',{
-      url:'/chatList',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/chatList.html',
-          controller: 'ChatList'
-        }
-      }
-    })
-    .state('app.chatInfo',{
-      url:'/chatInfo/:chatId',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/chatInfo.html',
-          controller: 'ChatInfo'
-        }
-      }
-    })
-    .state('app.chatPersonList',{
-      url:'/chatPersonList/:chatId',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/chatPersonList.html',
-          controller: 'LabelPersonList'
-        }
-      }
-    })
-    .state('app.personLabel',{
-      url:'/personLabel',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/personLabel.html',
-          controller: 'PersonLabel'
-        }
-      }
-    })
-    .state('app.labelPersonList',{
-      url:'/labelPersonList/:partyId',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/labelPersonList.html',
-          controller: 'LabelPersonList'
-        }
-      }
-    })
+
+
     .state('app.myTime',{
       url:'/myTime',
       disableBack:true,

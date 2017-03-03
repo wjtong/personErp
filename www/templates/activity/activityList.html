@@ -1,7 +1,7 @@
 <ion-view view-title="{{title}}">
   <ion-content>
     <div class="list" ng-repeat="myActivty in myActivtyList">
-      <a class="item item-thumbnail-left" ng-click="goInfo(myActivty.id)" style="width: 100%">
+      <a class="item item-thumbnail-left" ng-click="goInfo(myActivty.workEffortId,type)" style="width: 100%">
         <img ng-src="{{img}}">
         <h2>标题：{{myActivty.workEffortName}}</h2>
         <p>描述：{{myActivty.description}}</p>
