@@ -1,8 +1,8 @@
-<ion-modal-view>
-  <ion-content>
+<ion-modal-view >
+  <ion-content class="has-header">
       <ion-list>
         <label>
-          <ion-checkbox ng-model="all"  ng-click="selectAll(personmainLists)">全选/全不选</ion-checkbox>
+          <ion-checkbox id="all"  ng-click="selectAll(personmainLists)">全选/全不选</ion-checkbox>
         </label>
         <ion-checkbox ng-repeat="item in personmainLists"
                       ng-model="item.checked"
@@ -17,7 +17,7 @@
           </div>
           <div class="col">
             <div class="col-demo">
-              <button class="button button-positive" style="width: 100%;">取消</button>
+              <button class="button button-positive" style="width: 100%;" ng-click="closeModal()">取消</button>
             </div>
           </div>
         </div>

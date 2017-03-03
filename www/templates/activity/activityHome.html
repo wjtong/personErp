@@ -14,15 +14,15 @@
     <div class="list card" ng-repeat="matter in active">
       <div class="item" style="padding: 0;margin-top: 2%;position: relative" ng-click="activityDetails(matter.workEffortId)"  >
         <img ng-src="{{img}}" style="width:100%;height:220px" >
-        <div style="position: absolute;right: 5%;top: 50%">
+        <div style="position: absolute;right: 5%;top: 45%;">
           <p style="color: white"><b>活动安排：{{matter.workEffortName}}</b></p>
-          <p style="color: white">开始时间：{{matter.estimatedStartDate| date:'medium' }}</p>
+          <p style="color: white">开始时间：{{matter.actualStartDate| date:'medium' }}</p>
           <p style="color: white">结束时间：{{matter.estimatedCompletionDate| date:'medium' }}</p>
           <p style="color: white">活动地点：{{matter.locationDesc}}</p>
         </div>
-        <div class="{{matter.partyId}}" style="display: none">
-          <p style="color: yellow;width: 70px;position: absolute;top: 0;right: 5%;">由我组织</p>
-        </div>
+        <!--<div class="{{matter.partyId}}" style="display: none">-->
+          <!--<p style="color: yellow;width: 70px;position: absolute;top: 0;right: 5%;">由我组织</p>-->
+        <!--</div>-->
         <div class="item tabs">
           <p class="tab-item">
             参与：39位

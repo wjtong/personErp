@@ -5,7 +5,8 @@
         <img ng-src="{{img}}">
         <h2>标题：{{myActivty.workEffortName}}</h2>
         <p>描述：{{myActivty.description}}</p>
-        <p>start:{{myActivty.createTime}}end:{{myActivty.time}}</p>
+        <p>{{myActivty.actualStartDate| date:'medium'}}</p>
+        <p>{{myActivty.estimatedCompletionDate| date:'medium'}}</p>
       </a>
     </div>
   </ion-content>

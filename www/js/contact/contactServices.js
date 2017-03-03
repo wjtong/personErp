@@ -222,6 +222,7 @@ angular.module('contact.services', [])
       }
     }
   })
+
 //个人信息  联系人信息
   .factory("PersonData", function () {
     //var url = "http://114.215.200.46:3400/personContacts/control/";
@@ -373,4 +374,4 @@ angular.module('contact.services', [])
         });
       }
     }
-  })
+  });

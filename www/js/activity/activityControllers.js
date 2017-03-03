@@ -94,7 +94,7 @@ angular.module('activity.controllers', [])
   })
 
 //活动详情***************************************************************************************************************
-  .controller('ActivityCrl',function ($stateParams,$scope,ActivityServer,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
+  .controller('ActivityCrl',function ($stateParams,ionicDatePicker,$scope,ActivityServer,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
     //获得token
     var tarjeta=localStorage.getItem("tarjeta");
     //获得App使用者partyId
@@ -228,13 +228,8 @@ angular.module('activity.controllers', [])
         myPopup.close(); // 1.5秒后关闭弹窗
       }, 1500);
     };
-    //显示子活动详情
-    $scope.childActivity=true;
-    var childtype=$scope.activityList;
-    if(childtype==''){
-      $scope.childActivity=false;
-    }
-    //活动讨论
+
+    //显示子活动详情####################################################################################
     $scope.activityDiscuss=function(id){
       $location.path("/app/activityDiscuss/"+id);
     };
@@ -244,22 +239,47 @@ angular.module('activity.controllers', [])
     };
     //判断是否是组织者 界面调整
     var type= $stateParams.type;
-    $scope.myActivity=true;
-    $scope.childActivity=false;
+    $scope.myActivity=false;
+    $scope.otherActivity=true;
     if(type=='my'){
-      $scope.myActivity=false;
+      $scope.myActivity=true;
+      $scope.otherActivity=false;
+    }
+    //判断是否有子活动 界面调整
+    $scope.childActivity=false;
+    if($scope.activityChild==''||$scope.activityChild==null){
+      $scope.childActivity=false;
+    }else {
       $scope.childActivity=true;
     }
+
     //新建子活动
     $scope.createChild=function (id) {
       $location.path("/app/newActivityChild/"+id);
     };
-    //新建活动项
+    //新建活动项＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
+    //录入时间
+    var ipObj1 = {
+      callback: function (val) {  //Mandatory
+        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+        var selectDate = new Date(val);
+        console.log(selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate());
+        $scope.itemData.time=selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate()+" "+"00"+":"+"00"+":"+"00"
+      },
+      to: new Date(2020, 10, 30), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: false,          //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional
+    };
+    $scope.openDatePicker = function(){
+      ionicDatePicker.openDatePicker(ipObj1);
+    };
     $scope.newActivityItem=function () {
       $scope.itemData = {};
       var itemPopup = $ionicPopup.show({
         template:
-        '<input type="text" placeholder="时间" ng-model="itemData.time"><br>'+
+        '<input type="text" placeholder="时间" ng-model="itemData.time" ng-click="openDatePicker()"><br>'+
         '<input type="text" placeholder="安排" ng-model="itemData.name"><br>'+
         '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
         '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>' ,
@@ -273,17 +293,13 @@ angular.module('activity.controllers', [])
     };
     $scope.createLabel = function () {
       if($scope.itemData.time == null || $scope.itemData.time == ''){
-        alert($scope.itemData.time+$scope.itemData.name+tarjeta)
-        ActivityServer.createActivityItem(tarjeta,id,$scope.itemData.name,$scope.itemData.time,function(data){
-          console.log(data.resultMsg)
-          $scope.addLab.close();
-        })
+        $scope.addLab.close();
       }else{
-        alert($scope.itemData.time+$scope.itemData.name+tarjeta)
+        console.log($scope.itemData.time+$scope.itemData.name);
         ActivityServer.createActivityItem(tarjeta,id,$scope.itemData.name,$scope.itemData.time,function(data){
           console.log(data.resultMsg)
-          $scope.addLab.close();
         })
+        $scope.addLab.close();
       }
     };
     $scope.closeLab = function () {
@@ -293,6 +309,14 @@ angular.module('activity.controllers', [])
     $scope.editActivty=function(id){
       $location.path("/app/editActivty/"+id);
     };
+    //显示子活动信息
+    $scope.activityDetails=function (id) {
+      alert(id)
+      ActivityServer.goActivityDetails(tarjeta,id,function (data) {
+        $scope.activityList=data.eventDetail[0];
+        $scope.childActivity=false
+      });
+    }
   })
 
 //活动照片墙（大图片）***************************************************************************************************************
@@ -389,7 +413,8 @@ angular.module('activity.controllers', [])
       }
     };
     /************************** End 时间日期控件加入 ********************************/
-    //选择插入图片方式
+
+    //选择插入图片方式########################################################
     $scope.selectImg = function() {
       $scope.data = {}
       var myPopup = $ionicPopup.show({
@@ -413,7 +438,8 @@ angular.module('activity.controllers', [])
       $scope.statusPopup.close();
       $location.path('/app/activity/themeImage');
     };
-    //调用照相机
+
+    //调用照相机########################################################
     $scope.imageSrc = "";
     $scope.takePhoto=function(){
       var options = {
@@ -443,7 +469,8 @@ angular.module('activity.controllers', [])
       });
       $scope.statusPopup.close();
     };
-    //调用手机相册
+
+    //调用手机相册########################################################
     $scope.selectPhoto=function () {
       var options = {
         maximumImagesCount: 1,
@@ -465,7 +492,8 @@ angular.module('activity.controllers', [])
         });
       $scope.statusPopup.close();
     };
-    //添加照片墙
+
+    //添加照片墙#########################################################
     $scope.getPhoto=function(){
       var options = {
         maximumImagesCount: 10,
@@ -484,16 +512,8 @@ angular.module('activity.controllers', [])
         });
       $scope.statusPopup.close();
     };
-    //高级选项
-    $scope.hight=false;
-    $scope.advancedOptions=function () {
-      if($scope.hight==false){
-        $scope.hight=true;
-      }else if($scope.hight==true){
-        $scope.hight=false;
-      }
-    };
-    //分享好友
+
+    //分享好友########################################################################
     $ionicModal.fromTemplateUrl('templates/activity/shareAvtivity.html', function(modal) {
       $scope.taskModal = modal;
     }, {
@@ -507,7 +527,8 @@ angular.module('activity.controllers', [])
       $scope.taskModal.hide();
     };
     $scope.shareImgList=ThemeImage.getShareImg();
-    //新建活动连接后台
+
+    //新建活动连接后台###################################################################
     var parentId=$stateParams.id;
     $scope.ActivityData={};
     $scope.createNewActivity=function(){
@@ -567,7 +588,8 @@ angular.module('activity.controllers', [])
         $ionicHistory.goBack()
       }
     };
-    //可见范围
+
+    //可见范围############################################################
     $ionicModal.fromTemplateUrl('templates/activity/activityVisualRange.html', {
       scope: $scope,
       animation: 'slide-in-up'
@@ -596,12 +618,23 @@ angular.module('activity.controllers', [])
     $scope.visualRange=function () {
       $scope.visual.show();
     };
+
+    //邀请好友#############################################################
+    $scope.invite=false;
+    $scope.inviteFriends=function (type) {
+      $scope.contact.show();
+      if(type='invite'){
+        $(document).ready(function(){
+          $("#invite").css("display", "none");
+        });
+      }
+    };
     //获得全部联系人
     Contact.getAll($rootScope.partyId , function (data){
       $scope.personmainLists = data.contact;
     });
     //邀请选择联系人弹窗
-    $ionicModal.fromTemplateUrl('templates/contactModle.html', {
+    $ionicModal.fromTemplateUrl('templates/contact/contactModle.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(contact) {
@@ -616,17 +649,17 @@ angular.module('activity.controllers', [])
     //全选联系人弹窗联系人
     $scope.selectAll = function (personmain) {
       //进入的时候检查复选框是否被选中
-      if ($scope.all == true) {
+      if ($scope.all == false) {
         for (var i = 0; i < personmain.length; i++) {
           $scope.personmain[i].checked = false;//这是全选的操作
         }
       } else {
-        for (var i = 0; i < personmain.length; i++) {
-          personmain[i].checked = true;//这是取消全选的操作
+        for (var j = 0; j < personmain.length; j++) {
+          personmain[j].checked = true;//这是取消全选的操作
         }
       }
     };
-    //确定邀请好友
+    //选定邀请哪些好友  提交数据
     $scope.createRangeLable=function () {
       $scope.rangeData = {};
       var contactsList=[];
@@ -638,16 +671,7 @@ angular.module('activity.controllers', [])
       $scope.contactsList=contactsList;
       $scope.contact.hide();
     };
-    //邀请好友
-    $scope.invite=false;
-    $scope.inviteFriends=function (type) {
-      $scope.contact.show();
-      if(type='invite'){
-        $(document).ready(function(){
-          $("#invite").css("display", "none");
-        });
-      }
-    };
+
   })
 
 //新建活动可见范围***************************************************************************************************************
@@ -927,14 +951,136 @@ angular.module('activity.controllers', [])
     });
   })
 
-//活动账单的展示页面************************************************************************************************************************
-  .controller('activityBillCtrl', function($scope, Account, $ionicPopup,Contact, ionicDatePicker,$state) {
-    $scope.billList = Account.getAll();
+//联系人的全选和全不选**********************************************************************************************
+  .controller('selectAllCtrl', function($scope,$ionicPopup) {
+    $scope.selectAll = function (personmain) {
+      //进入的时候检查复选框是否被选中
+      if ($scope.qx == true) {
+        for (var i = 0; i < personmain.length; i++) {
+          //alert(personmain[i].partyId+":"+personmain[i].personName);
+          personmain[i].checked = true;//这是全选的操作
+        }
+      } else {
+        for (var i = 0; i < personmain.length; i++) {
+          personmain[i].checked = false;//这是取消全选的操作
+        }
+      }
+    }
+    //单独选一个的传值
+    $scope.selectOne=function(person){
+      //alert(person.partyId);
+    }
+//参与人员的详细页面展示
+    //打开模态框的显示
+    $scope.takeMoney = function () {
+      $scope.data = {}
+      // 一个精心制作的自定义弹窗
+      var myPopup = $ionicPopup.show({
+        template: '<input type="text" ng-model="data.money"  placeholder="请输入金额" required style="text-align: center">',
+        title: '向客户筹款',
+        scope: $scope,
+        buttons: [
+          {
+            text: '取消',
+            type: 'button-positive'
+          },
+          {
+            text: '<b>发送</b>',
+            type: 'button-positive',
+            onTap: function (e) {
+              if (!$scope.data.money) {
+                //为了避免用户填入空的内容，我循环死你，让你对着干。。
+                e.preventDefault();
+                $ionicPopup.alert({
+                  title: "温馨提示",
+                  template: "请将内容填写完整",
+                  okText: "确定",
+                })
+              } else {
 
+                return $scope.data.money;
+              }
+            }
+          },
+        ]
+      });
+      //弹出框弹出后的验证
+      myPopup.then(function (res) {
+        //正则验证输入金额是否合法
+        if (res) {//判断所选的是确定还是取消
+          var moneyReg = /^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/;
+          if (moneyReg.test(res)) {
+            if (res > 0) {//如果输入的金额大于0的话，说明输入的数字是正确的，什么也不提示
+
+            } else {
+              $ionicPopup.alert({
+                title: "温馨提示",
+                template: "您输入的数字没有意义",
+                okText: "确定",
+              })
+            }
+          } else {
+            $ionicPopup.alert({
+              title: "温馨提示",
+              template: "金额输入有误,请重新输入",
+              okText: "确定",
+            })
+          }
+
+        }
+
+      });
+    };
+
+  })
+
+//活动账单的展示页面************************************************************************************************************************
+  .controller('activityBillCtrl', function($scope, Account, $ionicPopup,Contact,$state) {
+    $scope.billList = Account.getAll();
     $scope.addBill = function () {
       $state.go("app.addPersonBill");
     };
+  })
 
+//添加账单的控制************************************************************************************************************************
+  .controller('addPersonBillCtrl', function($scope, ionicDatePicker,$state,$ionicModal,$rootScope,Contact) {
+    //获得全部联系人
+    Contact.getAll($rootScope.partyId , function (data){
+      $scope.personmainLists = data.contact;
+    });
+    $scope.plist=Contact.getAll();
+    //添加新范围选择联系人弹窗
+    $ionicModal.fromTemplateUrl('templates/contact/contactModle.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(contact) {
+      $scope.contact = contact;
+    });
+    $scope.openContact = function() {
+      $scope.contact.show();
+    };
+    $scope.closeModal = function() {
+      $scope.contact.hide();
+    };
+    //将选择的值放入到页面里面
+    $scope.createRangeLable=function(){
+      for(var i=0;i<$scope.personmainLists.length;i++){
+        if($scope.personmainLists[i].checked==true){
+          $("#pname").val($scope.personmainLists[i].personName);
+          $scope.personId=$scope.personmainLists[i].partyId;
+          alert($scope.personId);
+        }
+      }
+      //选择完成之后就将模态框关掉
+      $scope.contact.hide();
+    };
+    //提交新录入账单
+    $scope.Order={};
+    $scope.createOrder=function () {
+      $scope.Order.date=$("#mydate").val();
+      console.log($scope.personId+$scope.Order.money+$scope.Order.ymoney+$scope.Order.date);
+    };
+    //选着订单录入时间
     var ipObj1 = {
       callback: function (val) {  //Mandatory
         console.log('Return value from the datepicker popup is : ' + val, new Date(val));
@@ -942,49 +1088,15 @@ angular.module('activity.controllers', [])
         console.log(selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate());
         $("#mydate").val(selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate());
       },
-      // disabledDates: [            //Optional
-      //   new Date(2016, 2, 16),
-      //   new Date(2015, 3, 16),
-      //   new Date(2015, 4, 16),
-      //   new Date(2015, 5, 16),
-      //   new Date('Wednesday, August 12, 2015'),
-      //   new Date("08-16-2016"),
-      //   new Date(1439676000000)
-      // ],
-      // from: new Date(2017, 1, 1), //Optional
       to: new Date(2020, 10, 30), //Optional
       inputDate: new Date(),      //Optional
       mondayFirst: false,          //Optional
       closeOnSelect: false,       //Optional
       templateType: 'popup'       //Optional
     };
-
     $scope.openDatePicker = function(){
       ionicDatePicker.openDatePicker(ipObj1);
     };
-
-
-  })
-
-//添加账单的控制************************************************************************************************************************
-  .controller('addPersonBillCtrl', function($scope,Contact, ionicDatePicker,$state,$ionicModal) {
-    $scope.plist=Contact.getAll();
-    $ionicModal.fromTemplateUrl('templates/radioPersonList.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
-    $scope.openModal = function() {
-      $scope.modal.show();
-    };
-
-    $scope.selectOne=function(person){
-      //将选择的值放入到页面里面
-      $("#pname").val(person.name);
-      //选择完成之后就将模态框关掉
-      $scope.modal.hide();
-    }
 
   })
 ;
