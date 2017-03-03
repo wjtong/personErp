@@ -202,10 +202,10 @@ angular.module('activity.controllers', [])
       $location.path("/app/activityList/"+type);
     };
     //活动报名
-    $scope.showPopup = function() {
+    $scope.showPopup = function(id) {
       var tarjeta=localStorage.getItem("tarjeta");
-      $scope.workEffortId='10201';
-      console.log($scope.workEffortId+tarjeta+'11111111');
+      $scope.workEffortId=id;
+      console.log($scope.workEffortId+tarjeta);
       ActivityServer.signUp(tarjeta,$scope.workEffortId,function (data) {
 
       });
