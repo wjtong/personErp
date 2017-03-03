@@ -1,4 +1,4 @@
-<ion-view view-title="投票编辑">
+<ion-view view-title="创建投票">
   <div class="bar bar-header">
     <button class="button icon ion-navicon"></button>
     <h1 class="title">Header Buttons</h1>
@@ -9,19 +9,20 @@
     <div class="list">
       <div class="item item-input">
         <span class="input-label">投票名称</span>
-        <input ng-model="newUser.firstName" type="text">
+        <input ng-model="voteTitle" type="text">
       </div>
       <div class="item">
         <span class="input-label" >投票项</span>
-        <textarea style='display: inline-block;width: 80%'></textarea>
-        <img src='img/delNode.gif' onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><br>
-        <div id="votes"></div>
+        <div id="votes">
+          <textarea style='display: inline-block;width: 80%'></textarea>
+          <img src='img/delNode.gif' onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><br>
+        </div>
       </div>
       <div class="item">
         <button class="button icon-left ion-plus-round button-balanced" ng-click="addVotes()">添加投票项</button>
       </div>
       <div class="padding">
-        <button class="button button-block button-positive" ng-click="exitLogin()">保存</button>
+        <button class="button button-block button-positive" ng-click="createSurveyAndQuestions(voteTitle)">保存</button>
       </div>
     </div>
   </ion-content>

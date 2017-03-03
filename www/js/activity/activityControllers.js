@@ -103,6 +103,7 @@ angular.module('activity.controllers', [])
     $scope.img=localStorage.getItem("activityImg");
     //获得活动的详细信息
     var id = $stateParams.activityId;
+    $scope.workEffortId = $stateParams.activityId;
     ActivityServer.goActivityDetails(tarjeta,id,function (data) {
 
       $scope.activityList=data.eventDetail[0];
