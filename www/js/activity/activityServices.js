@@ -171,6 +171,54 @@ angular.module('activity.services', [])
           }
         });
       },
+      //新建活动账单
+      createActivityPayment: function (tarjeta,workEffortId,partyIdFrom,invoiceApplied,amountApplied,payDate, cb) {
+        $.ajax({
+          url: url + "createPartyPayment",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId:workEffortId,
+            partyIdFrom:partyIdFrom,
+            invoiceApplied:invoiceApplied,
+            amountApplied:amountApplied,
+            payDate:payDate
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //查询活动账单
+      findActivityPayment: function (tarjeta,workEffortId, cb) {
+        $.ajax({
+          url: url + "findActivityPayment",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId:workEffortId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
     }
   })
 //活动主题图片＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊

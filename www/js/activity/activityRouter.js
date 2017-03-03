@@ -149,7 +149,7 @@ angular.module('starter')
       })
       //活动账单的显示
       .state('app.activityBill', {
-        url: '/activityBill/',
+        url: '/activityBill/:workEffortId',
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityBill.html',
@@ -159,7 +159,7 @@ angular.module('starter')
       })
       //活动账单的添加页面
       .state('app.addPersonBill', {
-        url: '/addPersonBill/',
+        url: '/addPersonBill/:workEffortId',
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/addPersonBill.html',

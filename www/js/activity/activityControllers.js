@@ -190,6 +190,12 @@ angular.module('activity.controllers', [])
       $timeout(function() {
         myPopup.close(); // 1.5秒后关闭弹窗
       }, 1500);
+      //执行一次活动查询刷新活动列表
+      var roleTypeId='ACTIVITY_MEMBER';
+      ActivityServer.myActivity(tarjeta,roleTypeId,function (data) {
+        $scope.active=data.partyEventsList;
+        console.log("查询我参与的活动"+"---------"+data.resultMsg)
+      });
     };
 
 
@@ -201,6 +207,11 @@ angular.module('activity.controllers', [])
     //进入活动项###############################################################
     $scope.activityItem=function(id){
       $location.path("/app/activityItem/"+id);
+      $scope.popover.hide();
+    };
+    //进入活动账单###############################################################
+    $scope.aboutPayment=function(id){
+      $location.path("/app/activityBill/"+id);
       $scope.popover.hide();
     };
 
@@ -999,15 +1010,25 @@ angular.module('activity.controllers', [])
   })
 
 //活动账单的展示页面************************************************************************************************************************
-  .controller('activityBillCtrl', function($scope, Account, $ionicPopup,Contact,$state) {
-    $scope.billList = Account.getAll();
+  .controller('activityBillCtrl', function($scope, Account, $ionicPopup,Contact,$state,$stateParams,ActivityServer) {
+    //准备参数
+    var tarjeta=localStorage.getItem("tarjeta");
+    var id=$stateParams.workEffortId;
+    $scope.contactImg=localStorage.getItem("contactImg");//人物头像缺省图片
+    ActivityServer.findActivityPayment(tarjeta,id,function (data) {
+      $scope.billList=data.payList;
+      console.log("查询活动列表——————————"+data.resultMsg)
+    })
     $scope.addBill = function () {
-      $state.go("app.addPersonBill");
+      $state.go("app.addPersonBill",{workEffortId:id});
     };
   })
 
 //添加账单的控制************************************************************************************************************************
-  .controller('addPersonBillCtrl', function($scope, ionicDatePicker,$state,$ionicModal,$rootScope,Contact) {
+  .controller('addPersonBillCtrl', function($scope, ionicDatePicker,$state,$ionicModal,$rootScope,Contact,$stateParams,ActivityServer) {
+    //准备参数
+    var workEffortId=$stateParams.workEffortId;
+    var tarjeta=localStorage.getItem("tarjeta");
     //获得全部联系人
     Contact.getAll($rootScope.partyId , function (data){
       $scope.personmainLists = data.contact;
@@ -1043,6 +1064,9 @@ angular.module('activity.controllers', [])
     $scope.createOrder=function () {
       $scope.Order.date=$("#mydate").val();
       console.log($scope.personId+$scope.Order.money+$scope.Order.ymoney+$scope.Order.date);
+      ActivityServer.createActivityPayment(tarjeta,workEffortId,$scope.personId,$scope.Order.money,$scope.Order.ymoney,$scope.Order.date,function (data) {
+        console.log("创建活动账单————————"+data.resultMsg)
+      })
     };
     //选着订单录入时间
     var ipObj1 = {

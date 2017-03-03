@@ -3,7 +3,7 @@
     <div class="list" ng-repeat="item in activityItemList">
       <div class="item">
         <div style="float: left">
-          <p><b>时间:&nbsp;&nbsp;{{item.actualStartDate| date:'medium'}}</b>&nbsp;&nbsp;</p>
+          <p><b>时间:&nbsp;&nbsp;{{item.actualStartDate| date:'yyyy-MM-dd HH:mm:ss'}}</b>&nbsp;&nbsp;</p>
           <p><b>安排:{{item.workEffortName}}&nbsp;&nbsp;</b><b>费用:{{item.price}}</b></p>
         </div>
         <div style="float:right">

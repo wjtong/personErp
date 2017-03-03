@@ -37,15 +37,15 @@
         </div>
         <div class="item">
           <label class="">
-            <i class="icon ion-ios-clock"> {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}  {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</i>
+            <i class="icon ion-ios-clock"> {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}/{{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</i>
             <br>
             <i class="icon ion-ios-location"> {{activityList.locationDesc}}</i>
             <p style="text-align:right;float: right;margin: 0"><button class="button button-small button-clear button-positive "  ng-click="showDiscuss()">3条评论</button></p>
           </label>
         </div>
-        <div class="item">
+        <div class="item" style="width: 100%">
           <b>详细信息</b>
-          <p style=" word-break: break-all; word-wrap:break-word;width: 100px">{{activityList.description}}</p>
+          <p style=" white-space : pre;width: 100%">{{activityList.description}}</p>
         </div>
         <div class="item" ng-if="childActivity">
           <p style="float: left"><b>子活动</b></p>
