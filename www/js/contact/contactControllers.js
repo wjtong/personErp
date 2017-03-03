@@ -1,5 +1,11 @@
 angular.module('contact.controllers', [])
 
+//关于我的个人信息
+  .controller('AboutMe',function ($scope, $rootScope, PersonData) {
+    PersonData.getPersonInfo($rootScope.partyId , function (data){
+      $scope.myInfo = data;
+    });
+  })
 
 //联系人*********************************************************************************************************
   .controller('ContactlistCtrl', function($scope,Contact,$location,$rootScope) {
@@ -423,32 +429,18 @@ angular.module('contact.controllers', [])
       });
       $scope.$broadcast("scroll.refreshComplete");
     };
-
-
   })
+
 //标签内人员*********************************************************************************************************
-  .controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel,ChatList,GroupChat,$rootScope) {
+  .controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel) {
     var partyId=$stateParams.partyId;
     //获得标签内人员
     PersonLabel.getLablPersonList(partyId, function (data){
       $scope.personList = data;
     });
     $scope.partyId=partyId;
-    //获得联系人列表
-    //Contact.getAll($rootScope.partyId , function (data){
-    //  $scope.personmainLists = data;
-    //});
-    $scope.plist=Contact.getAll();
-    $scope.devList = GroupChat.getAll();
-    //$scope.chat = ChatList.getChatInfo($stateParams.chatId);
-    //为了数据保持统一,尽量与参与人员数保持一致
-    $scope.personList = Contact.getAll();
-    //$scope.labelId = $stateParams.labelId;
-    //$scope.personList = Contact.getPersonLabel($scope.labelId);
-    //$scope.labelInfo = PersonLabel.getInfo($scope.labelId);
-    $scope.personNoinLabel = Contact.getPersonNoinLabel($scope.labelId);
     //添加联系人到标签(弹出框)
-    $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', {
+    $ionicModal.fromTemplateUrl('templates/contact/contactModle.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
@@ -460,18 +452,6 @@ angular.module('contact.controllers', [])
     $scope.closeModal = function() {
       $scope.modal.hide();
     };
-    //Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.modal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('modal.hidden', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('modal.removed', function() {
-      // Execute action
-    })
     //标签内添加联系人
     $scope.addLablePerson= function (partyId) {
       var partyIdTo=partyId;

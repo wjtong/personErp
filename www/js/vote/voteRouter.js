@@ -39,7 +39,7 @@ angular.module('starter')
       cache :false,
       views: {
         'menuContent': {
-          templateUrl: 'templates/activityVisualRange.html',
+          templateUrl: 'templates/activity/activityVisualRange.html',
           controller: 'VisualRange'
         }
       }

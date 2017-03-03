@@ -1,6 +1,6 @@
 angular.module('activity.services', [])
 
-//活动连接后台
+//活动连接后台＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .factory('ActivityServer',function(){
     var url = 'http://192.168.3.62:3400/personContacts/control/';
     return {
@@ -173,7 +173,7 @@ angular.module('activity.services', [])
       },
     }
   })
-//活动主题图片
+//活动主题图片＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .factory('ThemeImage',function () {
     var partyImg = [
       {id:'Pic_10001',img:'img/theme/juhui1.jpeg'},
@@ -233,5 +233,5 @@ angular.module('activity.services', [])
         return businessImg;
       }
     }
-  })
+  });
 

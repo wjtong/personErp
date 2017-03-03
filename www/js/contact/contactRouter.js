@@ -3,7 +3,7 @@ angular.module('starter')
 
   .config(function ($stateProvider,$urlRouterProvider) {
     $stateProvider
-
+      //联系人列表
       .state('app.contactlist', {
         url: '/contactlist',
         cache :false,
@@ -14,15 +14,7 @@ angular.module('starter')
           }
         }
       })
-      .state('app.personhome', {
-        url: '/contactlist/:contactId',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/personhome.html',
-            controller: 'PersonHomeCtrl'
-          }
-        }
-      })
+      //添加新联系人
       .state('app.addPerson', {
         url: '/addPerson',
         disableBack:true,
@@ -34,6 +26,7 @@ angular.module('starter')
           }
         }
       })
+      //编辑联系人
       .state('app.editPerson', {
         url: '/editPerson/:personId',
         disableBack:true,
@@ -45,6 +38,19 @@ angular.module('starter')
           }
         }
       })
+      //关于我的信息
+      .state('app.aboutme', {
+        disableBack:true,
+        url: '/aboutme',
+        cache:false,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/contact/aboutme.html',
+            controller:'AboutMe'
+          }
+        }
+      })
+      //关于联系人的信息
       .state('app.abouthim', {
         url: '/abouthim/:personId',
         disableBack:true,
@@ -56,17 +62,7 @@ angular.module('starter')
           }
         }
       })
-      .state('app.editAddress', {
-        url: '/editAddress/:id',
-        disableBack:true,
-        cache :false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/editAddress.html',
-            controller: 'EditAddress'
-          }
-        }
-      })
+      //添加联系人地址
       .state('app.addAddress', {
         url: '/addAddress',
         disableBack:true,
@@ -78,39 +74,19 @@ angular.module('starter')
           }
         }
       })
-      .state('app.chatList',{
-        url:'/chatList',
+      //联系人编辑地址
+      .state('app.editAddress', {
+        url: '/editAddress/:id',
         disableBack:true,
         cache :false,
         views: {
           'menuContent': {
-            templateUrl: 'templates/contact/chatList.html',
-            controller: 'ChatList'
+            templateUrl: 'templates/contact/editAddress.html',
+            controller: 'EditAddress'
           }
         }
       })
-      .state('app.chatInfo',{
-        url:'/chatInfo/:chatId',
-        disableBack:true,
-        cache :false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/chatInfo.html',
-            controller: 'ChatInfo'
-          }
-        }
-      })
-      .state('app.chatPersonList',{
-        url:'/chatPersonList/:chatId',
-        disableBack:true,
-        cache :false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/chatPersonList.html',
-            controller: 'LabelPersonList'
-          }
-        }
-      })
+      //联系人拥有的标签
       .state('app.personLabel',{
         url:'/personLabel',
         disableBack:true,
@@ -122,6 +98,7 @@ angular.module('starter')
           }
         }
       })
+      //联系人的标签内的人员
       .state('app.labelPersonList',{
         url:'/labelPersonList/:partyId',
         disableBack:true,

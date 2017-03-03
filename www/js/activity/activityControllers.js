@@ -3,75 +3,51 @@ angular.module('activity.controllers', [])
 
 //活动首页***************************************************************************************************************
   .controller('GetBusiness',function($scope,$location,ActivityServer){
-    //显示图片
-    $scope.img=localStorage.getItem("activityImg")
+    //显示缺省图片
+    $scope.img=localStorage.getItem("activityImg");
     //获得我的全部活动列表(我参与的活动)
     var roleTypeId='ACTIVITY_MEMBER';
     var tarjeta=localStorage.getItem("tarjeta");
-    console.log(tarjeta)
     ActivityServer.myActivity(tarjeta,roleTypeId,function (data) {
       $scope.active=data.partyEventsList;
-      console.log(data.resultMsg+'返回数据'+data.partyEventsList)
+      console.log("查询我参与的活动"+"---------"+data.resultMsg)
     });
-    //首页上部分导航
-    $scope.selectType=function (type) {
-      if(type='my'){
-        var roleTypeId1='ACTIVITY_ADMIN';
-        ActivityServer.myActivity(tarjeta,roleTypeId,function (data) {
-          $scope.active=data.partyEventsList;
-          console.log(data.resultMsg+'返回数据'+data.partyEventsList)
-        });
-      }else{
-        var roleTypeId2='ACTIVITY_MEMBER';
-        ActivityServer.myActivity(tarjeta,roleTypeId,function (data) {
-          $scope.active=data.partyEventsList;
-          console.log(data.resultMsg+'返回数据'+data.partyEventsList)
-        });
-      }
-    };
     //新建活动
     $scope.newActivity=function () {
       $location.path('/app/newActivity')
-    };
-    //我的时间
-    $scope.myTime=function () {
-      $location.path('/app/myTime')
     };
     //活动详情
     $scope.activityDetails=function (id) {
       $location.path("/app/activityDetails/"+id);
     };
-    //定义：有我组织  往期活动 收藏
+
+    //定义：有我组织  往期活动 收藏######################################################################################
     $scope.typefinish='finish';
     $scope.typeMy='my';
     $scope.typeInvitation='invitation';
     $scope.goInfo=function (type) {
       $location.path("/app/activityList/"+type);
     };
-    //标记活动由我组织
-    var myPartyId=localStorage.getItem("partyId");
-    $(document).ready(function(){
-      $("."+myPartyId).css('display','');
-    });
+
   })
 
 //由我组织   往期活动  活动邀请***************************************************************************************************************
   .controller('ActivityList',function($scope,$location,$rootScope,$stateParams,ActivityServer){
     //获得token
     var tarjeta=localStorage.getItem("tarjeta");
-    //显示图片
+    //显示缺省图片
     $scope.img=localStorage.getItem("activityImg");
-    //定义由我组织的活动可以编辑
+
+    //通过类型  分别显示不同的数据   由我组织  往期活动  活动邀请
     var type=$stateParams.type;
     if(type=='finish'){
-      //$scope.myActivtyList=Activity.getFinishActivity();
       $scope.title='往期活动';
     }else if(type=='my'){
       //查询我组织的活动列表
       var roleTypeId='ACTIVITY_ADMIN';
       ActivityServer.myActivity(tarjeta,roleTypeId,function (data) {
         $scope.myActivtyList=data.partyEventsList;
-        console.log(data.resultMsg+'返回数据')
+        console.log("查询我我组织的活动"+"---------"+data.resultMsg)
       });
       $scope.title='由我组织'
     }else if(type=='invitation'){
@@ -84,8 +60,7 @@ angular.module('activity.controllers', [])
       });
       $scope.title='邀请列表'
     }else{
-      $scope.myActivtyList=Activity.getRelatedActivities();
-      $scope.title='相关活动'
+
     }
     $scope.type=type;
     $scope.goInfo=function(id,type){
@@ -94,44 +69,32 @@ angular.module('activity.controllers', [])
   })
 
 //活动详情***************************************************************************************************************
-  .controller('ActivityCrl',function ($stateParams,ionicDatePicker,$scope,ActivityServer,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
+  .controller('ActivityCrl',function ($stateParams,$state,ionicDatePicker,$scope,ActivityServer,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
     //获得token
     var tarjeta=localStorage.getItem("tarjeta");
     //获得App使用者partyId
     var partyId=localStorage.getItem("partyId");
-    //显示图片
+    //显示缺省图片
     $scope.img=localStorage.getItem("activityImg");
-    //获得活动的详细信息
+
+    //获得活动的详细信息＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
     var id = $stateParams.activityId;
     ActivityServer.goActivityDetails(tarjeta,id,function (data) {
-
       $scope.activityList=data.eventDetail[0];
       $scope.activityChild=data.childActivityList;//子活动数据
+      $scope.iAmAdmin=data.iAmAdmin;
+      console.log('活动详情信息返回'+"----------"+data.resultMsg)
     });
-    //$scope.activityList = Activity.getActivityInfo(id);(死数据)
-    //活动参与人员
-    //$scope.personList = Activity.getAllPerson();
-    //获取讨论信息
-    //$scope.DiscussList=Activity.getAllDiscuss();
-    //参与人员的详细页面展示
-    $ionicModal.fromTemplateUrl('templates/lablePersonModle.html', function (modal) {
-      $scope.modal = modal;
-    }, {
-      animation: 'slide-in-up',
-      focusFirstInput: true
-    });
-    //打开模态框的显示
-    $scope.openModal = function () {
-      $scope.modal.show();
-    };
-    //显示讨论
+
+    //显示讨论*****************************************************
     $scope.showDiscuss=function(){
       document.getElementById("discuss").style.display="";
     };
     $scope.hideDiscuss=function(){
       document.getElementById("discuss").style.display="none"
     };
-    //发表评论
+
+    //发表评论#####################################################
     $scope.showAddLab = function() {
       $scope.data = {};
       var myPopup = $ionicPopup.show({
@@ -160,11 +123,13 @@ angular.module('activity.controllers', [])
     $scope.closeLab = function () {
       $scope.addLab.close();
     };
-    //显示照片墙大图片
+
+    //显示照片墙幻灯片###################################################
     $scope.shouBigImage=function(id){
       $location.path("/app/slide/"+id);
     };
-    //百度地图
+
+    //百度地图###################################################
     $scope.map=false;
     $scope.tirarFoto=function(){
       $scope.map=true;
@@ -181,7 +146,8 @@ angular.module('activity.controllers', [])
         console.log(error);
       },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
     };
-    //显示活动相关菜单
+
+    //显示活动相关菜单（右上。。。）###################################################
     $ionicPopover.fromTemplateUrl('templates/activity/activityDetails-popover.html', {
       scope: $scope
     }).then(function(popover) {
@@ -195,19 +161,16 @@ angular.module('activity.controllers', [])
     };
     //返回
     $scope.goback=function () {
-      $ionicHistory.goBack();
+      $state.go("app.activityHome")
     };
-    //相关活动
-    $scope.relatedActivity=function (type) {
-      $location.path("/app/activityList/"+type);
-    };
-    //活动报名
+
+    //活动报名###################################################
     $scope.showPopup = function(id) {
       var tarjeta=localStorage.getItem("tarjeta");
       $scope.workEffortId=id;
       console.log($scope.workEffortId+tarjeta);
       ActivityServer.signUp(tarjeta,$scope.workEffortId,function (data) {
-
+            console.log(data.resultMsg)
       });
       $scope.data = {};
       var myPopup = $ionicPopup.show({
@@ -229,23 +192,28 @@ angular.module('activity.controllers', [])
       }, 1500);
     };
 
-    //显示子活动详情####################################################################################
+
+    //进入活动讨论###############################################################
     $scope.activityDiscuss=function(id){
-      $location.path("/app/activityDiscuss/"+id);
+      $state.go("app.activityDiscuss", {"activityId":id}, {reload: true});
+      $scope.popover.hide();
     };
-    //活动项
+    //进入活动项###############################################################
     $scope.activityItem=function(id){
       $location.path("/app/activityItem/"+id);
+      $scope.popover.hide();
     };
-    //判断是否是组织者 界面调整
+
+    //判断是否是组织者 界面调整####################################################
     var type= $stateParams.type;
-    $scope.myActivity=false;
-    $scope.otherActivity=true;
-    if(type=='my'){
+    $scope.myActivity=false;//我是组织者
+    $scope.otherActivity=true;//我是参与者
+    if($scope.iAmAdmin=='Y'){
       $scope.myActivity=true;
       $scope.otherActivity=false;
     }
-    //判断是否有子活动 界面调整
+
+    //判断是否有子活动 界面调整####################################################
     $scope.childActivity=false;
     if($scope.activityChild==''||$scope.activityChild==null){
       $scope.childActivity=false;
@@ -253,12 +221,12 @@ angular.module('activity.controllers', [])
       $scope.childActivity=true;
     }
 
-    //新建子活动
+    //新建子活动####################################################
     $scope.createChild=function (id) {
       $location.path("/app/newActivityChild/"+id);
     };
-    //新建活动项＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
-    //录入时间
+
+    //录入时间####################################################
     var ipObj1 = {
       callback: function (val) {  //Mandatory
         console.log('Return value from the datepicker popup is : ' + val, new Date(val));
@@ -275,6 +243,8 @@ angular.module('activity.controllers', [])
     $scope.openDatePicker = function(){
       ionicDatePicker.openDatePicker(ipObj1);
     };
+
+    //新建活动项弹出框####################################################
     $scope.newActivityItem=function () {
       $scope.itemData = {};
       var itemPopup = $ionicPopup.show({
@@ -305,17 +275,15 @@ angular.module('activity.controllers', [])
     $scope.closeLab = function () {
       $scope.addLab.close();
     };
-    //编辑活动
+
+    //编辑活动####################################################
     $scope.editActivty=function(id){
       $location.path("/app/editActivty/"+id);
     };
-    //显示子活动信息
-    $scope.activityDetails=function (id) {
-      alert(id)
-      ActivityServer.goActivityDetails(tarjeta,id,function (data) {
-        $scope.activityList=data.eventDetail[0];
-        $scope.childActivity=false
-      });
+
+    //显示子活动信息####################################################
+    $scope.activityChildInfo=function (id) {
+      $state.go("app.activityDetails", {"activityId":id}, {reload: true});
     }
   })
 
@@ -333,7 +301,7 @@ angular.module('activity.controllers', [])
 //活动讨论***************************************************************************************************************
   .controller('ActivityDiscuss',function ($scope, $rootScope,$stateParams,Activity) {
     var id=$stateParams.id
-    $scope.discussList=Activity.getActivityInfo(id);
+    //$scope.discussList=Activity.getActivityInfo(id);
     //融云初始化
     alert('连接融云')
     RongCloudLibPlugin.init({
@@ -614,10 +582,6 @@ angular.module('activity.controllers', [])
     $scope.$on('modal.removed', function() {
       // Execute action
     });
-    //选定可见范围
-    $scope.visualRange=function () {
-      $scope.visual.show();
-    };
 
     //邀请好友#############################################################
     $scope.invite=false;

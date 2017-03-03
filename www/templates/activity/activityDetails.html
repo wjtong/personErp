@@ -37,7 +37,7 @@
         </div>
         <div class="item">
           <label class="">
-            <i class="icon ion-ios-clock"> {{activityList.actualStartDate| date:'medium'}}  {{activityList.estimatedCompletionDate| date:'medium'}}</i>
+            <i class="icon ion-ios-clock"> {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}  {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</i>
             <br>
             <i class="icon ion-ios-location"> {{activityList.locationDesc}}</i>
             <p style="text-align:right;float: right;margin: 0"><button class="button button-small button-clear button-positive "  ng-click="showDiscuss()">3条评论</button></p>
@@ -45,7 +45,7 @@
         </div>
         <div class="item">
           <b>详细信息</b>
-          <p style="word-wrap : break-word">&nbsp;&nbsp;{{activityList.description}}</p>
+          <p style=" word-break: break-all; word-wrap:break-word;width: 100px">{{activityList.description}}</p>
         </div>
         <div class="item" ng-if="childActivity">
           <p style="float: left"><b>子活动</b></p>
@@ -54,10 +54,10 @@
         </div>
         <div class="list" ng-if="childActivity">
           <div class="item" ng-repeat="after in activityChild">
-            <a class="item item-thumbnail-left"  type="item-text-wrap" ng-click="activityDetails(after.workEffortId)">
+            <a class="item item-thumbnail-left"  type="item-text-wrap" ng-click="activityChildInfo(after.workEffortId)">
               <img ng-src="{{img}}">
               <h2>标题：{{after.workEffortName}}</h2>
-              <p>开始时间：{{after.actualStartDate}}</p>
+              <p>开始时间：{{after.actualStartDate| date:'yyyy-MM-dd HH:mm:ss'}}</p>
               <p>地点：{{after.locationDesc}}</p>
             </a>
           </div>
@@ -82,7 +82,7 @@
         </div>
         <div><p>参与人员：</p></div>
         <div class="item item-avatar" type="item-text-wrap" style="margin-left: -16px;" ng-click="openModal();" ng-controller="ActivityCrl">
-          <img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="
+          <img ng-src="{{img}}" ng-repeat="imag in personList" style="
           top: 16px;
           max-width: 40px;
           max-height: 40px;

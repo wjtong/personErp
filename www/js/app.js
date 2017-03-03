@@ -59,33 +59,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-
+    //app菜单
     .state('app', {
       url: '/app',
       abstract: true,
       templateUrl: 'templates/menu.html',
       controller: 'AppCtrl'
     })
-    .state('app.aboutme', {
-      disableBack:true,
-      url: '/aboutme',
-      cache:false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/aboutme.html',
-          controller:'AboutMe'
-        }
-      }
-    })
-
-    .state('app.tasks', {
-      url: '/tasks',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/tasks.html'
-        }
-      }
-    })
+    //app主页
     .state('app.home', {
       url: '/home',
       views: {
@@ -95,43 +76,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-
-
-    .state('app.myTime',{
-      url:'/myTime',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/myTime.html',
-          controller: 'MyTime'
-        }
-      }
-    })
-    .state('app.timeList',{
-      url:'/timeList/:timeId',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/timeList.html',
-          controller: 'TimeList'
-        }
-      }
-    })
-    .state('app.tiemInfo',{
-      url:'/tiemInfo/:timeId/:infoId',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/tiemInfo.html',
-          controller: 'TiemInfo'
-        }
-      }
-    })
-
-
   ;
   // if none of the above states are matched, use this as the fallback
   // $urlRouterProvider.otherwise('/app/playlists');
