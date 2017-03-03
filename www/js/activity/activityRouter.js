@@ -138,5 +138,34 @@ angular.module('starter')
           }
         }
       })
+      .state('app.single', {
+        url: '/playlists/:playlistId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/playlist.html',
+            controller: 'PlaylistCtrl'
+          }
+        }
+      })
+      //活动账单的显示
+      .state('app.activityBill', {
+        url: '/activityBill/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activity/activityBill.html',
+            controller: 'activityBillCtrl'
+          }
+        }
+      })
+      //活动账单的添加页面
+      .state('app.addPersonBill', {
+        url: '/addPersonBill/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activity/addPersonBill.html',
+            controller: 'addPersonBillCtrl'
+          }
+        }
+      })
 
   });

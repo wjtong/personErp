@@ -2,7 +2,7 @@ angular.module('login.controllers', [])
 
 
 //登陆
-  .controller('LoginCtrl',function($http,$scope,Login,$state,Activity){
+  .controller('LoginCtrl',function($http,$scope,Login,$state,ThemeImage){
     $scope.loginData = {};
     $scope.doLogin = function() {
       if (Object.keys($scope.loginData).length == 0) {
@@ -28,9 +28,9 @@ angular.module('login.controllers', [])
       }
     };
     //设置全局的变量
-    //图片
-    $scope.activityImg=Activity.getImg();
-    localStorage.setItem("activityImg", $scope.activityImg.img)
+    $scope.activityImg=ThemeImage.getRangeImg();
+    localStorage.setItem("activityImg", $scope.activityImg.img);//全局活动图片
+    localStorage.setItem("contactImg", $scope.activityImg.img2);//全局人员图片
   })
 
 

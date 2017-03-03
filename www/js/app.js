@@ -130,35 +130,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('app.single', {
-      url: '/playlists/:playlistId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlist.html',
-          controller: 'PlaylistCtrl'
-        }
-      }
-    })
-    //活动账单的显示
-    .state('app.activityBill', {
-      url: '/activityBill/',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/activityBill.html',
-          controller: 'activityBillCtrl'
-        }
-      }
-    })
-    //活动账单的添加页面
-    .state('app.addPersonBill', {
-      url: '/addPersonBill/',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/addPersonBill.html',
-          controller: 'addPersonBillCtrl'
-        }
-      }
-    })
+
 
   ;
   // if none of the above states are matched, use this as the fallback

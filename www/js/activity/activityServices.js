@@ -210,10 +210,15 @@ angular.module('activity.services', [])
       {id:'Pic_10024',img:'img/share/微信.jpeg',name:'微信'},
       {id:'Pic_10025',img:'img/share/新浪jpeg.jpeg',name:'新浪微博'},
       {id:'Pic_10026',img:'img/share/朋友圈.jpeg',name:'朋友圈'}
-    ]
+    ];
+    var Img =
+    {id:'Pic_10080',img:'img/resources/paobu3.jpeg',img2:'img/team/img1-sm.jpg'};
     return{
       getPartyImg:function () {
         return partyImg;
+      },
+      getRangeImg:function () {
+        return Img;
       },
       getShareImg:function () {
         return shareImg;

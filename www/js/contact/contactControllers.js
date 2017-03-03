@@ -1,13 +1,16 @@
 angular.module('contact.controllers', [])
 
 
-//联系人
+//联系人*********************************************************************************************************
   .controller('ContactlistCtrl', function($scope,Contact,$location,$rootScope) {
+    //获得全局数据
+    var tarjeta=localStorage.getItem("tarjeta");
+    $scope.activityImg=localStorage.getItem("activityImg");
+    $scope.contactImg=localStorage.getItem("contactImg");
     //获得全部联系人
     Contact.getAll($rootScope.partyId , function (data){
       $scope.personmainLists = data;
     });
-    // $scope.personmainLists=Contact.getAll();
     //删除联系人
     $scope.deletePerson=function (partyIdFrom) {
       Contact.deleteContects($rootScope.partyId,partyIdFrom,function (data) {
@@ -21,7 +24,7 @@ angular.module('contact.controllers', [])
       $location.path('/app/abouthim/'+id);
     }
   })
-//更新联系人
+//更新联系人*********************************************************************************************************
   .controller('UpdatePersonInfo',function ($scope,Contact,$stateParams,PersonData,PersonLabel,$rootScope) {
     var partyId = $stateParams.personId;
     $scope.partyId=partyId
@@ -124,7 +127,7 @@ angular.module('contact.controllers', [])
     }
   })
 
-//添加联系人
+//添加联系人*********************************************************************************************************
   .controller('AddPerson',function ($scope,PersonLabel,$rootScope,$location,PersonData,$ionicHistory) {
     $scope.title="添加人员"
     //获得全部标签
@@ -216,7 +219,7 @@ angular.module('contact.controllers', [])
       }
     }
   })
-//关于联系人
+//关于联系人*********************************************************************************************************
   .controller('AboutHim',function ($scope,Contact,$stateParams,$location,PersonData) {
     var partyId = $stateParams.personId;
     PersonData.getPersonInfo(partyId, function (data){
@@ -239,7 +242,7 @@ angular.module('contact.controllers', [])
       $location.path('/app/getBusiness/');
     };
   })
-//编辑地址
+//编辑地址*********************************************************************************************************
   .controller('EditAddress',function ($scope,PersonData,$rootScope,popupUtil,$ionicLoading,$ionicHistory) {
     PersonData.showPersonAddress($rootScope.partyId , function (data){
       //alert($rootScope.partyId);
@@ -364,7 +367,7 @@ angular.module('contact.controllers', [])
     }
 
   })
-//标签
+//标签*********************************************************************************************************
   .controller('PersonLabel', function ($scope, $location,$ionicPopup, PersonLabel,$rootScope) {
     //$scope.labelList = PersonLabel.getAllLabl();
     //查询用户拥有标签
@@ -423,7 +426,7 @@ angular.module('contact.controllers', [])
 
 
   })
-//标签内人员
+//标签内人员*********************************************************************************************************
   .controller('LabelPersonList',function ($scope, $stateParams, $ionicModal, Contact, PersonLabel,ChatList,GroupChat,$rootScope) {
     var partyId=$stateParams.partyId;
     //获得标签内人员
