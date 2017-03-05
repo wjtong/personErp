@@ -79,6 +79,7 @@ angular.module('activity.controllers', [])
 
     //获得活动的详细信息＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
     var id = $stateParams.activityId;
+    $scope.workEffortId = $stateParams.activityId;
     ActivityServer.goActivityDetails(tarjeta,id,function (data) {
       $scope.activityList=data.eventDetail[0];
       $scope.activityChild=data.childActivityList;//子活动数据

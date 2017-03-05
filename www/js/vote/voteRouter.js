@@ -6,6 +6,8 @@ angular.module('starter')
 
     .state('app.voteList', {
       url: '/voteList',
+      cache :false,
+      params: {'workEffortId': null},
       views: {
         'menuContent': {
           templateUrl: 'templates/vote/voteList.html',
@@ -16,6 +18,10 @@ angular.module('starter')
 
     .state('app.goEditVote', {
       url: '/goEditVote',
+      cache :false,
+      params: {
+        'workEffortId': null
+      },
       views: {
         'menuContent': {
           templateUrl: 'templates/vote/editVote.html',
@@ -26,6 +32,12 @@ angular.module('starter')
 
     .state('app.goCastVote', {
       url: '/goCastVote',
+      params: {
+        'surveyId': null,
+        'surveyName': null,
+        'workEffortId': null
+      },
+      cache :false,
       views: {
         'menuContent': {
           templateUrl: 'templates/vote/castVote.html',
