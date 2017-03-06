@@ -31,7 +31,13 @@ angular.module('login.controllers', [])
     $scope.activityImg=ThemeImage.getRangeImg();
     localStorage.setItem("activityImg", $scope.activityImg.img);//全局活动图片
     localStorage.setItem("contactImg", $scope.activityImg.img2);//全局人员图片
+    //用户注册****************************************************************
+    $scope.goRegister=function(){
+      $state.go("register");
+    }
+    //取消注册
+    $scope.goLogin=function () {
+      $state.go("login");
+    }
   })
-
-
 ;
