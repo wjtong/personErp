@@ -1,8 +1,9 @@
 angular.module('activity.services', [])
 
 //活动连接后台＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-  .factory('ActivityServer',function(){
-    var url = 'http://192.168.3.62:3400/personContacts/control/';
+  .factory('ActivityServer',function($rootScope){
+    //var url = 'http://192.168.3.62:3400/personContacts/control/';
+    var url = $rootScope.interfaceUrl;//服务器
     return {
       //新建活动
       createActivity: function (tarjeta,workEffortName,actualStartDate,estimatedCompletionDate,locationDesc,description,contactsList,cb) {

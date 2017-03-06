@@ -1,9 +1,9 @@
 angular.module('contact.services', [])
 
 //联系人列表
-  .factory('Contact',function () {
-    //var url = "http://114.215.200.46:3400/personContacts/control/";
-    var url = "http://192.168.3.62:3400/personContacts/control/";
+  .factory('Contact',function ($rootScope) {
+    var url = $rootScope.interfaceUrl;//服务器
+    //var url = "http://192.168.3.62:3400/personContacts/control/";
     //var url = "http://localhost:3400/personContacts/control/";
 
     var personmainLists = [
@@ -151,10 +151,10 @@ angular.module('contact.services', [])
   })
 
 //标签＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-  .factory('PersonLabel', function () {
+  .factory('PersonLabel', function ($rootScope) {
     //var url = "http://localhost:3400/personContacts/control/";
-    //var url = "http://114.215.200.46:3400/personContacts/control/";
-    var url = "http://192.168.3.62:3400/personContacts/control/";
+    var url = $rootScope.interfaceUrl;//服务器
+    //var url = "http://192.168.3.62:3400/personContacts/control/";
     return{
       //获得全部标签
       getAllLabl:function (userLoginId, cb) {
@@ -279,10 +279,10 @@ angular.module('contact.services', [])
   })
 
 //个人信息  GEO信息＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-  .factory("PersonData", function () {
-    //var url = "http://114.215.200.46:3400/personContacts/control/";
+  .factory("PersonData", function ($rootScope) {
+    var url = $rootScope.interfaceUrl;//服务器
     //var url = "http://localhost:3400/personContacts/control/";
-    var url = "http://192.168.3.62:3400/personContacts/control/";
+    //var url = "http://192.168.3.62:3400/personContacts/control/";
     return{
       //获得用户信息（关于我，联系人信息）
       getPersonInfo:function (partyId, cb) {
