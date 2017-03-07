@@ -71,7 +71,20 @@ angular.module('vote.controllers', [])
       $scope.questions = data.resultMap.questions;                         // 投票项列表
       $scope.ret = {choice: '0'};                                          // 单选必须初始化 不然拿不到想要的值 卧槽
 
-      $scope.partyResponceAnswers = data.resultMap.partyResponceAnswer;    // 投票详情列表
+      var partyResponceAnswers = data.resultMap.partyResponceAnswer;       // 投票详情列表
+      var voteArr = [];
+      for(var i=0;i<partyResponceAnswers.length;i++){
+        if(partyResponceAnswers[i] == null){
+          continue;
+        }else{
+          voteArr.push({
+            'question':partyResponceAnswers[i].question,
+            'userName':partyResponceAnswers[i].userName
+          });
+        }
+      }
+      // console.log(voteArr);
+      $scope.voteArrs = voteArr;
     });
 
     $scope.doPollQuestion = function (surveyQuestionId) {
@@ -108,6 +121,8 @@ angular.module('vote.controllers', [])
  * */
   .controller('voteListCtrl', function($scope, $state, $ionicPopup, $stateParams, voteService) {
     $scope.workEffortId = $stateParams.workEffortId; // 活动ID
+
+    // alert($scope.workEffortId);
     voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
       console.log(data.resultMap.activityPollQuestionsTitle);
       $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle; // 投票列表

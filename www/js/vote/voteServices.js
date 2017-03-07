@@ -50,7 +50,7 @@ angular.module('vote.services', [])
             type: "POST",
             data: {
               "tarjeta": tarjeta,
-              "workEffortId": "10261",  // 活动id
+              "workEffortId": workEffortId,  // 活动id
               "surveyName":surveyName,
               "isAnonymous":"N",
               "allowMultiple":"Y",

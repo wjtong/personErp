@@ -15,8 +15,8 @@
       <div class="list">
         <div class="item item-divider item-icon-right" ng-click="changeOnOff(onOff)">投票详情 <i class="icon {{onOff==true?'ion-android-arrow-dropdown':'ion-android-arrow-dropup'}}"></i></div>
         <div ng-show="onOff">
-          <div class="item item-text-wrap" ng-repeat="partyResponceAnswer in partyResponceAnswers">
-            <h2 ng-bind="partyResponceAnswer.questions"></h2>
+          <div class="item item-text-wrap" ng-repeat="partyResponceAnswer in voteArrs">
+            <h2 ng-bind="partyResponceAnswer.question"></h2> {{partyResponceAnswer.userName}}
             <!--<img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="top: 16px;max-width: 40px;max-height: 40px;width: 100%;height: 100%;border-radius: 50%;margin-left: 16px;">-->
           </div>
         </div>
