@@ -13,7 +13,7 @@ angular.module('starter')
       .state('register', {
         url: '/register',
         templateUrl: 'templates/register.html',
-        controller: 'LoginCtrl'
+        controller: 'RegisterCtrl'
       })
 
 

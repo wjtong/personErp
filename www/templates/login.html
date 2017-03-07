@@ -1,28 +1,32 @@
 <ion-view view-title="Login">
-  <ion-content>
+  <ion-content >
     <div class="bar bar-header bar-light">
       <h1 class="title">PE平台 / 登陆</h1>
       <button class="button button-clear" ng-click="goRegister()">
         <i class="icon ion-compose">注册</i>
       </button>
     </div>
-    <div class="content has-header">
-      <form ng-submit="doLogin()">
+    <div class="content has-header" style="position: relative;z-index:0">
+      <form ng-submit="doLogin()" >
         <div class="list">
           <label class="item item-input">
-            <span class="input-label text-center">用户名</span>
-            <input type="text" ng-model="loginData.username">
+            <span class="input-label text-center">手机号码</span>
+            <input type="text" ng-model="loginData.mobileNumber">
           </label>
-          <label class="item item-input">
+          <label class="item item-input" >
             <span class="input-label text-center">验证码</span>
-            <input type="number" ng-model="loginData.password">
-            <input type="button" value="获取验证码" style="background-color:#B9B9B9;position: absolute;right: 17px;text-align: center;text-indent: 8px">
+            <input type="text" ng-model="loginData.captcha">
           </label>
           <label class="item">
             <button class="button button-block button-dark" type="submit">登 录</button>
           </label>
         </div>
       </form>
+      <div>
+        <label>
+          <input type="button" ng-value="codeBtn" ng-controller="captcha" ng-click="getIdentifyCode(loginData.mobileNumber)" style="background-color:#B9B9B9;text-align: center;text-indent: 8px;z-index:3;position: absolute;top:30%;right: 5%">
+        </label>
+      </div>
     </div>
   </ion-content>
 </ion-view>
