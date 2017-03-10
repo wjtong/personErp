@@ -12,8 +12,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//链接服务器
-    //$rootScope.interfaceUrl = "http://192.168.3.62:3400/personContacts/control/";//链接沈演麟本地
+    //$rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//链接服务器
+    $rootScope.interfaceUrl = "http://192.168.3.62:3400/personContacts/control/";//链接沈演麟本地
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
       cordova.plugins.Keyboard.disableScroll(true);
