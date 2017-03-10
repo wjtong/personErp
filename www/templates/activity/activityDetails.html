@@ -17,27 +17,27 @@
           <img ng-src="{{img}}" style="width: 100%;height: 200px;margin: 0"/>
           <div style="position: absolute;top: 60%;right: 10%">
             <p style="color: white"><b>活动安排：{{activityList.workEffortName}}</b></p>
-            <p style="color: white">组织者：{{activityList.name}}</p>
+            <p style="color: white">组织者：{{createPersonInfoList.lastName}}{{createPersonInfoList.firstName}}</p>
           </div>
         </div>
-        <div class="list list-left-editing" style="display: none;" id="discuss">
-          <ion-list>
-            <h2>近期评论</h2>
-            <hr>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="Discuss in DiscussList ">
-              <img ng-src="{{Discuss.img}}">
-              <h3>{{Discuss.name}}</h3>
-              <p>{{Discuss.discuss}}</p>
-              <p>{{Discuss.date}}</p>
-            </ion-item>
-            <ion-item>
-              <p style="text-align:right"><button class="button button-small button-clear button-positive "  ng-click="showAddLab()">评论</button><button class="button button-small button-clear button-positive "  ng-click="hideDiscuss()">收起</button></p>
-            </ion-item>
-          </ion-list>
-        </div>
+        <!--<div class="list list-left-editing" style="display: none;" id="discuss">-->
+          <!--<ion-list>-->
+            <!--<h2>近期评论</h2>-->
+            <!--<hr>-->
+            <!--<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="Discuss in DiscussList ">-->
+              <!--<img ng-src="{{Discuss.img}}">-->
+              <!--<h3>{{Discuss.name}}</h3>-->
+              <!--<p>{{Discuss.discuss}}</p>-->
+              <!--<p>{{Discuss.date}}</p>-->
+            <!--</ion-item>-->
+            <!--<ion-item>-->
+              <!--<p style="text-align:right"><button class="button button-small button-clear button-positive "  ng-click="showAddLab()">评论</button><button class="button button-small button-clear button-positive "  ng-click="hideDiscuss()">收起</button></p>-->
+            <!--</ion-item>-->
+          <!--</ion-list>-->
+        <!--</div>-->
         <div class="item">
           <label class="">
-            <i class="icon ion-ios-clock"> {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}/{{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</i>
+            <i class="icon ion-ios-clock"> {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}<br>&nbsp;{{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</i>
             <br>
             <i class="icon ion-ios-location"> {{activityList.locationDesc}}</i>
             <p style="text-align:right;float: right;margin: 0"><button class="button button-small button-clear button-positive "  ng-click="showDiscuss()">3条评论</button></p>
@@ -132,6 +132,11 @@
         <i class="icon icon-left ion-network" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;" >编辑活动</span>
+      </a>
+      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="inviteFriends(activityList.workEffortId,partyId)">
+        <i class="icon icon-left ion-android-list" style="line-height: 14px;">
+        </i>
+        <span class="tab-title ng-binding" style="font-size: 10px;" >邀请好友</span>
       </a>
     </div>
   </div>

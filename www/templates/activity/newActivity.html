@@ -10,28 +10,21 @@
         <div class="item">
             <!--<button class="button button-assertive" id="startDate">活动开始日期</button>-->
             <!--<button class="button button-assertive" id="startTime">活动开始时间</button>-->
-            <input type="text" placeholder="活动开始日期" value="{{myActivtyList.createTime}}" style="width: 45%;display: inline-block" id="startDate" ng-click="openDatePicker('start')" >
-            <input type="text" placeholder="活动开始时间" value="{{myActivtyList.createTime}}" style="width: 45%;float: right;" id="startTime" ng-click="openTimePicker('start')" ng-model="ActivityData.startTime">
+            <input type="text" readonly=“readonly” placeholder="活动开始日期" value="{{myActivtyList.createTime}}" style="width: 45%;display: inline-block;background-color: white" id="startDate" ng-click="openDatePicker('start')" >
+            <input type="text" readonly=“readonly” placeholder="活动开始时间" value="{{myActivtyList.createTime}}" style="width: 45%;float: right;background-color: white" id="startTime" ng-click="openTimePicker('start')" ng-model="ActivityData.startTime">
         </div>
         <div class="item">
-            <input type="text" placeholder="活动结束日期" value="" style="width: 45%;display: inline-block" id="endDate" ng-click="openDatePicker('end')" >
-            <input type="text" placeholder="活动结束时间" value="" style="width: 45%;float: right;" id="endTime" ng-click="openTimePicker('end')" ng-model="ActivityData.endTime">
+            <input type="text" readonly=“readonly”  placeholder="活动结束日期" value="" style="width: 45%;display: inline-block;background-color: white" id="endDate" ng-click="openDatePicker('end')" >
+            <input type="text" readonly=“readonly”  placeholder="活动结束时间" value="" style="width: 45%;float: right;background-color: white" id="endTime" ng-click="openTimePicker('end')" ng-model="ActivityData.endTime">
         </div>
         <div class="item">
           <label class="">
-            <input type="text" placeholder="活动举办地点" value="{{myActivtyList.address}}{{myActivtyList.addressDet}}" style="width: 100%" ng-model="ActivityData.address">
+            <input type="text" readonly=“readonly” style="background-color: white" ng-click="openModalAddress()" placeholder="活动举办地点" value="{{myActivtyList.address}}{{myActivtyList.addressDet}}" style="width: 100%" ng-model="ActivityData.address">
           </label>
         </div>
         <div class="item">
           <label class="">
             <textarea name="a" style="width:330px;height:150px;" placeholder="填写活动描述，让更多的人参与活动" ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
-          </label>
-        </div>
-        <!--ng-click="visualRange()"-->
-        <div class="item">
-          <label class="">
-            <span class="input-label" style="float: left" >可见范围</span>
-            <input id="range" class="input-label" placeholder="全局可见" style="float: right;background-color:white;text-align: right;border: 0;width: 100%" value="" readonly="readonly">
           </label>
         </div>
         <div class="item">
@@ -57,17 +50,9 @@
             <i class="icon ion-images"></i>
             照片墙
           </a>
-          <a class="tab-item" ng-click="inviteFriends('invite')">
+          <a class="tab-item" ng-click="inviteFriends()">
             <i class="icon ion-android-list"></i>
             邀请好友
-          </a>
-          <a class="tab-item" ng-click="newTask()">
-            <i class="icon ion-share"></i>
-            分享
-          </a>
-          <a class="tab-item" ng-click="openModal()">
-            <i class="icon ion-android-happy"></i>
-            签到
           </a>
         </div>
       </div>

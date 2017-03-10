@@ -2,9 +2,7 @@ angular.module('contact.services', [])
 
 //联系人列表
   .factory('Contact',function ($rootScope) {
-    var url = $rootScope.interfaceUrl;//服务器
-    //var url = "http://192.168.3.62:3400/personContacts/control/";
-    //var url = "http://localhost:3400/personContacts/control/";
+
 
     var personmainLists = [
       {id:'PERS_10001',img:'img/team/fenghao.png',name:'冯浩',company:'上海班富电子商务',address:'中国，浙江，杭州',price:'80',
@@ -26,7 +24,7 @@ angular.module('contact.services', [])
       //获得联系人(联动)
       getAll:function (partyId, cb) {
         $.ajax({
-          url:url+"findContacts",
+          url:$rootScope.interfaceUrl+"findContacts",
           data:{partyId:partyId},
           async : false,
           type:'POST',
@@ -45,7 +43,7 @@ angular.module('contact.services', [])
       //查询联系人的个人信息
       getContactInfo:function (partyId, cb) {
         $.ajax({
-          url:url+"findContactInfo",
+          url:$rootScope.interfaceUrl+"findContactInfo",
           data:{partyId:partyId},
           async : false,
           type:'POST',
@@ -64,7 +62,7 @@ angular.module('contact.services', [])
       //删除联系人
       deleteContects:function (partyIdTo,partyIdFrom, cb) {
         $.ajax({
-          url:url+"deleteContacts",
+          url:$rootScope.interfaceUrl+"deleteContacts",
           data:{
             partyIdTo:partyIdTo,
             partyIdFrom:partyIdFrom
@@ -86,7 +84,7 @@ angular.module('contact.services', [])
       //编辑联系人
       updatePerson:function (partyId,personName,contactNumber,contactEmail,contactCompany,contactGroup,gender,contactAddress1,contactCity,contactGeoName,contactAddress2,cb) {
         $.ajax({
-          url:url+"updateContects",
+          url:$rootScope.interfaceUrl+"updateContects",
           data:{
             personName:personName,
             gender:gender,
@@ -118,7 +116,7 @@ angular.module('contact.services', [])
       //添加联系人
       createPerson:function (partyId,personName,contactNumber,contactEmail,contactCompany,contactGroup,gender,contactAddress1,contactCity,contactGeoName,contactAddress2,cb) {
         $.ajax({
-          url:url+"addContects",
+          url:$rootScope.interfaceUrl+"addContects",
           data:{
             personName:personName,
             gender:gender,
@@ -152,14 +150,12 @@ angular.module('contact.services', [])
 
 //标签＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .factory('PersonLabel', function ($rootScope) {
-    //var url = "http://localhost:3400/personContacts/control/";
-    var url = $rootScope.interfaceUrl;//服务器
-    //var url = "http://192.168.3.62:3400/personContacts/control/";
+
     return{
       //获得全部标签
       getAllLabl:function (userLoginId, cb) {
         $.ajax({
-          url:url+"findLable",
+          url:$rootScope.interfaceUrl+"findLable",
           data:{userLoginId:userLoginId},
           async : false,
           type:'POST',
@@ -178,7 +174,7 @@ angular.module('contact.services', [])
       //获得标签内人员
       getLablPersonList:function (partyId, cb) {
         $.ajax({
-          url:url+"findLablePerson",
+          url:$rootScope.interfaceUrl+"findLablePerson",
           data:{partyId:partyId},
           async : false,
           type:'POST',
@@ -197,7 +193,7 @@ angular.module('contact.services', [])
       //删除标签
       removeLable:function (partyId,cb) {
         $.ajax({
-          url:url+"deleteLable",
+          url:$rootScope.interfaceUrl+"deleteLable",
           data:{partyId:partyId},
           async : false,
           type:'POST',
@@ -234,7 +230,7 @@ angular.module('contact.services', [])
       //添加标签内成员
       addLablePerson:function (partyIdFrom,partyIdTo) {
         $.ajax({
-          url:url+"addLablePerson",
+          url:$rootScope.interfaceUrl+"addLablePerson",
           data:{
             partyIdFrom:partyIdFrom,
             partyIdTo:partyIdTo,
@@ -256,7 +252,7 @@ angular.module('contact.services', [])
       //创建标签
       addPersonLab:function (lableName,userLoginId,cb) {
         $.ajax({
-          url:url+"createLable",
+          url:$rootScope.interfaceUrl+"createLable",
           data:{
             lableName:lableName,
             userLoginId:userLoginId
@@ -280,14 +276,12 @@ angular.module('contact.services', [])
 
 //个人信息  GEO信息＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .factory("PersonData", function ($rootScope) {
-    var url = $rootScope.interfaceUrl;//服务器
-    //var url = "http://localhost:3400/personContacts/control/";
-    //var url = "http://192.168.3.62:3400/personContacts/control/";
+
     return{
       //获得用户信息（关于我，联系人信息）
       getPersonInfo:function (partyId, cb) {
         $.ajax({
-          url:url+"findPerson",
+          url:$rootScope.interfaceUrl+"findPerson",
           data:{partyId:partyId},
           async : false,
           type:'POST',
@@ -307,7 +301,7 @@ angular.module('contact.services', [])
       //获得省列表
       showPersonAddress:function (partyId, cb) {
         $.ajax({
-          url:url+"showPersonAddress",
+          url:$rootScope.interfaceUrl+"showPersonAddress",
           data:{partyId:partyId},
           async : false,
           type:'POST',
@@ -327,7 +321,7 @@ angular.module('contact.services', [])
       //编辑省信息
       editPersonAddress:function (dataMap, cb) {
         $.ajax({
-          url:url+"editPersonAddress",
+          url:$rootScope.interfaceUrl+"editPersonAddress",
           data:dataMap,
           async : false,
           type:'POST',

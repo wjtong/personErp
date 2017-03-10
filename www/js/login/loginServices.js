@@ -2,12 +2,11 @@ angular.module('login.services', [])
 
 //登陆＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .factory('Login',function($rootScope){
-    var url =$rootScope.interfaceUrl;//服务器
     return {
       //登陆
       login:function (userLoginId,captcha,cb) {
         $.ajax({
-          url:url+"userAppLogin",
+          url:$rootScope.interfaceUrl+"userAppLogin",
           data:{
             userLoginId:userLoginId,
             captcha:captcha
@@ -29,7 +28,7 @@ angular.module('login.services', [])
       //验证用户是否存在
       userLoginExsit:function (userLoginId,cb) {
         $.ajax({
-          url:url+"isUserLoginExsits",
+          url:$rootScope.interfaceUrl+"isUserLoginExsits",
           data:{
             userLoginId:userLoginId
           },
@@ -50,7 +49,7 @@ angular.module('login.services', [])
       //用户注册
       userAppRegister:function (teleNumber,captcha,nickName,cb) {
         $.ajax({
-          url:url+"userAppRegister",
+          url:$rootScope.interfaceUrl+"userAppRegister",
           data:{
             teleNumber:teleNumber,
             captcha:captcha,

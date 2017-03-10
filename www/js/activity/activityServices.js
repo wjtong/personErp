@@ -1,14 +1,13 @@
 angular.module('activity.services', [])
 
 //活动连接后台＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-  .factory('ActivityServer',function($rootScope){
-    //var url = 'http://192.168.3.62:3400/personContacts/control/';
-    var url = $rootScope.interfaceUrl;//服务器
+  .factory('ActivityServer',function($rootScope,$q,$http){
+
     return {
       //新建活动
-      createActivity: function (tarjeta,workEffortName,actualStartDate,estimatedCompletionDate,locationDesc,description,contactsList,cb) {
+      createActivity: function (tarjeta,workEffortName,actualStartDate,estimatedCompletionDate,locationDesc,description,specialTerms,cb) {
         $.ajax({
-          url: url + "createNewEvent",
+          url: $rootScope.interfaceUrl + "createNewEvent",
           data: {
             tarjeta: tarjeta,
             workEffortName:workEffortName,
@@ -16,7 +15,7 @@ angular.module('activity.services', [])
             estimatedCompletionDate:estimatedCompletionDate,
             locationDesc:locationDesc,
             description:description,
-            contactsList:contactsList
+            specialTerms:specialTerms
           },
           async: false,
           type: 'POST',
@@ -35,7 +34,7 @@ angular.module('activity.services', [])
       //新建子活动
       createChildActivity: function (parentId,tarjeta,workEffortName,actualStartDate,estimatedCompletionDate,locationDesc,description,contactsList,cb) {
         $.ajax({
-          url: url + "createNewEvent",
+          url: $rootScope.interfaceUrl + "createNewEvent",
           data: {
             parentId:parentId,
             tarjeta: tarjeta,
@@ -63,7 +62,7 @@ angular.module('activity.services', [])
       //新建活动项
       createActivityItem: function (tarjeta,workEffortId, workEffortName, actualStartDate, cb) {
         $.ajax({
-          url: url + "createActivityProject",
+          url: $rootScope.interfaceUrl + "createActivityProject",
           data: {
             tarjeta: tarjeta,
             workEffortId:workEffortId,
@@ -87,7 +86,7 @@ angular.module('activity.services', [])
       //查询活动项
       findActivityItem: function (tarjeta,workEffortId, cb) {
         $.ajax({
-          url: url + "findActivityProjects",
+          url: $rootScope.interfaceUrl + "findActivityProjects",
           data: {
             tarjeta: tarjeta,
             workEffortId:workEffortId,
@@ -109,7 +108,7 @@ angular.module('activity.services', [])
       //由我组织的活动
       myActivity: function (tarjeta,roleTypeId, cb) {
         $.ajax({
-          url: url + "findMyEvent",
+          url: $rootScope.interfaceUrl + "findMyEvent",
           data: {
             tarjeta: tarjeta,
             roleTypeId:roleTypeId
@@ -131,7 +130,7 @@ angular.module('activity.services', [])
       //活动详情
       goActivityDetails: function (tarjeta,workEffortId, cb) {
         $.ajax({
-          url: url + "findMyEventDetail",
+          url: $rootScope.interfaceUrl + "findMyEventDetail",
           data: {
             tarjeta: tarjeta,
             workEffortId:workEffortId
@@ -153,7 +152,7 @@ angular.module('activity.services', [])
       //活动报名
       signUp: function (tarjeta,workEffortId, cb) {
         $.ajax({
-          url: url + "translationActivity",
+          url: $rootScope.interfaceUrl + "translationActivity",
           data: {
             tarjeta: tarjeta,
             workEffortId:workEffortId
@@ -175,7 +174,7 @@ angular.module('activity.services', [])
       //新建活动账单
       createActivityPayment: function (tarjeta,workEffortId,partyIdFrom,invoiceApplied,amountApplied,payDate, cb) {
         $.ajax({
-          url: url + "createPartyPayment",
+          url: $rootScope.interfaceUrl + "createPartyPayment",
           data: {
             tarjeta: tarjeta,
             workEffortId:workEffortId,
@@ -201,10 +200,78 @@ angular.module('activity.services', [])
       //查询活动账单
       findActivityPayment: function (tarjeta,workEffortId, cb) {
         $.ajax({
-          url: url + "findActivityPayment",
+          url: $rootScope.interfaceUrl + "findActivityPayment",
           data: {
             tarjeta: tarjeta,
             workEffortId:workEffortId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //选择活动地址
+      selectAddress: function (query,region,city_limit,output,ak) {
+        var d = $q.defer();
+        var promise = d.promise;
+        $http.jsonp("http://api.map.baidu.com/place/v2/suggestion?query=" + query + "&region=" + region+ "&output=" + output+ "&ak=" + ak+ "&city_limit=" + city_limit + "&callback=JSON_CALLBACK")
+          .success(function(data) {
+            d.resolve(data);
+          })
+          .error(function(error) {
+            d.reject(error);
+          });
+
+        promise.success = function (fn) {
+          promise.then(fn);
+          return promise;
+        };
+        promise.error = function (fn) {
+          promise.then(null, fn);
+          return promise;
+        };
+        return promise;
+      },
+      //通过IP获得当前位置信息
+      currentAddress: function (ak) {
+        var d = $q.defer();
+        var promise = d.promise;
+        $http.jsonp("http://api.map.baidu.com/location/ip?ak=" + ak+"&callback=JSON_CALLBACK")
+          .success(function(data) {
+            console.log(data)
+            d.resolve(data);
+          })
+          .error(function(error) {
+            d.reject(error);
+          });
+        promise.success = function (fn) {
+          promise.then(fn);
+          return promise;
+        };
+        promise.error = function (fn) {
+          promise.then(null, fn);
+          return promise;
+        };
+        return promise;
+      },
+      //活动邀请好友发送短信
+      sendInvitation: function (tarjeta,workEffortId,partyId,contact,cb) {
+        $.ajax({
+          url: $rootScope.interfaceUrl + "sendInvitation",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId:workEffortId,
+            partyId:partyId,
+            contact:contact
           },
           async: false,
           type: 'POST',

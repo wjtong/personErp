@@ -2,7 +2,15 @@ angular.module('login.controllers', [])
 
 
 //登陆＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-  .controller('LoginCtrl',function($http,$scope,Login,$state,ThemeImage){
+  .controller('LoginCtrl',function($http,$scope,Login,$state,ThemeImage,ActivityServer){
+    $scope.$on('$ionicView.beforeEnter', function () {                              // 这个玩意儿不错，刚加载执行的广播通知方法
+      $scope.user = {"identifyCode": ""};                                           // 退出登录后，清空验证码
+      if (localStorage.getItem("tarjeta")!= null) {   // 登录成功了，按物理返回键，就别想重新登录
+        $state.go("app.home");
+      }
+    });
+
+    //如果token不存在或者失效＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
     $scope.loginData = {};
     $scope.doLogin = function() {
       if (Object.keys($scope.loginData).length == 0) {
@@ -12,7 +20,7 @@ angular.module('login.controllers', [])
       } else if ($scope.loginData.captcha == null) {
         alert("请输入验证码!!!")
       } else {
-        alert($scope.loginData.captcha)
+
         Login.login($scope.loginData.mobileNumber,$scope.loginData.captcha, function (data) {
           console.log(data.tarjeta);
           if (data.resultMsg === 'PE平台登录成功') {

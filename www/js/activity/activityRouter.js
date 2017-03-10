@@ -123,6 +123,18 @@ angular.module('starter')
           }
         }
       })
+      //活动邀请
+      .state('app.activityInvitation', {
+        url: '/activityInvitation/:workEffortId/:partyId',
+        disableBack:true,
+        cache :false,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activity/activityInvitation.html',
+            controller:'ActivityInvitation'
+          }
+        }
+      })
       //编辑活动
       .state('app.editActivty', {
         url: '/editActivty/:id',
@@ -150,6 +162,7 @@ angular.module('starter')
       //活动账单的显示
       .state('app.activityBill', {
         url: '/activityBill/:workEffortId',
+        cache :false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityBill.html',
@@ -160,6 +173,7 @@ angular.module('starter')
       //活动账单的添加页面
       .state('app.addPersonBill', {
         url: '/addPersonBill/:workEffortId',
+        cache :false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/addPersonBill.html',
