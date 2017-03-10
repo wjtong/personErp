@@ -952,21 +952,21 @@ angular.module('activity.controllers', [])
   })
 
 //活动邀请************************************************************************************************************************
-  .controller('ActivityInvitation', function($scope,$cordovaContacts,$cordovaSms,$stateParams,ActivityServer) {
+  .controller('ActivityInvitation', function($scope,$cordovaContacts,$cordovaSms,$stateParams,ActivityServer,$rootScope) {
     var workEffortId=$stateParams.workEffortId
     var partyId=$stateParams.partyId
     var tarjeta=localStorage.getItem("tarjeta");
-    // 打开通讯录查询
+    // 打开通讯录查询＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
       var options = {};
       options.filter = "";
       options.multiple = true;
       $cordovaContacts.find(options).then(function (allContacts) {
         $scope.contact = allContacts
-        alert(JSON.stringify(allContacts));
         //document.getElementById('phoneNums').value = $scope.contact;
       });
-
-    //选择想要邀请的联系人
+    $scope.condition=false;
+    var phone=$scope.contact
+    //选择想要邀请的联系人＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
     $scope.selectContacts=function(){
       var invitation=[];
       for(var i=0;i<$scope.contact.length;i++){
@@ -974,25 +974,39 @@ angular.module('activity.controllers', [])
           invitation.push($scope.contact[i].name.formatted+"/"+$scope.contact[i].phoneNumbers[0].value)
         }
       }
-      alert(invitation+" "+workEffortId+" "+partyId+" "+tarjeta);
       var contact=invitation.toString();
       ActivityServer.sendInvitation(tarjeta,workEffortId,partyId,contact,function (data) {
-        alert("邀请成功"+" "+JSON.stringify(data))
         $state.go("app.activityDetails",{"activityId":workEffortId})
       })
     };
-    //打开发送短信*************************
-    $scope.sendMsg = function () {
-      console.log("发送消息:" + "15618323607");
-      var options = {
-        replaceLineBreaks: false, // true to replace \n by a new line, false by default
-        android: {
-          intent: 'INTENT' // send SMS with the native android SMS messaging
-      //intent: '' // send SMS without open any other app
+    //打开发送短信的popup＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
+      $scope.sms = {
+        number:'15618323607',
+        message: '生日快乐'
+    };
+    var options = {
+      replaceLineBreaks: false, // true to replace \n by a new line, false by default
+      android: {
+        intent: '' // send SMS with the native android SMS messaging
+        //intent: '' // send SMS without open any other app
+        //intent: 'INTENT' // send SMS inside a default SMS app
+      }
+    };
+    $scope.sendSMS = function () {
+      var mobilePhone=[];
+      for(var i=0;i<$scope.contact.length;i++){
+        if($scope.contact[i].checked==true){
+          mobilePhone.push($scope.contact[i].phoneNumbers[0].value)
         }
-      };
-      $cordovaSms.send("15618323607", '内容', options)
-    }
+      }
+      console.log("发送消息:" + mobilePhone);
+      $cordovaSms.send(mobilePhone, 'http://114.215.200.46:3400/pewebview/control/main?workEffortId='+workEffortId, options)
+      .then(function () {
+        alert('发送短信成功');
+      }, function (error) {
+        alert('发送短信失败');
+      });
+    };
   })
 
 //活动账单的展示页面************************************************************************************************************************
