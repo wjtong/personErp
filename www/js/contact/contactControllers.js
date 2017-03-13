@@ -1,10 +1,14 @@
 angular.module('contact.controllers', [])
 
 //关于我的个人信息
-  .controller('AboutMe',function ($scope, $rootScope, PersonData) {
+  .controller('AboutMe',function ($scope,$state ,$rootScope, PersonData) {
     PersonData.getPersonInfo($rootScope.partyId , function (data){
       $scope.myInfo = data;
     });
+    $scope.loginOut=function () {
+      localStorage.removeItem("tarjeta");
+      $state.go("login")
+    }
   })
 
 //联系人*********************************************************************************************************

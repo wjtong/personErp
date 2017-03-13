@@ -8,7 +8,7 @@
       <ion-checkbox ng-repeat="item in contact | orderBy:'name.formatted':false"
                     ng-model="item.checked"
                     ng-checked="item.checked"
-                    ng-if="condition">
+                    >
         <h2>{{item.name.formatted}}</h2>
         <p>{{item.phoneNumbers[0].value}}</p>
       </ion-checkbox>

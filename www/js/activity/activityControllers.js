@@ -961,11 +961,10 @@ angular.module('activity.controllers', [])
       options.filter = "";
       options.multiple = true;
       $cordovaContacts.find(options).then(function (allContacts) {
+        alert(JSON.stringify(allContacts))
         $scope.contact = allContacts
         //document.getElementById('phoneNums').value = $scope.contact;
       });
-    $scope.condition=false;
-    var phone=$scope.contact
     //选择想要邀请的联系人＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
     $scope.selectContacts=function(){
       var invitation=[];
@@ -979,6 +978,7 @@ angular.module('activity.controllers', [])
         $state.go("app.activityDetails",{"activityId":workEffortId})
       })
     };
+
     //打开发送短信的popup＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
       $scope.sms = {
         number:'15618323607',
@@ -1000,7 +1000,7 @@ angular.module('activity.controllers', [])
         }
       }
       console.log("发送消息:" + mobilePhone);
-      $cordovaSms.send(mobilePhone, 'http://114.215.200.46:3400/pewebview/control/main?workEffortId='+workEffortId, options)
+      $cordovaSms.send(mobilePhone, 'http://114.215.200.46:3400/pewebview/control/main?workEffortId='+workEffortId , options)
       .then(function () {
         alert('发送短信成功');
       }, function (error) {
