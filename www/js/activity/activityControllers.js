@@ -87,14 +87,134 @@ angular.module('activity.controllers', [])
     var id = $stateParams.activityId;
     $scope.workEffortId = $stateParams.activityId;
     ActivityServer.goActivityDetails(tarjeta,id,function (data) {
+
       $scope.activityList=data.eventDetail[0];
       $scope.partyId=data.partyId;//组织者partyId
       $scope.activityChild=data.childActivityList;//子活动数据
       $scope.iAmAdmin=data.iAmAdmin;//判断是否是组织者
-      $scope.createPersonInfoList=data.createPersonInfoList[0]
+      $scope.createPersonInfoList=data.createPersonInfoList[0];
+      //活动的经纬度
+      //将经纬度分割开
+      var  latitude=data.eventDetail[0].specialTerms.split("/")[0];
+      var  longitude=data.eventDetail[0].specialTerms.split("/")[1];
+      $scope.longitude=longitude;
+      $scope.latitude=latitude;
+      //嵌入百度地图
+      navigator.geolocation.getCurrentPosition(function (data) {
+        var ctrl_nav = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE});
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
+        //map.centerAndZoom(point, 16);
+        //var marker = new BMap.Marker(point);
+        //map.addOverlay(marker);   // 将标注添加到地图中
+        map.addControl(ctrl_nav);//给地图添加缩放的按钮
+        map.enableScrollWheelZoom(true);
+        //活动地点的位置
+        var activitypoint = new BMap.Point(longitude, latitude);   // 创建点坐标
+        map.centerAndZoom(activitypoint, 16);
+        var activitymarker = new BMap.Marker(activitypoint);
+        map.addOverlay(activitymarker);
+        var myLabel = new BMap.Label("活动地点", //为lable填写内容
+          {position: activitypoint}); //label的位置
+        myLabel.setStyle({ //给label设置样式，任意的CSS都是可以的
+          "color": "red", //颜色
+          "fontSize": "12px", //字号
+          "border": "0", //边
+          "height": "10px", //高度
+          "width": "20px" //宽
+        });
+        map.addOverlay(myLabel);
+
+        //var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map,panel: "r-result", autoViewport: true}});
+        //driving.search(marker, activitymarker);
+      }, function (error) {
+        alert("网络不可用，请打开网络!!");
+        console.log(error);
+      },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
+      console.log(data);
       console.log('活动详情信息返回'+"----------"+data.resultMsg)
     });
 
+    //驾车的路线规划
+    $scope.byCar=function(longitude,latitude){
+      navigator.geolocation.getCurrentPosition(function (data) {
+        var ctrl_nav = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE});
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
+        map.centerAndZoom(point, 16);
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);   // 将标注添加到地图中
+        map.addControl(ctrl_nav);//给地图添加缩放的按钮
+        map.enableScrollWheelZoom(true);
+        //活动地点的位置
+        var activitypoint = new BMap.Point(longitude, latitude);   // 创建点坐标
+        map.centerAndZoom(activitypoint, 16);
+        var activitymarker = new BMap.Marker(activitypoint);
+        map.addOverlay(activitymarker);
+
+        var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map,panel: "r-result", autoViewport: true}});
+        driving.search(marker, activitymarker);
+      }, function (error) {
+        alert("网络不可用，请打开网络!!");
+        console.log(error);
+      },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
+    }
+
+    //乘坐其他的交通方式
+    $scope.otherWay=function(longitude,latitude){
+      navigator.geolocation.getCurrentPosition(function (data) {
+        var ctrl_nav = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE});
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
+
+        map.addControl(ctrl_nav);//给地图添加缩放的按钮
+        map.enableScrollWheelZoom(true);
+        var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
+        map.centerAndZoom(point, 16);
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);   // 将标注添加到地图中
+        map.addControl(ctrl_nav);//给地图添加缩放的按钮
+        map.enableScrollWheelZoom(true);
+        //活动地点的位置
+        var activitypoint = new BMap.Point(longitude, latitude);   // 创建点坐标
+        map.centerAndZoom(activitypoint, 16);
+        var activitymarker = new BMap.Marker(activitypoint);
+        map.addOverlay(activitymarker);
+        //var geoc = new BMap.Geocoder();
+
+        //geoc.getLocation(point, function(rs){
+        //  var addComp = rs.addressComponents;
+        //  //通过js来放值
+        //  $("#startPlace").html(addComp.province +  addComp.city + addComp.district +  addComp.street);
+        //});
+
+        //活动地点的位置
+        //var activitypoint = new BMap.Point(longitude, latitude);   // 创建点坐标
+        //geoc.getLocation(activitypoint, function(rs){
+        //  var addComp = rs.addressComponents;
+        //  //通过js来放值
+        //  $("#endPlace").html(addComp.province +  addComp.city + addComp.district +  addComp.street);
+        //
+        //});
+
+        //采用倒计时来阻塞时间来获取页面的值
+        //$timeout(function(){
+        //  var transit = new BMap.TransitRoute(map, {renderOptions:{map: map,panel: "r-result", autoViewport: true}});
+        //  transit.search($("#startPlace").html(), $("#endPlace").html());
+        //},200);
+          var transit = new BMap.TransitRoute(map, {renderOptions:{map: map,panel: "r-result", autoViewport: true}});
+          transit.search(marker, activitymarker);
+
+        $timeout(function(){
+          $("#r-result >div >h1").html("乘坐公共交通");
+          //属性包含选择器
+          $("div[style*='overflow:hidden;line-height:20px']").html("");
+        },500);
+      }, function (error) {
+        alert("网络不可用，请打开网络!!");
+        console.log(error);
+      },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
+    }
     //显示讨论*****************************************************
     $scope.showDiscuss=function(){
       document.getElementById("discuss").style.display="";
@@ -139,22 +259,22 @@ angular.module('activity.controllers', [])
     };
 
     //百度地图###################################################
-    $scope.map=false;
-    $scope.tirarFoto=function(){
-      $scope.map=true;
-      navigator.geolocation.getCurrentPosition(function (data) {
-        alert(data.coords.latitude);
-        alert(data.coords.longitude);
-        var map = new BMap.Map("allmap");
-        var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
-        map.centerAndZoom(point, 19);
-        var marker = new BMap.Marker(point);
-        map.addOverlay(marker);   // 将标注添加到地图中
-      }, function (error) {
-        alert("网络不可用，请打开网络!!");
-        console.log(error);
-      },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
-    };
+    //$scope.map=false;
+    //$scope.tirarFoto=function(){
+    //  $scope.map=true;
+    //  navigator.geolocation.getCurrentPosition(function (data) {
+    //    alert(data.coords.latitude);
+    //    alert(data.coords.longitude);
+    //    var map = new BMap.Map("allmap");
+    //    var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
+    //    map.centerAndZoom(point, 19);
+    //    var marker = new BMap.Marker(point);
+    //    map.addOverlay(marker);   // 将标注添加到地图中
+    //  }, function (error) {
+    //    alert("网络不可用，请打开网络!!");
+    //    console.log(error);
+    //  },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
+    //};
 
     //显示活动相关菜单（右上。。。）###################################################
     $ionicPopover.fromTemplateUrl('templates/activity/activityDetails-popover.html', {
