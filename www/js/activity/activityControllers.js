@@ -180,32 +180,11 @@ angular.module('activity.controllers', [])
         map.centerAndZoom(activitypoint, 16);
         var activitymarker = new BMap.Marker(activitypoint);
         map.addOverlay(activitymarker);
-        //var geoc = new BMap.Geocoder();
 
-        //geoc.getLocation(point, function(rs){
-        //  var addComp = rs.addressComponents;
-        //  //通过js来放值
-        //  $("#startPlace").html(addComp.province +  addComp.city + addComp.district +  addComp.street);
-        //});
-
-        //活动地点的位置
-        //var activitypoint = new BMap.Point(longitude, latitude);   // 创建点坐标
-        //geoc.getLocation(activitypoint, function(rs){
-        //  var addComp = rs.addressComponents;
-        //  //通过js来放值
-        //  $("#endPlace").html(addComp.province +  addComp.city + addComp.district +  addComp.street);
-        //
-        //});
-
-        //采用倒计时来阻塞时间来获取页面的值
-        //$timeout(function(){
-        //  var transit = new BMap.TransitRoute(map, {renderOptions:{map: map,panel: "r-result", autoViewport: true}});
-        //  transit.search($("#startPlace").html(), $("#endPlace").html());
-        //},200);
           var transit = new BMap.TransitRoute(map, {renderOptions:{map: map,panel: "r-result", autoViewport: true}});
           transit.search(marker, activitymarker);
-
         $timeout(function(){
+          //替换显示的内容和undefined
           $("#r-result >div >h1").html("乘坐公共交通");
           //属性包含选择器
           $("div[style*='overflow:hidden;line-height:20px']").html("");
