@@ -2,7 +2,11 @@ angular.module('activity.controllers', [])
 
 
 //活动首页***************************************************************************************************************
-  .controller('GetBusiness',function($scope,$location,ActivityServer){
+  .controller('GetBusiness',function($scope,$location,ActivityServer,$state){
+    //如果没有登陆请先登陆
+    if (localStorage.getItem("tarjeta")== null) {   // 登录成功了，按物理返回键，就别想重新登录
+      $state.go("login");
+    }
     //显示缺省图片
     $scope.img=localStorage.getItem("activityImg");
     //获得我的全部活动列表(我参与的活动)
@@ -69,7 +73,9 @@ angular.module('activity.controllers', [])
   })
 
 //活动详情***************************************************************************************************************
-  .controller('ActivityCrl',function ($stateParams,$state,ionicDatePicker,$scope,ActivityServer,$rootScope,$ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,$timeout) {
+  .controller('ActivityCrl',function ($stateParams,$state,ThemeImage,ionicDatePicker,$scope,ActivityServer,$rootScope,
+                                      $ionicPopup,$ionicPopover,$ionicHistory,$location,$ionicModal,PersonLabel,
+                                      $timeout) {
     //获得token
     var tarjeta=localStorage.getItem("tarjeta");
     //获得App使用者partyId
@@ -301,12 +307,62 @@ angular.module('activity.controllers', [])
     }
 
     //邀请好友#############################################################
-    $scope.inviteFriends=function (workEffortId,partyId) {
-      $state.go("app.activityInvitation",{"workEffortId":workEffortId,"partyId":partyId})
+    //分享好友模态框
+    $ionicModal.fromTemplateUrl('templates/activity/shareAvtivity.html', function(modal) {
+      $scope.taskModal = modal;
+    }, {
+      scope: $scope
+    });
+    $scope.newTask = function() {
+        $scope.data = {}
+        var myPopup = $ionicPopup.show({
+          template: '<input type="text" placeholder="您的大名" ng-model="data.name"/>' +
+          '<button class="button" style="width: 100%;background-color: cadetblue;margin-top: 2px;" ng-click="closeMyPopup()">确定</button>',
+          title: '请填写您的姓名，以便您的好友加入活动',
+          scope: $scope
+        });
+        myPopup.then(function(res) {
+          console.log('Tapped!', res);
+        });
+        $scope.statusPopup = myPopup;
+      //关闭选择框
+      $scope.closeMyPopup = function () {
+        $scope.statusPopup.close();
+        $scope.taskModal.show();
+      };
     };
+    $scope.closeNewTask = function() {
+      $scope.taskModal.hide();
+    };
+    //显示邀请好友方式图片***********************
+    $scope.shareImgList=ThemeImage.getShareImg();
+    //选择哪种方式邀请好友
+    $scope.chooseWay=function (name,workEffortId,partyId) {
+      if(name=='手机通讯录'){
+        $state.go("app.activityInvitation",{"workEffortId":workEffortId,"partyId":partyId});
+        $scope.taskModal.hide();
+      }else if(name=='微信'){
+        Wechat.share({
+          message: {
+            title: '欢迎加入不分梨',
+            description: '您的好友 '+$scope.data.name+' '+'邀请您加入活动: '+$scope.activityList.workEffortName,
+            thumb: 'www/img/theme/yundong1.jpeg',
+            media: {
+              type: Wechat.Type.WEBPAGE,
+              webpageUrl:'http://114.215.200.46:3400/pewebview/control/main?workEffortId='+$scope.workEffortId
+            }
+          },
+          scene: Wechat.Scene.SESSION // share to SESSION
+        }, function() {
+          alert("Success");
+        }, function(reason) {
+          alert("Failed: " + reason);
+        });
+      }
+    }
   })
 
-//活动照片墙（大图片）***************************************************************************************************************
+//活动照片墙（大图片）*****************************************************************************************************
   .controller('slideCrl',function ($scope,$stateParams,Activity,$ionicHistory) {
     var id=$stateParams.activityId;
     //获取活动照片墙图片
@@ -349,7 +405,9 @@ angular.module('activity.controllers', [])
   })
 
 //新建活动********************************************************************************************************************
-  .controller('NewActivity',function ($scope,$state,$ionicModal,Contact,$ionicHistory,$cordovaContacts,$rootScope,$stateParams,$cordovaCamera,$cordovaImagePicker,ActivityServer,$ionicPopup,$location,$ionicModal,ThemeImage,ionicDatePicker, ionicTimePicker) {
+  .controller('NewActivity',function ($scope,$state,$ionicModal,Contact,$ionicHistory,$cordovaContacts,
+                                      $rootScope,$stateParams,$cordovaCamera,$cordovaImagePicker,ActivityServer,
+                                      $ionicPopup,$location,ThemeImage,ionicDatePicker, ionicTimePicker) {
     /************************** Start 时间日期控件加入 ********************************/
     var ipObj1 = {
       callback: function (val) {  //Mandatory
@@ -591,7 +649,7 @@ angular.module('activity.controllers', [])
     };
   })
 
-//新建活动可见范围***************************************************************************************************************
+//新建活动可见范围********************************************************************************************************
   .controller('VisualRange',function ($scope,$ionicModal,$ionicPopup,PersonLabel,$rootScope,Contact) {
     $scope.clientSideList = [
       { text: "全局可见", value: "all" },
@@ -727,7 +785,7 @@ angular.module('activity.controllers', [])
     };
   })
 
-//编辑活动**************************************************************************************************************************
+//编辑活动***************************************************************************************************************
   .controller('EditActivity',function($scope,$stateParams,$ionicPopup,$cordovaCamera,$cordovaImagePicker){
     var id=$stateParams.id;
     //$scope.myActivtyList=Activity.getActivityInfo(id);
@@ -762,13 +820,13 @@ angular.module('activity.controllers', [])
       var options = {
         //这些参数可能要配合着使用，比如选择了sourcetype是0，destinationtype要相应的设置
         quality: 100,                                            //相片质量0-100
-        destinationType: Camera.DestinationType.FILE_URI,        //返回类型：DATA_URL= 0，返回作为 base64 編碼字串。 FILE_URI=1，返回影像档的 URI。NATIVE_URI=2，返回图像本机URI (例如，資產庫)
-        sourceType: Camera.PictureSourceType.CAMERA,             //从哪里选择图片：PHOTOLIBRARY=0，相机拍照=1，SAVEDPHOTOALBUM=2。0和1其实都是本地图库
+        destinationType: Camera.DestinationType.FILE_URI,        //返回类型：，例如，資產庫)
+        sourceType: Camera.PictureSourceType.CAMERA,             //从哪里选择图片：其实都是本地图库
         allowEdit: false,                                        //在选择之前允许修改截图
         encodingType:Camera.EncodingType.JPEG,                   //保存的图片格式： JPEG = 0, PNG = 1
         targetWidth: 200,                                        //照片宽度
         targetHeight: 200,                                       //照片高度
-        mediaType:0,                                             //可选媒体类型：圖片=0，只允许选择图片將返回指定DestinationType的参数。 視頻格式=1，允许选择视频，最终返回 FILE_URI。ALLMEDIA= 2，允许所有媒体类型的选择。
+        mediaType:0,                                             //可选媒体类型。
         cameraDirection:0,                                       //枪后摄像头类型：Back= 0,Front-facing = 1
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true                                   //保存进手机相册
@@ -825,7 +883,7 @@ angular.module('activity.controllers', [])
     }
   })
 
-//活动主题图片界面**********************************************************************************************************************************
+//活动主题图片界面********************************************************************************************************
   .controller('ThemeImage',function ($scope,$ionicSlideBoxDelegate,ThemeImage) {
     //滑动选择类型
     $scope.slideIndex = 0;
@@ -852,7 +910,7 @@ angular.module('activity.controllers', [])
     $scope.businessImgList=ThemeImage.getBusinessImg()
   })
 
-//活动项****************************************************************************************************************************
+//活动项*****************************************************************************************************************
   .controller('ActivityItem',function ($scope, $rootScope,$stateParams,ActivityServer) {
     var id=$stateParams.id;
     alert(id);
@@ -868,7 +926,7 @@ angular.module('activity.controllers', [])
     });
   })
 
-//联系人的全选和全不选**********************************************************************************************
+//联系人的全选和全不选*****************************************************************************************************
   .controller('selectAllCtrl', function($scope,$ionicPopup) {
     $scope.selectAll = function (personmain) {
       //进入的时候检查复选框是否被选中
@@ -882,18 +940,18 @@ angular.module('activity.controllers', [])
           personmain[i].checked = false;//这是取消全选的操作
         }
       }
-    }
+    };
     //单独选一个的传值
     $scope.selectOne=function(person){
       //alert(person.partyId);
-    }
+    };
 //参与人员的详细页面展示
     //打开模态框的显示
     $scope.takeMoney = function () {
-      $scope.data = {}
+      $scope.data = {};
       // 一个精心制作的自定义弹窗
       var myPopup = $ionicPopup.show({
-        template: '<input type="text" ng-model="data.money"  placeholder="请输入金额" required style="text-align: center">',
+        template: '<input type="text" ng-model="data.money" placeholder="请输入金额" required style="text-align: center">',
         title: '向客户筹款',
         scope: $scope,
         buttons: [
@@ -911,7 +969,7 @@ angular.module('activity.controllers', [])
                 $ionicPopup.alert({
                   title: "温馨提示",
                   template: "请将内容填写完整",
-                  okText: "确定",
+                  okText: "确定"
                 })
               } else {
 
@@ -933,14 +991,14 @@ angular.module('activity.controllers', [])
               $ionicPopup.alert({
                 title: "温馨提示",
                 template: "您输入的数字没有意义",
-                okText: "确定",
+                okText: "确定"
               })
             }
           } else {
             $ionicPopup.alert({
               title: "温馨提示",
               template: "金额输入有误,请重新输入",
-              okText: "确定",
+              okText: "确定"
             })
           }
 
@@ -951,20 +1009,21 @@ angular.module('activity.controllers', [])
 
   })
 
-//活动邀请************************************************************************************************************************
-  .controller('ActivityInvitation', function($scope,$cordovaContacts,$cordovaSms,$stateParams,ActivityServer,$rootScope) {
-    var workEffortId=$stateParams.workEffortId
-    var partyId=$stateParams.partyId
+//活动邀请***************************************************************************************************************
+  .controller('ActivityInvitation', function($scope,$cordovaContacts,$cordovaSms,$stateParams,ActivityServer,$ionicHistory) {
+    var workEffortId=$stateParams.workEffortId;
+    var partyId=$stateParams.partyId;
     var tarjeta=localStorage.getItem("tarjeta");
-    // 打开通讯录查询＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
-      var options = {};
-      options.filter = "";
-      options.multiple = true;
-      $cordovaContacts.find(options).then(function (allContacts) {
-        alert(JSON.stringify(allContacts))
-        $scope.contact = allContacts
-        //document.getElementById('phoneNums').value = $scope.contact;
-      });
+
+    // 打开手机通讯录查询＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
+    var options = {};
+    options.filter = "";
+    options.multiple = true;
+    $cordovaContacts.find(options).then(function (allContacts) {
+      $scope.contact = allContacts
+      //document.getElementById('phoneNums').value = $scope.contact;
+    });
+
     //选择想要邀请的联系人＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
     $scope.selectContacts=function(){
       var invitation=[];
@@ -975,14 +1034,15 @@ angular.module('activity.controllers', [])
       }
       var contact=invitation.toString();
       ActivityServer.sendInvitation(tarjeta,workEffortId,partyId,contact,function (data) {
-        $state.go("app.activityDetails",{"activityId":workEffortId})
+        //$state.go("app.activityDetails",{"activityId":workEffortId})
+        $ionicHistory.goBack()
       })
     };
 
     //打开发送短信的popup＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
-      $scope.sms = {
-        number:'15618323607',
-        message: '生日快乐'
+    $scope.sms = {
+      number:'15618323607',
+      message: '生日快乐'
     };
     var options = {
       replaceLineBreaks: false, // true to replace \n by a new line, false by default
@@ -1000,7 +1060,7 @@ angular.module('activity.controllers', [])
         }
       }
       console.log("发送消息:" + mobilePhone);
-      $cordovaSms.send(mobilePhone, 'http://114.215.200.46:3400/pewebview/control/main?workEffortId='+workEffortId , options)
+      $cordovaSms.send(mobilePhone,'http://114.215.200.46:3400/pewebview/control/main?workEffortId='+workEffortId,options)
       .then(function () {
         alert('发送短信成功');
       }, function (error) {
@@ -1009,7 +1069,7 @@ angular.module('activity.controllers', [])
     };
   })
 
-//活动账单的展示页面************************************************************************************************************************
+//活动账单的展示页面*******************************************************************************************************
   .controller('activityBillCtrl', function($scope, Account, $ionicPopup,Contact,$state,$stateParams,ActivityServer) {
     //准备参数
     var tarjeta=localStorage.getItem("tarjeta");
@@ -1024,8 +1084,9 @@ angular.module('activity.controllers', [])
     };
   })
 
-//添加账单的控制************************************************************************************************************************
-  .controller('addPersonBillCtrl', function($scope,$ionicHistory,ionicDatePicker,$state,$ionicModal,$rootScope,Contact,$stateParams,ActivityServer) {
+//添加账单的控制**********************************************************************************************************
+  .controller('addPersonBillCtrl', function($scope,$ionicHistory,ionicDatePicker,$state,$ionicModal,$rootScope,Contact,
+                                            $stateParams,ActivityServer) {
     //准备参数
     var workEffortId=$stateParams.workEffortId;
     var tarjeta=localStorage.getItem("tarjeta");
@@ -1064,7 +1125,8 @@ angular.module('activity.controllers', [])
     $scope.createOrder=function () {
       $scope.Order.date=$("#mydate").val();
       console.log($scope.personId+$scope.Order.money+$scope.Order.ymoney+$scope.Order.date);
-      ActivityServer.createActivityPayment(tarjeta,workEffortId,$scope.personId,$scope.Order.money,$scope.Order.ymoney,$scope.Order.date,function (data) {
+      ActivityServer.createActivityPayment(tarjeta,workEffortId,$scope.personId,$scope.Order.money,$scope.Order.ymoney,
+        $scope.Order.date,function (data) {
         console.log("创建活动账单————————"+data.resultMsg)
         $state.go("app.activityBill")
         $ionicHistory.goBack()

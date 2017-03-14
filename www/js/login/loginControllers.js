@@ -4,7 +4,8 @@ angular.module('login.controllers', [])
 //登陆＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .controller('LoginCtrl',function($http,$scope,Login,$state,ThemeImage,ActivityServer){
     $scope.$on('$ionicView.beforeEnter', function () {                              // 这个玩意儿不错，刚加载执行的广播通知方法
-      $scope.user = {"identifyCode": ""};                                           // 退出登录后，清空验证码
+      $scope.user = {"identifyCode": ""};
+      // 退出登录后，清空验证码
       if (localStorage.getItem("tarjeta")!= null) {   // 登录成功了，按物理返回键，就别想重新登录
         $state.go("app.home");
       }

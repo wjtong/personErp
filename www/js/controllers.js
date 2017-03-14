@@ -20,7 +20,14 @@ angular.module('starter.controllers', [])
 })
 
 //主页＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
-  .controller('HomeCtrl', function($scope,$ionicModal) {
+  .controller('HomeCtrl', function($scope,$ionicModal,Activity) {
+    $scope.active=Activity.getAllActivity();
+    $scope.newActivity=function () {
+      $location.path('/app/newActivity')
+    };
+    $scope.activityDetails=function (id) {
+      $location.path("/app/activityDetails/"+id);
+    };
 
     //底部弹出框
       $ionicModal.fromTemplateUrl('templates/new-task-main.html', function(modal) {
@@ -35,5 +42,4 @@ angular.module('starter.controllers', [])
           $scope.taskModal.hide();
       }
   })
-
 ;
