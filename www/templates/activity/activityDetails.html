@@ -1,5 +1,5 @@
 <ion-view view-title="活动详情">
-  <ion-nav-bar class="bar-stable">
+  <ion-nav-bar class="bar-royal">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="goback()">
         <i class="icon ion-android-arrow-back"></i>
@@ -99,8 +99,8 @@
   </ion-content>
   <br>
   <br>
-  <div class="bar bar-footer" style="margin-left: -6px;" ng-if="otherActivity">
-    <div class="tab-nav tabs">
+  <div class="bar bar-footer " style="margin-left: -6px;" ng-if="otherActivity">
+    <div class="tab-nav tabs" style="background-color: #886aea;color: white;font-size: 13px">
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeMy)">
         <i class="icon ion-chatbubble-working" style="line-height: 14px;">
         </i>
@@ -116,9 +116,9 @@
       </div>
     </div>
   </div>
-  <div class="bar bar-footer" style="margin-left: -6px;" ng-if="myActivity">
-    <div class="tab-nav tabs">
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="createChild(activityList.workEffortId)">
+  <div class="bar bar-footer bar-royal" style="margin-left: -6px;" ng-if="myActivity">
+    <div class="tab-nav tabs" style="background-color: #886aea;color: white;font-size: 13px">
+      <a class="tab-item tab-item-royal" style="line-height: 12px;" ng-click="createChild(activityList.workEffortId)">
         <i class="icon ion-merge" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">发布子活动</span>

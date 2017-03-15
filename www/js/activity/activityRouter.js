@@ -39,6 +39,18 @@ angular.module('starter')
           }
         }
       })
+      //活动场所
+      .state('app.activityPlace',{
+        url:'/activityPlace/:placeId',
+        disableBack:true,
+        cache :false,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activity/activityPlace.html',
+            controller:'ActivityPlace'
+          }
+        }
+      })
       //活动照片墙
       .state('app.slide',{
         url:'/slide/:activityId',

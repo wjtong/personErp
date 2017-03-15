@@ -36,6 +36,10 @@ angular.module('login.controllers', [])
       }
     };
 
+    //返回首页
+    $scope.goHome=function () {
+      $state.go("app.home");
+    }
     //设置全局的变量
     $scope.activityImg=ThemeImage.getRangeImg();
     localStorage.setItem("activityImg", $scope.activityImg.img);//全局活动图片

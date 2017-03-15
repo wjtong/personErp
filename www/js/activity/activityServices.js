@@ -290,6 +290,30 @@ angular.module('activity.services', [])
     }
   })
 
+  //活动场所*************************************************************************************************************
+  .factory('ActivityPlace',function () {
+    var activityPlace=[
+      {id:'PLA_001',placeName:'汉拿山滑雪场',number:'20人以上',price:"人均60元",img:'img/theme/place1.jpeg'},
+      {id:'PLA_002',placeName:'永久棋牌室',number:'4-8人',price:"人均20元",img:'img/theme/place2.jpeg'},
+      {id:'PLA_003',placeName:'长白山温泉度假村',number:'10-20人',price:"人均160元",img:'img/theme/place3.jpeg'},
+      {id:'PLA_004',placeName:'歌仙台球厅',number:'5-10人',price:"人均30元",img:'img/theme/place4.jpeg'},
+      {id:'PLA_005',placeName:'国信南山游泳馆',number:'10人以上',price:"人均60元",img:'img/theme/place5.jpeg'},
+      {id:'PLA_006',placeName:'亿家合大酒店',number:'20－40人',price:"人均230元",img:'img/theme/place6.jpeg'}
+    ]
+    return {
+      getAll:function () {
+        return activityPlace
+      },
+      getPlaceInfo:function (id) {
+        for(var i=0;i<activityPlace.length;i++){
+          if(id==activityPlace[i].id){
+            return activityPlace[i]
+          }
+        }
+      }
+    }
+  })
+
   //活动模版＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .factory('Activity',function () {
     var activity = [
