@@ -11,6 +11,24 @@
           </ion-slide>
         </ion-slide-box>
       </div>
+      <div class="item">
+        <h3>附近热门场所</h3>
+        <hr>
+      </div>
+      <div class="content" style="margin-top: 15px;">
+        <div class="row row-wrap">
+          <div class="col col-50" ng-repeat="place in avtivityPlaceList">
+            <div class="card" style="height:100%; width:90%;margin-top: -20px;"  type="item-text-wrap" ng-click="goInfo(place.id)" >
+              <div class="item" >
+                <img  style="height:100px; width:100%;" src="{{place.img}}">
+                <h3>{{place.placeName}}</h3>
+                <p style="float: left">{{place.number}}</p>
+                <p style="float: right;color:#ef473a"> <b>{{place.price}}</b></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </ion-content>
 </ion-view>

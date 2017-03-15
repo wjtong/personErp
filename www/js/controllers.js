@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope,$ionicPopover,Login) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope) {
   //设置全局变量＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   if(localStorage['partyId'] == null){
     localStorage['partyId'] = 'jinlongxi';
@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
 })
 
 //主页＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
-  .controller('HomeCtrl', function($scope,$ionicModal,Activity) {
+  .controller('HomeCtrl', function($scope,$ionicModal,Activity,ActivityPlace,$location) {
     $scope.active=Activity.getAllActivity();
     $scope.newActivity=function () {
       $location.path('/app/newActivity')
@@ -28,7 +28,12 @@ angular.module('starter.controllers', [])
     $scope.activityDetails=function (id) {
       $location.path("/app/activityDetails/"+id);
     };
-
+    //活动场所
+    $scope.avtivityPlaceList=ActivityPlace.getAll()
+    //地点详情
+    $scope.goInfo=function (id) {
+      $location.path("/app/activityPlace/"+id);
+    }
     //底部弹出框
       $ionicModal.fromTemplateUrl('templates/new-task-main.html', function(modal) {
           $scope.taskModal = modal;

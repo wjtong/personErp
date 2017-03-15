@@ -416,7 +416,7 @@ angular.module('activity.controllers', [])
         $scope.data = {}
         var myPopup = $ionicPopup.show({
           template: '<input type="text" placeholder="您的大名" ng-model="data.name"/>' +
-          '<button class="button" style="width: 100%;background-color: cadetblue;margin-top: 2px;" ng-click="closeMyPopup()">确定</button>',
+          '<button class="button" style="width: 100%;background-color: ＃886aea;margin-top: 2px;" ng-click="closeMyPopup()">确定</button>',
           title: '请填写您的姓名，以便您的好友加入活动',
           scope: $scope
         });
@@ -445,7 +445,7 @@ angular.module('activity.controllers', [])
           message: {
             title: '欢迎加入不分梨',
             description: '您的好友 '+$scope.data.name+' '+'邀请您加入活动: '+$scope.activityList.workEffortName,
-            thumb: 'www/img/theme/yundong1.jpeg',
+            thumb: 'www/img/theme/bufenli.jpeg',
             media: {
               type: Wechat.Type.WEBPAGE,
               webpageUrl:'http://114.215.200.46:3400/pewebview/control/main?workEffortId='+$scope.workEffortId
@@ -1166,6 +1166,12 @@ angular.module('activity.controllers', [])
         alert('发送短信失败');
       });
     };
+  })
+
+//活动场所展示页面*******************************************************************************************************
+  .controller('ActivityPlace', function($scope,$stateParams,ActivityPlace) {
+    var id=$stateParams.placeId;
+    $scope.activityInfoList=ActivityPlace.getPlaceInfo(id)
   })
 
 //活动账单的展示页面*******************************************************************************************************
