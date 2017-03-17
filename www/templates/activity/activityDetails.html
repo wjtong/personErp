@@ -24,8 +24,8 @@
               <p><b>开始</b>: {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}</p>
               <p><b>结束</b>: {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</p>
               <p><i class="icon ion-ios-location"> {{activityList.locationDesc}}</i></p>
-              <p style="float: right;color:#886aea;font-size: 15px;position: absolute;bottom: 0;right: 0" >
-                <button class="button button-royal button-clear" style="font-size: 15px" ng-click="openPopover()">参与{{number}}人</button>
+              <p style="float: right;color:#886aea;font-size: 15px;" >
+                <button class="button button-royal button-clear" style="font-size: 15px" ng-click="openPersonJoin()">参与{{number}}人</button>
               </p>
         </div>
         <div class="item" style="width: 100%">

@@ -369,14 +369,14 @@ angular.module('activity.controllers', [])
     $scope.personmainLists=$scope.participantList
     $ionicPopover.fromTemplateUrl('templates/activity/activityJoin.html', {
       scope: $scope
-    }).then(function(popover) {
-      $scope.popover = popover;
+    }).then(function(personJoin) {
+      $scope.personJoin = personJoin;
     });
-    $scope.openPopover = function($event) {
-      $scope.popover.show($event);
+    $scope.openPersonJoin = function($event) {
+      $scope.personJoin.show($event);
     };
-    $scope.closePopover = function() {
-      $scope.popover.hide();
+    $scope.closePersonJoin = function() {
+      $scope.personJoin.hide();
     };
     //返回
     $scope.goback=function () {
@@ -1271,10 +1271,10 @@ angular.module('activity.controllers', [])
     //准备参数
     var workEffortId=$stateParams.workEffortId;
     var tarjeta=localStorage.getItem("tarjeta");
-    //获得全部联系人
-    Contact.getAll($rootScope.partyId , function (data){
-      $scope.personmainLists = data.contact;
-    });
+    //获得参与人列表
+    ActivityServer.goActivityDetails(tarjeta,workEffortId,function (data) {
+      $scope.personmainLists=data.partyJoinEventsList;//参与人员
+    })
     $scope.plist=Contact.getAll();
     //添加新范围选择联系人弹窗
     $ionicModal.fromTemplateUrl('templates/contact/contactModle.html', {
@@ -1293,7 +1293,7 @@ angular.module('activity.controllers', [])
     $scope.createRangeLable=function(){
       for(var i=0;i<$scope.personmainLists.length;i++){
         if($scope.personmainLists[i].checked==true){
-          $("#pname").val($scope.personmainLists[i].personName);
+          $("#pname").val($scope.personmainLists[i].nickName);
           $scope.personId=$scope.personmainLists[i].partyId;
           alert($scope.personId);
         }

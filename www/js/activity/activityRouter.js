@@ -19,7 +19,7 @@ angular.module('starter')
       .state('app.activityDetails',{
         url:'/activityDetails/:activityId',
         disableBack:true,
-        cache :false,
+        cache :true,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityDetails.html',
