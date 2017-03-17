@@ -395,4 +395,7 @@ a.autolinker {
 .box h1{
   position:relative; top:50%; transform:translateY(-50%);
 }
-
+#Nav_01 li{
+  display: inline-block;
+  font-size: 14px;
+}

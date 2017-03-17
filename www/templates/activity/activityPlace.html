@@ -10,19 +10,25 @@
             <p style="float: left">{{activityInfoList.number}}</p>
             <p style="float: right;color:#ef473a">{{activityInfoList.price}}</p>
         </div>
+        <!--活动的地图-->
+        <div class="item" >
+          <br>
+          <h2>活动场所位置</h2>
+          <hr>
+          <div id="allmap" style="height: 300px;" ></div>
+          <div>
+            <span ng-click="byCar('{{longitude}}','{{latitude}}')">驾车</span>
+            <span  ng-click="otherWay('{{longitude}}','{{latitude}}');">乘坐交通工具</span>
+          </div>
+          <div id="r-result" style="width:100%;height: auto;padding-bottom: 40px"></div>
+        </div>
       </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
   </ion-content>
-  <br>
-  <br>
   <div class="bar bar-footer " style="margin-left: -6px;">
     <div class="tab-nav tabs" style="background-color: #886aea;color: white;font-size: 13px">
       <div  style="float:right">
-        <button class="button  button-royal ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="showPopup(activityList.workEffortId)">发起活动</button>
+        <button class="button  button-royal ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="createActivity()">发起活动</button>
       </div>
     </div>
   </div>

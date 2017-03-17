@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
 })
 
 //主页＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
-  .controller('HomeCtrl', function($scope,$ionicModal,Activity,ActivityPlace,$location) {
+  .controller('HomeCtrl', function($scope,$ionicModal,Activity,ActivityPlace,$location,$state) {
     $scope.active=Activity.getAllActivity();
     $scope.newActivity=function () {
       $location.path('/app/newActivity')
@@ -46,5 +46,9 @@ angular.module('starter.controllers', [])
       $scope.closeNewTask = function() {
           $scope.taskModal.hide();
       }
+    //活动模版详情
+    $scope.goActivityTemplate=function (id) {
+      $state.go("app.activityTemplate",{id:id})
+    }
   })
 ;

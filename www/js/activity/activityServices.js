@@ -314,10 +314,37 @@ angular.module('activity.services', [])
     }
   })
 
+  //活动模板*************************************************************************************************************
+  .factory('ActivityTemplate',function () {
+    var activityTemplate=[
+      {id:'ACT_001',placeName:'风雪情怀长白山',img1:'img/template/changbaishan1.jpeg',msg1:'东北的黑土地，沃野千里，山川河流，冰雪森林以及我梦想中的天上圣湖—天池，一直像一个梦一样，在每一个冰雪纷飞的季节，都会跑到我的脑海中来，我曾经为自己的一次次错过而懊恼不已，然而，更多的时候，又在遗憾中，再次与美丽擦肩而过，当煦暖的春风，吹绿江南两岸，伴着潺潺的溪流，奔向远方时，风雪长白山，即将告别冬日情怀，我知道，自己该启程了。'
+        ,location:'长白山北坡大门 上午：9:00',img2:'img/template/changbaishan2.jpeg',msg2:'按照预先的计划，第二天是滑雪的日子睡到自然醒，吃早饭的路上，途径走廊，无意间向窗外一瞥，一片银装素裹的世界， 一夜间，大雪将至，悄无声息，带着满满的惊喜。',
+        location2:'汉拿山滑雪场  上午：10:00－12：00',img3:'img/template/changbaishan3.jpeg',msg3:'经过大家伙投票决定，最后一天我们决定去泡温泉，边赏雪一边泡温泉 温泉游结束了浪漫的冬季之旅。',
+        location3:'露天温泉   通过投票决定',
+      img4:[
+        {img:'img/template/changbaishan4.1.jpeg'},
+        {img:'img/template/changbaishan4.2.jpeg'},
+        {img:'img/template/changbaishan4.3.png'},
+      ],msg4:'幸福总是短暂的，在这里记录我们共同经历的美好回忆',location4:'上传相关活动照片',img5:'img/template/changbaishan5.jpeg',
+        msg5:'留恋和你们在一起的时光，期待下一次活动的道来',location5:'鸭绿江大桥 2017-10-02'
+       },
+
+    ]
+    return {
+      getTemplateInfo:function (id) {
+        for(var i=0;i<activityTemplate.length;i++){
+          if(id==activityTemplate[i].id){
+            return activityTemplate[i]
+          }
+        }
+      }
+    }
+  })
+
   //活动模版＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .factory('Activity',function () {
     var activity = [
-      {id:'ACT_001',title:'登山',organizer:'jinlongxi',createTime:'2016-12-07',time:'20:00-21:00',img:'img/resources/dengshan.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
+      {id:'ACT_001',title:'风雪情怀长白山',organizer:'jinlongxi',createTime:'2016-12-07',time:'20:00-21:00',img:'img/template/changbaishan1.jpeg',name:'金龙熙',address:'中国，上海，长宁',addressDet:'德元南路 989号',information:'希望有兴趣的伙伴能够一起出发，共同度过一段美好时光',
         picture:[
           {img:'img/resources/dengshan1.jpeg'},
           {img:'img/resources/dengshan2.jpeg'},
@@ -479,7 +506,7 @@ angular.module('activity.services', [])
       {id:'Pic_10020',img:'img/theme/shangwu5.jpeg'}
     ];
     var shareImg = [
-      {id:'Pic_10021',img:'img/share/facebook.png',name:'手机通讯录'},
+      {id:'Pic_10021',img:'img/share/Contact.png',name:'手机通讯录'},
       //{id:'Pic_10022',img:'img/share/QQ.jpeg',name:'QQ'},
       //{id:'Pic_10023',img:'img/share/QQ空间.png',name:'QQ空间'},
       {id:'Pic_10024',img:'img/share/微信.jpeg',name:'微信'},

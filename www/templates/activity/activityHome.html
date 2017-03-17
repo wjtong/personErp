@@ -1,7 +1,7 @@
 <ion-view view-title="活动">
   <ion-nav-buttons side="right">
-    <button class="button button-clear" >
-      <i class="icon ion-calendar"></i>
+    <button class="button button-clear" ng-click="newActivity()">
+      <i class="icon ion-ios-plus-outline"></i>
     </button>
   </ion-nav-buttons>
   <ion-content>
@@ -9,10 +9,10 @@
       <div class="item" style="padding: 0;margin-top: 2%;position: relative" ng-click="activityDetails(matter.workEffortId)"  >
         <img ng-src="{{img}}" style="width:100%;height:220px" >
         <div style="position: absolute;right: 5%;top: 45%;">
-          <p style="color: white"><b>活动安排：{{matter.workEffortName}}</b></p>
-          <p style="color: white">开始时间：{{matter.actualStartDate| date:'yyyy-MM-dd HH:mm:ss' }}</p>
-          <p style="color: white">结束时间：{{matter.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss' }}</p>
-          <p style="color: white">活动地点：{{matter.locationDesc}}</p>
+          <p style="color: white"><b>{{matter.workEffortName}}</b></p>
+          <p style="color: white">开始:{{matter.actualStartDate| date:'yyyy-MM-dd HH:mm:ss' }}</p>
+          <p style="color: white">结束:{{matter.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss' }}</p>
+          <p style="color: white">{{matter.locationDesc}}</p>
         </div>
         <!--<div ng-if="myActivity">-->
           <!--<p style="color: yellow;width: 70px;position: absolute;top: 0;right: 5%;">由我组织</p>-->
@@ -40,20 +40,10 @@
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">往期活动</span>
       </a>
-      <a class="tab-item tab-item-active"  style="line-height: 12px;" ng-click="newActivity()">
-        <i class="icon ion-ios-plus-outline" style="line-height: 14px;color: #ffc900">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">发布活动</span>
-      </a>
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeInvitation)">
         <i class="icon ion-ios-flag-outline " style="line-height: 14px;">
         </i>
-        <span ng-class="{true:'red-point',false:''}[true]">活动邀请</span>
-      </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" href="#/app/aboutme">
-        <i class="icon ion-ios-person-outline " style="line-height: 14px;">
-        </i>
-        <span ng-class="{true:'red-point',false:''}[true]" >我的信息</span>
+        <span class="tab-title ng-binding" style="font-size: 10px;">活动邀请</span>
       </a>
     </div>
   </div>

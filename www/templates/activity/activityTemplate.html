@@ -1,0 +1,49 @@
+<ion-view view-title={{activityTemplateList.placeName}}>
+  <ion-content >
+    <div class="list card" style="padding-bottom: 20%">
+      <div class="item" style="position: relative">
+        <img ng-src="{{activityTemplateList.img1}}" style="width: 100%;height: 200px;margin: 0"/>
+        <h3>DAY 1</h3>
+        <p style="width: 100%;white-space:normal;text-indent: 15px;padding-top: 10px">{{activityTemplateList.msg1}}</p>
+        <i class="icon ion-location" style="font-size: 12px"> 集合地: {{activityTemplateList.location}}</i>
+      </div>
+      <div class="item" style="position: relative">
+        <img ng-src="{{activityTemplateList.img2}}" style="width: 100%;height: 200px;margin: 0"/>
+        <h3>DAY 2</h3>
+        <p style="width: 100%;white-space:normal;text-indent: 15px;padding-top: 10px">{{activityTemplateList.msg2}}</p>
+        <i class="icon ion-planet" style="font-size: 12px"> 活动项: {{activityTemplateList.location2}}</i>
+      </div>
+      <div class="item" style="position: relative">
+        <img ng-src="{{activityTemplateList.img3}}" style="width: 100%;height: 200px;margin: 0"/>
+        <h3>END</h3>
+        <p style="width: 100%;white-space:normal;text-indent: 15px;padding-top: 10px">{{activityTemplateList.msg3}}</p>
+        <i class="icon ion-stats-bars" style="font-size: 12px"> 活动投票: {{activityTemplateList.location3}}</i>
+      </div>
+      <div class="item" style="position: relative">
+        <div class="row padding row-wrap">
+          <div class="col col-33"
+               style="width: 100px;height: 100px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center" ng-repeat="picture in activityTemplateList.img4" ng-click="shouBigImage(activityList.id)">
+            <img class="img-responsive" style="height: 100%;width: 100px; border:1px solid #ffffff;"
+                 ng-src="{{picture.img}}">
+          </div>
+        </div>
+        <h3>照片墙</h3>
+        <p style="width: 100%;white-space:normal;text-indent: 15px;padding-top: 10px">{{activityTemplateList.msg4}}</p>
+        <i class="icon ion-images" style="font-size: 12px"> 照片墙: {{activityTemplateList.location4}}</i>
+      </div>
+      <div class="item" style="position: relative">
+        <img ng-src="{{activityTemplateList.img5}}" style="width: 100%;height: 200px;margin: 0"/>
+        <h3>下一次活动</h3>
+        <p style="width: 100%;white-space:normal;text-indent: 15px;padding-top: 10px">{{activityTemplateList.msg5}}</p>
+        <i class="icon  ion-leaf" style="font-size: 12px"> 子活动: {{activityTemplateList.location5}}</i>
+      </div>
+    </div>
+  </ion-content>
+  <div class="bar bar-footer " style="margin-left: -6px;">
+    <div class="tab-nav tabs" style="background-color: #886aea;color: white;font-size: 13px">
+      <div  style="float:right">
+        <button class="button  button-royal ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="createActivity()">引用模板活动</button>
+      </div>
+    </div>
+  </div>
+</ion-view>

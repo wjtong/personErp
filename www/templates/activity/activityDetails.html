@@ -12,40 +12,26 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content >
-      <div class="list"   >
+      <div class="list card">
         <div class="item" style="position: relative">
           <img ng-src="{{img}}" style="width: 100%;height: 200px;margin: 0"/>
           <div style="position: absolute;top: 60%;right: 10%">
-            <p style="color: white"><b>活动安排：{{activityList.workEffortName}}</b></p>
-            <p style="color: white">组织者：{{createPersonInfoList.lastName}}{{createPersonInfoList.firstName}}</p>
+            <p style="color: white"><b>{{activityList.workEffortName}}</b></p>
+            <p style="color: white">发起:{{createPersonInfoList.lastName}}{{createPersonInfoList.firstName}}</p>
           </div>
         </div>
-        <!--<div class="list list-left-editing" style="display: none;" id="discuss">-->
-          <!--<ion-list>-->
-            <!--<h2>近期评论</h2>-->
-            <!--<hr>-->
-            <!--<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="Discuss in DiscussList ">-->
-              <!--<img ng-src="{{Discuss.img}}">-->
-              <!--<h3>{{Discuss.name}}</h3>-->
-              <!--<p>{{Discuss.discuss}}</p>-->
-              <!--<p>{{Discuss.date}}</p>-->
-            <!--</ion-item>-->
-            <!--<ion-item>-->
-              <!--<p style="text-align:right"><button class="button button-small button-clear button-positive "  ng-click="showAddLab()">评论</button><button class="button button-small button-clear button-positive "  ng-click="hideDiscuss()">收起</button></p>-->
-            <!--</ion-item>-->
-          <!--</ion-list>-->
-        <!--</div>-->
         <div class="item">
-          <label class="">
-            <i class="icon ion-ios-clock"> {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}<br>&nbsp;{{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</i>
-            <br>
-            <i class="icon ion-ios-location"> {{activityList.locationDesc}}</i>
-            <p style="text-align:right;float: right;margin: 0"><button class="button button-small button-clear button-positive "  ng-click="showDiscuss()">3条评论</button></p>
-          </label>
+              <p><b>开始</b>: {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+              <p><b>结束</b>: {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</p>
+              <p><i class="icon ion-ios-location"> {{activityList.locationDesc}}</i></p>
+              <p style="float: right;color:#886aea;font-size: 15px;position: absolute;bottom: 0;right: 0" >
+                <button class="button button-royal button-clear" style="font-size: 15px" ng-click="openPopover()">参与{{number}}人</button>
+              </p>
         </div>
         <div class="item" style="width: 100%">
-          <b>详细信息</b>
-          <p style=" white-space : pre;width: 100%">{{activityList.description}}</p>
+          <h3>详细信息</h3>
+
+          <p style=" white-space : pre;width: 100%;margin-top: 2%">{{activityList.description}}</p>
         </div>
         <div class="item" ng-if="childActivity">
           <p style="float: left"><b>子活动</b></p>
@@ -64,7 +50,7 @@
         </div>
         <div class="item">
           <br>
-          <h2>照片墙</h2>
+          <h3>照片墙</h3>
           <hr>
           <div class="row padding row-wrap">
             <div class="col col-33"
@@ -74,33 +60,20 @@
             </div>
           </div>
         </div>
-
-        <div><p>参与人员：</p></div>
-        <div class="item item-avatar" type="item-text-wrap" style="margin-left: -16px;" ng-click="openModal();" ng-controller="ActivityCrl">
-          <img ng-src="{{img}}" ng-repeat="imag in personList" style="
-          top: 16px;
-          max-width: 40px;
-          max-height: 40px;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          margin-left: 16px;">
-        </div>
         <!--活动的地图-->
-        <div class="item" >
+        <div class="item" ng-if="baidu">
           <br>
-          <h2>活动地图</h2>
+          <h3>位置</h3>
           <hr>
           <div id="allmap" style="height: 300px;" ></div>
-          <div>
-            <span ng-click="byCar('{{longitude}}','{{latitude}}')">驾车</span>
-            <span  ng-click="otherWay('{{longitude}}','{{latitude}}');">乘坐交通工具</span>
+          <div style="padding: 10px 20%;font-size: 15px">
+            <span ng-click="byCar('{{longitude}}','{{latitude}}')" style="float: left;color:#886aea ">自驾</span>
+            <span  ng-click="otherWay('{{longitude}}','{{latitude}}');" style="float: right;color:#886aea" >路线</span>
           </div>
-          <div id="r-result" style="height:800px;width:100%;"></div>
-
+          <br>
+          <div id="r-result" style="height:100%;width:100%;" ng-if="route"></div>
         </div>
       </div>
-    <br>
     <br>
     <br>
     <br>
@@ -120,7 +93,7 @@
         <span class="tab-title ng-binding" style="font-size: 10px;">签到</span>
       </a>
       <div  style="float:right">
-        <button class="button  button-positive ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="showPopup(activityList.workEffortId)">我要报名</button>
+        <button class="button  button-royal ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="showPopup(activityList.workEffortId)">算我一个</button>
       </div>
     </div>
   </div>
@@ -130,11 +103,6 @@
         <i class="icon ion-merge" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">发布子活动</span>
-      </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="newActivityItem()">
-        <i class="icon icon-left ion-steam" style="line-height: 14px;">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">新建活动项</span>
       </a>
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="editActivty(activityList.id)">
         <i class="icon icon-left ion-network" style="line-height: 14px;">

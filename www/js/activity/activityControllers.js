@@ -82,7 +82,7 @@ angular.module('activity.controllers', [])
     var partyId=localStorage.getItem("partyId");
     //显示缺省图片
     $scope.img=localStorage.getItem("activityImg");
-
+    $scope.imgPerson=localStorage.getItem("contactImg");
     //获得活动的详细信息＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
     var id = $stateParams.activityId;
     $scope.workEffortId = $stateParams.activityId;
@@ -93,12 +93,20 @@ angular.module('activity.controllers', [])
       $scope.activityChild=data.childActivityList;//子活动数据
       $scope.iAmAdmin=data.iAmAdmin;//判断是否是组织者
       $scope.createPersonInfoList=data.createPersonInfoList[0];
+      $scope.participantList=data.partyJoinEventsList;//参与人员
+      $scope.number=$scope.participantList.length
       //活动的经纬度
       //将经纬度分割开
       var  latitude=data.eventDetail[0].specialTerms.split("/")[0];
       var  longitude=data.eventDetail[0].specialTerms.split("/")[1];
       $scope.longitude=longitude;
       $scope.latitude=latitude;
+      //判断是否有地址   界面调整
+      $scope.baidu=true
+      if(latitude==''){
+        $scope.baidu=false
+      }
+      $scope.route=false;  //路线先隐藏
       //嵌入百度地图
       navigator.geolocation.getCurrentPosition(function (data) {
         var ctrl_nav = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE});
@@ -137,6 +145,7 @@ angular.module('activity.controllers', [])
 
     //驾车的路线规划
     $scope.byCar=function(longitude,latitude){
+      $scope.route=true;
       navigator.geolocation.getCurrentPosition(function (data) {
         var ctrl_nav = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE});
         var map = new BMap.Map("allmap");
@@ -162,6 +171,7 @@ angular.module('activity.controllers', [])
 
     //乘坐其他的交通方式
     $scope.otherWay=function(longitude,latitude){
+      $scope.route=true;
       navigator.geolocation.getCurrentPosition(function (data) {
         var ctrl_nav = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE});
         var map = new BMap.Map("allmap");
@@ -345,56 +355,6 @@ angular.module('activity.controllers', [])
       $location.path("/app/newActivityChild/"+id);
     };
 
-    //录入时间####################################################
-    var ipObj1 = {
-      callback: function (val) {  //Mandatory
-        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
-        var selectDate = new Date(val);
-        console.log(selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate());
-        $scope.itemData.time=selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate()+" "+"00"+":"+"00"+":"+"00"
-      },
-      to: new Date(2020, 10, 30), //Optional
-      inputDate: new Date(),      //Optional
-      mondayFirst: false,          //Optional
-      closeOnSelect: false,       //Optional
-      templateType: 'popup'       //Optional
-    };
-    $scope.openDatePicker = function(){
-      ionicDatePicker.openDatePicker(ipObj1);
-    };
-
-    //新建活动项弹出框####################################################
-    $scope.newActivityItem=function () {
-      $scope.itemData = {};
-      var itemPopup = $ionicPopup.show({
-        template:
-        '<input type="text" placeholder="时间" ng-model="itemData.time" readonly=“readonly” style="background-color: white" ng-click="openDatePicker()"><br>'+
-        '<input type="text" placeholder="安排" ng-model="itemData.name"><br>'+
-        '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
-        '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>' ,
-        title: '新建活动项',
-        scope: $scope
-      });
-      itemPopup.then(function(res) {
-        console.log('Tapped!', res);
-      });
-      $scope.addLab = itemPopup;
-    };
-    $scope.createLabel = function () {
-      if($scope.itemData.time == null || $scope.itemData.time == ''){
-        $scope.addLab.close();
-      }else{
-        console.log($scope.itemData.time+$scope.itemData.name);
-        ActivityServer.createActivityItem(tarjeta,id,$scope.itemData.name,$scope.itemData.time,function(data){
-          console.log(data.resultMsg)
-        })
-        $scope.addLab.close();
-      }
-    };
-    $scope.closeLab = function () {
-      $scope.addLab.close();
-    };
-
     //编辑活动####################################################
     $scope.editActivty=function(id){
       $location.path("/app/editActivty/"+id);
@@ -403,7 +363,25 @@ angular.module('activity.controllers', [])
     //显示子活动信息####################################################
     $scope.activityChildInfo=function (id) {
       $state.go("app.activityDetails", {"activityId":id}, {reload: true});
-    }
+    };
+
+    //活动参与人员弹出框################################################
+    $scope.personmainLists=$scope.participantList
+    $ionicPopover.fromTemplateUrl('templates/activity/activityJoin.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.popover = popover;
+    });
+    $scope.openPopover = function($event) {
+      $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+      $scope.popover.hide();
+    };
+    //返回
+    $scope.goback=function () {
+      $state.go("app.activityHome")
+    };
 
     //邀请好友#############################################################
     //分享好友模态框
@@ -448,7 +426,7 @@ angular.module('activity.controllers', [])
             thumb: 'www/img/theme/bufenli.jpeg',
             media: {
               type: Wechat.Type.WEBPAGE,
-              webpageUrl:'http://114.215.200.46:3400/pewebview/control/main?workEffortId='+$scope.workEffortId
+              webpageUrl:'http://www.vivafoo.com:3400/pewebview/control/main?workEffortId='+$scope.workEffortId
             }
           },
           scene: Wechat.Scene.SESSION // share to SESSION
@@ -1010,9 +988,8 @@ angular.module('activity.controllers', [])
   })
 
 //活动项*****************************************************************************************************************
-  .controller('ActivityItem',function ($scope, $rootScope,$stateParams,ActivityServer) {
+  .controller('ActivityItem',function ($scope, $rootScope,$stateParams,ActivityServer,$ionicPopup,ionicDatePicker,$state) {
     var id=$stateParams.id;
-    alert(id);
     //获得token
     var tarjeta=localStorage.getItem("tarjeta");
     //获得App使用者partyId
@@ -1023,6 +1000,58 @@ angular.module('activity.controllers', [])
       console.log(data);
       $scope.activityItemList=data.projectList
     });
+    //录入时间####################################################
+    var ipObj1 = {
+      callback: function (val) {  //Mandatory
+        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+        var selectDate = new Date(val);
+        console.log(selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate());
+        $scope.itemData.time=selectDate.getFullYear()+"-"+parseFloat(selectDate.getMonth()+1)+"-"+selectDate.getDate()+" "+"00"+":"+"00"+":"+"00"
+      },
+      to: new Date(2020, 10, 30), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: false,          //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional
+    };
+    $scope.openDatePicker = function(){
+      ionicDatePicker.openDatePicker(ipObj1);
+    };
+    //新建活动项弹出框####################################################
+    $scope.newActivityItem=function () {
+      $scope.itemData = {};
+      var itemPopup = $ionicPopup.show({
+        template:
+        '<input type="text" placeholder="时间" ng-model="itemData.time" readonly=“readonly” style="background-color: white" ng-click="openDatePicker()"><br>'+
+        '<input type="text" placeholder="安排" ng-model="itemData.name"><br>'+
+        '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
+        '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>' ,
+        title: '新建活动项',
+        scope: $scope
+      });
+      itemPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+      $scope.addLab = itemPopup;
+    };
+    $scope.createLabel = function () {
+      if($scope.itemData.time == null || $scope.itemData.time == ''){
+        $scope.addLab.close();
+      }else{
+        console.log($scope.itemData.time+$scope.itemData.name);
+        ActivityServer.createActivityItem(tarjeta,id,$scope.itemData.name,$scope.itemData.time,function(data){
+          console.log(data.resultMsg)
+        })
+        $scope.addLab.close();
+        ActivityServer.findActivityItem(tarjeta,id,function (data) {
+          console.log(data);
+          $scope.activityItemList=data.projectList
+        });
+      }
+    };
+    $scope.closeLab = function () {
+      $scope.addLab.close();
+    };
   })
 
 //联系人的全选和全不选*****************************************************************************************************
@@ -1169,13 +1198,60 @@ angular.module('activity.controllers', [])
   })
 
 //活动场所展示页面*******************************************************************************************************
-  .controller('ActivityPlace', function($scope,$stateParams,ActivityPlace) {
+  .controller('ActivityPlace', function($scope,$stateParams,ActivityPlace,$state) {
     var id=$stateParams.placeId;
-    $scope.activityInfoList=ActivityPlace.getPlaceInfo(id)
+    $scope.activityInfoList=ActivityPlace.getPlaceInfo(id);
+
+    //嵌入百度地图*****************************************
+    var  latitude='31.212131';
+    var  longitude='121.420305';
+    $scope.longitude=longitude;
+    $scope.latitude=latitude;
+    navigator.geolocation.getCurrentPosition(function (data) {
+      var ctrl_nav = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE});
+      var map = new BMap.Map("allmap");
+      var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
+      //map.centerAndZoom(point, 16);
+      //var marker = new BMap.Marker(point);
+      //map.addOverlay(marker);   // 将标注添加到地图中
+      map.addControl(ctrl_nav);//给地图添加缩放的按钮
+      map.enableScrollWheelZoom(true);
+      //活动地点的位置
+      var activitypoint = new BMap.Point(longitude, latitude);   // 创建点坐标
+      map.centerAndZoom(activitypoint, 16);
+      var activitymarker = new BMap.Marker(activitypoint);
+      map.addOverlay(activitymarker);
+      var myLabel = new BMap.Label("活动地点", //为lable填写内容
+        {position: activitypoint}); //label的位置
+      myLabel.setStyle({ //给label设置样式，任意的CSS都是可以的
+        "color": "red", //颜色
+        "fontSize": "12px", //字号
+        "border": "0", //边
+        "height": "10px", //高度
+        "width": "20px" //宽
+      });
+      map.addOverlay(myLabel);
+
+      //var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map,panel: "r-result", autoViewport: true}});
+      //driving.search(marker, activitymarker);
+    }, function (error) {
+      alert("网络不可用，请打开网络!!");
+      console.log(error);
+    },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
+    //新建活动＊＊＊＊＊
+    $scope.createActivity=function () {
+      $state.go("app.newActivity")
+    }
+  })
+//活动模版展示页面*******************************************************************************************************
+  .controller('ActivityTemplate', function($scope,$stateParams,ActivityTemplate) {
+    //准备参数
+    var id=$stateParams.id;
+    $scope.activityTemplateList=ActivityTemplate.getTemplateInfo(id)
   })
 
 //活动账单的展示页面*******************************************************************************************************
-  .controller('activityBillCtrl', function($scope, Account, $ionicPopup,Contact,$state,$stateParams,ActivityServer) {
+  .controller('activityBillCtrl', function($scope,$ionicPopup,Contact,$state,$stateParams,ActivityServer) {
     //准备参数
     var tarjeta=localStorage.getItem("tarjeta");
     var id=$stateParams.workEffortId;

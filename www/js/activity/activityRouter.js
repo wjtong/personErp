@@ -75,6 +75,18 @@ angular.module('starter')
           }
         }
       })
+      //活动模版详情
+      .state('app.activityTemplate', {
+        url: '/activityTemplate/:id',
+        disableBack:true,
+        cache :false,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activity/activityTemplate.html',
+            controller:'ActivityTemplate'
+          }
+        }
+      })
       //新建子活动
       .state('app.newActivityChild', {
         url: '/newActivityChild/:id',
