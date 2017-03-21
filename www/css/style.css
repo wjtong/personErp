@@ -399,3 +399,58 @@ a.autolinker {
   display: inline-block;
   font-size: 14px;
 }
+
+/*全局样式设置*/
+.globalColor {
+  background-color: #33cd5f;
+  color: white;
+}
+
+/*活动首页＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
+/*没有活动时的提示文字*/
+.tipTextAct {
+  margin: 70% auto;
+  position: absolute;
+  right: -10%;
+  font-size: 25px;
+  width: 100%;
+  color: #33cd5f;
+}
+.history {
+  margin: 140% -25%;
+  position: absolute;
+  right: -10%;
+  font-size: 18px;
+  width: 100%;
+  color: #33cd5f;
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0; /*初始状态 透明度为0*/
+  }
+  50% {
+    opacity: 0; /*中间状态 透明度为0*/
+  }
+  100% {
+    opacity: 1; /*结尾状态 透明度为1*/
+  }
+}
+#box{
+  -webkit-animation-name: fadeIn; /*动画名称*/
+  -webkit-animation-duration: 3s; /*动画持续时间*/
+  -webkit-animation-iteration-count: 1; /*动画次数*/
+  -webkit-animation-delay: 0s; /*延迟时间*/
+}
+#newActivity{
+  -webkit-animation-name: fadeIn; /*动画名称*/
+  -webkit-animation-duration: 6s; /*动画持续时间*/
+  -webkit-animation-iteration-count: 1; /*动画次数*/
+  -webkit-animation-delay: 0s; /*延迟时间*/
+}
+#history{
+  -webkit-animation-name: fadeIn; /*动画名称*/
+  -webkit-animation-duration: 6s; /*动画持续时间*/
+  -webkit-animation-iteration-count: 1; /*动画次数*/
+  -webkit-animation-delay: 0s; /*延迟时间*/
+}
+

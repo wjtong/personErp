@@ -1,47 +1,5 @@
-<ion-view view-title="模板页">
+<ion-view view-title="首页">
   <ion-content>
-    <div class="list">
-      <div  style="width: 100%;height: 230px;position: relative">
-        <ion-slide-box active-slide="myActiveSlide" auto-play="true" does-continue="true">
-          <ion-slide ng-repeat="matter in active" ng-click="goActivityTemplate(matter.id)">
-            <img ng-src="{{matter.img}}" style="width:95%;height:220px;margin-top: 20px" >
-            <div style="position: absolute;bottom: 40px;left: 56px">
-              <p style="color: white;font-size: 18px"><b>{{matter.title}}</b></p>
-            </div>
-            <div style="position: absolute;top: 10%;right: 5%" >
-              <img ng-src="../www/img/theme/moban.png" width="50px" height="50px"/>
-              <p style="color:white;font-size: 30px"><b>模板</b></p>
-            </div>
-          </ion-slide>
-        </ion-slide-box>
-      </div>
-      <div class="item">
-        <h2>附近热门场所</h2>
-        <hr>
-        <div id="Nav_01">
-          <ul>
-            <li>休闲</li>
-            <li>餐饮</li>
-            <li>运动</li>
-            <li>野外</li>
-            <li>电竞</li>
-          </ul>
-        </div>
-      </div>
-      <div class="content" style="margin-top: 15px;">
-        <div class="row row-wrap">
-          <div class="col col-50" ng-repeat="place in avtivityPlaceList">
-            <div class="card" style="height:100%; width:90%;margin-top: -20px;"  type="item-text-wrap" ng-click="goInfo(place.id)" >
-              <div class="item" >
-                <img  style="height:100px; width:100%;" src="{{place.img}}">
-                <h3>{{place.placeName}}</h3>
-                <p style="float: left;font-size:12px">{{place.number}}</p>
-                <p style="float: right;color:#ef473a;font-size:12px"> <b>{{place.price}}</b></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    首页
   </ion-content>
 </ion-view>

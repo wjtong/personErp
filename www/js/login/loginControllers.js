@@ -2,7 +2,7 @@ angular.module('login.controllers', [])
 
 
 //登陆＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-  .controller('LoginCtrl',function($http,$scope,Login,$state,ThemeImage,ActivityServer){
+  .controller('LoginCtrl',function($http,$scope,Login,$state,ThemeImage,$ionicHistory){
     $scope.$on('$ionicView.beforeEnter', function () {                              // 这个玩意儿不错，刚加载执行的广播通知方法
       $scope.user = {"identifyCode": ""};
       // 退出登录后，清空验证码
@@ -34,7 +34,7 @@ angular.module('login.controllers', [])
           }
         })
       }
-    };
+  };
 
     //返回首页
     $scope.goHome=function () {

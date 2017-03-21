@@ -5,7 +5,7 @@ angular.module('starter')
     $stateProvider
       //活动主页
       .state('app.activityHome', {
-        url: '/activityHome/',
+        url: '/activityHome',
         disableBack:true,
         cache :false,
         views: {
@@ -84,18 +84,6 @@ angular.module('starter')
           'menuContent': {
             templateUrl: 'templates/activity/activityTemplate.html',
             controller:'ActivityTemplate'
-          }
-        }
-      })
-      //新建子活动
-      .state('app.newActivityChild', {
-        url: '/newActivityChild/:id',
-        disableBack:true,
-        cache :false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/activity/newActivity.html',
-            controller:'NewActivity'
           }
         }
       })
