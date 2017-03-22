@@ -5,7 +5,7 @@ angular.module('starter')
   $stateProvider
 
     .state('app.voteList', {
-      url: '/voteList',
+      url: '/voteList/:workEffortId',
       cache :false,
       params: {'workEffortId': null},
       views: {
@@ -17,7 +17,7 @@ angular.module('starter')
     })
 
     .state('app.goEditVote', {
-      url: '/goEditVote',
+      url: '/goEditVote/:workEffortId',
       cache :false,
       params: {
         'workEffortId': null

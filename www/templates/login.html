@@ -1,5 +1,5 @@
 <ion-view view-title="Login">
-  <div class="bar bar-header bar-royal">
+  <div class="bar bar-header bar-balanced">
     <button class="button button-clear" ng-click="goHome()">
       <i class="icon ion-home">首页</i>
     </button>
@@ -21,13 +21,13 @@
             <input type="text" ng-model="loginData.captcha">
           </label>
           <label class="item" style="margin-bottom: 0">
-            <button class="button button-block button-royal" type="submit">登 录</button>
+            <button class="button button-block button-balanced" type="submit">登 录</button>
           </label>
         </div>
       </form>
       <div>
         <label>
-          <input type="button" ng-value="codeBtn" ng-controller="captcha" ng-click="getIdentifyCode(loginData.mobileNumber)" style="background-color:#B9B9B9;text-align: center;text-indent: 8px;z-index:3;position: absolute;top:68%;right: 5%;opacity:0.8">
+          <input type="button" ng-value="codeBtn" ng-controller="captcha" ng-click="getIdentifyCode(loginData.mobileNumber)" style="background-color:#B9B9B9;text-align: center;text-indent: 8px;z-index:3;position: absolute;top:65%;right: 5%;opacity:0.8">
         </label>
       </div>
     </div>

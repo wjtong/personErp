@@ -11,13 +11,14 @@ angular.module('vote.controllers', [])
     // 添加投票选项
     $scope.addVotes = function () {
       $("#votes").append("" +
-        "<textarea style='display: inline-block;width: 80%' class='questions'></textarea>" +
-        "<img src='img/delNode.gif' onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><br>" +
+        "<textarea style='display: inline-block;width: 81%;resize:none' class='questions' placeholder='投票项'></textarea>" +
+        "<img src='img/shanchu.jpeg' width=48px height=48px onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><hr>" +
         "");
     };
 
     // 创建投票
-    $scope.createSurveyAndQuestions = function (voteTitle) {
+    $scope.createSurveyAndQuestions = function () {
+      var voteTitle=$("input").val()
       var questions = ''; // 投票项
 
       for (var i = 0; i < $("textarea").length; i++) {
@@ -88,7 +89,6 @@ angular.module('vote.controllers', [])
     });
 
     $scope.doPollQuestion = function (surveyQuestionId) {
-      alert(surveyQuestionId);
       if(surveyQuestionId == '0'){
         $ionicPopup.alert({
           title: '提示',

@@ -5,17 +5,18 @@ angular.module('activity.controllers', [])
   .controller('GetBusiness',function($scope,$location,ActivityServer,$state){
     //如果没有登陆请先登陆
     if (localStorage.getItem("tarjeta")== null) {   // 登录成功了，按物理返回键，就别想重新登录
-      $state.go("login");
+      $scope.activityHome=false;
+      $scope.activityHomeNull=true;
+    }else if(localStorage.getItem("tarjeta")!= null){
+      $scope.activityHome=true;
+      $scope.activityHomeNull=false;
     }
     //显示缺省图片
     $scope.img=localStorage.getItem("activityImg");
-    //获得我的全部活动列表(我参与的活动)
-    var roleTypeId='ACTIVITY_MEMBER';
-    var tarjeta=localStorage.getItem("tarjeta");
-    ActivityServer.myActivity(tarjeta,roleTypeId,function (data) {
-      $scope.active=data.partyEventsList;
-      console.log("查询我参与的活动"+"---------"+data.resultMsg)
-    });
+    //找回历史活动
+    $scope.getHistory=function () {
+      $state.go('login')
+    }
     //新建活动
     $scope.newActivity=function () {
       $location.path('/app/newActivity')
@@ -24,7 +25,6 @@ angular.module('activity.controllers', [])
     $scope.activityDetails=function (id) {
       $location.path("/app/activityDetails/"+id);
     };
-
     //定义：有我组织  往期活动 收藏######################################################################################
     $scope.typefinish='finish';
     $scope.typeMy='my';
@@ -32,7 +32,18 @@ angular.module('activity.controllers', [])
     $scope.goInfo=function (type) {
       $location.path("/app/activityList/"+type);
     };
-
+    //活动有无界面布局调整＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+    //获得我的全部活动列表(我参与的活动)
+    var roleTypeId='ACTIVITY_MEMBER';
+    var tarjeta=localStorage.getItem("tarjeta");
+    ActivityServer.myActivity(tarjeta,roleTypeId,function (data) {
+      $scope.active=data.partyEventsList;
+      console.log("查询我参与的活动"+"---------"+data.resultMsg)
+      if(data!=null){
+        $scope.activityHome=true;
+        $scope.activityHomeNull=false;
+      }
+    });
   })
 
 //由我组织   往期活动  活动邀请***************************************************************************************************************
@@ -90,7 +101,6 @@ angular.module('activity.controllers', [])
 
       $scope.activityList=data.eventDetail[0];
       $scope.partyId=data.partyId;//组织者partyId
-      $scope.activityChild=data.childActivityList;//子活动数据
       $scope.iAmAdmin=data.iAmAdmin;//判断是否是组织者
       $scope.createPersonInfoList=data.createPersonInfoList[0];
       $scope.participantList=data.partyJoinEventsList;//参与人员
@@ -136,7 +146,7 @@ angular.module('activity.controllers', [])
         //var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map,panel: "r-result", autoViewport: true}});
         //driving.search(marker, activitymarker);
       }, function (error) {
-        alert("网络不可用，请打开网络!!");
+        alert("百度地图暂时不可用!!");
         console.log(error);
       },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
       console.log(data);
@@ -341,28 +351,9 @@ angular.module('activity.controllers', [])
       $scope.myActivity=true;
       $scope.otherActivity=false;
     }
-
-    //判断是否有子活动 界面调整####################################################
-    $scope.childActivity=false;
-    if($scope.activityChild==''||$scope.activityChild==null){
-      $scope.childActivity=false;
-    }else {
-      $scope.childActivity=true;
-    }
-
-    //新建子活动####################################################
-    $scope.createChild=function (id) {
-      $location.path("/app/newActivityChild/"+id);
-    };
-
     //编辑活动####################################################
     $scope.editActivty=function(id){
       $location.path("/app/editActivty/"+id);
-    };
-
-    //显示子活动信息####################################################
-    $scope.activityChildInfo=function (id) {
-      $state.go("app.activityDetails", {"activityId":id}, {reload: true});
     };
 
     //活动参与人员弹出框################################################
@@ -703,25 +694,7 @@ angular.module('activity.controllers', [])
         );
         $ionicHistory.goBack()
       }else{
-        //新建子活动**********************************************
-        alert('新建子活动');
-        ActivityServer.createChildActivity(
-          parentId,
-          $scope.Token,
-          $scope.ActivityData.workEffortName,
-          $scope.ActivityData.startDate,
-          $scope.ActivityData.endDate,
-          $scope.ActivityData.address,
-          $scope.ActivityData.information,
-          $scope.locationAddress,
-          function(data){
-            console.log(data);
-            if(data==null){
-              alert("发生错误！！！！！！！")
-            }
-          }
-        );
-        $ionicHistory.goBack()
+        alert('已经除去子活动概念');
       }
     };
   })

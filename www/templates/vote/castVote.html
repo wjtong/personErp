@@ -5,11 +5,11 @@
       <div class="item item-divider" ng-bind="surveyName"></div>
         <ion-radio ng-model="ret.choice" ng-value="question.surveyQuestionId" ng-repeat="question in questions">
           {{$index+1}}、<span  ng-bind="question.question"></span>
-          <i class="" ng-bind="question.answerCount"></i>
+          <i class="" style="float: right;color: #33cd5f" ng-bind="question.answerCount"></i>
         </ion-radio>
 
       <div class="padding">
-        <button class="button button-block button-positive" ng-click="doPollQuestion(ret.choice)">投票</button>
+        <button class="button button-block button-balanced" ng-click="doPollQuestion(ret.choice)">投票</button>
       </div>
 
       <div class="list">
@@ -20,7 +20,6 @@
             <!--<img ng-src="{{imag.img}}" ng-repeat="imag in personList" style="top: 16px;max-width: 40px;max-height: 40px;width: 100%;height: 100%;border-radius: 50%;margin-left: 16px;">-->
           </div>
         </div>
-
       </div>
     </div>
   </ion-content>

@@ -1,4 +1,9 @@
-<ion-view view-title="发布活动">
+<ion-view view-title="编辑">
+  <!--<ion-nav-buttons side="right">-->
+    <!--<button class="button button-clear">-->
+      <!--取消-->
+    <!--</button>-->
+  <!--</ion-nav-buttons>-->
   <ion-content style="margin-bottom: 10%">
     <div class="content ionic-pseudo">
       <div class="list card">
@@ -8,8 +13,6 @@
           </label>
         </div>
         <div class="item">
-            <!--<button class="button button-assertive" id="startDate">活动开始日期</button>-->
-            <!--<button class="button button-assertive" id="startTime">活动开始时间</button>-->
             <input type="text" readonly=“readonly” placeholder="活动开始日期" value="{{myActivtyList.createTime}}" style="width: 45%;display: inline-block;background-color: white" id="startDate" ng-click="openDatePicker('start')" >
             <input type="text" readonly=“readonly” placeholder="活动开始时间" value="{{myActivtyList.createTime}}" style="width: 45%;float: right;background-color: white" id="startTime" ng-click="openTimePicker('start')" ng-model="ActivityData.startTime">
         </div>
@@ -48,15 +51,10 @@
       </div>
     </div>
   </ion-content>
-  <div class="row" style="position: fixed;bottom: 0">
-    <div class="col">
-      <div class="col-demo">
-        <button class="button button-royal" style="width: 100%;" ng-click="createNewActivity()">发布</button>
-      </div>
-    </div>
-    <div class="col">
-      <div class="col-demo">
-        <button class="button button-royal" style="width: 100%;">取消</button>
+  <div class="bar bar-footer " style="margin-left: -6px;">
+    <div class="tab-nav tabs globalColor" >
+      <div  style="float:right">
+        <button class="button  button-balanced" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="createNewActivity()">创建活动</button>
       </div>
     </div>
   </div>

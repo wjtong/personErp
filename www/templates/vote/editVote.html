@@ -6,26 +6,27 @@
   </div>
 
   <ion-content>
-    <div class="list">
-      <div class="item item-input">
-        <span class="input-label">投票名称</span>
-        <input ng-model="voteTitle" type="text">
+    <div class="list card">
+      <div class="item">
+        <input ng-model="voteTitle" type="text" placeholder="投票标题"><hr>
       </div>
       <div class="item">
-        <span class="input-label" >投票项</span>
         <div id="votes">
-          <textarea style='display: inline-block;width: 80%'></textarea>
-          <img src='img/delNode.gif' onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><br>
+          <textarea style='display: inline-block;width: 80%;resize:none' placeholder="投票项"></textarea>
+          <img src='img/shanchu.jpeg' width="48px" height="48px" onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><hr>
         </div>
       </div>
-      <div class="item">
-        <button class="button icon-left ion-plus-round button-balanced" ng-click="addVotes()">添加投票项</button>
-      </div>
-      <div class="padding">
-        <button class="button button-block button-positive" ng-click="createSurveyAndQuestions(voteTitle)">保存</button>
+      <div>
+        <button class="button button-clear icon-left ion-plus-round button-balanced" style="float: right" ng-click="addVotes()">添加投票项</button>
       </div>
     </div>
   </ion-content>
-
+  <div class="bar bar-footer " style="margin-left: -6px;" >
+    <div class="tab-nav tabs globalColor" >
+      <div  style="float:right">
+        <button class="button  button-balanced" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="createSurveyAndQuestions()">创建投票</button>
+      </div>
+    </div>
+  </div>
 </ion-view>
 

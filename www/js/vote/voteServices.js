@@ -116,7 +116,6 @@ angular.module('vote.services', [])
        * @Params 投票标题ID,投票项ID
        * */
       doPollQuestion: function (surveyId, surveyQuestionId) {
-        alert(surveyId+" "+surveyQuestionId);
         var deferred = $q.defer();
         var promise = deferred.promise;
         $.ajax(

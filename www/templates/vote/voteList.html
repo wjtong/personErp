@@ -1,7 +1,7 @@
-<ion-view view-title="投票主题列表">
+<ion-view view-title="活动投票列表">
   <ion-nav-buttons side="right">
     <a class="button icon-left" ui-sref="app.goEditVote({workEffortId:{{workEffortId}}})">
-      <i class="icon ion-ios-compose"></i>
+      创建
     </a>
   </ion-nav-buttons>
 
@@ -9,7 +9,7 @@
     <ion-list>
       <ion-item class="item-icon-right" can-swipe="true" ng-repeat="activityPollQuestionsTitle in activityPollQuestionsTitles">
         <div ui-sref="app.goCastVote({surveyId:activityPollQuestionsTitle.surveyId,surveyName:activityPollQuestionsTitle.surveyName,workEffortId:workEffortId})" >
-          <h2>{{$index+1}}、 {{activityPollQuestionsTitle.surveyName}}</h2>
+          <h2>投票名称： {{activityPollQuestionsTitle.surveyName}}</h2>
           <p ng-bind="activityPollQuestionsTitle.fromDate | date:'yyyy-MM-dd HH:mm:ss'"></p>
           <i class="icon ion-ios-arrow-right" style="color:darkgrey"></i>
           <!--<ion-option-button class="button-balanced" ui-sref="app.goEditVote">编辑</ion-option-button>-->

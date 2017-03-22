@@ -1,11 +1,11 @@
-<ion-view view-title="活动">
-  <ion-nav-buttons side="right">
-    <button class="button button-clear" ng-click="newActivity()">
+<ion-view view-title="活动"  >
+  <ion-nav-buttons side="right" >
+    <button class="button button-clear" ng-click="newActivity()" ng-if="activityHome">
       <i class="icon ion-ios-plus-outline"></i>
     </button>
   </ion-nav-buttons>
   <ion-content>
-    <div class="list card" ng-repeat="matter in active">
+    <div class="list card" ng-repeat="matter in active" >
       <div class="item" style="padding: 0;margin-top: 2%;position: relative" ng-click="activityDetails(matter.workEffortId)"  >
         <img ng-src="{{img}}" style="width:100%;height:220px" >
         <div style="position: absolute;right: 5%;top: 45%;">
@@ -14,9 +14,6 @@
           <p style="color: white">结束:{{matter.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss' }}</p>
           <p style="color: white">{{matter.locationDesc}}</p>
         </div>
-        <!--<div ng-if="myActivity">-->
-          <!--<p style="color: yellow;width: 70px;position: absolute;top: 0;right: 5%;">由我组织</p>-->
-        <!--</div>-->
         <div class="item tabs">
           <p class="tab-item">
             参与：39位
@@ -28,8 +25,8 @@
       </div>
     </div>
   </ion-content>
-  <div class="bar bar-footer" style="margin-left: -6px;">
-    <div class="tab-nav tabs" style="background-color: #886aea;color: white;">
+  <div class="bar bar-footer" style="margin-left: -6px;" ng-if="activityHome">
+    <div class="tab-nav tabs globalColor">
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeMy)">
         <i class="icon ion-ios-eye-outline" style="line-height: 14px;">
         </i>
@@ -45,6 +42,17 @@
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">活动邀请</span>
       </a>
+    </div>
+  </div>
+  <div style="height:100%;position: relative;" ng-if="activityHomeNull">
+    <p class="tipTextAct" id="box" >你还没有活动是否要新建？</p>
+    <p class="history" id="history" ng-click="getHistory()">找回历史活动</p>
+  </div>
+  <div class="bar bar-footer " style="margin-left: -6px;" id="newActivity" ng-if="activityHomeNull">
+    <div class="tab-nav tabs globalColor" >
+      <div  style="float:right">
+        <button class="button  button-balanced" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="newActivity()">创建活动</button>
+      </div>
     </div>
   </div>
 </ion-view>

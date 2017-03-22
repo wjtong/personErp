@@ -9,7 +9,7 @@
     <div class="list">
       <div class="item item-input-inset">
         <label class="item-input-wrapper">
-          <input ng-model="addressData.address" type="text"  placeholder="关键字" ng-change="getAddressInfo()">
+          <input ng-model="addressData.address" type="text"  placeholder="关键字" ng-keydown="getAddressInfo()">
         </label>
       </div>
       <div class="item" ng-repeat="item in addressInfoList" ng-click="chosenAddress(item)">

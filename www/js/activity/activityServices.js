@@ -105,7 +105,7 @@ angular.module('activity.services', [])
           }
         });
       },
-      //由我组织的活动
+      //我有关的活动
       myActivity: function (tarjeta,roleTypeId, cb) {
         $.ajax({
           url: $rootScope.interfaceUrl + "findMyEvent",
@@ -508,10 +508,10 @@ angular.module('activity.services', [])
     var shareImg = [
       {id:'Pic_10021',img:'img/share/Contact.png',name:'手机通讯录'},
       //{id:'Pic_10022',img:'img/share/QQ.jpeg',name:'QQ'},
-      //{id:'Pic_10023',img:'img/share/QQ空间.png',name:'QQ空间'},
+      {id:'Pic_10023',img:'img/share/li1.jpeg',name:'梨友录'},
       {id:'Pic_10024',img:'img/share/微信.jpeg',name:'微信'},
       // {id:'Pic_10025',img:'img/share/新浪jpeg.jpeg',name:'新浪微博'},
-      //{id:'Pic_10026',img:'img/share/朋友圈.jpeg',name:'朋友圈'}
+      {id:'Pic_10026',img:'img/share/朋友圈.jpeg',name:'朋友圈'}
     ];
     var Img =
     {id:'Pic_10080',img:'img/resources/paobu3.jpeg',img2:'img/team/img1-sm.jpg'};

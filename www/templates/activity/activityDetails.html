@@ -1,5 +1,5 @@
 <ion-view view-title="活动详情">
-  <ion-nav-bar class="bar-royal">
+  <ion-nav-bar class="bar-balanced">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="goback()">
         <i class="icon ion-android-arrow-back"></i>
@@ -24,29 +24,13 @@
               <p><b>开始</b>: {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}</p>
               <p><b>结束</b>: {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</p>
               <p><i class="icon ion-ios-location"> {{activityList.locationDesc}}</i></p>
-              <p style="float: right;color:#886aea;font-size: 15px;" >
-                <button class="button button-royal button-clear" style="font-size: 15px" ng-click="openPersonJoin()">参与{{number}}人</button>
+              <p style="float: right;color:#33cd5f;font-size: 15px;" >
+                <button class="button button-balanced button-clear" style="font-size: 15px" ng-click="openPersonJoin()">参与{{number}}人</button>
               </p>
         </div>
         <div class="item" style="width: 100%">
           <h3>详细信息</h3>
-
           <p style=" white-space : pre;width: 100%;margin-top: 2%">{{activityList.description}}</p>
-        </div>
-        <div class="item" ng-if="childActivity">
-          <p style="float: left"><b>子活动</b></p>
-          <p style="text-align: right;" ng-click="advancedOptions()" >查看更多<i class="icon ion-android-arrow-down" style="line-height: 14px;">
-          </i></p>
-        </div>
-        <div class="list" ng-if="childActivity">
-          <div class="item" ng-repeat="after in activityChild">
-            <a class="item item-thumbnail-left"  type="item-text-wrap" ng-click="activityChildInfo(after.workEffortId)">
-              <img ng-src="{{img}}">
-              <h2>标题：{{after.workEffortName}}</h2>
-              <p>开始时间：{{after.actualStartDate| date:'yyyy-MM-dd HH:mm:ss'}}</p>
-              <p>地点：{{after.locationDesc}}</p>
-            </a>
-          </div>
         </div>
         <div class="item">
           <br>
@@ -67,8 +51,8 @@
           <hr>
           <div id="allmap" style="height: 300px;" ></div>
           <div style="padding: 10px 20%;font-size: 15px">
-            <span ng-click="byCar('{{longitude}}','{{latitude}}')" style="float: left;color:#886aea ">自驾</span>
-            <span  ng-click="otherWay('{{longitude}}','{{latitude}}');" style="float: right;color:#886aea" >路线</span>
+            <span ng-click="byCar('{{longitude}}','{{latitude}}')" style="float: left;color:#33cd5f ">自驾</span>
+            <span  ng-click="otherWay('{{longitude}}','{{latitude}}');" style="float: right;color:#33cd5f" >路线</span>
           </div>
           <br>
           <div id="r-result" style="height:100%;width:100%;" ng-if="route"></div>
@@ -80,8 +64,8 @@
   </ion-content>
   <br>
   <br>
-  <div class="bar bar-footer " style="margin-left: -6px;" ng-if="otherActivity">
-    <div class="tab-nav tabs" style="background-color: #886aea;color: white;font-size: 13px">
+  <div class="bar bar-footer bar-balanced" style="margin-left: -6px;" ng-if="otherActivity">
+    <div class="tab-nav tabs" style="background-color: #33cd5f;color: white;font-size: 13px">
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeMy)">
         <i class="icon ion-chatbubble-working" style="line-height: 14px;">
         </i>
@@ -93,23 +77,18 @@
         <span class="tab-title ng-binding" style="font-size: 10px;">签到</span>
       </a>
       <div  style="float:right">
-        <button class="button  button-royal ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="showPopup(activityList.workEffortId)">算我一个</button>
+        <button class="button  button-balanced ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="showPopup(activityList.workEffortId)">算我一个</button>
       </div>
     </div>
   </div>
-  <div class="bar bar-footer bar-royal" style="margin-left: -6px;" ng-if="myActivity">
-    <div class="tab-nav tabs" style="background-color: #886aea;color: white;font-size: 13px">
-      <a class="tab-item tab-item-royal" style="line-height: 12px;" ng-click="createChild(activityList.workEffortId)">
-        <i class="icon ion-merge" style="line-height: 14px;">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;">发布子活动</span>
-      </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="editActivty(activityList.id)">
+  <div class="bar bar-footer bar-balanced" style="margin-left: -6px;" ng-if="myActivity">
+    <div class="tab-nav tabs" style="background-color: #33cd5f;color: white;font-size: 13px">
+      <a class="tab-item tab-item-balanced" style="line-height: 12px;" ng-click="editActivty(activityList.id)">
         <i class="icon icon-left ion-network" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;" >编辑活动</span>
       </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="newTask()">
+      <a class="tab-item tab-item-balanced" style="line-height: 12px;" ng-click="newTask()">
         <i class="icon icon-left ion-android-list" style="line-height: 14px;">
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;" >邀请好友</span>
