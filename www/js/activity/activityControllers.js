@@ -94,11 +94,11 @@ angular.module('activity.controllers', [])
     //显示缺省图片
     $scope.img=localStorage.getItem("activityImg");
     $scope.imgPerson=localStorage.getItem("contactImg");
+
     //获得活动的详细信息＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
     var id = $stateParams.activityId;
     $scope.workEffortId = $stateParams.activityId;
     ActivityServer.goActivityDetails(tarjeta,id,function (data) {
-
       $scope.activityList=data.eventDetail[0];
       $scope.partyId=data.partyId;//组织者partyId
       $scope.iAmAdmin=data.iAmAdmin;//判断是否是组织者
@@ -214,66 +214,12 @@ angular.module('activity.controllers', [])
         console.log(error);
       },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
     }
-    //显示讨论*****************************************************
-    $scope.showDiscuss=function(){
-      document.getElementById("discuss").style.display="";
-    };
-    $scope.hideDiscuss=function(){
-      document.getElementById("discuss").style.display="none"
-    };
-
-    //发表评论#####################################################
-    $scope.showAddLab = function() {
-      $scope.data = {};
-      var myPopup = $ionicPopup.show({
-        template:
-        '<textarea name="content" cols="20" rows="8" ">评论内容</textarea>'+
-        '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">发表</button><br/>' +
-        '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>' ,
-        title: '编辑评论',
-        scope: $scope
-      });
-      myPopup.then(function(res) {
-        console.log('Tapped!', res);
-      });
-      $scope.addLab = myPopup;
-    };
-    $scope.createLabel = function () {
-      if($scope.data.addLabel == null || $scope.data.addLabel == ''){
-      }else{
-        PersonLabel.addPersonLab($scope.data.addLabel);
-        $scope.addLab.close();
-        PersonLabel.getAllLabl($rootScope.userLoginId, function (data){
-          $scope.labelList = data;
-        });
-      }
-    };
-    $scope.closeLab = function () {
-      $scope.addLab.close();
-    };
 
     //显示照片墙幻灯片###################################################
     $scope.shouBigImage=function(id){
       $location.path("/app/slide/"+id);
     };
 
-    //百度地图###################################################
-    //$scope.map=false;
-    //$scope.tirarFoto=function(){
-    //  $scope.map=true;
-    //  navigator.geolocation.getCurrentPosition(function (data) {
-    //    alert(data.coords.latitude);
-    //    alert(data.coords.longitude);
-    //    var map = new BMap.Map("allmap");
-    //    var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
-    //    map.centerAndZoom(point, 19);
-    //    var marker = new BMap.Marker(point);
-    //    map.addOverlay(marker);   // 将标注添加到地图中
-    //  }, function (error) {
-    //    alert("网络不可用，请打开网络!!");
-    //    console.log(error);
-    //  },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
-    //};
 
     //显示活动相关菜单（右上。。。）###################################################
     $ionicPopover.fromTemplateUrl('templates/activity/activityDetails-popover.html', {
@@ -293,6 +239,16 @@ angular.module('activity.controllers', [])
     };
 
     //活动报名###################################################
+    $scope.activitySignUp='算我一个';
+    //判断我已经报名
+    for(var i=0;i<$scope.participantList.length;i++){
+      if($scope.participantList[i].partyId==partyId){
+        $(function () {
+          $('#joinActivity').attr("disabled",true);
+        })
+        $scope.activitySignUp='我已加入'
+      }
+    }
     $scope.showPopup = function(id) {
       var tarjeta=localStorage.getItem("tarjeta");
       $scope.workEffortId=id;
@@ -347,9 +303,11 @@ angular.module('activity.controllers', [])
     var type= $stateParams.type;
     $scope.myActivity=false;//我是组织者
     $scope.otherActivity=true;//我是参与者
+    $scope.activityBill=false;
     if($scope.iAmAdmin=='Y'){
       $scope.myActivity=true;
       $scope.otherActivity=false;
+      $scope.activityBill=true;
     }
     //编辑活动####################################################
     $scope.editActivty=function(id){
