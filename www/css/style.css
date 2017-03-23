@@ -452,12 +452,32 @@ a.autolinker {
   -webkit-animation-iteration-count: 1; /*动画次数*/
   -webkit-animation-delay: 0s; /*延迟时间*/
 }
-/*兼容性问题*****************************************************************/
 
-/*当页面大于1024px时，大屏幕，主要显示PC端*/
+/*活动分享方式＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
+#share{
+  margin-top: 80%;
+  background-color:#33cd5f;
+}
+#share h3{
+  text-align: center;
+  font-size: 17px;
+  color: white;
+  margin-top: 5%
+}
+#share p{
+  margin-top: 12%;
+  white-space:normal
+}
+
+
+/*兼容性问题*************************************************************************************************************
+*****************************************************屏幕大小兼容性*******************************************************/
+
+/*当页面大于1024px时，大屏幕，主要显示PC端*************/
 @media (min-width: 1024px){
 }
-/*在768 和1024 像素之间的屏幕里，中等屏幕，分辨率低的PC*/
+
+/*在768 和1024 像素之间的屏幕里，中等屏幕，分辨率低的PC  PAD*/
 @media (min-width: 767px) and (max-width: 1023px){
   .tipTextAct {
     font-size: 3.5rem;
@@ -466,7 +486,8 @@ a.autolinker {
     font-size: 2.5rem;
   }
 }
-/*在375 和768 像素之间的屏幕里，超小屏幕，主要是手机*/
+
+/*在375 和768 像素之间的屏幕里，中等屏幕，主要是手机*/
 @media (min-width: 374px) and (max-width: 767px){
   .tipTextAct {
     font-size: 1.5rem;
@@ -474,7 +495,11 @@ a.autolinker {
   .history {
     font-size: 1.0rem;
   }
+  #share{
+    margin-top: 100%;
+  }
 }
+
 /*在小于375px的屏幕里，微小屏幕，更低分辨率的手机*/
 @media (max-width: 374px){
   .tipTextAct {
@@ -482,5 +507,11 @@ a.autolinker {
   }
   .history {
     font-size: 0.8rem;
+  }
+  #share p{
+    font-size: 12px;
+  }
+  #share ion-item{
+    padding-left:60px;
   }
 }

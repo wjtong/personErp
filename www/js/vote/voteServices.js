@@ -12,7 +12,7 @@ angular.module('vote.services', [])
         var promise = deferred.promise;
         $.ajax(
           {
-            url: $rootScope.interfaceUrl + "findActivityPollQuestionsTitle",
+            url: $rootScope.voteInterfaceUrl  + "queryActivityVoteQuestionsTitle",
             type: "POST",
             data: {
               "tarjeta": tarjeta,
@@ -46,7 +46,7 @@ angular.module('vote.services', [])
         var promise = deferred.promise;
         $.ajax(
           {
-            url: $rootScope.interfaceUrl + "createSurveyAndQuestions",
+            url: $rootScope.voteInterfaceUrl + "createSurveyAndQuestions",
             type: "POST",
             data: {
               "tarjeta": tarjeta,
@@ -86,7 +86,7 @@ angular.module('vote.services', [])
         var promise = deferred.promise;
         $.ajax(
           {
-            url: $rootScope.interfaceUrl + "findActivityPollQuestions",
+            url: $rootScope.voteInterfaceUrl  + "queryActivityVoteQuestions",
             type: "POST",
             data: {
               "tarjeta": tarjeta,
@@ -120,7 +120,7 @@ angular.module('vote.services', [])
         var promise = deferred.promise;
         $.ajax(
           {
-            url: $rootScope.interfaceUrl + "doPollQuestion",
+            url: $rootScope.voteInterfaceUrl + "doVoteQuestion",
             type: "POST",
             data: {
               "tarjeta": tarjeta,

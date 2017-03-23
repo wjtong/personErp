@@ -113,7 +113,7 @@ angular.module('starter')
       })
       //活动讨论（实时聊天融云）
       .state('app.activityDiscuss', {
-        url: '/activityDiscuss/:id',
+        url: '/activityDiscuss/:activityId',
         disableBack:true,
         cache :false,
         views: {
