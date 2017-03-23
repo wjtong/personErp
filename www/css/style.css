@@ -452,6 +452,23 @@ a.autolinker {
   -webkit-animation-iteration-count: 1; /*动画次数*/
   -webkit-animation-delay: 0s; /*延迟时间*/
 }
+#activityListInfo .item{
+  padding: 0;
+  margin-top: 2%;
+  position: relative
+}
+#activityListInfo .info{
+  position: absolute;
+  right: 5%;
+  top: 45%;
+}
+#activityListInfo .info p{
+  color: white;
+}
+#activityListInfo img{
+  width:100%;
+  height:220px
+}
 
 /*活动分享方式＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
 #share{

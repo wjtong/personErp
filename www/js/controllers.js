@@ -2,14 +2,6 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope) {
   //设置全局变量＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-  if(localStorage['partyId'] == null){
-    localStorage['partyId'] = 'jinlongxi';
-  }
-  $rootScope.partyId = localStorage['partyId'];
-
-  if(localStorage['userLoginId'] == null){
-    localStorage['userLoginId'] = 'jinlongxi';
-  }
   $rootScope.userLoginId = localStorage['userLoginId'];
 
   if(localStorage['countryGeoId'] == null){

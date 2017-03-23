@@ -9,6 +9,7 @@ angular.module('contact.controllers', [])
       localStorage.removeItem("tarjeta");
       $state.go("login")
     }
+    $scope.partyId=localStorage.getItem("partyId");
   })
 
 //联系人*********************************************************************************************************

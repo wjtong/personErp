@@ -67,6 +67,7 @@ angular.module('vote.controllers', [])
     $scope.surveyId = $stateParams.surveyId;          // 投票标题ID
     $scope.surveyName = $stateParams.surveyName;      // 投票标题
     $scope.workEffortId = $stateParams.workEffortId;  // 活动ID
+    $scope.siginUp='投票';
 
     voteService.findActivityPollQuestions($scope.surveyId).success(function (data) {
       $scope.questions = data.resultMap.questions;                         // 投票项列表
@@ -80,8 +81,16 @@ angular.module('vote.controllers', [])
         }else{
           voteArr.push({
             'question':partyResponceAnswers[i].question,
-            'userName':partyResponceAnswers[i].userName
+            'nickName':partyResponceAnswers[i].nickName
           });
+        }
+        //判断用户是否已经投票，不允许重复投票
+        var partyId=localStorage.getItem("partyId");
+        if(partyResponceAnswers[i].partyId==partyId){
+          $(function () {
+            $('#signUp').attr("disabled",true);
+            $scope.siginUp='已投票';
+          })
         }
       }
       // console.log(voteArr);
