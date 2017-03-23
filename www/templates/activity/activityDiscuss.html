@@ -1,6 +1,6 @@
 <ion-view title="活动讨论">
   <ion-nav-buttons side="right">
-    <button class="button button-icon ion-person-stalker ion-navicon" menu-toggle="right" ng-click="goPersonList(chat.id)">
+    <button class="button button-icon ion-person-stalker ion-navicon" menu-toggle="right" ng-click="openPersonJoin()">
     </button>
   </ion-nav-buttons>
   <ion-content has-bouncing="true" class="has-header has-footer"
@@ -37,7 +37,7 @@
   <form name="sendMessageForm" ng-submit="">
     <ion-footer-bar class="bar-stable item-input-inset message-footer">
       <label class="item-input-wrapper">
-        <textarea ng-model="input.message" msd-elastic value="" placeholder="请输入你想要发送的信息。。。" required minlength="1" maxlength="1500" style="width: 100%" ></textarea>
+        <textarea ng-model="input.message"   placeholder="请输入你想要发送的信息。。。" required minlength="1" maxlength="1500" style="width: 100%" ></textarea>
       </label>
       <button class="button button-icon icon ion-android-send" type="submit"
               ng-disabled="!input.message || input.message === ''">

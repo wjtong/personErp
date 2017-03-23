@@ -9,8 +9,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   'activity.services','contact.services','contact.controllers'])
 
 .run(function($ionicPlatform,$rootScope) {
-  $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//链接服务器
-  //$rootScope.interfaceUrl = "http://192.168.3.62:3400/personContacts/control/";//链接沈演麟本地
+  $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
+  $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
+  $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/peactivity/control/";//活动接口
+  // $rootScope.interfaceUrl = "http://192.168.3.62:3400/personContacts/control/";//链接沈演麟本地
+  // $rootScope.voteInterfaceUrl = "http://192.168.3.62:3400/pevote/control/";//投票接口
+  // $rootScope.activityInterfaceUrl = "http://192.168.3.62:3400/personactivity/control/";//活动接口
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

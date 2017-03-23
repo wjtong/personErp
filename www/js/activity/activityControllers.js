@@ -426,6 +426,7 @@ angular.module('activity.controllers', [])
         }, function(reason) {
           alert("Failed: " + reason);
         });
+      }else if(name=='朋友圈'){
       }
     }
   })
@@ -442,34 +443,55 @@ angular.module('activity.controllers', [])
   })
 
 //活动讨论***************************************************************************************************************
-  .controller('ActivityDiscuss',function ($scope, $rootScope,$stateParams,Activity) {
-    var id=$stateParams.id
+  .controller('ActivityDiscuss',function ($scope, $rootScope,$stateParams,ActivityServer,$ionicPopover) {
+    var tarjeta=localStorage.getItem("tarjeta");
+    var id=$stateParams.activityId;
+    $scope.workEffortId = $stateParams.activityId;
+    ActivityServer.goActivityDetails(tarjeta,id,function (data) {
+      $scope.participantList=data.partyJoinEventsList;
+    });
+    //活动参与人员弹出框################################################
+    $ionicPopover.fromTemplateUrl('templates/activity/activityJoin.html', {
+      scope: $scope
+    }).then(function(personJoin) {
+      $scope.personJoin = personJoin;
+    });
+    $scope.openPersonJoin = function($event) {
+      $scope.personJoin.show($event);
+    };
+    $scope.closePersonJoin = function() {
+      $scope.personJoin.hide();
+    };
+    //返回
+    $scope.goback=function () {
+      $state.go("app.activityHome")
+    };
     //$scope.discussList=Activity.getActivityInfo(id);
     //融云初始化
-    alert('连接融云')
-    RongCloudLibPlugin.init({
-        appKey: 'z3v5yqkbzfup0'},
-      function(ret, err){
-        alert('融云初始化状态:'+ret.status);
-        if (ret.status == 'error')
-          alert(err.code);
-      });
-    //连接融云
-    RongCloudLibPlugin.connect({
-        token: 'qjS0KXGHOGE3sOm0vSXRxwvlHRTZ6CzKR21cRT0lXGG3FC6of4MnjBXOIsxdbSmG5oSPZ5cfNejqUaRhxZpT4GsVsESawrMc'},
-      function(ret, err){
-        alert('融云连接状态:'+ret.status);
-        if (ret.status == 'success')
-          alert('当前用户ID:'+ret.result.userId);
-      });
-    //获取当前用户信息
-    RongCloudLibPlugin.getCurrentUserId( function (ret, err) {
-      alert('当前连接用户:'+ret.result);
-    })
-    //设置连接状态监听器
-    RongCloudLibPlugin.setConnectionStatusListener(function(ret, err){
-      alert('当前连接状态:'+ret.result.connectionStatus);
-    });
+    //alert('连接融云')
+    // RongCloudLibPlugin.init({
+    //     appKey: 'z3v5yqkbzfup0'},
+    //   function(ret, err){
+    //     alert('融云初始化状态:'+ret.status);
+    //     if (ret.status == 'error')
+    //       alert(err.code);
+    //   });
+    // //连接融云
+    // RongCloudLibPlugin.connect({
+    //     token: 'qjS0KXGHOGE3sOm0vSXRxwvlHRTZ6CzKR21cRT0lXGG3FC6of4MnjBXOIsxdbSmG5oSPZ5cfNejqUaRhxZpT4GsVsESawrMc'},
+    //   function(ret, err){
+    //     alert('融云连接状态:'+ret.status);
+    //     if (ret.status == 'success')
+    //       alert('当前用户ID:'+ret.result.userId);
+    //   });
+    // //获取当前用户信息
+    // RongCloudLibPlugin.getCurrentUserId( function (ret, err) {
+    //   alert('当前连接用户:'+ret.result);
+    // })
+    // //设置连接状态监听器
+    // RongCloudLibPlugin.setConnectionStatusListener(function(ret, err){
+    //   alert('当前连接状态:'+ret.result.connectionStatus);
+    // });
   })
 
 //新建活动********************************************************************************************************************
