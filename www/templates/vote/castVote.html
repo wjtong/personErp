@@ -1,15 +1,20 @@
 <ion-view view-title="投票">
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content>
-
     <div class="list card">
       <div class="item item-divider" ng-bind="surveyName"></div>
         <ion-radio ng-model="ret.choice" ng-value="question.surveyQuestionId" ng-repeat="question in questions">
           {{$index+1}}、<span  ng-bind="question.question"></span>
-          <i class="" style="float: right;color: #33cd5f" ng-bind="question.answerCount"></i>
+          <i class="" style="float: right;color: #33cd5f;" ng-bind="question.answerCount"></i>
         </ion-radio>
-
       <div class="padding">
-        <button class="button button-block button-balanced" ng-click="doPollQuestion(ret.choice)" id="signUp">{{siginUp}}</button>
+        <button class="button button-block globalColor" ng-click="doPollQuestion(ret.choice)" id="signUp">{{siginUp}}</button>
       </div>
 
       <div class="list">

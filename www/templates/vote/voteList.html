@@ -1,10 +1,16 @@
 <ion-view view-title="活动投票列表">
-  <ion-nav-buttons side="right">
-    <a class="button icon-left" ui-sref="app.goEditVote({workEffortId:{{workEffortId}}})">
-      创建
-    </a>
-  </ion-nav-buttons>
-
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <a class="button icon-left globalColor" ui-sref="app.goEditVote({workEffortId:{{workEffortId}}})">
+        创建
+      </a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content>
     <ion-list>
       <ion-item class="item-icon-right" can-swipe="true" ng-repeat="activityPollQuestionsTitle in activityPollQuestionsTitles">

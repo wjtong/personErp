@@ -210,6 +210,7 @@ angular.module('activity.controllers', [])
           $("div[style*='overflow:hidden;line-height:20px']").html("");
         },500);
       }, function (error) {
+      }, function (error) {
         alert("网络不可用，请打开网络!!");
         console.log(error);
       },{timeout: 30000, enableHighAccuracy:true, maximumAge: 75000,coorType: 'bd09ll'});
@@ -1228,7 +1229,6 @@ angular.module('activity.controllers', [])
     ActivityServer.goActivityDetails(tarjeta,workEffortId,function (data) {
       $scope.personmainLists=data.partyJoinEventsList;//参与人员
     })
-    $scope.plist=Contact.getAll();
     //添加新范围选择联系人弹窗
     $ionicModal.fromTemplateUrl('templates/contact/contactModle.html', {
       scope: $scope,

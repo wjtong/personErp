@@ -1,10 +1,11 @@
 <ion-view view-title="创建投票">
-  <div class="bar bar-header">
-    <button class="button icon ion-navicon"></button>
-    <h1 class="title">Header Buttons</h1>
-    <button class="button">Edit</button>
-  </div>
-
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content>
     <div class="list card">
       <div class="item">
@@ -24,7 +25,7 @@
   <div class="bar bar-footer " style="margin-left: -6px;" >
     <div class="tab-nav tabs globalColor" >
       <div  style="float:right">
-        <button class="button  button-balanced" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="createSurveyAndQuestions()">创建投票</button>
+        <button class="button  globalColor" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="createSurveyAndQuestions()">创建投票</button>
       </div>
     </div>
   </div>

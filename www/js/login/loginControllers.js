@@ -62,7 +62,7 @@ angular.module('login.controllers', [])
       if (tel) {
         $http({
           method: "POST",
-          url: $rootScope.interfaceUrl + "getLoginCaptcha",
+          url: $rootScope.platformInterfaceUrl + "getLoginCaptcha",
           data: {
             "teleNumber": tel,
             "smsType":$scope.smsType
