@@ -1,8 +1,16 @@
 <ion-view view-title="活动项">
-  <ion-nav-buttons side="right">
-    <button class="button button-icon ion-plus" menu-toggle="right" ng-click="newActivityItem()">
-    </button>
-  </ion-nav-buttons>
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button class="button button-icon ion-plus globalColor"  ng-click="newActivityItem()">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
   <ion-content>
     <div class="list" ng-repeat="item in activityItemList">
       <div class="item">

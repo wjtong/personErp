@@ -1,4 +1,11 @@
 <ion-view view-title="{{title}}">
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content>
     <div class="list" ng-repeat="myActivty in myActivtyList">
       <a class="item item-thumbnail-left" ng-click="goInfo(myActivty.workEffortId,type)" style="width: 100%">

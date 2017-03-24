@@ -1,13 +1,15 @@
 <ion-view title="活动账单"   >
-  <!--hide-back-button="true"-->
-  <!--<ion-nav-buttons side="left">-->
-    <!--<button class="button button-icon ion-arrow-left-c" menu-toggle="left" href="#/app/activityDetails/ACT_001">-->
-    <!--</button>-->
-    <!--</ion-nav-buttons>-->
-  <ion-nav-buttons side="right">
-    <button class="button button-icon ion-plus" menu-toggle="right" ng-click="addBill()">
-    </button>
-  </ion-nav-buttons>
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button class="button button-icon ion-plus globalColor"  ng-click="addBill()">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in billList" type="item-text-wrap">

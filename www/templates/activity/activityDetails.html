@@ -1,13 +1,13 @@
 <ion-view view-title="活动详情">
-  <ion-nav-bar class="bar-balanced">
+  <ion-nav-bar class="globalColor">
     <ion-nav-buttons>
-      <button class="button button-clear" ng-click="goback()">
-        <i class="icon ion-android-arrow-back"></i>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button class="button button-clear" ng-click="openPopover($event)">
-        <i class="icon ion-more"></i>
+      <button class="button button-clear " ng-click="openPopover($event)">
+        <i class="icon ion-more globalColorButton"></i>
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
@@ -24,8 +24,8 @@
               <p><b>开始</b>: {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}</p>
               <p><b>结束</b>: {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</p>
               <p><i class="icon ion-ios-location"> {{activityList.locationDesc}}</i></p>
-              <p style="float: right;color:#33cd5f;font-size: 15px;" >
-                <button class="button button-balanced button-clear" style="font-size: 15px" ng-click="openPersonJoin()">参与{{number}}人</button>
+              <p>
+                <button class="button button-clear" style="font-size: 15px;float: right;color:rgb(57,184,152)" ng-click="openPersonJoin()">参与{{number}}人</button>
               </p>
         </div>
         <div class="item" style="width: 100%">
@@ -64,8 +64,8 @@
   </ion-content>
   <br>
   <br>
-  <div class="bar bar-footer bar-balanced" style="margin-left: -6px;" ng-if="otherActivity">
-    <div class="tab-nav tabs" style="background-color: #33cd5f;color: white;font-size: 13px">
+  <div class="bar bar-footer globalColor" style="margin-left: -6px;" ng-if="otherActivity">
+    <div class="tab-nav tabs globalColor" style="font-size: 13px">
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeMy)">
         <i class="icon ion-chatbubble-working" style="line-height: 14px;">
         </i>
@@ -77,21 +77,21 @@
         <span class="tab-title ng-binding" style="font-size: 10px;">签到</span>
       </a>
       <div  style="float:right">
-        <button class="button  button-balanced ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="showPopup(activityList.workEffortId)" id="joinActivity">{{activitySignUp}}</button>
+        <button class="button  globalColor ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="showPopup(activityList.workEffortId)" id="joinActivity">{{activitySignUp}}</button>
       </div>
     </div>
   </div>
-  <div class="bar bar-footer bar-balanced" style="margin-left: -6px;" ng-if="myActivity">
-    <div class="tab-nav tabs" style="background-color: #33cd5f;color: white;font-size: 13px">
-      <a class="tab-item tab-item-balanced" style="line-height: 12px;" ng-click="editActivty(activityList.id)">
-        <i class="icon icon-left ion-network" style="line-height: 14px;">
+  <div class="bar bar-footer globalColor" style="margin-left: -6px;" ng-if="myActivity">
+    <div class="tab-nav tabs globalColor">
+      <a class="tab-item tab-item" style="line-height: 10px;" ng-click="editActivty(activityList.id)">
+        <i class="icon icon-left ion-network" >
         </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;" >编辑活动</span>
+        <span class="tab-title" style="font-size: 13px;" >编辑活动</span>
       </a>
-      <a class="tab-item tab-item-balanced" style="line-height: 12px;" ng-click="newTask()">
-        <i class="icon icon-left ion-android-list" style="line-height: 14px;">
+      <a class="tab-item tab-item" style="line-height: 10px;" ng-click="newTask()">
+        <i class="icon icon-left ion-android-list">
         </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;" >邀请好友</span>
+        <span class="tab-title" style="font-size: 13px;" >邀请好友</span>
       </a>
     </div>
   </div>

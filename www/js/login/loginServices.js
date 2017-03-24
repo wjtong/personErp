@@ -6,7 +6,7 @@ angular.module('login.services', [])
       //登陆
       login:function (userLoginId,captcha,cb) {
         $.ajax({
-          url:$rootScope.interfaceUrl+"userAppLogin",
+          url:$rootScope.platformInterfaceUrl+"userAppLogin",
           data:{
             userLoginId:userLoginId,
             captcha:captcha
@@ -28,7 +28,7 @@ angular.module('login.services', [])
       //验证用户是否存在
       userLoginExsit:function (userLoginId,cb) {
         $.ajax({
-          url:$rootScope.interfaceUrl+"isUserLoginExsits",
+          url:$rootScope.platformInterfaceUrl+"isUserLoginExsits",
           data:{
             userLoginId:userLoginId
           },
@@ -49,7 +49,7 @@ angular.module('login.services', [])
       //用户注册
       userAppRegister:function (teleNumber,captcha,nickName,cb) {
         $.ajax({
-          url:$rootScope.interfaceUrl+"userAppRegister",
+          url:$rootScope.platformInterfaceUrl+"userAppRegister",
           data:{
             teleNumber:teleNumber,
             captcha:captcha,

@@ -1,10 +1,10 @@
 <ion-view view-title="Login">
-  <div class="bar bar-header bar-balanced">
+  <div class="bar bar-header globalColor">
     <button class="button button-clear" ng-click="goHome()">
-      <i class="icon ion-home">首页</i>
+      <i class="icon ion-home" style="color: white">首页</i>
     </button>
     <button class="button button-clear" ng-click="goRegister()">
-      <i class="icon ion-compose">注册</i>
+      <i class="icon ion-compose" style="color: white">注册</i>
     </button>
   </div>
   <ion-content style="background-image: url(../www/img/theme/login.jpeg);background-size: 100% 100%;">
@@ -21,13 +21,13 @@
             <input type="text" ng-model="loginData.captcha">
           </label>
           <label class="item" style="margin-bottom: 0">
-            <button class="button button-block button-balanced" type="submit">登 录</button>
+            <button class="button button-block globalColor" type="submit">登 录</button>
           </label>
         </div>
       </form>
       <div>
         <label>
-          <input type="button" ng-value="codeBtn" ng-controller="captcha" ng-click="getIdentifyCode(loginData.mobileNumber)" style="background-color:#B9B9B9;text-align: center;text-indent: 8px;z-index:3;position: absolute;top:65%;right: 5%;opacity:0.8">
+          <input type="button" ng-value="codeBtn" ng-controller="captcha" ng-click="getIdentifyCode(loginData.mobileNumber)" style="background-color:rgb(57,184,152);text-align: center;text-indent: 8px;z-index:3;position: absolute;top:65%;right: 5%;opacity:0.8">
         </label>
       </div>
     </div>

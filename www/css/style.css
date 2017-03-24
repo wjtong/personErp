@@ -402,7 +402,10 @@ a.autolinker {
 
 /*全局样式设置*/
 .globalColor {
-  background-color: #33cd5f;
+  background-color: rgb(57,184,152);
+  color: white;
+}
+.globalColorButton{
   color: white;
 }
 
@@ -410,7 +413,7 @@ a.autolinker {
 /*没有活动时的提示文字*/
 .tipTextAct {
   font-size: 1.4rem;
-  color: #33cd5f;
+  color: rgb(57,184,152);
   text-align: center;
   position: absolute;
   top: 40%;
@@ -421,7 +424,7 @@ a.autolinker {
   top: 85%;
   left: 35%;
   font-size: 1.0rem;
-  color: #33cd5f;
+  color: rgb(57,184,152);
 }
 @-webkit-keyframes fadeIn {
   0% {
@@ -473,7 +476,6 @@ a.autolinker {
 /*活动分享方式＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
 #share{
   margin-top: 80%;
-  background-color:#33cd5f;
 }
 #share h3{
   text-align: center;

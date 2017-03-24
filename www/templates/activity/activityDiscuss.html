@@ -1,8 +1,15 @@
 <ion-view title="活动讨论">
-  <ion-nav-buttons side="right">
-    <button class="button button-icon ion-person-stalker ion-navicon" menu-toggle="right" ng-click="openPersonJoin()">
-    </button>
-  </ion-nav-buttons>
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button class="button button-icon ion-person-stalker ion-navicon" menu-toggle="right" ng-click="openPersonJoin()">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content has-bouncing="true" class="has-header has-footer"
                delegate-handle="userMessageScroll">
     <div ng-repeat="chat in discussList.discuss | orderBy:'date':false" class="message-wrapper">
