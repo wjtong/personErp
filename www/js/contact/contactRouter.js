@@ -1,12 +1,12 @@
 /**************************** 投票 *****************************************/
 angular.module('starter')
 
-  .config(function ($stateProvider,$urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-      //联系人列表
+    //联系人列表
       .state('app.contactlist', {
         url: '/contactlist',
-        cache :false,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/contact/contactlist.html',
@@ -17,8 +17,8 @@ angular.module('starter')
       //添加新联系人
       .state('app.addPerson', {
         url: '/addPerson',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/contact/addPerson.html',
@@ -29,8 +29,8 @@ angular.module('starter')
       //编辑联系人
       .state('app.editPerson', {
         url: '/editPerson/:personId',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/contact/addPerson.html',
@@ -40,21 +40,21 @@ angular.module('starter')
       })
       //关于我的信息
       .state('app.aboutme', {
-        disableBack:true,
+        disableBack: true,
         url: '/aboutme',
-        cache:false,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/contact/aboutme.html',
-            controller:'AboutMe'
+            controller: 'AboutMe'
           }
         }
       })
       //关于联系人的信息
       .state('app.abouthim', {
         url: '/abouthim/:personId',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/contact/abouthim.html',
@@ -65,8 +65,8 @@ angular.module('starter')
       //添加联系人地址
       .state('app.addAddress', {
         url: '/addAddress',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/contact/editAddress.html',
@@ -77,8 +77,8 @@ angular.module('starter')
       //联系人编辑地址
       .state('app.editAddress', {
         url: '/editAddress/:id',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/contact/editAddress.html',
@@ -87,10 +87,10 @@ angular.module('starter')
         }
       })
       //联系人拥有的标签
-      .state('app.personLabel',{
-        url:'/personLabel',
-        disableBack:true,
-        cache :false,
+      .state('app.personLabel', {
+        url: '/personLabel',
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/contact/personLabel.html',
@@ -99,10 +99,10 @@ angular.module('starter')
         }
       })
       //联系人的标签内的人员
-      .state('app.labelPersonList',{
-        url:'/labelPersonList/:partyId',
-        disableBack:true,
-        cache :false,
+      .state('app.labelPersonList', {
+        url: '/labelPersonList/:partyId',
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/contact/labelPersonList.html',

@@ -3,178 +3,178 @@ angular.module('starter')
 
   .config(function ($stateProvider) {
     $stateProvider
-      //活动主页
+    //活动主页
       .state('app.activityHome', {
         url: '/activityHome',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityHome.html',
-            controller:'GetBusiness'
+            controller: 'GetBusiness'
           }
         }
       })
       //活动详情
-      .state('app.activityDetails',{
-        url:'/activityDetails/:activityId',
-        disableBack:true,
-        cache :true,
+      .state('app.activityDetails', {
+        url: '/activityDetails/:activityId',
+        disableBack: true,
+        cache: true,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityDetails.html',
-            controller:'ActivityCrl'
+            controller: 'ActivityCrl'
           }
         }
       })
       //活动详情备用
-      .state('app.activityDetails2',{
-        url:'/activityDetails2/:activityId/:type',
-        disableBack:true,
-        cache :false,
+      .state('app.activityDetails2', {
+        url: '/activityDetails2/:activityId/:type',
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityDetails.html',
-            controller:'ActivityCrl'
+            controller: 'ActivityCrl'
           }
         }
       })
       //活动场所
-      .state('app.activityPlace',{
-        url:'/activityPlace/:placeId',
-        disableBack:true,
-        cache :false,
+      .state('app.activityPlace', {
+        url: '/activityPlace/:placeId',
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityPlace.html',
-            controller:'ActivityPlace'
+            controller: 'ActivityPlace'
           }
         }
       })
       //活动照片墙
-      .state('app.slide',{
-        url:'/slide/:activityId',
-        disableBack:true,
-        cache :true,
+      .state('app.slide', {
+        url: '/slide/:activityId',
+        disableBack: true,
+        cache: true,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activitySlide.html',
-            controller:'slideCrl'
+            controller: 'slideCrl'
           }
         }
       })
       //新建活动
       .state('app.newActivity', {
         url: '/newActivity',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/newActivity.html',
-            controller:'NewActivity'
+            controller: 'NewActivity'
           }
         }
       })
       //活动模版详情
       .state('app.activityTemplate', {
         url: '/activityTemplate/:id',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityTemplate.html',
-            controller:'ActivityTemplate'
+            controller: 'ActivityTemplate'
           }
         }
       })
       //活动主题图片
       .state('app.themeImage', {
         url: '/themeImage',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityThemeImage.html',
-            controller:'ThemeImage'
+            controller: 'ThemeImage'
           }
         }
       })
       //活动可见范围
       .state('app.rangeActivity', {
         url: '/rangeActivity/:range',
-        disableBack:true,
-        cache :true,
+        disableBack: true,
+        cache: true,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/newActivity.html',
-            controller:'NewActivity'
+            controller: 'NewActivity'
           }
         }
       })
       //活动讨论（实时聊天融云）
       .state('app.activityDiscuss', {
         url: '/activityDiscuss/:activityId',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityDiscuss.html',
-            controller:'ActivityDiscuss'
+            controller: 'ActivityDiscuss'
           }
         }
       })
       //活动项
       .state('app.activityItem', {
         url: '/activityItem/:id',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityItem.html',
-            controller:'ActivityItem'
+            controller: 'ActivityItem'
           }
         }
       })
       //活动邀请
       .state('app.activityInvitation', {
         url: '/activityInvitation/:workEffortId/:partyId',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityInvitation.html',
-            controller:'ActivityInvitation'
+            controller: 'ActivityInvitation'
           }
         }
       })
       //编辑活动
       .state('app.editActivty', {
         url: '/editActivty/:id',
-        disableBack:true,
-        cache :false,
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/newActivity.html',
-            controller:'EditActivity'
+            controller: 'EditActivity'
           }
         }
       })
       //活动（由我组织的活动列表  往期活动 邀请列表   共用一个界面）
-      .state('app.activityList',{
-        url:'/activityList/:type',
-        disableBack:true,
-        cache :false,
+      .state('app.activityList', {
+        url: '/activityList/:type',
+        disableBack: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityList.html',
-            controller:'ActivityList'
+            controller: 'ActivityList'
           }
         }
       })
       //活动账单的显示
       .state('app.activityBill', {
         url: '/activityBill/:workEffortId',
-        cache :false,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityBill.html',
@@ -185,7 +185,7 @@ angular.module('starter')
       //活动账单的添加页面
       .state('app.addPersonBill', {
         url: '/addPersonBill/:workEffortId',
-        cache :false,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/addPersonBill.html',
