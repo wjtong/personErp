@@ -11,53 +11,56 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content >
-      <div class="list card">
-        <div class="item" style="position: relative">
-          <img ng-src="{{img}}" style="width: 100%;height: 200px;margin: 0"/>
-          <div style="position: absolute;top: 60%;right: 10%">
-            <p style="color: white"><b>{{activityList.workEffortName}}</b></p>
-            <p style="color: white">发起:{{createPersonInfoList.lastName}}{{createPersonInfoList.firstName}}</p>
-          </div>
-        </div>
-        <div class="item">
-              <p><b>开始</b>: {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}</p>
-              <p><b>结束</b>: {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</p>
-              <p><i class="icon ion-ios-location"> {{activityList.locationDesc}}</i></p>
-              <p>
-                <button class="button button-clear" style="font-size: 15px;float: right;color:rgb(57,184,152)" ng-click="openPersonJoin()">参与{{number}}人</button>
-              </p>
-        </div>
-        <div class="item" style="width: 100%">
-          <h3>详细信息</h3>
-          <p style=" white-space : pre;width: 100%;margin-top: 2%">{{activityList.description}}</p>
-        </div>
-        <div class="item">
-          <br>
-          <h3>照片墙</h3>
-          <hr>
-          <div class="row padding row-wrap">
-            <div class="col col-33"
-                 style="width: 100px;height: 100px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center" ng-repeat="picture in activityList.picture" ng-click="shouBigImage(activityList.id)">
-              <img class="img-responsive" style="height: 100%;width: 100px; border:1px solid #ffffff;"
-                   ng-src="{{picture.img}}">
-            </div>
-          </div>
-        </div>
-        <!--活动的地图-->
-        <div class="item" ng-if="baidu">
-          <br>
-          <h3>位置</h3>
-          <hr>
-          <div id="allmap" style="height: 300px;" ></div>
-          <div style="padding: 10px 20%;font-size: 15px">
-            <span ng-click="byCar('{{longitude}}','{{latitude}}')" style="float: left;color:#33cd5f ">自驾</span>
-            <span  ng-click="otherWay('{{longitude}}','{{latitude}}');" style="float: right;color:#33cd5f" >路线</span>
-          </div>
-          <br>
-          <div id="r-result" style="height:100%;width:100%;" ng-if="route"></div>
+  <ion-content>
+    <div class="list card">
+      <div class="item" style="position: relative">
+        <img ng-src="{{img}}" style="width: 100%;height: 200px;margin: 0"/>
+        <div style="position: absolute;top: 60%;right: 10%">
+          <p style="color: white"><b>{{activityList.workEffortName}}</b></p>
+          <p style="color: white">发起:{{createPersonInfoList.lastName}}{{createPersonInfoList.firstName}}</p>
         </div>
       </div>
+      <div class="item">
+        <p><b>开始</b>: {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+        <p><b>结束</b>: {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</p>
+        <p><i class="icon ion-ios-location"> {{activityList.locationDesc}}</i></p>
+        <p>
+          <button class="button button-clear" style="font-size: 15px;float: right;color:rgb(57,184,152)"
+                  ng-click="openPersonJoin()">参与{{number}}人
+          </button>
+        </p>
+      </div>
+      <div class="item" style="width: 100%">
+        <h3>详细信息</h3>
+        <p style=" white-space : pre;width: 100%;margin-top: 2%">{{activityList.description}}</p>
+      </div>
+      <div class="item">
+        <br>
+        <h3>照片墙</h3>
+        <hr>
+        <div class="row padding row-wrap">
+          <div class="col col-33"
+               style="width: 100px;height: 100px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center"
+               ng-repeat="picture in activityList.picture" ng-click="shouBigImage(activityList.id)">
+            <img class="img-responsive" style="height: 100%;width: 100px; border:1px solid #ffffff;"
+                 ng-src="{{picture.img}}">
+          </div>
+        </div>
+      </div>
+      <!--活动的地图-->
+      <div class="item" ng-if="baidu">
+        <br>
+        <h3>位置</h3>
+        <hr>
+        <div id="allmap" style="height: 300px;"></div>
+        <div style="padding: 10px 20%;font-size: 15px">
+          <span ng-click="byCar('{{longitude}}','{{latitude}}')" style="float: left;color:#33cd5f ">自驾</span>
+          <span ng-click="otherWay('{{longitude}}','{{latitude}}');" style="float: right;color:#33cd5f">路线</span>
+        </div>
+        <br>
+        <div id="r-result" style="height:100%;width:100%;" ng-if="route"></div>
+      </div>
+    </div>
     <br>
     <br>
     <br>
@@ -76,22 +79,25 @@
         </i>
         <span class="tab-title ng-binding" style="font-size: 10px;">签到</span>
       </a>
-      <div  style="float:right">
-        <button class="button  globalColor ion-android-person-add" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="showPopup(activityList.workEffortId)" id="joinActivity">{{activitySignUp}}</button>
+      <div style="float:right">
+        <button class="button  globalColor ion-android-person-add"
+                style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px"
+                ng-click="showPopup(activityList.workEffortId)" id="joinActivity">{{activitySignUp}}
+        </button>
       </div>
     </div>
   </div>
   <div class="bar bar-footer globalColor" style="margin-left: -6px;" ng-if="myActivity">
     <div class="tab-nav tabs globalColor">
       <a class="tab-item tab-item" style="line-height: 10px;" ng-click="editActivty(activityList.id)">
-        <i class="icon icon-left ion-network" >
+        <i class="icon icon-left ion-network">
         </i>
-        <span class="tab-title" style="font-size: 13px;" >编辑活动</span>
+        <span class="tab-title" style="font-size: 13px;">编辑活动</span>
       </a>
       <a class="tab-item tab-item" style="line-height: 10px;" ng-click="newTask()">
         <i class="icon icon-left ion-android-list">
         </i>
-        <span class="tab-title" style="font-size: 13px;" >邀请好友</span>
+        <span class="tab-title" style="font-size: 13px;">邀请好友</span>
       </a>
     </div>
   </div>
