@@ -714,6 +714,7 @@ angular.module('activity.controllers', [])
     var ak = 'z89D54HRzvzF8jobhBktAbqRIKue8gQN';
     $scope.getAddressInfo = function () {
       //获得当前地址
+      
       ActivityServer.currentAddress(ak).success(function (data) {
         $scope.region = data.content.address
       });
