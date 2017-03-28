@@ -1,15 +1,18 @@
 <ion-modal-view>
   <ion-header-bar>
     <h1 class="title">选择地址</h1>
-    <button class="button button-icon" menu-toggle="right" ng-click="closeModalAddress()">
+    <button class="button button-icon" menu-toggle="left" ng-click="closeModalAddress()">
       取消
+    </button>
+    <button class="button button-icon" menu-toggle="right" ng-click="doneAddress()">
+      确定
     </button>
   </ion-header-bar>
   <ion-content>
     <div class="list">
       <div class="item item-input-inset">
         <label class="item-input-wrapper">
-          <input ng-model="addressData.address" type="text" placeholder="关键字" ng-keydown="getAddressInfo()">
+          <input ng-model="addressData.address" type="text" placeholder="关键字" ng-change="getAddressInfo()">
         </label>
       </div>
       <div class="item" ng-repeat="item in addressInfoList" ng-click="chosenAddress(item)">

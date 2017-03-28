@@ -1,4 +1,3 @@
-/**************************** 投票 *****************************************/
 angular.module('starter')
 
   .config(function ($stateProvider) {
@@ -65,7 +64,7 @@ angular.module('starter')
       })
       //新建活动
       .state('app.newActivity', {
-        url: '/newActivity',
+        url: '/newActivity/:type',
         disableBack: true,
         cache: false,
         views: {
@@ -149,13 +148,13 @@ angular.module('starter')
       })
       //编辑活动
       .state('app.editActivty', {
-        url: '/editActivty/:id',
+        url: '/editActivty/:id/:type',
         disableBack: true,
         cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/newActivity.html',
-            controller: 'EditActivity'
+            controller: 'NewActivity'
           }
         }
       })

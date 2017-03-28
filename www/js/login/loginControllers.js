@@ -1,7 +1,6 @@
 angular.module('login.controllers', [])
 
-
-//登陆＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+//登陆*****************************************************************************************************************
   .controller('LoginCtrl', function ($http, $scope, Login, $state, ThemeImage, $ionicHistory) {
     $scope.$on('$ionicView.beforeEnter', function () {                              // 这个玩意儿不错，刚加载执行的广播通知方法
       $scope.user = {"identifyCode": ""};
@@ -39,7 +38,7 @@ angular.module('login.controllers', [])
     //返回首页
     $scope.goHome = function () {
       $state.go("app.home");
-    }
+    };
     //设置全局的变量
     $scope.activityImg = ThemeImage.getRangeImg();
     localStorage.setItem("activityImg", $scope.activityImg.img);//全局活动图片
@@ -51,7 +50,7 @@ angular.module('login.controllers', [])
 
   })
 
-  //验证码＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+  //验证码***************************************************************************************************************
   .controller('captcha', function ($scope, $http, $rootScope, $interval, Login) {
     $scope.codeBtn = '获取验证码';
     //登陆获取验证码
@@ -67,8 +66,8 @@ angular.module('login.controllers', [])
             "teleNumber": tel,
             "smsType": $scope.smsType
           },
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},         // 默认的Content-Type是text/plain;charset=UTF-8，所以需要更改下
-          transformRequest: function (obj) {                                      // 参数是对象的话，需要把参数转成序列化的形式
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},  // 默认的Content-Type是text/plain;charset=UTF-8，所以需要更改下
+          transformRequest: function (obj) {                               // 参数是对象的话，需要把参数转成序列化的形式
             var str = [];
             for (var p in obj) {
               str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
@@ -100,7 +99,7 @@ angular.module('login.controllers', [])
       }
     };
 
-    //注册获取验证码＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+    //注册获取验证码
     $scope.getIdentifyCodeReg = function (tel) {
       Login.userLoginExsit(tel, function (data) {     //判断用户是否存在
         if (data.resultMsg === '成功') {
@@ -154,7 +153,7 @@ angular.module('login.controllers', [])
     };
   })
 
-  //注册＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+  //注册*****************************************************************************************************************
   .controller('RegisterCtrl', function ($scope, $state, Login) {
     //取消注册
     $scope.goLogin = function () {

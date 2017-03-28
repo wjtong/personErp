@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.personerp542503" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.personerp255692" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>personErp</name>
   <description>
         An Ionic Framework and Cordova project.
@@ -9,6 +9,8 @@
     </author>
   <content src="index.html"/>
   <access origin="*"/>
+  <preference name="Fullscreen" value="False"/>
+  <preference name="android-windowSoftInputMode" value="adjustPan"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
