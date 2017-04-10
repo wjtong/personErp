@@ -37,18 +37,6 @@ angular.module('starter')
           }
         }
       })
-      //关于我的信息
-      .state('app.aboutme', {
-        disableBack: true,
-        url: '/aboutme',
-        cache: false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/aboutme.html',
-            controller: 'AboutMe'
-          }
-        }
-      })
       //关于联系人的信息
       .state('app.abouthim', {
         url: '/abouthim/:personId',

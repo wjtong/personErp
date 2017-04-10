@@ -86,6 +86,7 @@ angular.module('vote.controllers', [])
         }
         //判断用户是否已经投票，不允许重复投票
         var partyId=localStorage.getItem("partyId");
+        alert(partyId);
         if(partyResponceAnswers[i].partyId==partyId){
           $(function () {
             $('#signUp').attr("disabled",true);

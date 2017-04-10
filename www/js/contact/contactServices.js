@@ -152,7 +152,8 @@ angular.module('contact.services', [])
         });
       },
       //编辑联系人
-      updatePerson: function (partyId, personName, contactNumber, contactEmail, contactCompany, contactGroup, gender, contactAddress1, contactCity, contactGeoName, contactAddress2, cb) {
+      updatePerson: function (partyId, personName, contactNumber, contactEmail, contactCompany, contactGroup,
+                              gender, contactAddress1, contactCity, contactGeoName, contactAddress2, cb) {
         $.ajax({
           url: $rootScope.interfaceUrl + "updateContects",
           data: {
@@ -184,7 +185,8 @@ angular.module('contact.services', [])
         });
       },
       //添加联系人
-      createPerson: function (partyId, personName, contactNumber, contactEmail, contactCompany, contactGroup, gender, contactAddress1, contactCity, contactGeoName, contactAddress2, cb) {
+      createPerson: function (partyId, personName, contactNumber, contactEmail, contactCompany, contactGroup,
+                              gender, contactAddress1, contactCity, contactGeoName, contactAddress2, cb) {
         $.ajax({
           url: $rootScope.interfaceUrl + "addContects",
           data: {
@@ -278,24 +280,6 @@ angular.module('contact.services', [])
             }
           }
         });
-      },
-      //获得便签内添加联系人列表（去除已添加到标签内的人员）
-      getLableInContact: function (partyId1, partyId2) {
-        var personList = [];
-        var contactList = function () {
-          Contact.getAll(partyId2).contact;
-        }
-        var personInLable = function () {
-          PersonLabel.getLablPersonList(partyId1).person;
-        }
-        for (var i; i < contactList.length; i++) {
-          for (var j; j < personInLable.length; j++) {
-            if (contactList[i].partyId != personInLable[j].partyId) {
-              personList.push(contactList[i]);
-            }
-          }
-        }
-        return personList;
       },
       //添加标签内成员
       addLablePerson: function (partyIdFrom, partyIdTo) {

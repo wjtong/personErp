@@ -10,7 +10,7 @@ angular.module('starter')
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityHome.html',
-            controller: 'GetBusiness'
+            controller: 'ActivityHome'
           }
         }
       })
@@ -18,38 +18,26 @@ angular.module('starter')
       .state('app.activityDetails', {
         url: '/activityDetails/:activityId',
         disableBack: true,
-        cache: true,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/activity/activityDetails.html',
-            controller: 'ActivityCrl'
-          }
-        }
-      })
-      //活动详情备用
-      .state('app.activityDetails2', {
-        url: '/activityDetails2/:activityId/:type',
-        disableBack: true,
         cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityDetails.html',
-            controller: 'ActivityCrl'
+            controller: 'ActivityDetails'
           }
         }
       })
-      //活动场所
-      .state('app.activityPlace', {
-        url: '/activityPlace/:placeId',
-        disableBack: true,
-        cache: false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/activity/activityPlace.html',
-            controller: 'ActivityPlace'
-          }
-        }
-      })
+      // //活动详情备用
+      // .state('app.activityDetails2', {
+      //   url: '/activityDetails2/:activityId/:type',
+      //   disableBack: true,
+      //   cache: false,
+      //   views: {
+      //     'menuContent': {
+      //       templateUrl: 'templates/activity/activityDetails.html',
+      //       controller: 'ActivityDetails'
+      //     }
+      //   }
+      // })
       //活动照片墙
       .state('app.slide', {
         url: '/slide/:activityId',
@@ -59,6 +47,18 @@ angular.module('starter')
           'menuContent': {
             templateUrl: 'templates/activity/activitySlide.html',
             controller: 'slideCrl'
+          }
+        }
+      })
+      //活动照片墙
+      .state('app.activityAddPerson', {
+        url: '/activityAddPerson/:workEffortId',
+        disableBack: true,
+        cache: true,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activity/activityAddPerson.html',
+            controller: 'activityAddPerson'
           }
         }
       })
@@ -74,18 +74,6 @@ angular.module('starter')
           }
         }
       })
-      //活动模版详情
-      .state('app.activityTemplate', {
-        url: '/activityTemplate/:id',
-        disableBack: true,
-        cache: false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/activity/activityTemplate.html',
-            controller: 'ActivityTemplate'
-          }
-        }
-      })
       //活动主题图片
       .state('app.themeImage', {
         url: '/themeImage',
@@ -95,18 +83,6 @@ angular.module('starter')
           'menuContent': {
             templateUrl: 'templates/activity/activityThemeImage.html',
             controller: 'ThemeImage'
-          }
-        }
-      })
-      //活动可见范围
-      .state('app.rangeActivity', {
-        url: '/rangeActivity/:range',
-        disableBack: true,
-        cache: true,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/activity/newActivity.html',
-            controller: 'NewActivity'
           }
         }
       })

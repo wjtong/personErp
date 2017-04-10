@@ -17,12 +17,12 @@
         <img ng-src="{{img}}" style="width: 100%;height: 200px;margin: 0"/>
         <div style="position: absolute;top: 60%;right: 10%">
           <p style="color: white"><b>{{activityList.workEffortName}}</b></p>
-          <p style="color: white">发起:{{createPersonInfoList.lastName}}{{createPersonInfoList.firstName}}</p>
+          <p style="color: white">发起:{{nickNameList}}</p>
         </div>
       </div>
       <div class="item">
-        <p><b>开始</b>: {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm:ss'}}</p>
-        <p><b>结束</b>: {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm:ss'}}</p>
+        <p><b>开始</b>: {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm'}}</p>
+        <p><b>结束</b>: {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm'}}</p>
         <p><i class="icon ion-ios-location"> {{activityList.locationDesc}}</i></p>
         <p>
           <button class="button button-clear" style="font-size: 15px;float: right;color:rgb(57,184,152)"
@@ -36,14 +36,17 @@
       </div>
       <div class="item">
         <br>
-        <h3>照片墙</h3>
+        <div>
+          <h3 style="display: inline-block">照片墙</h3>
+          <p style="float: right" ng-click="upLoadImage(activityList.id)">上传图片</p>
+        </div>
         <hr>
         <div class="row padding row-wrap">
           <div class="col col-33"
                style="width: 100px;height: 100px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center"
-               ng-repeat="picture in activityList.picture" ng-click="shouBigImage(activityList.id)">
+               ng-repeat="picture in images_list" ng-click="shouBigImage()">
             <img class="img-responsive" style="height: 100%;width: 100px; border:1px solid #ffffff;"
-                 ng-src="{{picture.img}}">
+                 ng-src="{{picture}}">
           </div>
         </div>
       </div>
@@ -56,12 +59,6 @@
         </h3>
         <hr>
         <div id="allmap" style="height: 300px;"></div>
-        <div style="padding: 10px 20%;font-size: 15px">
-          <span ng-click="byCar('{{longitude}}','{{latitude}}')" style="float: left;color:#33cd5f ">自驾</span>
-          <span ng-click="otherWay('{{longitude}}','{{latitude}}');" style="float: right;color:#33cd5f">路线</span>
-        </div>
-        <br>
-        <div id="r-result" style="height:100%;width:100%;" ng-if="route"></div>
       </div>
     </div>
     <br>
@@ -97,7 +94,7 @@
         </i>
         <span class="tab-title" style="font-size: 13px;">编辑活动</span>
       </a>
-      <a class="tab-item tab-item" style="line-height: 10px;" ng-click="newTask()">
+      <a class="tab-item tab-item" style="line-height: 10px;" ng-click="openModal()">
         <i class="icon icon-left ion-android-list">
         </i>
         <span class="tab-title" style="font-size: 13px;">邀请好友</span>

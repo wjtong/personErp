@@ -30,21 +30,9 @@
         </div>
         <div class="item">
           <label>
-            <button class="button button-block button-stable" ng-click123="selectImg()">添加背景图片</button>
+            <button class="button button-block button-stable" ng-click="selectImg()">添加背景图片</button>
             <img ng-src="{{imageSrc}}{{myActivtyList.img}}"  id="myImage">
           </label>
-        </div>
-        <div class="item" >
-          <div class="row  row-wrap">
-            <div class="col col-20 full-image" ng-repeat="image in myActivtyList.picture">
-              <img ng-src={{image.img}} width="100%"/>
-            </div>
-          </div>
-          <div class="row row-wrap">
-            <div class="col col-20 full-image" ng-repeat="image in imageSrc1">
-              <img ng-src={{image}} width="100%"/>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -20,13 +20,13 @@ angular.module('login.controllers', [])
       } else if ($scope.loginData.captcha == null) {
         alert("请输入验证码!!!")
       } else {
-
         Login.login($scope.loginData.mobileNumber, $scope.loginData.captcha, function (data) {
           console.log(data.tarjeta);
           if (data.resultMsg === 'PE平台登录成功') {
+            localStorage.removeItem("tarjeta");
+            localStorage.removeItem("partyId");
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
-            console.info(localStorage['tarjeta'] + localStorage['partyId']);
             $state.go("app.activityHome");
           } else {
             alert("用户不存在！！！！！！！！！！！！！！！！！！！")
@@ -103,14 +103,13 @@ angular.module('login.controllers', [])
     $scope.getIdentifyCodeReg = function (tel) {
       Login.userLoginExsit(tel, function (data) {     //判断用户是否存在
         if (data.resultMsg === '成功') {
-          alert('可以注册')
           //定义一个是登陆获取验证吗＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
           $scope.smsType = 'REGISTER';             //定义获取验证码用于注册
           $scope.msg = "";//先清空错误提示
           if (tel) {
             $http({
               method: "POST",
-              url: $rootScope.interfaceUrl + "getLoginCaptcha",
+              url: $rootScope.platformInterfaceUrl + "getLoginCaptcha",
               data: {
                 "teleNumber": tel,
                 "smsType": $scope.smsType,

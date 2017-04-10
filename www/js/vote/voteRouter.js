@@ -3,7 +3,7 @@ angular.module('starter')
 
 .config(function ($stateProvider) {
   $stateProvider
-
+    //相关投票列表
     .state('app.voteList', {
       url: '/voteList/:workEffortId',
       cache :false,
@@ -15,7 +15,7 @@ angular.module('starter')
         }
       }
     })
-
+    //创建投票
     .state('app.goEditVote', {
       url: '/goEditVote/:workEffortId',
       cache :false,
@@ -29,7 +29,7 @@ angular.module('starter')
         }
       }
     })
-
+    //投票
     .state('app.goCastVote', {
       url: '/goCastVote',
       params: {
@@ -42,17 +42,6 @@ angular.module('starter')
         'menuContent': {
           templateUrl: 'templates/vote/castVote.html',
           controller: 'castVoteCtrl'
-        }
-      }
-    })
-    .state('app.visualRange',{
-      url:'/visualRange/',
-      disableBack:true,
-      cache :false,
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/activity/activityVisualRange.html',
-          controller: 'VisualRange'
         }
       }
     })
