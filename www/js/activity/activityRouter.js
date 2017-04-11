@@ -66,7 +66,7 @@ angular.module('starter')
       .state('app.newActivity', {
         url: '/newActivity/:type',
         disableBack: true,
-        cache: false,
+        cache: true,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/newActivity.html',

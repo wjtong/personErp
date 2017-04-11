@@ -26,7 +26,7 @@ angular.module('activity.services', [])
         });
       },
       //新建活动
-      createActivity: function (tarjeta, workEffortName, actualStartDate, estimatedCompletionDate, locationDesc, description, specialTerms, cb) {
+      createActivity: function (tarjeta, workEffortName, actualStartDate, estimatedCompletionDate, locationDesc, description, specialTerms,themesId, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "createNewEvent",
           data: {
@@ -36,7 +36,8 @@ angular.module('activity.services', [])
             estimatedCompletionDate: estimatedCompletionDate,
             locationDesc: locationDesc,
             description: description,
-            specialTerms: specialTerms
+            specialTerms: specialTerms,
+            themesId:themesId
           },
           async: false,
           type: 'POST',
@@ -405,40 +406,52 @@ angular.module('activity.services', [])
             }
           }
         });
-      }
+      },
+      //活动主题图片类型列表
+      queryContentTypeList: function (cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "queryContentTypeList",
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //活动主题图片类型列表
+      queryThemes: function (contentTypeId,cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "queryThemes",
+          data:{
+            contentTypeId:contentTypeId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
     }
   })
 
   //活动主题图片＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .factory('ThemeImage', function () {
-    var partyImg = [
-      {id: 'Pic_10001', img: 'img/theme/juhui1.jpeg'},
-      {id: 'Pic_10002', img: 'img/theme/juhui2.jpeg'},
-      {id: 'Pic_10003', img: 'img/theme/juhui3.jpeg'},
-      {id: 'Pic_10004', img: 'img/theme/juhui4.jpeg'},
-      {id: 'Pic_10005', img: 'img/theme/juhui5.jpeg'},
-    ];
-    var sportsImg = [
-      {id: 'Pic_10006', img: 'img/theme/yundong1.jpeg'},
-      {id: 'Pic_10007', img: 'img/theme/yundong2.jpeg'},
-      {id: 'Pic_10008', img: 'img/theme/yundong3.jpeg'},
-      {id: 'Pic_10009', img: 'img/theme/yundong4.jpeg'},
-      {id: 'Pic_10010', img: 'img/theme/yundong5.jpeg'}
-    ];
-    var familyImg = [
-      {id: 'Pic_10011', img: 'img/theme/jiating1.jpeg'},
-      {id: 'Pic_10012', img: 'img/theme/jiating2.jpeg'},
-      {id: 'Pic_10013', img: 'img/theme/jiating3.jpeg'},
-      {id: 'Pic_10014', img: 'img/theme/jiating4.jpeg'},
-      {id: 'Pic_10015', img: 'img/theme/jiating5.jpeg'}
-    ];
-    var businessImg = [
-      {id: 'Pic_10016', img: 'img/theme/shangwu1.jpeg'},
-      {id: 'Pic_10017', img: 'img/theme/shangwu2.jpeg'},
-      {id: 'Pic_10018', img: 'img/theme/shangwu3.jpeg'},
-      {id: 'Pic_10019', img: 'img/theme/shangwu4.jpeg'},
-      {id: 'Pic_10020', img: 'img/theme/shangwu5.jpeg'}
-    ];
+
     var shareImg = [
       {id: 'Pic_10021', img: 'img/share/Contact.png', name: '手机通讯录'},
       //{id:'Pic_10022',img:'img/share/QQ.jpeg',name:'QQ'},
@@ -451,24 +464,13 @@ angular.module('activity.services', [])
     var Img =
     {id: 'Pic_10080', img: 'img/resources/paobu3.jpeg', img2: 'img/team/img1-sm.jpg'};
     return {
-      getPartyImg: function () {
-        return partyImg;
-      },
+
       getRangeImg: function () {
         return Img;
       },
       getShareImg: function () {
         return shareImg;
       },
-      getSportsImg: function () {
-        return sportsImg;
-      },
-      getFamilyImg: function () {
-        return familyImg;
-      },
-      getBusinessImg: function () {
-        return businessImg;
-      }
     }
   });
 

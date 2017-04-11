@@ -7,7 +7,7 @@
   <ion-content>
     <div class="list card" ng-repeat="matter in active" id="activityListInfo">
       <div class="item" ng-click="activityDetails(matter.workEffortId)">
-        <img ng-src="{{img}}">
+        <img ng-src="{{matter.objectInfo}}">
         <div class="info">
           <p><b>{{matter.workEffortName}}</b></p>
           <p>开始:{{matter.actualStartDate| date:'yyyy-MM-dd HH:mm' }}</p>

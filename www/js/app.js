@@ -9,14 +9,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   'activity.services', 'contact.services', 'contact.controllers','directives.OniBarDirective'])
 
   .run(function ($ionicPlatform, $rootScope,$cordovaDevice,ActivityServer) {
-    // $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
-    // $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
-    // $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
-    // $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
-    $rootScope.interfaceUrl = "http://159742z17s.iask.in:29130/personContacts/control/";//链接沈演麟本地
-    $rootScope.voteInterfaceUrl = "http://159742z17s.iask.in:29130/pevote/control/";//投票接口
-    $rootScope.activityInterfaceUrl = "http://159742z17s.iask.in:29130/personactivity/control/";//活动接口
-    $rootScope.platformInterfaceUrl = "http://159742z17s.iask.in:29130/peplatform/control/";//活动接口
+    $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
+    $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
+    $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
+    $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
+    // $rootScope.interfaceUrl = "http://192.168.3.62:3400/personContacts/control/";//链接沈演麟本地
+    // $rootScope.voteInterfaceUrl = "http://192.168.3.62:3400/pevote/control/";//投票接口
+    // $rootScope.activityInterfaceUrl = "http://192.168.3.62:3400/personactivity/control/";//活动接口
+    // $rootScope.platformInterfaceUrl = "http://192.168.3.62:3400/peplatform/control/";//活动接口
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
