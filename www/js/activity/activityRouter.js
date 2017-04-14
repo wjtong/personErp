@@ -78,7 +78,7 @@ angular.module('starter')
       .state('app.themeImage', {
         url: '/themeImage',
         disableBack: true,
-        cache: false,
+        cache: true,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityThemeImage.html',
@@ -90,7 +90,7 @@ angular.module('starter')
       .state('app.activityDiscuss', {
         url: '/activityDiscuss/:activityId',
         disableBack: true,
-        cache: false,
+        cache: true,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activityDiscuss.html',

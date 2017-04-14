@@ -9,17 +9,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   'activity.services', 'contact.services', 'contact.controllers','directives.OniBarDirective'])
 
   .run(function ($ionicPlatform, $rootScope,$cordovaDevice,ActivityServer) {
+
+    // //连接服务器
     $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
     $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
     $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
     $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
-    // $rootScope.interfaceUrl = "http://192.168.3.62:3400/personContacts/control/";//链接沈演麟本地
+
+    //链接沈演麟本地
+    // $rootScope.interfaceUrl = "http://192.168.3.62:3400/personContacts/control/";
     // $rootScope.voteInterfaceUrl = "http://192.168.3.62:3400/pevote/control/";//投票接口
     // $rootScope.activityInterfaceUrl = "http://192.168.3.62:3400/personactivity/control/";//活动接口
     // $rootScope.platformInterfaceUrl = "http://192.168.3.62:3400/peplatform/control/";//活动接口
+
     $ionicPlatform.ready(function () {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
         cordova.plugins.Keyboard.disableScroll(true);
@@ -28,6 +31,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+
       //判断UUID是否是用户
       document.addEventListener("deviceready", function () {
         var device = $cordovaDevice.getDevice();     //设备信息
@@ -40,6 +44,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           ActivityServer.setUUID(uuid,function (data) {
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+            localStorage.setItem("RongCloudToken", data.rongCloudToken);//设置partyId登陆人
             //alert(localStorage.getItem("partyId"));
             console.log("创建新用户通过UUID"+"token:"+data.tarjeta)
           })
@@ -47,6 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }, false);
     });
   })
+
   .config(function (ionicDatePickerProvider, $ionicConfigProvider) {
     $ionicConfigProvider.views.swipeBackEnabled(false); // 防止ios左滑出现白屏
     var datePickerObj = {

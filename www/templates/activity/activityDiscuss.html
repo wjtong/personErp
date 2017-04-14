@@ -6,34 +6,36 @@
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button class="button button-icon ion-person-stalker ion-navicon" menu-toggle="right" ng-click="openPersonJoin()">
+      <button class="button button-icon ion-person-stalker ion-navicon"  ng-click="openPersonJoin()">
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content has-bouncing="true" class="has-header has-footer"
-               delegate-handle="userMessageScroll">
-    <div ng-repeat="chat in discussList.discuss | orderBy:'date':false" class="message-wrapper">
-      <div ng-if="discussList.name !== chat.name">
+  <ion-content id="content" has-bouncing="true" class="has-header has-footer"
+               delegate-handle="userMessageScroll" keyboardshow>
+    <div ng-repeat="message in discussList | orderBy:'date':false" class="message-wrapper">
+      <div ng-if="message.name !== '老金'">
         <img ng-click="" class="profile-pic left"
-             ng-src="{{chat.img}}" onerror="" />
+             ng-src="{{contactImg}}" onerror="" />
         <div class="chat-bubble left">
-          <div class="message" ng-bind-html="chat.speak">
+          <div class="message" >
+            {{message.text}}
           </div>
           <div class="message-detail">
-            <span ng-click=""class="bold">{{chat.name}}</span>,
+            <span ng-click=""class="bold">{{message.name}}</span>,
             <span am-time-ago="message.date"></span>
           </div>
         </div>
       </div>
 
-      <div ng-if="discussList.name == chat.name">
+      <div ng-if="message.name == '老金'">
         <img ng-click="" class="profile-pic right"
-             ng-src="{{chat.img}}" onerror="" />
+             ng-src="{{contactImg}}" onerror="" />
         <div class="chat-bubble right">
-          <div class="message" ng-bind-html="chat.speak">
+          <div class="message" >
+            {{message.text}}
           </div>
           <div class="message-detail" style="text-align: right;">
-            <span ng-click=""class="bold">{{chat.name}}</span>,
+            <span ng-click=""class="bold">{{message.name}}</span>,
             <span am-time-ago="message.date"></span>
           </div>
         </div>
@@ -41,7 +43,7 @@
       <div class="cf"></div>
     </div>
   </ion-content>
-  <form name="sendMessageForm" ng-submit="">
+  <form name="sendMessageForm" ng-submit="sentMessage()">
     <ion-footer-bar keyboardshow class="bar-stable item-input-inset message-footer">
       <label class="item-input-wrapper">
         <textarea ng-model="input.message"   placeholder="请输入你想要发送的信息。。。" required minlength="1" maxlength="1500" style="width: 100%" ></textarea>

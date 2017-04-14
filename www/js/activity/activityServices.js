@@ -26,7 +26,8 @@ angular.module('activity.services', [])
         });
       },
       //新建活动
-      createActivity: function (tarjeta, workEffortName, actualStartDate, estimatedCompletionDate, locationDesc, description, specialTerms,themesId, cb) {
+      createActivity: function (tarjeta, workEffortName, actualStartDate, estimatedCompletionDate,
+                                locationDesc, description, specialTerms,themesId,universalId, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "createNewEvent",
           data: {
@@ -37,7 +38,8 @@ angular.module('activity.services', [])
             locationDesc: locationDesc,
             description: description,
             specialTerms: specialTerms,
-            themesId:themesId
+            themesId:themesId,
+            universalId:universalId
           },
           async: false,
           type: 'POST',
@@ -55,7 +57,7 @@ angular.module('activity.services', [])
       },
       //编辑活动
       updateActivity: function (tarjeta, workEffortName, actualStartDate, estimatedCompletionDate, locationDesc,
-                                description, specialTerms,workEffortId, cb) {
+                                description, specialTerms,workEffortId,themesId, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "updateEvent",
           data: {
@@ -66,7 +68,8 @@ angular.module('activity.services', [])
             locationDesc: locationDesc,
             description: description,
             specialTerms: specialTerms,
-            workEffortId:workEffortId
+            workEffortId:workEffortId,
+            themesId:themesId
           },
           async: false,
           type: 'POST',
@@ -110,6 +113,28 @@ angular.module('activity.services', [])
       findActivityItem: function (tarjeta, workEffortId, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "queryActivityProjects",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //活动讨论的相关参数
+      queryActivityChatGroupInfo: function (tarjeta, workEffortId, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "queryActivityChatGroupInfo",
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
@@ -324,6 +349,29 @@ angular.module('activity.services', [])
             tarjeta: tarjeta,
             workEffortId: workEffortId,
             imageData:imageData,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //删除照片墙图片
+      deletePictureWall: function (tarjeta,workEffortId,contentId,cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "deletePictureWall",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+            contentId:contentId,
           },
           async: false,
           type: 'POST',
