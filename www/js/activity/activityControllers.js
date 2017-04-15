@@ -92,7 +92,6 @@ angular.module('activity.controllers', [])
                                        $ionicPopup, $location, ThemeImage, ionicDatePicker,$cordovaFileTransfer,
                                        ionicTimePicker, $cordovaDatePicker, $cordovaVibration,$cordovaProgress
                                        ) {
-
     //参数准备
     var type = $stateParams.type;
     $scope.workEffortId = $stateParams.id;//活动编辑带来的活动ID
@@ -307,6 +306,7 @@ angular.module('activity.controllers', [])
       //不支持HTML5，关闭页面
       //用户逻辑处理
     }else if(200 == resp.code){
+      //alert("初始化成功")
       //判断不支持的功能，屏蔽页面展示
       var unsupport = resp.unsupport;
     }
@@ -314,7 +314,7 @@ angular.module('activity.controllers', [])
     //账号登录参数设置
     var appId='8a216da85b3c225d015b585bbf490c2f';
     var appToken='8da3f790a40bbb6607c03c948b8e7c6b';
-    var user_account='15618323608';
+    var user_account='ddf22';
     var timeStamp=IM._getTimeStamp();
     var sig = hex_md5(appId + user_account + timeStamp + appToken);
     var loginBuilder = new RL_YTX.LoginBuilder();
@@ -327,10 +327,12 @@ angular.module('activity.controllers', [])
     //执行用户登录
     RL_YTX.login(loginBuilder, function(obj){
       //登录成功回调
+      //alert("登陆成功")
     }, function(obj){
       //登录失败方法回调
     });
 
+    //创建活动讨论组
     $scope.groupName=function () {
       //创建群组对象
       var obj = new RL_YTX.CreateGroupBuilder();
@@ -350,6 +352,7 @@ angular.module('activity.controllers', [])
       RL_YTX.createGroup(obj, function(obj){
         //获取新建群组id
         var groupId = obj.data;
+        //alert('创建群组成功');
         $scope.groupId=groupId;
       }, function(obj){
         //创建群组失败
@@ -399,13 +402,14 @@ angular.module('activity.controllers', [])
           localStorage.removeItem("themeImg");
           localStorage.removeItem("themeImgId");
           RL_YTX.logout(function(){
+            //alert("退出成功")
             //登出成功处理
           }, function(obj){
             //登出失败处理
           });
           //震动一下
-          $cordovaProgress.showDeterminateWithLabel(true, 15000, "创建中");
-          $cordovaVibration.vibrate(3000);
+          // $cordovaProgress.showDeterminateWithLabel(true, 15000, "创建中");
+          // $cordovaVibration.vibrate(3000);
           $ionicHistory.goBack();
       };
     } else {
@@ -500,7 +504,7 @@ angular.module('activity.controllers', [])
       var tarjeta = localStorage.getItem("tarjeta");
       var partyId = localStorage.getItem("partyId");
       $scope.img = localStorage.getItem("activityImg");
-      $scope.imgPerson = localStorage.getItem("contactImg");
+      $scope.contactImg = localStorage.getItem("contactImg");
       $scope.workEffortId = $stateParams.activityId;
 
       //获得活动的详细信息
@@ -597,8 +601,8 @@ angular.module('activity.controllers', [])
       };
 
       //显示照片墙幻灯片（大图片）
-      $scope.shouBigImage = function () {
-        $location.path("/app/slide/" + $scope.workEffortId);
+      $scope.shouBigImage = function (index) {
+        $location.path("/app/slide/" + $scope.workEffortId+'/'+index);
       };
 
       //显示活动相关菜单（右上。。。
@@ -623,7 +627,7 @@ angular.module('activity.controllers', [])
         if ($scope.nickNameList != null) {
           alert('已经用户登陆当前用户昵称:' + $scope.nickNameList);
           $scope.loginData.nickName = $scope.nickNameList;
-          $state.go("app.activityDiscuss", {"activityId": id}, {reload: true});
+          $state.go("app.activityDiscuss", {"activityId": $scope.workEffortId}, {reload: true});
           $scope.popover.hide();
         } else {
           alert('用户已登陆但没有昵称');
@@ -631,15 +635,13 @@ angular.module('activity.controllers', [])
           $scope.isLogin = false;
           $scope.addPersonInfo = function () {
             alert("添加用户的昵称");
-            console.log($scope.loginData.nickName + $scope.loginData.mobileNumber + $scope.workEffortId + partyId);
             ActivityServer.createNickName(tarjeta, $scope.workEffortId, partyId, $scope.loginData.nickName);
-            $scope.NickName.hide();
-            $scope.popover.hide();
-            $scope.loginData.nickName = $scope.nickNameList;
-            $state.go("app.activityDiscuss", {"activityId": id}, {reload: true});
-            $scope.popover.hide();
-          };
+              $scope.NickName.hide();
+              $scope.popover.hide();
+              $scope.nickNameList=$scope.loginData.nickName;
+            };
         }
+        $scope.$digest();
       };
 
       //进入活动项
@@ -655,16 +657,16 @@ angular.module('activity.controllers', [])
 
       //活动报名
       $scope.activitySignUp = '算我一个';
-      // if ($scope.participantList != '' || $scope.participantList != null) {
-      //   for (var i = 0; i < $scope.participantList.length; i++) {
-      //     if ($scope.participantList[i].partyId == partyId) {
-      //       $(function () {
-      //         $('#joinActivity').attr("disabled", true);
-      //       });
-      //       $scope.activitySignUp = '我已加入'
-      //     }
-      //   }
-      // }
+      if ($scope.participantList != '' || $scope.participantList != null) {
+        for (var i = 0; i < $scope.participantList.length; i++) {
+          if ($scope.participantList[i].partyId == partyId) {
+            $(function () {
+              $('#joinActivity').attr("disabled", true);
+            });
+            $scope.activitySignUp = '我已加入'
+          }
+        }
+      }
 
       //报名成功
       $scope.showPopup = function (id) {
@@ -706,7 +708,7 @@ angular.module('activity.controllers', [])
       };
 
       //活动参与人员弹出框
-      $scope.personmainLists = $scope.participantList;
+      $scope.groupMemberList = $scope.participantList;
       $ionicPopover.fromTemplateUrl('templates/activity/activityJoin.html', {
         scope: $scope
       }).then(function (personJoin) {
@@ -747,10 +749,13 @@ angular.module('activity.controllers', [])
               console.log(data)
             });
           $scope.NickName.hide();
-          $scope.taskModal.show();
           ActivityServer.getActivityDetails(localStorage.getItem("tarjeta"), $scope.workEffortId, function (data) {
             console.log("查询活动详情")
-          })
+            if(data.nickNamesList[0]){
+              $scope.nickNameList = data.nickNamesList[0].nickName;       //参与人的昵称列表
+            }
+          });
+          $scope.taskModal.show();
         };
       } else {
         $scope.openModal = function () {
@@ -768,6 +773,7 @@ angular.module('activity.controllers', [])
               ActivityServer.createNickName(tarjeta, $scope.workEffortId, partyId, $scope.loginData.nickName)
               $scope.NickName.hide();
               $scope.taskModal.show();
+              $scope.nickNameList=$scope.loginData.nickName;
             };
           }
         };
@@ -890,16 +896,21 @@ angular.module('activity.controllers', [])
     //准备参数
     $scope.workEffortId = $stateParams.activityId;
     $scope.tarjeta = localStorage.getItem("tarjeta");
+    $scope.myActiveSlide=$stateParams.index;
 
     //获取活动照片墙图片
     ActivityServer.getActivityDetails($scope.tarjeta,$scope.workEffortId,function (data) {
       $scope.pictureList = data.pictureWallList;
     });
-
     //照片INDEX
     $scope.slideChanged=function (index) {
       $scope.imgIndex=index;
     };
+    if($scope.myActiveSlide==0){
+      $scope.imgIndex=0;
+    }else{
+      $scope.imgIndex=$scope.myActiveSlide
+    }
 
     // 一个确认对话框  删除图片
     $scope.showConfirm = function() {
@@ -922,7 +933,6 @@ angular.module('activity.controllers', [])
           for(var i=0;i<$scope.pictureList.length;i++){
             var flag = true;
             if(i==$scope.imgIndex && flag){
-              //alert("删除contentId－－－"+$scope.pictureList[i].contentId);
               ActivityServer.deletePictureWall($scope.tarjeta,$scope.workEffortId,$scope.pictureList[i].contentId,function (data) {
                 console.log(data);
                 flag = false;
@@ -941,7 +951,7 @@ angular.module('activity.controllers', [])
   })
 
   //活动讨论*************************************************************************************************************
-  .controller('ActivityDiscuss', function ($scope, $rootScope, $stateParams, ActivityServer, $ionicPopover,$ionicScrollDelegate) {
+  .controller('ActivityDiscuss', function ($scope,$location, $rootScope, $stateParams, ActivityServer, $ionicPopover,$ionicScrollDelegate) {
 
     //准备参数
     var tarjeta = localStorage.getItem("tarjeta");
@@ -977,6 +987,7 @@ angular.module('activity.controllers', [])
       //不支持HTML5，关闭页面
       //用户逻辑处理
     }else if(200 == resp.code){
+      //alert('初始化成功');
       //判断不支持的功能，屏蔽页面展示
       var unsupport = resp.unsupport;
     }
@@ -1005,19 +1016,56 @@ angular.module('activity.controllers', [])
 
     //执行用户登录
     RL_YTX.login(loginBuilder, function(obj){
-      //登录成功回调
-      //加入群组
-      var builder= new RL_YTX.JoinGroupBuilder();
-      //设置申请群组id
-      var groupId=$scope.groupId;
-      builder.setGroupId(groupId);
-      //设置申请理由
-      builder.setDeclared('要加入');
-      //发送请求
-      RL_YTX.joinGroup(builder, function(){
-        //操作成功
-      },function(obj){
-        //操作失败
+     // alert("登陆成功");
+      //设置讨论组昵称成功
+      var uploadPersonInfoBuilder = new RL_YTX.UploadPersonInfoBuilder();
+      uploadPersonInfoBuilder.setNickName($scope.nickName);
+      uploadPersonInfoBuilder.setSex(1);
+      uploadPersonInfoBuilder.setBirth("1990-01-01");
+      uploadPersonInfoBuilder.setSign('个人签名');
+      RL_YTX.uploadPerfonInfo(uploadPersonInfoBuilder, function(obj){
+        //设置成功
+       // alert("昵称成功");
+        obj.version;//个人信息版本号
+
+        //加入群组
+        var builder= new RL_YTX.JoinGroupBuilder();
+        //设置申请群组id
+        builder.setGroupId($scope.groupId);
+        //设置申请理由
+        builder.setDeclared('要加入');
+        //发送请求
+        RL_YTX.joinGroup(builder, function(){
+         // alert('加入成功')
+          //操作成功
+        },function(obj){
+          //操作失败
+        });
+
+        //新建获取群组成员列表请求对象
+
+        $scope.groupMemberList=[];
+        var groupMember = new RL_YTX.GetGroupMemberListBuilder();
+        //设置群组id
+        groupMember.setGroupId($scope.groupId);
+        //该接口为分页接口，如果要获取全部数据，设置pageSize为-1
+        groupMember.setPageSize(-1);
+        //发送请求
+
+        RL_YTX.getGroupMemberList(groupMember, function(obj){
+          console.log(obj[1])
+          for(var i=1;i<obj.length;i++){
+            $scope.groupMemberList.push({nickName:obj[i].nickName,member:obj[i].member})
+            $scope.$digest();
+          }
+        //成功获取数据，更新页面
+        }, function(obj){
+        //获取数据失败
+        });
+
+      }, function(resp){
+        //设置失败
+       // alert(resp.code);
       });
 
       //消息监听器
@@ -1057,7 +1105,8 @@ angular.module('activity.controllers', [])
         if(1 == msgType || 0 == msgType){
           //文本消息，获取消息内容
           var you_msgContent = obj.msgContent;
-          $scope.discussList.push({'name':you_senderNickName,'text':you_msgContent})
+          $scope.discussList.push({'name':you_senderNickName,'text':you_msgContent});
+          $scope.$digest();
         }else if(2 == msgType){
           //语音消息，获取语音文件url
           var url = obj.msgFileUrl;
@@ -1075,12 +1124,8 @@ angular.module('activity.controllers', [])
           //后续还会支持(地理位置，视频，以及自定义消息等)
         }
         //通知前端更新页面
-
         //把消息添加到界面上
-
-
       });
-
 
       //注册群组通知事件监听
       RL_YTX.onNoticeReceiveListener(function(obj){
@@ -1125,9 +1170,25 @@ angular.module('activity.controllers', [])
         //发送图片或附件时的进度条
         //如果发送文本消息，可以不传该参数
       });
-      $scope.discussList.push({'name':'老金','text':$scope.input.message});
+      $scope.discussList.push({'name':$scope.nickName,'text':$scope.input.message});
+      $('textarea').val('')
       $ionicScrollDelegate.scrollBottom();
+
+
     };
+
+    //返回活动详情，退出融连云登陆。
+    $scope.goback=function () {
+
+      RL_YTX.logout(function(){
+        //alert("退出成功");
+        //登出成功处理
+      }, function(obj){
+        //登出失败处理
+      });
+      $location.path("/app/activityDetails/" + $scope.workEffortId);
+
+    }
 
   })
 

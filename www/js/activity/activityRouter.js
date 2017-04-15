@@ -40,7 +40,7 @@ angular.module('starter')
       // })
       //活动照片墙
       .state('app.slide', {
-        url: '/slide/:activityId',
+        url: '/slide/:activityId/:index',
         disableBack: true,
         cache: true,
         views: {

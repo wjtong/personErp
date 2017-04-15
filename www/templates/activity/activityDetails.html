@@ -44,9 +44,9 @@
         <div class="row padding row-wrap">
           <div class="col col-33"
                style="width: 100px;height: 100px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center"
-               ng-repeat="picture in images_list" ng-click="shouBigImage()" >
+               ng-repeat="picture in images_list"  >
             <img class="img-responsive" style="height: 100%;width: 100px; border:1px solid #ffffff;"
-                 ng-src="{{picture.objectInfo}}">
+                 ng-src="{{picture.objectInfo}}" ng-click="shouBigImage($index)">
           </div>
         </div>
       </div>

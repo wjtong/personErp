@@ -1,7 +1,7 @@
 <ion-view title="活动讨论">
   <ion-nav-bar class="globalColor">
     <ion-nav-buttons>
-      <button class="button button-clear" ng-click="$ionicGoBack()">
+      <button class="button button-clear" ng-click="goback()">
         <i class="icon ion-android-arrow-back globalColorButton"></i>
       </button>
     </ion-nav-buttons>
@@ -13,7 +13,7 @@
   <ion-content id="content" has-bouncing="true" class="has-header has-footer"
                delegate-handle="userMessageScroll" keyboardshow>
     <div ng-repeat="message in discussList | orderBy:'date':false" class="message-wrapper">
-      <div ng-if="message.name !== '老金'">
+      <div ng-if="message.name !== nickName">
         <img ng-click="" class="profile-pic left"
              ng-src="{{contactImg}}" onerror="" />
         <div class="chat-bubble left">
@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div ng-if="message.name == '老金'">
+      <div ng-if="message.name == nickName">
         <img ng-click="" class="profile-pic right"
              ng-src="{{contactImg}}" onerror="" />
         <div class="chat-bubble right">

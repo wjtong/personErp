@@ -5,7 +5,7 @@
       </ion-nav-back-button>
 
       <ion-nav-buttons side="left" >
-        <button class="button button-icon  ion-navicon globalColorButton"  menu-toggle="left">
+        <button class="button button-icon  ion-navicon "  menu-toggle="left">
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -44,6 +44,9 @@
           <a class="item" menu-close ui-sref="app.activityHome">
             <div style="font-weight: bold;">我的活动</div>
             {{myInfo.contactNumber}}
+          </a>
+          <a class="item" menu-close ui-sref="login">
+            <div style="font-weight: bold;">用户登陆</div>
           </a>
         </ion-item>
       </ion-list>

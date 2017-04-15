@@ -10,9 +10,9 @@
   <ion-content class="has-header">
       <div class="list" style="margin-bottom: 50px;">
         <ion-list >
-          <ion-item  class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in participantList | orderBy:'personName':true" type="item-text-wrap" ng-click="goInfo(personmain.partyId)">
-            <img ng-src="{{imgPerson}}">
-            <p style="margin-top: 5%">{{item.nickName}} {{item.userLoginId}}</p>
+          <ion-item  class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in groupMemberList | orderBy:'personName':true" type="item-text-wrap" ng-click="goInfo(personmain.partyId)">
+            <img ng-src="{{contactImg}}">
+            <p style="margin-top: 5%">{{item.nickName}} {{item.member}} {{item.userLoginId}}</p>
             <p></p>
             <ion-option-button class="button-assertive" ng-click="deletePerson(personmain.partyId)">
               Delete

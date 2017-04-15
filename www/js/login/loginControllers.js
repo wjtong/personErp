@@ -37,7 +37,7 @@ angular.module('login.controllers', [])
 
     //返回首页
     $scope.goHome = function () {
-      $state.go("app.home");
+      $state.go("app.activityHome");
     };
     //设置全局的变量
     $scope.activityImg = ThemeImage.getRangeImg();
@@ -51,7 +51,7 @@ angular.module('login.controllers', [])
   })
 
   //验证码***************************************************************************************************************
-  .controller('captcha', function ($scope, $http, $rootScope, $interval, Login) {
+  .controller('captcha', function ($scope, $http, $rootScope, $interval, Login,$state) {
     $scope.codeBtn = '获取验证码';
     //登陆获取验证码
     $scope.getIdentifyCode = function (tel) {
@@ -147,6 +147,7 @@ angular.module('login.controllers', [])
           }
         } else {
           alert("用户已存在！！！！！！！！！！！！")
+          $state.go('login')
         }
       })
     };

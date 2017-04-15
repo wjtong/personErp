@@ -46,7 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
             localStorage.setItem("RongCloudToken", data.rongCloudToken);//设置partyId登陆人
             //alert(localStorage.getItem("partyId"));
-            console.log("创建新用户通过UUID"+"token:"+data.tarjeta)
+            console.log("创建新用户通过UUID"+"token:"+data.tarjeta+"UUID:"+uuid)
           })
         }
       }, false);
