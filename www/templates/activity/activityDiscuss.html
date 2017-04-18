@@ -21,27 +21,32 @@
             {{message.text}}
           </div>
           <div class="message-detail">
-            <span ng-click=""class="bold">{{message.name}}</span>,
+            <!--<span ng-click=""class="bold">{{message.name}}</span>,-->
             <span am-time-ago="message.date"></span>
           </div>
         </div>
+        <div style="position: absolute;bottom: -20%;left: 4%;color:#74BA11;">{{message.name}}</div>
       </div>
 
-      <div ng-if="message.name == nickName">
+      <div ng-if="message.name == nickName" >
         <img ng-click="" class="profile-pic right"
-             ng-src="{{contactImg}}" onerror="" />
+             ng-src="{{contactImg}}" onerror=""/>
         <div class="chat-bubble right">
           <div class="message" >
             {{message.text}}
           </div>
           <div class="message-detail" style="text-align: right;">
-            <span ng-click=""class="bold">{{message.name}}</span>,
+            <!--<span ng-click=""class="bold">{{message.name}}</span>,-->
             <span am-time-ago="message.date"></span>
           </div>
         </div>
+        <div style="position: absolute;bottom: -20%;right: 4%;color:#74BA11;">{{message.name}}</div>
       </div>
       <div class="cf"></div>
     </div>
+    <br>
+    <br>
+    <br>
   </ion-content>
   <form name="sendMessageForm" ng-submit="sentMessage()">
     <ion-footer-bar keyboardshow class="bar-stable item-input-inset message-footer">

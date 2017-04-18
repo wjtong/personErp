@@ -62,6 +62,18 @@ angular.module('starter')
           }
         }
       })
+      //活动二微码
+      .state('app.activityCode', {
+        url: '/activityCode/:workEffortId',
+        disableBack: true,
+        cache: true,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activity/activityCode.html',
+            controller: 'activityCode'
+          }
+        }
+      })
       //新建活动
       .state('app.newActivity', {
         url: '/newActivity/:type',

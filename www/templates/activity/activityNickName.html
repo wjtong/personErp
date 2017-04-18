@@ -1,7 +1,7 @@
 <ion-modal-view>
   <ion-nav-bar class="globalColor">
     <ion-nav-buttons>
-      <button class="button button-clear" ng-click="NickName.hide()">
+      <button class="button button-clear" ng-click="closeInviteModal()">
         <i class="icon ion-android-arrow-back globalColorButton"></i>
       </button>
     </ion-nav-buttons>
@@ -11,14 +11,14 @@
       <div class="list" style="padding-top: 5%">
         <h4  style="text-align: center;font-weight: normal;">个人信息</h4>
         <label class="item item-input">
-          <span class="input-label text-center">昵称</span>
-          <input type="text" placeholder="活动中的昵称" ng-model="loginData.nickName">
+          <span class="input-label text-center">用户名</span>
+          <input type="text" placeholder="用户名" ng-model="loginData.nickName">
         </label>
-        <label class="item item-input" ng-if="isLogin">
+        <label class="item item-input" >
           <span class="input-label text-center">手机号码</span>
           <input type="tel" placeholder="手机号码" ng-model="loginData.mobileNumber">
         </label>
-        <label class="item item-input" ng-if="isLogin">
+        <label class="item item-input" >
           <span class="input-label text-center">验证码</span>
           <input type="tel" placeholder="验证码" ng-model="loginData.captcha">
         </label>
@@ -26,7 +26,7 @@
           <button class="button button-block globalColor" ng-click="addPersonInfo()">确定</button>
         </label>
       </div>
-      <div ng-if="isLogin">
+      <div>
         <label>
           <input type="button" ng-value="codeBtn" ng-controller="captcha" ng-click="getIdentifyCodeReg(loginData.mobileNumber)" style="background-color:rgb(57,184,152);text-align: center;text-indent: 8px;z-index:3;position: absolute;top:38%;right: 5%;opacity:0.8">
         </label>

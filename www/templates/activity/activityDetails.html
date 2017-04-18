@@ -17,7 +17,7 @@
         <img ng-src="{{themeImgList.objectInfo}}" style="width: 100%;height: 200px;margin: 0"/>
         <div style="position: absolute;top: 60%;right: 10%">
           <p style="color: white"><b>{{activityList.workEffortName}}</b></p>
-          <p style="color: white">发起:{{nickNameList}}</p>
+          <p style="color: white">发起:{{createPersonInfoList.firstName}}</p>
         </div>
       </div>
       <div class="item">
@@ -94,7 +94,7 @@
         </i>
         <span class="tab-title" style="font-size: 13px;">编辑活动</span>
       </a>
-      <a class="tab-item tab-item" style="line-height: 10px;" ng-click="openModal()">
+      <a class="tab-item tab-item" style="line-height: 10px;" ng-click="InviteModal()">
         <i class="icon icon-left ion-android-list">
         </i>
         <span class="tab-title" style="font-size: 13px;">邀请好友</span>

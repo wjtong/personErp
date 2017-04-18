@@ -47,11 +47,11 @@ angular.module('login.services', [])
         });
       },
       //用户注册
-      userAppRegister: function (teleNumber, captcha, nickName, cb) {
+      userAppRegister: function (tel, captcha, nickName, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "userAppRegister",
           data: {
-            teleNumber: teleNumber,
+            tel: teleNumber,
             captcha: captcha,
             nickName: nickName
           },

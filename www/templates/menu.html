@@ -12,7 +12,7 @@
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
-  <ion-side-menu side="left">
+  <ion-side-menu side="left" ng-controller="myInfo">
     <ion-header-bar class="globalColor">
       <h1 class="title">关于我</h1>
     </ion-header-bar>
@@ -22,41 +22,33 @@
           <a class="item">
             <div class="item item-avatar">
               <img ng-src="{{img}}">
-              <div style="margin-top: 8px;color: #33cd5f">{{myInfo.personName}}</div>
+              <div style="margin-top: 8px;color: #33cd5f">{{myInfoList.personName}}</div>
             </div>
           </a>
           <a class="item">
-            <div style="font-weight: bold;">帐号:</div>
-            {{partyId}}
-          </a>
-          <a class="item">
             <div style="font-weight: bold;">电话:</div>
-            {{userLoginId}}
+            {{myInfoList.contactNumber}}
           </a>
           <a class="item">
             <div style="font-weight: bold;">邮箱:</div>
-            {{myInfo.contactNumber}}
           </a>
           <a class="item" menu-close ui-sref="app.contactlist">
             <div style="font-weight: bold;">联系人</div>
-            {{myInfo.contactNumber}}
           </a>
           <a class="item" menu-close ui-sref="app.activityHome">
             <div style="font-weight: bold;">我的活动</div>
-            {{myInfo.contactNumber}}
           </a>
           <a class="item" menu-close ui-sref="login">
             <div style="font-weight: bold;">用户登陆</div>
           </a>
+          <a class="item" menu-close ng-click="getActivityCode()">
+            <div style="font-weight: bold;">扫码二维码</div>
+          </a>
+          <a class="item" menu-close ng-click="loginOut()">
+            <div style="font-weight: bold;">退出登陆</div>
+          </a>
         </ion-item>
       </ion-list>
     </ion-content>
-    <div class="bar bar-footer " style="margin-left: -6px;" ng-controller="AppCtrl">
-      <div class="tab-nav tabs globalColor" >
-        <div  style="float:right">
-          <button class="button  globalColor" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="loginOut()" >退出</button>
-        </div>
-      </div>
-    </div>
   </ion-side-menu>
 </ion-side-menus>

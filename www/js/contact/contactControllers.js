@@ -1,5 +1,53 @@
 angular.module('contact.controllers', [])
 
+  //关于我的个人信息******************************************************************************************************
+  .controller('myInfo',function ($scope,Contact,$state,$cordovaBarcodeScanner,ActivityServer,$ionicModal) {
+    //准备参数
+    $scope.tarjeta=localStorage.getItem("tarjeta");
+    $scope.partyId=localStorage.getItem("partyId");
+    //查询我的个人信息
+    Contact.queryPersonInfo($scope.tarjeta,function (data) {
+      $scope.myInfoList=data
+    });
+    //退出
+    $scope.loginOut=function () {
+      localStorage.removeItem('tarjeta');
+      $state.go("login")
+    };
+
+    //扫描二位码
+    $scope.getActivityCode=function () {
+      document.addEventListener("deviceready", function () {
+
+        $cordovaBarcodeScanner
+          .scan()
+          .then(function(barcodeData) {
+            $scope.NickName.show();
+            $scope.isLogin = false;
+            $scope.addPersonInfo = function () {
+              alert("添加用户本次活动的昵称");
+              ActivityServer.createNickName($scope.tarjeta, barcodeData.text, $scope.partyId, $scope.loginData.nickName);
+              $scope.NickName.hide();
+              $state.go("app.activityDetails",{"activityId":barcodeData.text});
+            };
+            // Success! Barcode data is here
+          }, function(error) {
+            // An error occurred
+          });
+      }, false);
+    };
+
+    //参与扫描到的活动中的昵称
+    $scope.loginData = {};
+    $ionicModal.fromTemplateUrl('templates/activity/activityNickName.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function (NickName) {
+      $scope.NickName = NickName;
+    });
+
+  })
+
   //联系人***************************************************************************************************************
   .controller('ContactlistCtrl', function ($scope, Contact, $location, $rootScope) {
     //获得全局数据

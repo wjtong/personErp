@@ -111,10 +111,10 @@ angular.module('contact.services', [])
         });
       },
       //查询联系人的个人信息
-      getContactInfo: function (partyId, cb) {
+      queryPersonInfo: function (tarjeta, cb) {
         $.ajax({
-          url: $rootScope.interfaceUrl + "findContactInfo",
-          data: {partyId: partyId},
+          url: $rootScope.activityInterfaceUrl + "queryPersonInfo",
+          data: {tarjeta: tarjeta},
           async: false,
           type: 'POST',
           success: function (result) {

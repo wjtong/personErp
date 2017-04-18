@@ -364,6 +364,30 @@ angular.module('activity.services', [])
           }
         });
       },
+      //查询照片墙图片
+      queryMyEventContents: function (tarjeta,workEffortId,contentTypeId,viewSize,cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "queryMyEventContents",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+            contentTypeId:contentTypeId,
+            viewSize:viewSize,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.contentsList != null) {
+              if ($.type(cb) === 'function') {
+                cb(result);
+              }
+            }
+          }
+        });
+      },
       //删除照片墙图片
       deletePictureWall: function (tarjeta,workEffortId,contentId,cb) {
         $.ajax({
@@ -371,6 +395,29 @@ angular.module('activity.services', [])
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
+            contentId:contentId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //照片墙图片 赞踩
+      praisePicture: function (tarjeta,partyContentTypeId,contentId,cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "praisePicture",
+          data: {
+            tarjeta: tarjeta,
+            partyContentTypeId: partyContentTypeId,
             contentId:contentId,
           },
           async: false,
