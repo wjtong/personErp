@@ -8,12 +8,14 @@
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
     <div class="list card" ng-repeat="matter in active" id="activityListInfo">
       <div class="item" >
-        <img ng-src="{{matter.objectInfo}}" ng-click="activityDetails(matter.workEffortId)">
-        <div class="info">
-          <p><b>{{matter.workEffortName}}</b></p>
-          <p>开始:{{matter.actualStartDate| date:'yyyy-MM-dd HH:mm' }}</p>
-          <p>结束:{{matter.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm' }}</p>
-          <p>{{matter.locationDesc}}</p>
+        <div ng-click="activityDetails(matter.workEffortId)">
+          <img ng-src="{{matter.objectInfo}}" >
+          <div class="info">
+            <p><b>{{matter.workEffortName}}</b></p>
+            <p>开始:{{matter.actualStartDate| date:'yyyy-MM-dd HH:mm' }}</p>
+            <p>结束:{{matter.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm' }}</p>
+            <p>{{matter.locationDesc}}</p>
+          </div>
         </div>
         <div class="item tabs">
           <p class="tab-item">参与：{{matter.joinsCount}}位</p>

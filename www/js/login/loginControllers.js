@@ -27,6 +27,7 @@ angular.module('login.controllers', [])
             localStorage.removeItem("partyId");
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+            $scope.loginData.captcha=''
             $state.go("app.activityHome");
           } else {
             alert("用户不存在！！！！！！！！！！！！！！！！！！！")
@@ -154,7 +155,11 @@ angular.module('login.controllers', [])
   })
 
   //注册*****************************************************************************************************************
-  .controller('RegisterCtrl', function ($scope, $state, Login) {
+  .controller('RegisterCtrl', function ($scope, $state, ActivityServer) {
+    //参数准备
+    $scope.tarjeta=localStorage.getItem('tarjeta');
+    $scope.partyId=localStorage.getItem('partyId');
+
     //取消注册
     $scope.goLogin = function () {
       $state.go("login");
@@ -171,7 +176,7 @@ angular.module('login.controllers', [])
       } else if ($scope.loginData.nickname == null) {
         alert("请输入用户姓名!!!")
       } else {
-        Login.userAppRegister($scope.loginData.telephone, $scope.loginData.captcha, $scope.loginData.nickname, function (data) {
+        ActivityServer.userAppRegister(tarjeta, $scope.workEffortId,$scope.partyId,$scope.loginData.nickname,$scope.loginData.telephone,$scope.loginData.captcha, function (data) {
           if (data.resultMsg === '成功') {
             $state.go("login");
           } else {

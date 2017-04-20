@@ -13,7 +13,7 @@
   <ion-content id="content" has-bouncing="true" class="has-header has-footer"
                delegate-handle="userMessageScroll" keyboardshow>
     <div ng-repeat="message in discussList | orderBy:'date':false" class="message-wrapper">
-      <div ng-if="message.name !== nickName">
+      <div ng-if="message.name !== firstName">
         <img ng-click="" class="profile-pic left"
              ng-src="{{contactImg}}" onerror="" />
         <div class="chat-bubble left">
@@ -22,13 +22,13 @@
           </div>
           <div class="message-detail">
             <!--<span ng-click=""class="bold">{{message.name}}</span>,-->
-            <span am-time-ago="message.date"></span>
+            <span >{{message.time|date:'yyyy-MM-dd HH:mm'}}</span>
           </div>
         </div>
         <div style="position: absolute;bottom: -20%;left: 4%;color:#74BA11;">{{message.name}}</div>
       </div>
-
-      <div ng-if="message.name == nickName" >
+      <div style="background-color: red">{{date}}</div>
+      <div ng-if="message.name == firstName" >
         <img ng-click="" class="profile-pic right"
              ng-src="{{contactImg}}" onerror=""/>
         <div class="chat-bubble right">
@@ -36,8 +36,7 @@
             {{message.text}}
           </div>
           <div class="message-detail" style="text-align: right;">
-            <!--<span ng-click=""class="bold">{{message.name}}</span>,-->
-            <span am-time-ago="message.date"></span>
+            <span >{{message.time|date:'yyyy-MM-dd HH:mm'}}</span>
           </div>
         </div>
         <div style="position: absolute;bottom: -20%;right: 4%;color:#74BA11;">{{message.name}}</div>
@@ -54,7 +53,7 @@
         <textarea ng-model="input.message"   placeholder="请输入你想要发送的信息。。。" required minlength="1" maxlength="1500" style="width: 100%" ></textarea>
       </label>
       <button class="button button-icon icon ion-android-send" type="submit"
-              ng-disabled="!input.message || input.message === ''">
+              ng-disabled="!input.message||input.message==''">
       </button>
     </ion-footer-bar>
   </form>

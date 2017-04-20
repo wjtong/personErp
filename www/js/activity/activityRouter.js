@@ -42,7 +42,7 @@ angular.module('starter')
       .state('app.slide', {
         url: '/slide/:activityId/:index',
         disableBack: true,
-        cache: true,
+        cache: false,
         views: {
           'menuContent': {
             templateUrl: 'templates/activity/activitySlide.html',

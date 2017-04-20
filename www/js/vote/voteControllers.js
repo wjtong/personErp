@@ -81,12 +81,11 @@ angular.module('vote.controllers', [])
         }else{
           voteArr.push({
             'question':partyResponceAnswers[i].question,
-            'nickName':partyResponceAnswers[i].nickName
+            'firstName':partyResponceAnswers[i].firstName
           });
         }
         //判断用户是否已经投票，不允许重复投票
         var partyId=localStorage.getItem("partyId");
-        alert(partyId);
         if(partyResponceAnswers[i].partyId==partyId){
           $(function () {
             $('#signUp').attr("disabled",true);

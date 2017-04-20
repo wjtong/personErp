@@ -22,30 +22,13 @@ angular.module('contact.controllers', [])
         $cordovaBarcodeScanner
           .scan()
           .then(function(barcodeData) {
-            $scope.NickName.show();
-            $scope.isLogin = false;
-            $scope.addPersonInfo = function () {
-              alert("添加用户本次活动的昵称");
-              ActivityServer.createNickName($scope.tarjeta, barcodeData.text, $scope.partyId, $scope.loginData.nickName);
-              $scope.NickName.hide();
               $state.go("app.activityDetails",{"activityId":barcodeData.text});
-            };
             // Success! Barcode data is here
           }, function(error) {
             // An error occurred
           });
       }, false);
     };
-
-    //参与扫描到的活动中的昵称
-    $scope.loginData = {};
-    $ionicModal.fromTemplateUrl('templates/activity/activityNickName.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function (NickName) {
-      $scope.NickName = NickName;
-    });
-
   })
 
   //联系人***************************************************************************************************************
