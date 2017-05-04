@@ -27,8 +27,8 @@ angular.module('login.controllers', [])
             localStorage.removeItem("partyId");
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
-            $scope.loginData.captcha=''
-            $state.go("app.activityHome");
+            $scope.loginData.captcha='';
+            $state.go("tab.dash");
           } else {
             alert("用户不存在！！！！！！！！！！！！！！！！！！！")
           }
@@ -36,14 +36,28 @@ angular.module('login.controllers', [])
       }
     };
 
+    //微信登陆
+    $scope.wachatLogin=function () {
+      var scope = "snsapi_userinfo";
+      Wechat.auth(scope, function (response) {
+        // you may use response.code to get the access token.
+        alert(JSON.stringify(response));
+      }, function (reason) {
+        alert("Failed: " + reason);
+      });
+    };
+    if($scope.wachatCode!=null){
+      alert('123')
+    }
+
     //返回首页
     $scope.goHome = function () {
-      $state.go("app.activityHome");
+      $state.go("tab.dash");
     };
     //设置全局的变量
-    $scope.activityImg = ThemeImage.getRangeImg();
-    localStorage.setItem("activityImg", $scope.activityImg.img);//全局活动图片
-    localStorage.setItem("contactImg", $scope.activityImg.img2);//全局人员图片
+    // $scope.activityImg = ThemeImage.getRangeImg();
+    // localStorage.setItem("activityImg", $scope.activityImg.img);//全局活动图片
+    // localStorage.setItem("contactImg", $scope.activityImg.img2);//全局人员图片
     //用户注册**************************
     $scope.goRegister = function () {
       $state.go("register");
@@ -82,10 +96,10 @@ angular.module('login.controllers', [])
           } else {
             //倒计时
             $scope.n = 60;
-            $scope.codeBtn = "获取中 " + $scope.n + " 秒";
+            $scope.codeBtn =  $scope.n + " 秒";
             var time = $interval(function () {
               $scope.n--;
-              $scope.codeBtn = "获取中 " + $scope.n + " 秒";
+              $scope.codeBtn = $scope.n + " 秒";
               if ($scope.n == 0) {
                 $interval.cancel(time); // 取消定时任务
                 $scope.codeBtn = '获取验证码';
@@ -147,8 +161,8 @@ angular.module('login.controllers', [])
             $scope.msg = "请输入您的手机号码！！"
           }
         } else {
-          alert("用户已存在！！！！！！！！！！！！")
-          $state.go('login')
+          alert("用户已存在！！！！！！！！！！！！");
+          //$state.go('login')
         }
       })
     };

@@ -4,141 +4,86 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {
-            "framework": {
-                "parents": {
-                    "ImageIO.framework": [
-                        {
-                            "xml": true,
-                            "count": 1
-                        }
-                    ],
-                    "CoreLocation.framework": [
-                        {
-                            "xml": false,
-                            "count": 1
-                        }
-                    ],
-                    "CoreGraphics.framework": [
-                        {
-                            "xml": false,
-                            "count": 3
-                        }
-                    ],
-                    "AssetsLibrary.framework": [
-                        {
-                            "xml": false,
-                            "count": 1
-                        }
-                    ],
-                    "MobileCoreServices.framework": [
-                        {
-                            "xml": false,
-                            "count": 1
-                        }
-                    ],
-                    "AVFoundation.framework": [
-                        {
-                            "xml": false,
-                            "count": 1
-                        }
-                    ]
-                }
-            },
-            "config.xml": {
-                "parents": {
-                    "/*": [
-                        {
-                            "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
-                            "count": 1
-                        }
-                    ]
-                }
-            },
-            "*-Info.plist": {
-                "parents": {
-                    "NSCameraUsageDescription": [
-                        {
-                            "xml": "<string> </string>",
-                            "count": 1
-                        }
-                    ],
-                    "NSPhotoLibraryUsageDescription": [
-                        {
-                            "xml": "<string> </string>",
-                            "count": 1
-                        }
-                    ],
-                    "NSLocationWhenInUseUsageDescription": [
-                        {
-                            "xml": "<string />",
-                            "count": 1
-                        }
-                    ]
-                }
-            }
-        }
+        "files": {}
     },
     "installed_plugins": {
         "cordova-plugin-camera": {
             "CAMERA_USAGE_DESCRIPTION": " ",
             "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
-            "PACKAGE_NAME": "com.ionicframework.personerp542503"
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.personerp542503"
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "cordova-plugin-contacts": {
+            "CONTACTS_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.personerp542503"
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "cordova-plugin-geolocation": {
+            "GEOLOCATION_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "cordova-plugin-image-picker": {
+            "PHOTO_LIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.personerp542503"
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.personerp542503"
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.personerp542503"
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
         },
         "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "org.pbernasconi.progressindicator": {
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "phonegap-plugin-barcodescanner": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "cordova-plugin-screen-orientation": {
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "cordova-plugin-wechat": {
+            "WECHATAPPID": "wx25118b98db9eb608",
+            "PACKAGE_NAME": "com.ionicframework.personerp542503"
+        },
+        "ionic-plugin-deeplinks": {
+            "URL_SCHEME": "bufenli",
+            "DEEPLINK_SCHEME": "http",
+            "DEEPLINK_HOST": "ionic-hats.com",
             "PACKAGE_NAME": "com.ionicframework.personerp542503"
         }
     },
     "dependent_plugins": {
+        "cordova-plugin-actionsheet": {
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.ionicframework.personerp542503"
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ionicframework.personerptab841880"
         }
     }
 }

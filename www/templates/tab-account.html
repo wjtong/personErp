@@ -1,0 +1,29 @@
+<ion-view view-title="我的信息">
+  <ion-nav-bar class="globalColor">
+  </ion-nav-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <a class="item">
+          <div class="item item-avatar">
+            <img id="myImage" ng-src="{{myInfoList.headPortrait}}" ng-click="uploaPartyContent()">
+            <div style="margin-top: 8px;color: #33cd5f">{{myInfoList.personName}}</div>
+          </div>
+        </a>
+        <a class="item">
+          <div style="font-weight: bold;">电话:</div>
+          {{myInfoList.contactNumber}}
+        </a>
+        <a class="item">
+          <div style="font-weight: bold;">邮箱:</div>
+        </a>
+        <a class="item" menu-close ui-sref="login">
+          <div style="font-weight: bold;">用户登陆</div>
+        </a>
+        <a class="item" menu-close ng-click="loginOut()">
+          <div style="font-weight: bold;">退出登陆</div>
+        </a>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

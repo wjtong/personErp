@@ -1,18 +1,11 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope,$state) {
-  $scope.partyId = localStorage.getItem("partyId");
-  $scope.userLoginId = localStorage.getItem("userLoginId");
-  $scope.img = localStorage.getItem("contactImg");
-  $scope.loginOut=function () {
-    alert("退出登陆杀死TOKEN");
-    localStorage.removeItem("tarjeta");
-    $state.go("app.activityHome")
-  }
-})
+.controller('DashCtrl', function($scope) {})
 
-//主页******************************************************************************************************************
-  .controller('HomeCtrl', function() {
 
-  })
-;
+
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+  $scope.chat = Chats.get($stateParams.chatId);
+});
+
+

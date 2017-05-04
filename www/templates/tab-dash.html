@@ -1,0 +1,39 @@
+<ion-view hide-nav-bar="false">
+  <ion-nav-bar class="globalColor"></ion-nav-bar>
+  <ion-header-bar class="item-input-inset globalColor" >
+    <label class="item-input-wrapper" style=" width:100px; height:25px;margin: 0 25px; color:#666666; line-height:25px; border:1px #000000 solid; border-radius:18px;background-color: #FFDA44">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input type="search" placeholder="搜索活动名称或地点" ng-model="searchContent">
+    </label>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div class="row header" style="background-color: #FFDA44;text-align: center;color: black;height: 30%">
+      <div class="col col-33" ng-repeat="picture in topImgList" >
+        <img class="img-responsive" ng-src="{{picture.img}}" style="width: 60%">
+        <p>{{picture.name}}</p>
+      </div>
+    </div>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <div class="list" ng-repeat="item in active">
+      <a href="#/tab/activityDetails/{{item.workEffortId}}"
+         class="item item-thumbnail-left homeImgList">
+        <img ng-src="{{ item.objectInfo }}"  style="max-height:130px;max-width: 160px">
+        <h2>{{ item.workEffortName }}</h2>
+        <p><i class="icon ion-ios-clock-outline"></i>{{ item.actualStartDate| date:'yyyy-MM-dd HH:mm' }}</p>
+        <p>&nbsp;&nbsp;&nbsp;{{ item.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm' }}</p>
+        <p><i class="icon ion-ios-location-outline"></i>{{ item.locationDesc }}</p>
+      </a>
+      <div style="margin: 3% 5% 0 5%">
+        <p style="float: left;"><button class="button button-dark button-small" style="border-radius:15px;letter-spacing:5px;font-size: 15px">{{item.joinsCount}}人参与</button></p>
+        <p style="float: right"><button class="button button-outline button-stable button-small" style="border-radius:15px;letter-spacing:8px;font-size: 18px">距离开始{{item.exDay}}</button></p>
+        <br>
+      </div>
+    </div>
+  </ion-content>
+  <div style="height:100%;position: relative;" ng-if="activityHomeNull">
+    <img ng-src="../www/img/tabs/矢量智能对象@2x.png" height="225" width="305" style="margin: 40% 10%"/>
+    <p class="tipTextAct" id="box">您还没有活动是否要新建？</p>
+    <p class="history" id="history" ng-click="getHistory()">找回历史活动</p>
+    <!--<p class="createActivity" id="createActivity" ng-click="newActivity()">创建活动</p>-->
+  </div>
+</ion-view>

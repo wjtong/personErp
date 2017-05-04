@@ -192,19 +192,20 @@ a.autolinker {
   color: #545454;
   margin-top: 50px;
 }
-.item > .rj-sm-red-icon {
+ .rj-sm-red-icon {
   position: absolute;
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 0.8rem;
+  height: 0.8rem;
   border-radius: 50%;
   background-color: #FF0000;
   line-height: 18px;
   text-align: center;
-  top: 5px;
-  left: 40px; }
+  top: -10%;
+  right: -10%;
+ }
 
-.item > .rj-sm-red-icon > p {
+.rj-sm-red-icon > p {
   color: #FFF;
   font-size: 12px; }
 
@@ -381,6 +382,10 @@ a.autolinker {
 .blue {
   background-color: blue;
 }
+.tabs {
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
 
 .yellow {
   background-color: yellow;
@@ -399,62 +404,163 @@ a.autolinker {
   display: inline-block;
   font-size: 14px;
 }
+/*tabs图标*********************************************************/
+.tab-item i.icon {
+  margin-top: 1px;
+}
+.bar-home-on {
+  background: url(../img/tabs/首页_选中.png) no-repeat center top;
+  background-size:40%,40%;
+  padding: 5%;
+}
+
+.bar-home-off {
+  background: url(../img/tabs/首页.png) no-repeat center top;
+  background-size:40%,40%;
+  padding: 5%;
+}
+.bar-contact-on {
+  background: url(../img/tabs/联系人_选中.png) no-repeat center top;
+  background-size:40%,40%;
+  padding: 5%;
+}
+
+.bar-contact-off {
+  background: url(../img/tabs/联系人.png) no-repeat center top;
+  background-size:40%,40%;
+  padding: 5%;
+}
+.bar-my-on {
+  background: url(../img/tabs/我_选中.png) no-repeat center top;
+  background-size:40%,40%;
+  padding: 5%;
+}
+
+.bar-my-off {
+  background: url(../img/tabs/我.png) no-repeat center top;
+  background-size:40%,40%;
+  padding: 5%;
+}
+.bar-message-on {
+  background: url(../img/tabs/消息_选中.png) no-repeat center top;
+  background-size:40%,40%;
+  padding: 5%;
+}
+
+.bar-message-off {
+  background: url(../img/tabs/消息.png) no-repeat center top;
+  background-size:40%,40%;
+  padding: 5%;
+}
+.bar-newActivity-on{
+  position: fixed;
+  bottom:0;
+  z-index: 999;
+  color: red;
+  right: 40%;
+  width: 20%;
+  height: 100%;
+  background: url(../img/tabs/创建边.png) no-repeat center top;
+  background-size:60%,60%;
+}
 
 /*全局样式设置*/
 .globalColor {
-  background-color: rgb(57,184,152);
-  color: white;
+  background-color: #FFDA44;
+  color: black;
 }
 .globalColorButton{
-  color: white;
+  color: black;
 }
 
+/*登陆＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
+#login .inputLogin{
+   border:1px #9e9e9e solid;
+   border-radius:40px;
+   width: 80%;
+   margin:17px auto;
+   text-indent:25px
+ }
+#login .buttonLogin{
+  border:1px #9e9e9e solid;
+  border-radius:40px;
+  width: 80%;
+  height: 45px;
+  background-color: #FFDA44;
+  margin: 30px 10% 0 10%;
+  font-size: 20px;
+  color:white;
+}
+#wecat .buttonLogin{
+  border:1px #1AAD19 solid;
+  border-radius:40px;
+  width: 80%;
+  height: 45px;
+  background-color: white;
+  margin:20% 10% 15% 10%;
+  font-size: 20px;
+  color:#1AAD19;
+}
 /*活动首页＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
 /*没有活动时的提示文字*/
  .tipTextAct {
   font-size: 1.4rem;
-  color: rgb(57,184,152);
+  color: #9e9e9e;
   text-align: center;
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 15%;
 }
  .history {
   position: absolute;
-  top: 85%;
+  top: 73%;
   left: 37%;
+  font-size: 1.0rem;
+  color: #9e9e9e;
+}
+.createActivity {
+  position: absolute;
+  top: 77%;
+  left: 41%;
   font-size: 1.0rem;
   color: rgb(57,184,152);
 }
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0; /*初始状态 透明度为0*/
-  }
-  50% {
-    opacity: 0; /*中间状态 透明度为0*/
-  }
-  100% {
-    opacity: 1; /*结尾状态 透明度为1*/
-  }
+.homeImgList{
+  min-height:150px;
+  padding-left:180px
 }
-#box{
-  -webkit-animation-name: fadeIn; /*动画名称*/
-  -webkit-animation-duration: 3s; /*动画持续时间*/
-  -webkit-animation-iteration-count: 1; /*动画次数*/
-  -webkit-animation-delay: 0s; /*延迟时间*/
+.cleanFloat{
+  clear: both;
 }
-#newActivity{
-  -webkit-animation-name: fadeIn; /*动画名称*/
-  -webkit-animation-duration: 6s; /*动画持续时间*/
-  -webkit-animation-iteration-count: 1; /*动画次数*/
-  -webkit-animation-delay: 0s; /*延迟时间*/
-}
-#history{
-  -webkit-animation-name: fadeIn; /*动画名称*/
-  -webkit-animation-duration: 6s; /*动画持续时间*/
-  -webkit-animation-iteration-count: 1; /*动画次数*/
-  -webkit-animation-delay: 0s; /*延迟时间*/
-}
+/*@-webkit-keyframes fadeIn {*/
+  /*0% {*/
+    /*opacity: 0; !*初始状态 透明度为0*!*/
+  /*}*/
+  /*50% {*/
+    /*opacity: 0; !*中间状态 透明度为0*!*/
+  /*}*/
+  /*100% {*/
+    /*opacity: 1; !*结尾状态 透明度为1*!*/
+  /*}*/
+/*}*/
+/*#box{*/
+  /*-webkit-animation-name: fadeIn; !*动画名称*!*/
+  /*-webkit-animation-duration: 3s; !*动画持续时间*!*/
+  /*-webkit-animation-iteration-count: 1; !*动画次数*!*/
+  /*-webkit-animation-delay: 0s; !*延迟时间*!*/
+/*}*/
+/*#newActivity{*/
+  /*-webkit-animation-name: fadeIn; !*动画名称*!*/
+  /*-webkit-animation-duration: 6s; !*动画持续时间*!*/
+  /*-webkit-animation-iteration-count: 1; !*动画次数*!*/
+  /*-webkit-animation-delay: 0s; !*延迟时间*!*/
+/*}*/
+/*#history{*/
+  /*-webkit-animation-name: fadeIn; !*动画名称*!*/
+  /*-webkit-animation-duration: 6s; !*动画持续时间*!*/
+  /*-webkit-animation-iteration-count: 1; !*动画次数*!*/
+  /*-webkit-animation-delay: 0s; !*延迟时间*!*/
+/*}*/
 #activityListInfo .item{
   padding: 0;
   margin-top: 2%;
@@ -473,9 +579,9 @@ a.autolinker {
   height:220px
 }
 
-/*活动分享方式＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
+/*活动邀请方式＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
 #share{
-  margin-top: 50%;
+  margin-top: 20%;
 }
 #share h3{
   text-align: center;
@@ -486,6 +592,62 @@ a.autolinker {
 #share p{
   margin-top: 12%;
   white-space:normal
+}
+
+/*活动账单表格样式*/
+/* ---- Table ---- */
+
+table {
+  border-collapse:collapse;
+  margin-bottom:15px;
+  width:100%;
+}
+
+caption {
+  text-align:left;
+  font-size:15px;
+  padding-bottom:10px;
+}
+
+table td,
+table th {
+  padding:5px;
+  border:1px solid #fff;
+  border-width:0 1px 1px 0;
+}
+
+thead th {
+  background:#91c5d4;
+}
+
+thead th[colspan],
+thead th[rowspan] {
+  background:#66a9bd;
+}
+
+tbody th,
+tfoot th {
+  text-align:left;
+  background:#91c5d4;
+}
+
+tbody td,
+tfoot td {
+  text-align:center;
+  background:#d5eaf0;
+}
+
+tfoot th {
+  background:#b0cc7f;
+}
+
+tfoot td {
+  background:#d7e1c5;
+  font-weight:bold;
+}
+
+tbody tr.odd td {
+  background:#bcd9e1;
 }
 
 
@@ -515,7 +677,7 @@ a.autolinker {
     font-size: 1.0rem;
   }
   #share{
-    margin-top: 100%;
+    margin-top: 80%;
   }
 }
 
@@ -526,6 +688,9 @@ a.autolinker {
   }
   .history {
     font-size: 0.8rem;
+  }
+  #share{
+    margin-top: 65%;
   }
   #share p{
     font-size: 12px;

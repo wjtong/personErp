@@ -92,10 +92,37 @@ angular.module('contact.services', [])
     ];
     return {
       //获得联系人(联动)
-      getAll: function (partyId, cb) {
+      queryAllActivityRelationPersons: function (partyId, cb) {
         $.ajax({
-          url: $rootScope.interfaceUrl + "findContacts",
+          url: $rootScope.activityInterfaceUrl + "queryAllActivityRelationPersons",
           data: {partyId: partyId},
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //上传用户头像
+      uploadPartyContent: function (dataCategoryId,contentTypeId, statusId,isPublic,partyContentTypeId,partyId,uploadedFile,cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "uploadPartyContent",
+          data: {
+            dataCategoryId: dataCategoryId,
+            contentTypeId: contentTypeId,
+            statusId: statusId,
+            isPublic: isPublic,
+            partyContentTypeId: partyContentTypeId,
+            partyId: partyId,
+            uploadedFile: uploadedFile,
+          },
           async: false,
           type: 'POST',
           success: function (result) {

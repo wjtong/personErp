@@ -1,8 +1,13 @@
-<ion-view view-title="编辑">
+<ion-view title="创建活动">
   <ion-nav-bar class="globalColor">
-    <ion-nav-buttons>
-      <button class="button button-clear" ng-click="$ionicGoBack()">
-        <i class="icon ion-android-arrow-back globalColorButton"></i>
+    <!--<ion-nav-buttons>-->
+      <!--<button class="button button-clear" ng-click="goActivityHome()">-->
+        <!--<i class="icon ion-android-arrow-back globalColorButton"></i>-->
+      <!--</button>-->
+   <!--</ion-nav-buttons>-->
+    <ion-nav-buttons side="right">
+      <button class="button button-clear " ng-click="createNewActivity()">
+        <i class="icon  globalColorButton"> 创建</i>
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
@@ -37,11 +42,11 @@
       </div>
     </div>
   </ion-content>
-  <div class="bar bar-footer " style="margin-left: -6px;">
-    <div class="tab-nav tabs globalColor" >
-      <div  style="float:right">
-        <button id="newClick" class="button  globalColor" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px" ng-click="createNewActivity()">{{ActivityText}}</button>
-      </div>
-    </div>
-  </div>
+  <!--<div class="bar bar-footer " style="margin-left: -6px;">-->
+    <!--<div class="tab-nav tabs globalColor" >-->
+      <!--<div  style="float:right">-->
+        <!--<button   class="button  globalColor" style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px;color: white" ng-click="createNewActivity()">创建活动</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 </ion-view>

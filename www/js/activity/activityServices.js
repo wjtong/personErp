@@ -197,6 +197,28 @@ angular.module('activity.services', [])
           }
         });
       },
+      //删除活动消息通知
+      deleteSystemInfoNote: function (tarjeta, noteId, cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "removeSysInfo",
+          data: {
+            tarjeta: tarjeta,
+            noteId: noteId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //组织者信息填写
       userAppRegister: function (tarjeta, workEffortId,partyId,nickName,tel,captcha,cb) {
         $.ajax({
@@ -434,6 +456,27 @@ angular.module('activity.services', [])
           }
         });
       },
+      //查询消息列表
+      querySystemInfoList: function (tarjeta,cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "querySystemInfoList",
+          data: {
+            tarjeta: tarjeta,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //选择活动地址
       selectAddress: function (query, region, city_limit, output, ak) {
         var d = $q.defer();
@@ -478,6 +521,28 @@ angular.module('activity.services', [])
         };
         return promise;
       },
+      //获取微信用户信息
+      wachatInfo: function (appid, secret, code, grant_type) {
+        var d = $q.defer();
+        var promise = d.promise;
+        $http.jsonp("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + secret + "&code=" + code + "&grant_type=" + grant_type)
+          .success(function (data) {
+            d.resolve(data);
+          })
+          .error(function (error) {
+            d.reject(error);
+          });
+
+        promise.success = function (fn) {
+          promise.then(fn);
+          return promise;
+        };
+        promise.error = function (fn) {
+          promise.then(null, fn);
+          return promise;
+        };
+        return promise;
+      },
       //活动邀请好友发送短信
       sendInvitation: function (tarjeta, workEffortId, partyId, contact, cb) {
         $.ajax({
@@ -502,7 +567,30 @@ angular.module('activity.services', [])
           }
         });
       },
-      //活动主题图片类型列表
+      //活动主题图片
+      createPeSystemInfoAboutActivity: function (partyIdTo,moreInfoUrl,noteInfo,cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "createPeSystemInfoAboutActivity",
+          data:{
+            partyIdTo:partyIdTo,
+            moreInfoUrl:moreInfoUrl,
+            noteInfo:noteInfo
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //活动主题图片
       queryContentTypeList: function (cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "queryContentTypeList",
@@ -558,16 +646,30 @@ angular.module('activity.services', [])
     ];
     var Img =
     {id: 'Pic_10080', img: 'img/resources/paobu3.jpeg', img2: 'img/team/img1-sm.jpg'};
+
+    var topImg = [
+      {id: 'Pic_10027', img: 'img/tabs/扫一扫@3x.png', name: '扫一扫'},
+      {id:'Pic_10028',img:'img/tabs/拍照@3x.png',name:'拍照'},
+      {id: 'Pic_10029', img: 'img/tabs/随笔记@3x.png', name: '随笔记'}
+    ];
+
     return {
 
       getRangeImg: function () {
         return Img;
+      },
+      getTopImg: function () {
+        return topImg;
       },
       getShareImg: function () {
         return shareImg;
       },
     }
   });
+
+
+
+
 
 
 

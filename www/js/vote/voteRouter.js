@@ -4,33 +4,33 @@ angular.module('starter')
 .config(function ($stateProvider) {
   $stateProvider
     //相关投票列表
-    .state('app.voteList', {
+    .state('tab.voteList', {
       url: '/voteList/:workEffortId',
       cache :false,
       params: {'workEffortId': null},
       views: {
-        'menuContent': {
+        'tab-dash': {
           templateUrl: 'templates/vote/voteList.html',
           controller: 'voteListCtrl'
         }
       }
     })
     //创建投票
-    .state('app.goEditVote', {
+    .state('tab.goEditVote', {
       url: '/goEditVote/:workEffortId',
       cache :false,
       params: {
         'workEffortId': null
       },
       views: {
-        'menuContent': {
+        'tab-dash': {
           templateUrl: 'templates/vote/editVote.html',
           controller: 'editVoteCtrl'
         }
       }
     })
     //投票
-    .state('app.goCastVote', {
+    .state('tab.goCastVote', {
       url: '/goCastVote',
       params: {
         'surveyId': null,
@@ -39,7 +39,7 @@ angular.module('starter')
       },
       cache :false,
       views: {
-        'menuContent': {
+        'tab-dash': {
           templateUrl: 'templates/vote/castVote.html',
           controller: 'castVoteCtrl'
         }

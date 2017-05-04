@@ -1,12 +1,12 @@
-<ion-view view-title="主题">
+<ion-modal-view ng-controller="ThemeImage">
   <ion-nav-bar class="globalColor">
     <ion-nav-buttons>
-      <button class="button button-clear" ng-click="$ionicGoBack()">
+      <button class="button button-clear" ng-click="closeThemeModal()">
         <i class="icon ion-android-arrow-back globalColorButton"></i>
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content>
+  <ion-content class="has-header">
     <div class="row">
       <ul class="slide-tab">
         <li ng-class="slideIndex == 0 ? 'current':''"><a  ng-click="activeSlide(0)">{{contectTypeList[0].description}}</a></li>
@@ -57,4 +57,4 @@
     </ion-slide-box>
   </ion-content>
 
-</ion-view>
+</ion-modal-view>

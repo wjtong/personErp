@@ -28,14 +28,13 @@ angular.module('vote.controllers', [])
         }
         questions += question+"&";
       }
-
       voteService.createSurveyAndQuestions($scope.workEffortId, voteTitle, questions).success(function (data) {
         var alertPopup = $ionicPopup.alert({
           title: '成功',
           template: "创建投票项成功！"
         });
         alertPopup.then(function(res) {
-          $state.go("app.voteList", {"workEffortId": $scope.workEffortId});
+          $state.go("tab.voteList", {"workEffortId": $scope.workEffortId});
         });
       }).error(function (data) {
         var alertPopup = $ionicPopup.alert({
@@ -110,7 +109,7 @@ angular.module('vote.controllers', [])
           template: "投票成功！"
         });
         alertPopup.then(function(res) {
-          $state.go("app.voteList", {"workEffortId": $scope.workEffortId});
+          $state.go("tab.voteList", {"workEffortId": $scope.workEffortId});
         });
       }).error(function (data) {
         var alertPopup = $ionicPopup.alert({
@@ -130,8 +129,6 @@ angular.module('vote.controllers', [])
  * */
   .controller('voteListCtrl', function($scope, $state, $ionicPopup, $stateParams, voteService) {
     $scope.workEffortId = $stateParams.workEffortId; // 活动ID
-
-    // alert($scope.workEffortId);
     voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
       console.log(data.resultMap.activityPollQuestionsTitle);
       $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle; // 投票列表

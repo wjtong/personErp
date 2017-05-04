@@ -1,35 +1,49 @@
-<ion-view view-title="Login">
-  <div class="bar bar-header globalColor">
-    <button class="button button-clear" ng-click="goHome()">
-      <i class="icon ion-home" style="color: white">活动</i>
-    </button>
-    <button class="button button-clear" ng-click="goRegister()">
-      <i class="icon ion-compose" style="color: white">注册</i>
-    </button>
-  </div>
-  <ion-content style="background-image: url(../www/img/theme/login.jpeg);background-size: 100% 100%;">
-    <div class="content has-header" style="position: relative;z-index:0;">
-      <form ng-submit="doLogin()" style="opacity:0.8">
-        <div class="list" style="padding-top: 40%">
-          <h3  style="text-align: center;font-weight: normal;padding-bottom: 10%;color: white">用户登陆</h3>
-          <label class="item item-input">
-            <span class="input-label text-center">手机号码</span>
-            <input type="tel" ng-model="loginData.mobileNumber">
+<ion-view view-title="手机号找回">
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="goHome()">
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+    <!--<ion-nav-buttons side="right">-->
+      <!--<button class="button button-clear" ng-click="goRegister()">-->
+        <!--<i class="icon ion-compose" style="color: white">注册</i>-->
+      <!--</button>-->
+    <!--</ion-nav-buttons>-->
+  </ion-nav-bar>
+  <ion-content>
+    <div class="content has-header" style="position: relative;">
+      <form ng-submit="doLogin()" id="login">
+          <label>
+            <input type="tel" class="inputLogin" placeholder="     手机号码" ng-model="loginData.mobileNumber" >
           </label>
-          <label class="item item-input" >
-            <span class="input-label text-center">验证码</span>
-            <input type="tel" ng-model="loginData.captcha">
+          <label >
+            <input  type="tel" class="inputLogin" placeholder="     验证码" ng-model="loginData.captcha" >
           </label>
-          <label class="item" style="margin-bottom: 0">
-            <button class="button button-block globalColor" type="submit">登 录</button>
+          <label>
+            <input class="buttonLogin" type="submit" value="完成">
           </label>
-        </div>
       </form>
-      <div>
+      <div style="margin:10% 0;text-align: center">
+        <hr style="height:1px;border:none;border-top:1px solid #555555;width: 40%;display: inline-block;margin: 0" />
+        <span style="width: 2%;color: #B3B3B3">OR</span>
+        <hr style="height:1px;border:none;border-top:1px solid #555555;width: 40%;display: inline-block;margin: 0" />
+      </div>
+      <div style="text-align: center">
+        <img src="../www/img/tabs/形状-2@2x.png" height="60" width="60" ng-click="wachatLogin()"/></div>
+      </div>
+      <div id="wecat">
         <label>
-          <input type="button" ng-value="codeBtn" ng-controller="captcha" ng-click="getIdentifyCode(loginData.mobileNumber)" style="background-color:rgb(57,184,152);text-align: center;text-indent: 8px;z-index:3;position: absolute;top:65%;right: 5%;opacity:0.8">
+          <input class="buttonLogin" type="button" value="微信找回" ng-click="wachatLogin()">
         </label>
       </div>
-    </div>
+      <div style="position: absolute;top:21%;right: 15%;" >
+        <!--<label>-->
+          <!--<input type="button" ng-value="codeBtn" ng-controller="captcha" ng-click="getIdentifyCode(loginData.mobileNumber)" style="background-color:rgb(57,184,152);text-align: center;text-indent: 8px;z-index:3;position: absolute;top:54%;right: 5%;opacity:0.8">-->
+        <!--</label>-->
+        <button class="button button-clear button-dark" ng-controller="captcha" ng-click="getIdentifyCode(loginData.mobileNumber)">
+          {{codeBtn}}
+        </button>
+      </div>
   </ion-content>
 </ion-view>

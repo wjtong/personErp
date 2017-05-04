@@ -1,4 +1,4 @@
-<ion-view view-title="活动投票列表">
+<ion-view view-title="活动投票列表" hide-tabs="true">
   <ion-nav-bar class="globalColor">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
@@ -6,7 +6,7 @@
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <a class="button icon-left globalColor" ui-sref="app.goEditVote({workEffortId:{{workEffortId}}})">
+      <a class="button icon-left globalColor" ui-sref="tab.goEditVote({workEffortId:{{workEffortId}}})">
         创建
       </a>
     </ion-nav-buttons>
@@ -14,7 +14,7 @@
   <ion-content>
     <ion-list>
       <ion-item class="item-icon-right" can-swipe="true" ng-repeat="activityPollQuestionsTitle in activityPollQuestionsTitles">
-        <div ui-sref="app.goCastVote({surveyId:activityPollQuestionsTitle.surveyId,surveyName:activityPollQuestionsTitle.surveyName,workEffortId:workEffortId})" >
+        <div ui-sref="tab.goCastVote({surveyId:activityPollQuestionsTitle.surveyId,surveyName:activityPollQuestionsTitle.surveyName,workEffortId:workEffortId})" >
           <h2>投票名称： {{activityPollQuestionsTitle.surveyName}}</h2>
           <p ng-bind="activityPollQuestionsTitle.fromDate | date:'yyyy-MM-dd HH:mm:ss'"></p>
           <i class="icon ion-ios-arrow-right" style="color:darkgrey"></i>

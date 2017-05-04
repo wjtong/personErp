@@ -1,10 +1,9 @@
 <ion-view title="标签中人员">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="person in personList.person" type="item-text-wrap">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="person in groupMemberList" type="item-text-wrap">
         <img ng-src="{{person.headPortrait}}">
-        <h2>{{person.personName}} {{person.gender}}</h2>
-        <p> {{person.company}}</p>
+        <h2>{{person.firstName}} {{person.userLoginId}}</h2>
         <ion-option-button class="button-assertive" ng-click="deletePerson(person.partyId)">
           Delete
         </ion-option-button>

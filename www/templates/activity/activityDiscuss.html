@@ -1,14 +1,14 @@
-<ion-view title="活动讨论">
+<ion-view title="活动讨论" hide-tabs="true">
   <ion-nav-bar class="globalColor">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="goback()">
         <i class="icon ion-android-arrow-back globalColorButton"></i>
       </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <button class="button button-icon ion-person-stalker ion-navicon"  ng-click="openPersonJoin()">
-      </button>
-    </ion-nav-buttons>
+    <!--<ion-nav-buttons side="right">-->
+      <!--<button class="button button-icon ion-person-stalker ion-navicon"  ng-click="openPersonJoin()">-->
+      <!--</button>-->
+    <!--</ion-nav-buttons>-->
   </ion-nav-bar>
   <ion-content id="content" has-bouncing="true" class="has-header has-footer"
                delegate-handle="userMessageScroll" keyboardshow>
@@ -41,18 +41,22 @@
         </div>
         <div style="position: absolute;bottom: -20%;right: 4%;color:#74BA11;">{{message.name}}</div>
       </div>
-      <div class="cf"></div>
+      <div class="cf" id="audio"></div>
     </div>
     <br>
     <br>
     <br>
   </ion-content>
-  <form name="sendMessageForm" ng-submit="sentMessage()">
+  <form name="sendMessageForm">
     <ion-footer-bar keyboardshow class="bar-stable item-input-inset message-footer">
+      <button class="button button-icon icon  ion-android-microphone" ng-click="voiceChat()"
+              ng-disabled="">
+      </button>
       <label class="item-input-wrapper">
-        <textarea ng-model="input.message"   placeholder="请输入你想要发送的信息。。。" required minlength="1" maxlength="1500" style="width: 100%" ></textarea>
+        <textarea  ng-model="input.message"   placeholder="请输入你想要发送的信息。。。" required minlength="1" maxlength="1500" style="width: 100%" ></textarea>
       </label>
-      <button class="button button-icon icon ion-android-send" type="submit"
+      <!--on-hold="holdVoice()" on-release="releaseVoice()"-->
+      <button class="button button-icon icon ion-android-send" type="submit"  ng-click="sentMessage()"
               ng-disabled="!input.message||input.message==''">
       </button>
     </ion-footer-bar>

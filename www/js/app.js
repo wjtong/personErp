@@ -3,107 +3,119 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
+// 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker', 'ionic-timepicker',
   'vote.controllers', 'vote.services', 'login.controllers', 'login.services', 'activity.services', 'activity.controllers',
   'activity.services', 'contact.services', 'contact.controllers','directives.OniBarDirective'])
 
-  .run(function ($ionicPlatform, $rootScope,$cordovaDevice,ActivityServer) {
+.run(function($ionicPlatform,ActivityServer,$cordovaDevice,$rootScope,$cordovaStatusbar) {
 
-    // //连接服务器
-    // $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
-    // $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
-    // $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
-    // $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
+  // //连接服务器
+  $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
+  $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
+  $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
+  $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
 
-    //链接沈演麟本地
-    $rootScope.interfaceUrl = "http://192.168.3.62:3400/personContacts/control/";
-    $rootScope.voteInterfaceUrl = "http://192.168.3.62:3400/pevote/control/";//投票接口
-    $rootScope.activityInterfaceUrl = "http://192.168.3.62:3400/personactivity/control/";//活动接口
-    $rootScope.platformInterfaceUrl = "http://192.168.3.62:3400/peplatform/control/";//活动接口
+  //链接沈演麟本地
+  // $rootScope.interfaceUrl = "http://192.168.3.102:3400/personContacts/control/";
+  // $rootScope.voteInterfaceUrl = "http://192.168.3.102:3400/pevote/control/";//投票接口
+  // $rootScope.activityInterfaceUrl = "http://192.168.3.102:3400/personactivity/control/";//活动接口
+  // $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
 
-    //链接沈演麟本地网络
-    // $rootScope.interfaceUrl = "http://159742z17s.iask.in:29130/personContacts/control/";
-    // $rootScope.voteInterfaceUrl = "http://159742z17s.iask.in:29130/pevote/control/";//投票接口
-    // $rootScope.activityInterfaceUrl = "http://159742z17s.iask.in:29130/personactivity/control/";//活动接口
-    // $rootScope.platformInterfaceUrl = "http://159742z17s.iask.in:29130/peplatform/control/";//活动接口
+  //链接沈演麟本地网络
+  // $rootScope.interfaceUrl = "http://159742z17s.iask.in:29130/personContacts/control/";
+  // $rootScope.voteInterfaceUrl = "http://159742z17s.iask.in:29130/pevote/control/";//投票接口
+  // $rootScope.activityInterfaceUrl = "http://159742z17s.iask.in:29130/personactivity/control/";//活动接口
+  // $rootScope.platformInterfaceUrl = "http://159742z17s.iask.in:29130/peplatform/control/";//活动接口
+  $ionicPlatform.ready(function() {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if (window.cordova && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+      cordova.plugins.Keyboard.disableScroll(true);
+    }
+    if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
+    //
+    // if (cordova.platformId == 'android') {
+    //   StatusBar.backgroundColorByHexString("#333");
+    // }else{
+    //   $cordovaStatusbar.overlaysWebView(true);
+    //   $cordovaStatusbar.style(1);
+    //   StatusBar.styleLightContent();
+    //   StatusBar.backgroundColorByHexString("#333");
+    // }
 
-    $ionicPlatform.ready(function () {
-      if (window.cordova && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
-        cordova.plugins.Keyboard.disableScroll(true);
+    //通过UUID获取TOKEN
+    document.addEventListener("deviceready", function () {
+      var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
+      if(localStorage.getItem("tarjeta") == null){
+        ActivityServer.setUUID(uuid,function (data) {
+          localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+          localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+          localStorage.setItem("RongCloudToken", data.rongCloudToken);//设置partyId登陆人
+          //alert(localStorage.getItem("partyId"));
+          console.log("创建新用户通过UUID"+"token:"+data.tarjeta+"UUID:"+uuid)
+        })
       }
-      if (window.StatusBar) {
-        // org.apache.cordova.statusbar required
-        StatusBar.styleDefault();
-      }
+    }, false);
+  });
+})
 
-      //判断UUID是否是用户
-      document.addEventListener("deviceready", function () {
-        var device = $cordovaDevice.getDevice();     //设备信息
-        var cordova = $cordovaDevice.getCordova();   //cordova版本
-        var model = $cordovaDevice.getModel();       //cordova信息
-        var platform = $cordovaDevice.getPlatform(); //平台信息
-        var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
-        var version = $cordovaDevice.getVersion();   //系统版本
-        if(localStorage.getItem("tarjeta") == null){
-          ActivityServer.setUUID(uuid,function (data) {
-            localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
-            localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
-            localStorage.setItem("RongCloudToken", data.rongCloudToken);//设置partyId登陆人
-            //alert(localStorage.getItem("partyId"));
-            console.log("创建新用户通过UUID"+"token:"+data.tarjeta+"UUID:"+uuid)
-          })
+.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
+  $ionicConfigProvider.views.swipeBackEnabled(false); // 防止ios左滑出现白屏
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
+  $stateProvider
+
+  // app首页tab
+    .state('tab', {
+    url: '/tab',
+    abstract: true,
+    templateUrl: 'templates/tabs.html'
+  })
+
+  // Each tab has its own nav history stack:
+
+  .state('tab.dash', {
+    url: '/dash',
+    cache: false,
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/tab-dash.html',
+        controller: 'ActivityHome'
+      }
+    }
+  })
+
+  .state('tab.chats', {
+      url: '/chats',
+      cache: false,
+      views: {
+        'tab-chats': {
+          templateUrl: 'templates/tab-chats.html',
+          controller: 'ContactlistCtrl'
         }
-      }, false);
-    });
-  })
+      }
+    })
 
-  .config(function (ionicDatePickerProvider, $ionicConfigProvider) {
-    $ionicConfigProvider.views.swipeBackEnabled(false); // 防止ios左滑出现白屏
-    var datePickerObj = {
-      inputDate: new Date(),
-      titleLabel: 'Select a Date',
-      setLabel: '确定',
-      todayLabel: '今天',
-      closeLabel: '关闭',
-      mondayFirst: false,
-      weeksList: ["日", "一", "二", "三", "四", "五", "六"],
-      monthsList: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-      from: new Date(2017, 1, 1),
-      to: new Date(2030, 8, 1),
-      showTodayButton: true,
-      dateFormat: 'yyyy/MM/dd',
-      closeOnSelect: false,
-      disableWeekdays: []
-    };
-    ionicDatePickerProvider.configDatePicker(datePickerObj);
-  })
+  .state('tab.account', {
+    url: '/account',
+    cache: false,
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/tab-account.html',
+        controller: 'AccountCtrl'
+      }
+    }
+  });
 
-  .config(function (ionicTimePickerProvider) {
-    var timePickerObj = {
-      inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
-      format: 24,
-      step: 15,
-      setLabel: '确定',
-      closeLabel: '关闭'
-    };
-    ionicTimePickerProvider.configTimePicker(timePickerObj);
-  })
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/tab/dash');
 
-  .config(function ($stateProvider, $urlRouterProvider) {
-    $stateProvider
-    //app菜单
-      .state('app', {
-        url: '/app',
-        abstract: true,
-        cache:false,
-        templateUrl: 'templates/menu.html',
-        controller: 'AppCtrl'
-      })
-    ;
-    // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/activityHome');
-    //$urlRouterProvider.otherwise('/login');
-  })
-;
+});

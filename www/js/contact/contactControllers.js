@@ -1,58 +1,92 @@
 angular.module('contact.controllers', [])
 
   //关于我的个人信息******************************************************************************************************
-  .controller('myInfo',function ($scope,Contact,$state,$cordovaBarcodeScanner,ActivityServer,$ionicModal) {
+  .controller('AccountCtrl',function ($scope,$rootScope,Contact,$state,$cordovaBarcodeScanner,ActivityServer,$cordovaImagePicker,$cordovaFileTransfer) {
     //准备参数
     $scope.tarjeta=localStorage.getItem("tarjeta");
     $scope.partyId=localStorage.getItem("partyId");
+    $scope.img = localStorage.getItem("contactImg");           //显示缺省图片
     //查询我的个人信息
     Contact.queryPersonInfo($scope.tarjeta,function (data) {
       $scope.myInfoList=data
     });
+
+    //如果没有头像 显示缺省图片
+    if($scope.myInfoList!=undefined){
+      if($scope.myInfoList.headPortrait==null||$scope.myInfoList.headPortrait==undefined){
+        $scope.myInfoList.headPortrait=$scope.img;
+      }
+    }
+
     //退出
     $scope.loginOut=function () {
       localStorage.removeItem('tarjeta');
+      localStorage.removeItem("partyId");
       $state.go("login")
     };
 
-    //扫描二位码
-    $scope.getActivityCode=function () {
-      document.addEventListener("deviceready", function () {
+    //上传头像
+    $scope.uploaPartyContent=function () {
+      var options = {
+        maximumImagesCount: 1,
+        width: 800,
+        height: 800,
+        quality: 100
+      };
+      $cordovaImagePicker.getPictures(options)
+        .then(function (results) {
+          var image = document.getElementById('myImage');
+          for (var i = 0; i < results.length; i++) {
+            //console.log('Image URI: ' + results[i]);//返回参数是图片地址 results 是一个数组
+             image.src = results[i];
+            // image.style.height = '200px';
+            // image.style.width = '330px';
+            //$cordovaProgress.showSimpleWithLabel(true, "上传中");
+            document.addEventListener('deviceready', function () {
+              var url = $rootScope.platformInterfaceUrl+"uploadHeadPortrait?partyId=" +$scope.partyId+'&tarjeta='+$scope.tarjeta;
+              var options = {};
+              $cordovaFileTransfer.upload(url, results[i], options)
+                .then(function (result) {
+                  //var ImgId=JSON.stringify(result.response);
+                  //$scope.themeImgId=ImgId.substring(18,23);
+                  //alert($scope.themeImgId);
+                  //localStorage.setItem("themeImg",results[i]);
+                  //$cordovaProgress.hide();
+                  //alert(result.message);
+                  alert('上传成功')
+                }, function (err) {
+                  //alert(JSON.stringify(err));
+                  //alert(err.message);
+                  alert("上传失败");
+                }, function (progress) {
+                  // constant progress updates
+                });
+            }, false);
+          }
+        }, function (error) {
+          // error getting photos
+        });
+    }
 
-        $cordovaBarcodeScanner
-          .scan()
-          .then(function(barcodeData) {
-              $state.go("app.activityDetails",{"activityId":barcodeData.text});
-            // Success! Barcode data is here
-          }, function(error) {
-            // An error occurred
-          });
-      }, false);
-    };
   })
 
   //联系人***************************************************************************************************************
-  .controller('ContactlistCtrl', function ($scope, Contact, $location, $rootScope) {
-    //获得全局数据
+  .controller('ContactlistCtrl', function ($scope, Contact,ThemeImage,$state) {
+
+    //准备参数
     var tarjeta = localStorage.getItem("tarjeta");
-    $scope.activityImg = localStorage.getItem("activityImg");
-    $scope.contactImg = localStorage.getItem("contactImg");
-    //获得全部联系人
-    Contact.getAll($rootScope.partyId, function (data) {
-      $scope.personmainLists = data;
+    var partyId=localStorage.getItem("partyId");
+
+    //获得我的全部联系人列表(我参与的活动)
+    Contact.queryAllActivityRelationPersons(partyId,function (data) {
+      $scope.allPersonList=data.allPersonList
     });
-    //删除联系人
-    $scope.deletePerson = function (partyIdFrom) {
-      Contact.deleteContects($rootScope.partyId, partyIdFrom, function (data) {
-        $scope.reInfo = data;
-      });
-      Contact.getAll($rootScope.partyId, function (data) {
-        $scope.personmainLists = data;
-      });
-    };
-    $scope.goInfo = function (id) {
-      $location.path('/app/abouthim/' + id);
+
+    //进入标签内查看人员
+    $scope.goInfo=function (id) {
+      $state.go('app.labelPersonList',{'partyId':id})
     }
+
   })
   //更新联系人***********************************************************************************************************
   .controller('UpdatePersonInfo', function ($scope, Contact, $stateParams, PersonData, PersonLabel, $rootScope) {
@@ -457,39 +491,23 @@ angular.module('contact.controllers', [])
   })
 
   //标签内人员***********************************************************************************************************
-  .controller('LabelPersonList', function ($scope, $stateParams, $ionicModal, Contact, PersonLabel) {
-    var partyId = $stateParams.partyId;
-    //获得标签内人员
-    PersonLabel.getLablPersonList(partyId, function (data) {
-      $scope.personList = data;
-    });
-    $scope.partyId = partyId;
-    //添加联系人到标签(弹出框)
-    $ionicModal.fromTemplateUrl('templates/contact/contactModle.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function (modal) {
-      $scope.modal = modal;
-    });
-    $scope.openModal = function () {
-      $scope.modal.show();
-    };
-    $scope.closeModal = function () {
-      $scope.modal.hide();
-    };
-    //标签内添加联系人
-    $scope.addLablePerson = function (partyId) {
-      var partyIdTo = partyId;
-      var partyIdFrom = $scope.partyId;
-      PersonLabel.addLablePerson(partyIdFrom, partyIdTo);
-      $scope.modal.hide();
-      PersonLabel.getLablPersonList(partyIdFrom, function (data) {
-        $scope.personList = data;
-      });
-    };
-    //删除内添加联系人
-    $scope.deletePerson = function (partyId) {
+  .controller('LabelPersonList', function ($scope, $stateParams, ActivityServer) {
+    //准备参数
+    $scope.tarjeta=localStorage.getItem("tarjeta");
+    $scope.partyId=localStorage.getItem("partyId");
+    $scope.img = localStorage.getItem("contactImg");
 
-    }
+    //准备参数
+    var tarjeta = localStorage.getItem("tarjeta");
+    $scope.partyId = localStorage.getItem("partyId");
+    $scope.img = localStorage.getItem("activityImg");
+    $scope.contactImg = localStorage.getItem("contactImg");
+    $scope.workEffortId = $stateParams.partyId;
+
+    //获得活动的详细信息
+    ActivityServer.getActivityDetails(tarjeta, $scope.workEffortId,function (data) {
+      $scope.groupMemberList  = data.partyJoinEventsList;            //参与人员、
+    })
+
   })
 ;

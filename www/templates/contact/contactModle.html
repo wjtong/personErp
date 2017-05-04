@@ -1,26 +1,23 @@
-<ion-modal-view >
+<ion-modal-view view-title="联系人">
+  <ion-header-bar class="globalColor">
+    <h1 class="title globalColorButton" >点击邀请梨友</h1>
+    <div class="buttons">
+      <button class="button button-icon globalColorButton" ng-click="closeContact()">
+        返回
+      </button>
+    </div>
+  </ion-header-bar>
   <ion-content class="has-header">
-      <ion-list>
-        <label>
-          <ion-checkbox id="all" ng-click="selectAll(personmainLists)">全选/全不选</ion-checkbox>
-        </label>
-        <ion-checkbox ng-repeat="item in personmainLists"
-                      ng-model="item.checked"
-                      ng-checked="item.checked">
-          {{ item.nickName}} {{item.userLoginId}}
-        </ion-checkbox>
-        <div class="row" id="addPeron">
-          <div class="col">
-            <div class="col-demo">
-              <button class="button button-positive" style="width: 100%;" ng-click="createRangeLable()">添加</button>
-            </div>
-          </div>
-          <div class="col">
-            <div class="col-demo">
-              <button class="button button-positive" style="width: 100%;" ng-click="closeModal()">取消</button>
-            </div>
-          </div>
-        </div>
-      </ion-list>
+    <ion-list>
+      <ion-item ng-if="chat.partyId!=joined" class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in allPersonList"  type="item-text-wrap" ng-click="sendInvitation(chat.partyId)" ">
+        <img ng-src="{{chat.headPortrait}}">
+        <h2>{{chat.firstName}}</h2>
+        <p >{{chat.contactNumber}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-modal-view>

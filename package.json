@@ -1,7 +1,7 @@
 {
-  "name": "personerp",
+  "name": "personerptab",
   "version": "1.1.1",
-  "description": "personErp: An Ionic project",
+  "description": "personErpTab: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
@@ -16,22 +16,11 @@
   },
   "cordovaPlugins": [
     "cordova-plugin-whitelist",
-    "cordova-plugin-statusbar",
     "cordova-plugin-console",
+    "cordova-plugin-statusbar",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard",
-    "cordova-plugin-compat",
-    "cordova-plugin-contacts",
-    "cordova-sms-plugin",
-    {
-      "id": "cordova-plugin-wechat",
-      "locator": "cordova-plugin-wechat",
-      "variables": {
-        "WECHATAPPID": "wx23402d7e850a72c9"
-      }
-    },
-    "cordova-plugin-geolocation"
+    "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
     "ios",

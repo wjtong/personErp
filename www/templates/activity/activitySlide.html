@@ -1,4 +1,4 @@
-<<ion-view title="照片墙">
+<<ion-view title="照片墙" hide-tabs="true">
   <ion-nav-bar class="globalColor">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
@@ -27,11 +27,6 @@
       <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="praiseselect(praise)">
         <i class="icon ion-thumbsup" style="line-height: 14px;">
           <span class="tab-title ng-binding" >赞{{acountPraiseCount}}</span>
-        </i>
-      </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="praiseselect(trample)">
-        <i class="icon  ion-thumbsdown " style="line-height: 14px;">
-          <span class="tab-title ng-binding" >踩{{acountTrampleCount}}</span>
         </i>
       </a>
     </div>
