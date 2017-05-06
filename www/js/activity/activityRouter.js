@@ -2,19 +2,8 @@ angular.module('starter')
 
   .config(function ($stateProvider) {
     $stateProvider
-      //活动通知
-      .state('tab.activityNotice', {
-        url: '/activityNotice',
-        disableBack: true,
-        cache: false,
-        views: {
-          'tab-notice': {
-            templateUrl: 'templates/activity/activityNotice.html',
-            controller: 'ActivityNotice'
-          }
-        }
-      })
-      //活动详情
+
+    //活动详情
       .state('tab.activityDetails', {
         url: '/activityDetails/:activityId',
         disableBack: true,
@@ -83,17 +72,17 @@ angular.module('starter')
         controller: 'NewActivity'
       })
       //活动主题图片
-      .state('tab.themeImage', {
-        url: '/themeImage',
-        disableBack: true,
-        cache: true,
-        views: {
-          'tab-dash': {
-            templateUrl: 'templates/activity/activityThemeImage.html',
-            controller: 'ThemeImage'
-          }
-        }
-      })
+      // .state('tab.themeImage', {
+      //   url: '/themeImage',
+      //   disableBack: true,
+      //   cache: true,
+      //   views: {
+      //     'tab-dash': {
+      //       templateUrl: 'templates/activity/activityThemeImage.html',
+      //       controller: 'ThemeImage'
+      //     }
+      //   }
+      // })
       //活动讨论（实时聊天融云）
       .state('tab.activityDiscuss', {
         url: '/activityDiscuss/:activityId',

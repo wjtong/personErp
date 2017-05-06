@@ -1,72 +1,71 @@
 angular.module('activity.controllers', [])
 
 //活动首页***************************************************************************************************************
-  .controller('ActivityHome', function ($scope,ThemeImage, $location, ActivityServer, $state,$ionicPopover,$cordovaBarcodeScanner,$ionicModal) {
+  .controller('ActivityHome', function ($scope, ThemeImage, $location, ActivityServer, $state, $ionicPopover, $cordovaBarcodeScanner, $ionicModal) {
 
-    //准备参数
-    var tarjeta = localStorage.getItem("tarjeta");
-
-    //获得我的全部活动列表(我参与的活动)
-    var roleTypeId = 'ACTIVITY_MEMBER';
-    ActivityServer.myActivity(tarjeta, roleTypeId, function (data) {
-      $scope.active = data.partyEventsList;
-      console.log("查询我参与的活动" + "---------" + data.resultMsg);
-      if (data != null) {
-        $scope.activityHome = true;
-        $scope.activityHomeNull = false;
-      }
+    //查询我的活动列表
+    $scope.$on('$ionicView.beforeEnter', function () {
+      //准备参数
+      var tarjeta = localStorage.getItem("tarjeta");
+      //获得我的全部活动列表(我参与的活动)
+      var roleTypeId = 'ACTIVITY_MEMBER';
+      ActivityServer.myActivity(tarjeta, roleTypeId, function (data) {
+        $scope.active = data.partyEventsList;
+        console.log("查询我参与的活动" + "---------" + data.resultMsg);
+        if (data != null) {
+          $scope.activityHome = true;
+          $scope.activityHomeNull = false;
+        }
+      });
     });
 
-    //顶部功能按钮
-    $scope.topImgList=ThemeImage.getTopImg();
+    //如果没有活动  页面调整
+    if (localStorage.getItem("tarjeta") == null || $scope.active == '' || $scope.active == undefined) {
+      $scope.activityHome = false;
+      $scope.activityHomeNull = true;
+    } else if (localStorage.getItem("tarjeta") != null) {
+      $scope.activityHome = true;
+      $scope.activityHomeNull = false;
+    }
+
+    //顶部功能导航栏
+    $scope.topImgList = ThemeImage.getTopImg();
 
     //创建活动模态框
     $ionicModal.fromTemplateUrl('templates/activity/createActivityModle.html', {
       scope: $scope,
       animation: 'slide-in-up'
-    }).then(function(modal) {
+    }).then(function (modal) {
       $scope.modal = modal;
     });
-    $scope.openModal = function() {
+    $scope.openModal = function () {
       $scope.modal.show();
     };
-    $scope.closeModal = function() {
+    $scope.closeModal = function () {
       $scope.modal.hide();
     };
-    //Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.modal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('modal.hidden', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('modal.removed', function() {
-      // Execute action
-    });
 
-    $scope.createActivityTab=function () {
+    $scope.createActivityTab = function () {
       $scope.modal.show();
       //初始化聊天SDK  活动名称就是讨论群组名称
       var resp = RL_YTX.init('8a216da85b3c225d015b585bbf490c2f');
-      if(170002== resp.code){
+      if (170002 == resp.code) {
         //缺少必要参数，详情见msg参数
         //用户逻辑处理
-      }else if(174001 == resp.code){
+      } else if (174001 == resp.code) {
         //不支持HTML5，关闭页面
         //用户逻辑处理
-      }else if(200 == resp.code){
+      } else if (200 == resp.code) {
         //alert("初始化成功")
         //判断不支持的功能，屏蔽页面展示
         var unsupport = resp.unsupport;
       }
 
       //账号登录参数设置
-      var appId='8a216da85b3c225d015b585bbf490c2f';
-      var appToken='8da3f790a40bbb6607c03c948b8e7c6b';
-      var user_account='ddf88';
-      var timeStamp=IM._getTimeStamp();
+      var appId = '8a216da85b3c225d015b585bbf490c2f';
+      var appToken = '8da3f790a40bbb6607c03c948b8e7c6b';
+      var user_account = 'ddf99';
+      var timeStamp = IM._getTimeStamp();
       var sig = hex_md5(appId + user_account + timeStamp + appToken);
       var loginBuilder = new RL_YTX.LoginBuilder();
 
@@ -76,10 +75,10 @@ angular.module('activity.controllers', [])
       loginBuilder.setSig(sig);//设置sig
       loginBuilder.setTimestamp(timeStamp);//设置时间戳
       //执行用户登录
-      RL_YTX.login(loginBuilder, function(obj){
+      RL_YTX.login(loginBuilder, function (obj) {
         //登录成功回调
         console.log('融云登陆成功');
-      }, function(obj){
+      }, function (obj) {
         //登录失败方法回调
       });
     };
@@ -91,14 +90,14 @@ angular.module('activity.controllers', [])
     // };
 
     //扫描二位码
-    $scope.getActivityCode=function () {
+    $scope.getActivityCode = function () {
       document.addEventListener("deviceready", function () {
         $cordovaBarcodeScanner
           .scan()
-          .then(function(barcodeData) {
-            $state.go("tab.activityDetails",{"activityId":barcodeData.text});
+          .then(function (barcodeData) {
+            $state.go("tab.activityDetails", {"activityId": barcodeData.text});
             // Success! Barcode data is here
-          }, function(error) {
+          }, function (error) {
             // An error occurred
           });
       }, false);
@@ -110,7 +109,7 @@ angular.module('activity.controllers', [])
     };
 
     //下拉刷新
-    $scope.doRefresh=function () {
+    $scope.doRefresh = function () {
       var roleTypeId = 'ACTIVITY_MEMBER';
       ActivityServer.myActivity(tarjeta, roleTypeId, function (data) {
         $scope.active = data.partyEventsList;
@@ -136,18 +135,8 @@ angular.module('activity.controllers', [])
       $scope.popover.hide();
     };
 
-    //如果没有活动  页面调整
-    if (localStorage.getItem("tarjeta") == null || $scope.active == '' || $scope.active == undefined) {
-      $scope.activityHome = false;
-      $scope.activityHomeNull = true;
-    } else if (localStorage.getItem("tarjeta") != null) {
-      $scope.activityHome = true;
-      $scope.activityHomeNull = false;
-    }
-
     //新建活动
     $scope.newActivity = function () {
-      console.log('新建活动');
       $state.go('tab.newActivity')
     };
 
@@ -167,31 +156,33 @@ angular.module('activity.controllers', [])
   })
 
   //活动消息通知*********************************************************************************************************
-  .controller('ActivityNotice',function ($scope,ActivityServer,$location) {
+  .controller('ActivityNotice', function ($scope, ActivityServer, $location) {
+
     //准备参数
-    var tarjeta=localStorage.getItem("tarjeta");
+    var tarjeta = localStorage.getItem("tarjeta");
 
     //查询活动消息列表
-    ActivityServer.querySystemInfoList(tarjeta,function (data) {
-      $scope.noticeList=data.systemInfos;
-      if($scope.noticeList.length!=0){
-        $scope.moreInfoUrl=data.systemInfos[0].moreInfoUrl;
+    ActivityServer.querySystemInfoList(tarjeta, function (data) {
+      console.log('查询我的消息列表————————');
+      $scope.noticeList = data.systemInfos;
+      if ($scope.noticeList.length != 0) {
+        $scope.moreInfoUrl = data.systemInfos[0].moreInfoUrl;
       }
     });
 
     //跳转到消息相关界面
-    $scope.goInfo=function () {
+    $scope.goInfo = function () {
       $location.path($scope.moreInfoUrl);
     };
 
     //删除消息
-    $scope.deleteNotice=function (id) {
-      ActivityServer.deleteSystemInfoNote(tarjeta,id,function (data) {
+    $scope.deleteNotice = function (id) {
+      ActivityServer.deleteSystemInfoNote(tarjeta, id, function (data) {
         console.log(data)
       });
-      ActivityServer.querySystemInfoList(tarjeta,function (data) {
-        $scope.noticeList=data.systemInfos;
-        $scope.moreInfoUrl=data.systemInfos[0].moreInfoUrl;
+      ActivityServer.querySystemInfoList(tarjeta, function (data) {
+        $scope.noticeList = data.systemInfos;
+        $scope.moreInfoUrl = data.systemInfos[0].moreInfoUrl;
       });
     }
   })
@@ -199,11 +190,10 @@ angular.module('activity.controllers', [])
   //新建活动*************************************************************************************************************
   .controller('NewActivity', function ($scope, $state, $ionicModal, Contact, $ionicHistory, $cordovaContacts,
                                        $rootScope, $stateParams, $cordovaCamera, $cordovaImagePicker, ActivityServer,
-                                       $ionicPopup, $location, ThemeImage, ionicDatePicker,$cordovaFileTransfer,
-                                       ionicTimePicker, $cordovaDatePicker, $cordovaVibration,$cordovaProgress
-                                       ) {
+                                       $ionicPopup, $location, ThemeImage, ionicDatePicker, $cordovaFileTransfer,
+                                       ionicTimePicker, $cordovaDatePicker, $cordovaVibration, $cordovaProgress) {
     //参数准备
-    $scope.ActivityData={};
+    $scope.ActivityData = {};
     $scope.workEffortId = $stateParams.id;//活动编辑带来的活动ID
     var tarjeta = localStorage.getItem("tarjeta");//获得token
     var partyId = localStorage.getItem("partyId");//获得App使用者partyId
@@ -306,13 +296,13 @@ angular.module('activity.controllers', [])
     $ionicModal.fromTemplateUrl('templates/activity/activityThemeImage.html', {
       scope: $scope,
       animation: 'slide-in-up'
-    }).then(function(Theme) {
+    }).then(function (Theme) {
       $scope.Theme = Theme;
     });
-    $scope.openThemeModal = function() {
+    $scope.openThemeModal = function () {
       $scope.Theme.show();
     };
-    $scope.closeThemeModal = function() {
+    $scope.closeThemeModal = function () {
       $scope.Theme.hide();
     };
 
@@ -334,14 +324,14 @@ angular.module('activity.controllers', [])
             image.style.width = '330px';
             $cordovaProgress.showSimpleWithLabel(true, "上传中");
             document.addEventListener('deviceready', function () {
-              var url = $rootScope.activityInterfaceUrl+"uploadThemes";
+              var url = $rootScope.activityInterfaceUrl + "uploadThemes";
               var options = {};
               $cordovaFileTransfer.upload(url, results[i], options)
                 .then(function (result) {
-                  var ImgId=JSON.stringify(result.response);
-                  $scope.themeImgId=ImgId.substring(18,23);
+                  var ImgId = JSON.stringify(result.response);
+                  $scope.themeImgId = ImgId.substring(18, 23);
                   //alert($scope.themeImgId);
-                  localStorage.setItem("themeImg",results[i]);
+                  localStorage.setItem("themeImg", results[i]);
                   $cordovaProgress.hide();
                   //alert(result.message);
                 }, function (err) {
@@ -360,8 +350,8 @@ angular.module('activity.controllers', [])
     };
 
     //主题图片选定显示
-    if(localStorage.getItem("themeImg")==''||localStorage.getItem("themeImg")==null){
-      $scope.imageSrc=localStorage.getItem("themeImg")
+    if (localStorage.getItem("themeImg") == '' || localStorage.getItem("themeImg") == null) {
+      $scope.imageSrc = localStorage.getItem("themeImg")
     }
 
     //活动地点调用百度公共接口
@@ -404,28 +394,28 @@ angular.module('activity.controllers', [])
     };
 
     //创建活动讨论组
-    $scope.groupName=function () {
+    $scope.groupName = function () {
       //创建群组对象
       var obj = new RL_YTX.CreateGroupBuilder();
       //设置群组名称
       obj.setGroupName($scope.ActivityData.workEffortName);
       //设置群组公告
-      obj. setDeclared('这个挺好玩的');
+      obj.setDeclared('这个挺好玩的');
       // 设置群组类型，如：1临时群组（100人）
-      obj. setScope(1);
+      obj.setScope(1);
       // 设置群组验证权限，如：需要身份验证2
-      obj. setPermission(1);
+      obj.setPermission(1);
       //设置为讨论组 该字段默认为2 表示群组，创建讨论组时设置为1
       obj.setTarget(2);
       //发送消息
 
       //创建讨论组
-      RL_YTX.createGroup(obj, function(obj){
+      RL_YTX.createGroup(obj, function (obj) {
         //获取新建群组id
         var groupId = obj.data;
         //alert('创建群组成功');
-        $scope.groupId=groupId;
-      }, function(obj){
+        $scope.groupId = groupId;
+      }, function (obj) {
         //创建群组失败
         alert("创建失败")
       });
@@ -434,25 +424,25 @@ angular.module('activity.controllers', [])
     //取消新建
     $scope.goActivityHome = function () {
       $scope.modal.hide();
-      RL_YTX.logout(function(){
+      RL_YTX.logout(function () {
         console.log('退出初始化');
         //登出成功处理
-      }, function(obj){
+      }, function (obj) {
         //登出失败处理
       });
     };
+
     //新建活动连接后台
     $scope.Token = localStorage.getItem("tarjeta");
     $scope.createNewActivity = function () {
-      if($scope.ActivityData.workEffortName==''||$scope.ActivityData.workEffortName==undefined){
+      if ($scope.ActivityData.workEffortName == '' || $scope.ActivityData.workEffortName == undefined) {
         alert('活动标题不能为空');
         return false
-      }else {
-        console.log('点击创建');
+      } else {
         $scope.ActivityData.startDate = $("#startDate").val();
         $scope.ActivityData.endDate = $("#endDate").val();
-        if($scope.themeImgId==null){
-          $scope.themeImgId=localStorage.getItem("themeImgId")
+        if ($scope.themeImgId == null) {
+          $scope.themeImgId = localStorage.getItem("themeImgId")
         }
         ActivityServer.createActivity(
           $scope.Token,
@@ -466,14 +456,14 @@ angular.module('activity.controllers', [])
           $scope.groupId,
           function (data) {
             console.log(data);
-            RL_YTX.logout(function(){
+            RL_YTX.logout(function () {
               console.log('退出初始化');
               //登出成功处理
-            }, function(obj){
+            }, function (obj) {
               //登出失败处理
             });
             //震动一下
-            var id=data.workEffortId;
+            var id = data.workEffortId;
             $location.path("/tab/activityDetails/" + id);
             $scope.modal.hide();
             // $cordovaProgress.showDeterminateWithLabel(true, 15000, "创建中");
@@ -527,446 +517,444 @@ angular.module('activity.controllers', [])
   .controller('ActivityDetails', function ($stateParams, $state, ThemeImage, ionicDatePicker, $scope, ActivityServer,
                                            $rootScope, $ionicPopup, $ionicPopover, $ionicHistory, $location, $ionicModal,
                                            PersonLabel, $timeout, $cordovaLaunchNavigator, $cordovaImagePicker,
-                                           $cordovaFileTransfer,$cordovaProgress,$cordovaGeolocation,Contact) {
-      //准备参数
-      var tarjeta = localStorage.getItem("tarjeta");
-      $scope.partyId = localStorage.getItem("partyId");
-      $scope.workEffortId = $stateParams.activityId;
+                                           $cordovaFileTransfer, $cordovaProgress, $cordovaGeolocation, Contact) {
+    //准备参数
+    var tarjeta = localStorage.getItem("tarjeta");
+    $scope.partyId = localStorage.getItem("partyId");
+    $scope.workEffortId = $stateParams.activityId;
 
-      //获得活动的详细信息
-      ActivityServer.getActivityDetails(tarjeta, $scope.workEffortId, function (data) {
-        //获取需要用到的参数
-        $scope.activityList = data.eventDetail;                    //活动基本信息
-        $scope.themeImgList=data.theme;                               //活动组题图片
-        $scope.userLoginId = data.userLoginId;                        //组织
-        $scope.partyId = data.partyId;                                //组织者partyId
-        $scope.iAmAdmin = data.iAmAdmin;                              //判断是否是组织者
-        $scope.createPersonInfoList = data.createPersonInfoList[0];   //组织者信息
-        $scope.pitcureWallList = data.pictureWallList;                //照片墙图片
-        $scope.groupMemberList  = data.partyJoinEventsList;            //参与人员、
-        if($scope.groupMemberList.length!=0){
-          $scope.number = $scope.groupMemberList.length;              //参与人数
-        }else {
-          $scope.number=1;
-          $scope.groupMemberList.push({"firstName":'仅自己'});
-        }
-
-        //如果报名成功   禁用报名按钮
-        $scope.activitySignUp = '算我一个';
-        if ($scope.groupMemberList.length!=0) {
-          for (var i = 0; i < $scope.groupMemberList.length; i++) {
-            if ($scope.groupMemberList[i].partyId == $scope.partyId) {
-              $scope.activitySignUp = '我已加入';
-              $(function () {
-                $('#join').attr('disabled',true);
-              });
-            }
-          }
-        }
-        console.log('活动详情信息返回' + "----------" + data.resultMsg);
-      });
-
-      //判断是否是组织者 界面调整
-      $scope.myActivity = false;//我是组织者
-      $scope.otherActivity = true;//我是参与者
-      $scope.activityBill = false;
-      if ($scope.iAmAdmin == 'Y') {
-        $scope.myActivity = true;
-        $scope.otherActivity = false;
-        $scope.activityBill = true;
+    //获得活动的详细信息
+    ActivityServer.getActivityDetails(tarjeta, $scope.workEffortId, function (data) {
+      console.log('活动详情信息返回' + "----------" + data.resultMsg);
+      //获取需要用到的参数
+      $scope.activityList = data.eventDetail;                    //活动基本信息
+      $scope.themeImgList = data.theme;                               //活动组题图片
+      $scope.userLoginId = data.userLoginId;                        //组织
+      $scope.partyId = data.partyId;                                //组织者partyId
+      $scope.iAmAdmin = data.iAmAdmin;                              //判断是否是组织者
+      $scope.createPersonInfoList = data.createPersonInfoList[0];   //组织者信息
+      $scope.pitcureWallList = data.pictureWallList;                //照片墙图片
+      $scope.groupMemberList = data.partyJoinEventsList;            //参与人员、
+      if ($scope.groupMemberList.length != 0) {
+        $scope.number = $scope.groupMemberList.length;              //参与人数
+      } else {
+        $scope.number = 1;
+        $scope.groupMemberList.push({"firstName": '仅自己'});
       }
 
-      //判断是否设置了活动地址  如果没有隐藏地图信息
-      $scope.baidu = true;
-      console.log($scope.activityList.specialTerms);
-      if ($scope.activityList.specialTerms == '' || $scope.activityList.specialTerms == null) {
-        $scope.baidu = false
-      }
-      else {
-        //将经纬度分割开
-        $scope.longitude = $scope.activityList.specialTerms.split("/")[0];
-        $scope.latitude = $scope.activityList.specialTerms.split("/")[1];
-        //嵌入百度地图
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-        $cordovaGeolocation
-          .getCurrentPosition(posOptions)
-          .then(function (position) {
-            var map = new BMap.Map("allmap");
-            //var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
-            //map.centerAndZoom(point, 16);
-            //var marker = new BMap.Marker(point);
-            //map.addOverlay(marker);   // 将标注添加到地图中
-            //map.addControl(ctrl_nav);//给地图添加缩放的按钮
-            //map.enableScrollWheelZoom(true);
-            //活动地点的位置
-            var activitypoint = new BMap.Point($scope.latitude, $scope.longitude);   // 创建点坐标
-            map.centerAndZoom(activitypoint, 16);
-            var activitymarker = new BMap.Marker(activitypoint);
-            map.addOverlay(activitymarker);
-          }, function(err) {
-            // error
-          });
-        }
-
-      //活动位置导航（调用本机导航）
-      $scope.launchNavigator = function () {
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-        $cordovaGeolocation
-          .getCurrentPosition(posOptions)
-          .then(function (position) {
-            var lat  = position.coords.latitude;
-            var long = position.coords.longitude;
-            $scope.start = [lat, long];
-            $scope.destination = [ $scope.longitude, $scope.latitude];
-            console.log("111------------"+$scope.start);
-            console.log("222---------"+$scope.destination);
-            $cordovaLaunchNavigator.navigate($scope.destination, $scope.start).then(function () {
-              console.log("Navigator launched");
-            }, function (err) {
-              console.error(err);
+      //如果报名成功   禁用报名按钮
+      $scope.activitySignUp = '算我一个';
+      if ($scope.groupMemberList.length != 0) {
+        for (var i = 0; i < $scope.groupMemberList.length; i++) {
+          if ($scope.groupMemberList[i].partyId == $scope.partyId) {
+            $scope.activitySignUp = '我已加入';
+            $(function () {
+              $('#join').attr('disabled', true);
             });
-          }, function(err) {
-            // error
-          });
-      };
-
-      //显示照片墙幻灯片（大图片）
-      $scope.shouBigImage = function (index) {
-        $location.path("/tab/slide/" + $scope.workEffortId+'/'+index);
-      };
-
-      //显示活动相关菜单（右上。。。)
-      $ionicPopover.fromTemplateUrl('templates/activity/activityDetails-popover.html', {
-        scope: $scope
-      }).then(function (popover) {
-        $scope.popover = popover;
-      });
-      $scope.openPopover = function ($event) {
-        $scope.popover.show($event);
-      };
-      $scope.closePopover = function () {
-        $scope.popover.hide();
-      };
-      //返回
-      $scope.goback = function () {
-        $state.go("tab.activityHome")
-      };
-
-      //进入活动讨论
-      $scope.activityDiscuss = function () {
-        $state.go("tab.activityDiscuss", {"activityId": $scope.workEffortId}, {reload: false});
-        $scope.popover.hide();
-      };
-
-      //进入活动项
-      $scope.activityItem = function (id) {
-        $location.path("/tab/activityItem/" + id);
-        $scope.popover.hide();
-      };
-
-      //进入活动账单
-      $scope.aboutPayment = function (id) {
-        $location.path("/tab/activityBill/" + id);
-        $scope.popover.hide();
-      };
-
-      //报名成功
-      $scope.showPopup = function () {
-        console.log($scope.workEffortId + tarjeta);
-        ActivityServer.signUp(tarjeta, $scope.workEffortId, function (data) {
-          console.log(data.resultMsg)
-        });
-        $scope.data = {};
-        var myPopup = $ionicPopup.show({
-          template: '',
-          title: '已加入当前活动中',
-          scope: $scope,
-          buttons: [
-            {
-              text: '返回'
-            }
-          ]
-        });
-        myPopup.then(function (res) {
-          console.log('Tapped!', res);
-        });
-        $timeout(function () {
-          myPopup.close(); // 1.5秒后关闭弹窗
-        }, 1500);
-        //执行一次活动查询刷新活动列表
-        var roleTypeId = 'ACTIVITY_MEMBER';
-        ActivityServer.myActivity(tarjeta, roleTypeId, function (data) {
-          $scope.active = data.partyEventsList;
-          console.log("查询我参与的活动" + "---------" + data.resultMsg)
-        });
-        $ionicHistory.goBack();
-      };
-
-      //编辑活动
-      $scope.editEvent = 'editEvent';
-      $scope.editActivty = function (editEvent) {
-        $location.path("/tab/editActivty/" + $scope.workEffortId + '/' + editEvent);
-      };
-
-      //活动参与人员弹出框
-      $ionicPopover.fromTemplateUrl('templates/activity/activityJoin.html', {
-        scope: $scope
-      }).then(function (personJoin) {
-        $scope.personJoin = personJoin;
-      });
-      $scope.openPersonJoin = function ($event) {
-        $scope.personJoin.show($event);
-      };
-      $scope.closePersonJoin = function () {
-        $scope.personJoin.hide();
-      };
-
-      //返回活动首页
-      $scope.goActivityHome = function () {
-        console.log("返回活动首页");
-        $state.go("tab.dash")
-      };
-
-      //上传图片照片墙 活动的图片添加到照片墙中显示
-      $scope.images_list = [];
-      if ($scope.pitcureWallList.length!=0) {
-        for (var i = 0; i <$scope.pitcureWallList.length; i++) {
-          $scope.images_list.push($scope.pitcureWallList[i])
+          }
         }
       }
-      $scope.upLoadImage = function () {
-        //调用手机相册
-        var options = {
-          maximumImagesCount: 9,
-          width: 800,
-          height: 800,
-          quality: 100
-        };
-        $cordovaImagePicker.getPictures(options)
-          .then(function (results) {
-            for (var i = 0; i < results.length; i++) {
-              $scope.images_list.push({"objectInfo":results[i]});
-              $cordovaProgress.showBarWithLabel(false, 30000, "上传中");
-              document.addEventListener('deviceready', function () {
-                var url = $rootScope.activityInterfaceUrl+"uploadPictureWall?workEffortId=" + $scope.workEffortId+'&partyId='+ $scope.partyId;
-                var options = {};
-                $cordovaFileTransfer.upload(url, results[i], options)
-                  .then(function (result) {
-                    //alert(JSON.stringify(result.response));
-                    //alert(result.message);
-                  }, function (err) {
-                    //alert(JSON.stringify(err));
-                    //alert(err.message);
-                    alert("上传失败");
-                  }, function (progress) {
-                    // constant progress updates
-                  });
-              }, true);
-            }
-          }, function (error) {
-            // error getting photos
+    });
+
+    //判断是否是组织者 界面调整
+    $scope.myActivity = false;//我是组织者
+    $scope.otherActivity = true;//我是参与者
+    $scope.activityBill = false;
+    if ($scope.iAmAdmin == 'Y') {
+      $scope.myActivity = true;
+      $scope.otherActivity = false;
+      $scope.activityBill = true;
+    }
+
+    //判断是否设置了活动地址  如果没有隐藏地图信息
+    $scope.baidu = true;
+    if ($scope.activityList.specialTerms == '' || $scope.activityList.specialTerms == null) {
+      $scope.baidu = false
+    }
+    else {
+      //将经纬度分割开
+      $scope.longitude = $scope.activityList.specialTerms.split("/")[0];
+      $scope.latitude = $scope.activityList.specialTerms.split("/")[1];
+      //嵌入百度地图
+      var posOptions = {timeout: 10000, enableHighAccuracy: false};
+      $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+          var map = new BMap.Map("allmap");
+          //var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
+          //map.centerAndZoom(point, 16);
+          //var marker = new BMap.Marker(point);
+          //map.addOverlay(marker);   // 将标注添加到地图中
+          //map.addControl(ctrl_nav);//给地图添加缩放的按钮
+          //map.enableScrollWheelZoom(true);
+          //活动地点的位置
+          var activitypoint = new BMap.Point($scope.latitude, $scope.longitude);   // 创建点坐标
+          map.centerAndZoom(activitypoint, 16);
+          var activitymarker = new BMap.Marker(activitypoint);
+          map.addOverlay(activitymarker);
+        }, function (err) {
+          // error
+        });
+    }
+
+    //活动位置导航（调用本机导航）
+    $scope.launchNavigator = function () {
+      var posOptions = {timeout: 10000, enableHighAccuracy: false};
+      $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+          var lat = position.coords.latitude;
+          var long = position.coords.longitude;
+          $scope.start = [lat, long];
+          $scope.destination = [$scope.longitude, $scope.latitude];
+          console.log("111------------" + $scope.start);
+          console.log("222---------" + $scope.destination);
+          $cordovaLaunchNavigator.navigate($scope.destination, $scope.start).then(function () {
+            console.log("Navigator launched");
+          }, function (err) {
+            console.error(err);
           });
-      };
+        }, function (err) {
+          // error
+        });
+    };
 
-      //判断组织者是否登陆   依据uerLoginId是否是一个手机号码     已登陆用户不需要在此填写用户信息
-      var pattern=/^1[34578]\d{9}$/;
-      if(pattern.test($scope.userLoginId)){
-        $scope.InviteModal = function () {
-          $scope.taskModal.show();
-          $scope.loginData.nickName=$scope.createPersonInfoList.firstName;
-        };
-      }else{
-        //组织者邀请好友参加活动
-        $scope.InviteModal = function () {
-          $scope.NickName.show();
-        };
-      }
+    //显示照片墙幻灯片（大图片）
+    $scope.shouBigImage = function (index) {
+      $location.path("/tab/slide/" + $scope.workEffortId + '/' + index);
+    };
 
-      //组织者信息填写弹出框
-      $scope.loginData = {};
-      $ionicModal.fromTemplateUrl('templates/activity/activityNickName.html', {
+    //显示活动相关菜单（右上。。。)
+    $ionicPopover.fromTemplateUrl('templates/activity/activityDetails-popover.html', {
+      scope: $scope
+    }).then(function (popover) {
+      $scope.popover = popover;
+    });
+    $scope.openPopover = function ($event) {
+      $scope.popover.show($event);
+    };
+    $scope.closePopover = function () {
+      $scope.popover.hide();
+    };
+    //返回
+    $scope.goback = function () {
+      $state.go("tab.activityHome")
+    };
+
+    //进入活动讨论
+    $scope.activityDiscuss = function () {
+      $state.go("tab.activityDiscuss", {"activityId": $scope.workEffortId}, {reload: false});
+      $scope.popover.hide();
+    };
+
+    //进入活动项
+    $scope.activityItem = function (id) {
+      $location.path("/tab/activityItem/" + id);
+      $scope.popover.hide();
+    };
+
+    //进入活动账单
+    $scope.aboutPayment = function (id) {
+      $location.path("/tab/activityBill/" + id);
+      $scope.popover.hide();
+    };
+
+    //报名成功
+    $scope.showPopup = function () {
+      console.log($scope.workEffortId + tarjeta);
+      ActivityServer.signUp(tarjeta, $scope.workEffortId, function (data) {
+        console.log(data.resultMsg)
+      });
+      $scope.data = {};
+      var myPopup = $ionicPopup.show({
+        template: '',
+        title: '已加入当前活动中',
         scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function (NickName) {
-        $scope.NickName = NickName;
-      });
-
-      $scope.closeInviteModal = function () {
-        $scope.NickName.hide();
-      };
-
-      //组织者注册
-      $scope.addPersonInfo = function () {
-        console.log($scope.loginData.nickName + $scope.loginData.mobileNumber + $scope.loginData.captcha + tarjeta + $scope.workEffortId + $scope.partyId);
-        ActivityServer.userAppRegister(tarjeta, $scope.workEffortId, $scope.partyId, $scope.loginData.nickName, $scope.loginData.mobileNumber,
-          $scope.loginData.captcha, function (data) {
-            localStorage.removeItem("tarjeta");
-            localStorage.removeItem("partyId");
-            localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
-            localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
-            localStorage.setItem("userLoginId", data.userLoginId);//设置partyId登陆人
-            console.log(data)
-          });
-        $scope.NickName.hide();
-        ActivityServer.getActivityDetails(localStorage.getItem("tarjeta"), $scope.workEffortId, function (data) {
-          console.log("查询活动详情")
-          if(data.nickNamesList[0]){
-            $scope.nickNameList = data.nickNamesList[0].nickName;       //参与人的昵称列表
+        buttons: [
+          {
+            text: '返回'
           }
+        ]
+      });
+      myPopup.then(function (res) {
+        console.log('Tapped!', res);
+      });
+      $timeout(function () {
+        myPopup.close(); // 1.5秒后关闭弹窗
+      }, 1500);
+      //执行一次活动查询刷新活动列表
+      var roleTypeId = 'ACTIVITY_MEMBER';
+      ActivityServer.myActivity(tarjeta, roleTypeId, function (data) {
+        $scope.active = data.partyEventsList;
+        console.log("查询我参与的活动" + "---------" + data.resultMsg)
+      });
+      $ionicHistory.goBack();
+    };
+
+    // //编辑活动
+    // $scope.editEvent = 'editEvent';
+    // $scope.editActivty = function (editEvent) {
+    //   $location.path("/tab/editActivty/" + $scope.workEffortId + '/' + editEvent);
+    // };
+
+    //活动参与人员弹出框
+    $ionicPopover.fromTemplateUrl('templates/activity/activityJoin.html', {
+      scope: $scope
+    }).then(function (personJoin) {
+      $scope.personJoin = personJoin;
+    });
+    $scope.openPersonJoin = function ($event) {
+      $scope.personJoin.show($event);
+    };
+    $scope.closePersonJoin = function () {
+      $scope.personJoin.hide();
+    };
+
+    //返回活动首页
+    $scope.goActivityHome = function () {
+      $state.go("tab.dash");
+    };
+
+    //上传图片照片墙 活动的图片添加到照片墙中显示
+    $scope.images_list = [];
+    if ($scope.pitcureWallList.length != 0) {
+      for (var i = 0; i < $scope.pitcureWallList.length; i++) {
+        $scope.images_list.push($scope.pitcureWallList[i])
+      }
+    }
+    $scope.upLoadImage = function () {
+      //调用手机相册
+      var options = {
+        maximumImagesCount: 9,
+        width: 800,
+        height: 800,
+        quality: 100
+      };
+      $cordovaImagePicker.getPictures(options)
+        .then(function (results) {
+          for (var i = 0; i < results.length; i++) {
+            $scope.images_list.push({"objectInfo": results[i]});
+            $cordovaProgress.showBarWithLabel(false, 30000, "上传中");
+            document.addEventListener('deviceready', function () {
+              var url = $rootScope.activityInterfaceUrl + "uploadPictureWall?workEffortId=" + $scope.workEffortId + '&partyId=' + $scope.partyId;
+              var options = {};
+              $cordovaFileTransfer.upload(url, results[i], options)
+                .then(function (result) {
+                  //alert(JSON.stringify(result.response));
+                  //alert(result.message);
+                }, function (err) {
+                  //alert(JSON.stringify(err));
+                  //alert(err.message);
+                  alert("上传失败");
+                }, function (progress) {
+                  // constant progress updates
+                });
+            }, true);
+          }
+        }, function (error) {
+          // error getting photos
         });
-        $scope.taskModal.show();
-      };
+    };
 
-      //邀请好友参与活动方式弹出框
-      $scope.shareImgList = ThemeImage.getShareImg();  //显示邀请好友方式图片
-      $ionicModal.fromTemplateUrl('templates/activity/shareAvtivity.html', function (modal) {
-        $scope.taskModal = modal;
-      }, {
-        scope: $scope
-      });
-      $scope.newTask = function () {
+    //判断组织者是否登陆   依据uerLoginId是否是一个手机号码     已登陆用户不需要在此填写用户信息
+    var pattern = /^1[34578]\d{9}$/;
+    if (pattern.test($scope.userLoginId)) {
+      $scope.InviteModal = function () {
         $scope.taskModal.show();
+        $scope.loginData.nickName = $scope.createPersonInfoList.firstName;
       };
-      $scope.closeNewTask = function () {
+    } else {
+      //组织者邀请好友参加活动
+      $scope.InviteModal = function () {
+        $scope.NickName.show();
+      };
+    }
+
+    //组织者信息填写弹出框
+    $scope.loginData = {};
+    $ionicModal.fromTemplateUrl('templates/activity/activityNickName.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function (NickName) {
+      $scope.NickName = NickName;
+    });
+
+    $scope.closeInviteModal = function () {
+      $scope.NickName.hide();
+    };
+
+    //组织者注册
+    $scope.addPersonInfo = function () {
+      console.log($scope.loginData.nickName + $scope.loginData.mobileNumber + $scope.loginData.captcha + tarjeta + $scope.workEffortId + $scope.partyId);
+      ActivityServer.userAppRegister(tarjeta, $scope.workEffortId, $scope.partyId, $scope.loginData.nickName, $scope.loginData.mobileNumber,
+        $scope.loginData.captcha, function (data) {
+          localStorage.removeItem("tarjeta");
+          localStorage.removeItem("partyId");
+          localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+          localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+          localStorage.setItem("userLoginId", data.userLoginId);//设置partyId登陆人
+          console.log(data)
+        });
+      $scope.NickName.hide();
+      ActivityServer.getActivityDetails(localStorage.getItem("tarjeta"), $scope.workEffortId, function (data) {
+        console.log("查询活动详情");
+        if (data.nickNamesList[0]) {
+          $scope.nickNameList = data.nickNamesList[0].nickName;       //参与人的昵称列表
+        }
+      });
+      $scope.taskModal.show();
+    };
+
+    //邀请好友参与活动方式弹出框
+    $scope.shareImgList = ThemeImage.getShareImg();  //显示邀请好友方式图片
+    $ionicModal.fromTemplateUrl('templates/activity/shareAvtivity.html', function (modal) {
+      $scope.taskModal = modal;
+    }, {
+      scope: $scope
+    });
+    $scope.newTask = function () {
+      $scope.taskModal.show();
+    };
+    $scope.closeNewTask = function () {
+      $scope.taskModal.hide();
+    };
+
+    //我的联系人弹出框
+    $ionicPopover.fromTemplateUrl('templates/contact/contactModle.html', {
+      scope: $scope
+    }).then(function (contact) {
+      $scope.contact = contact;
+    });
+    $scope.openContact = function () {
+      $scope.contact.show();
+    };
+    $scope.closeContact = function () {
+      $scope.contact.hide();
+    };
+
+    //选择哪种方式邀请好友
+    $scope.chooseWay = function (name, workEffortId, partyId) {
+      if (name == '手机通讯录') {
+        $state.go("tab.activityInvitation", {"workEffortId": workEffortId, "partyId": partyId});
         $scope.taskModal.hide();
-      };
-
-      //我的联系人弹出框
-      $ionicPopover.fromTemplateUrl('templates/contact/contactModle.html', {
-        scope: $scope
-      }).then(function (contact) {
-        $scope.contact = contact;
-      });
-      $scope.openContact = function () {
+      } else if (name == '微信') {
+        Wechat.share({
+          message: {
+            title: '欢迎加入不分梨',
+            description: '您的好友 ' + $scope.loginData.nickName + ' ' + '邀请您加入活动: ' + $scope.activityList.workEffortName,
+            thumb: 'www/img/theme/bufenli.jpeg',
+            media: {
+              type: Wechat.Type.WEBPAGE,
+              webpageUrl: 'http://www.vivafoo.com:3400/pewebview/control/main?workEffortId=' + $scope.workEffortId
+            }
+          },
+          scene: Wechat.Scene.SESSION // share to SESSION
+        }, function () {
+          alert("Success");
+        }, function (reason) {
+          alert("Failed: " + reason);
+        });
+      } else if (name == '朋友圈') {
+        alert($scope.workEffortId);
+        Wechat.share({
+          message: {
+            title: '欢迎加入不分梨',
+            description: '您的好友 ' + $scope.loginData.nickName + ' ' + '邀请您加入活动: ' + $scope.activityList.workEffortName,
+            thumb: 'www/img/theme/bufenli.jpeg',
+            media: {
+              type: Wechat.Type.WEBPAGE,
+              webpageUrl: 'http://www.vivafoo.com:3400/pewebview/control/main?workEffortId=' + $scope.workEffortId
+            }
+          },
+          scene: Wechat.Scene.TIMELINE // share to SESSION
+        }, function () {
+          alert("Success");
+        }, function (reason) {
+          alert("Failed: " + reason);
+        });
+      } else if (name == '手动添加') {
+        $state.go("tab.activityAddPerson", {"workEffortId": $scope.workEffortId});
+        $scope.taskModal.hide();
+      } else if (name == '梨友录') {
         $scope.contact.show();
-      };
-      $scope.closeContact = function () {
-        $scope.contact.hide();
-      };
+        //获得我的全部联系人列表(我参与的活动)
+        Contact.queryAllActivityRelationPersons($scope.partyId, function (data) {
+          $scope.allPersonList = data.allPersonList
+        });
+        //获得参与人列表
+        // for(var i=0;i<=$scope.allPersonList.length;i++){
+        //   for(var j=0;j<=$scope.groupMemberList.length;j++){
+        //     if($scope.allPersonList[i].partyId==$scope.groupMemberList[j].partyId){
+        //       $scope.joined=$scope.groupMemberList[j].partyId
+        //     }
+        //   }
+        // }
 
-      //选择哪种方式邀请好友
-      $scope.chooseWay = function (name, workEffortId, partyId) {
-        if (name == '手机通讯录') {
-          $state.go("tab.activityInvitation", {"workEffortId": workEffortId, "partyId": partyId});
-          $scope.taskModal.hide();
-        } else if (name == '微信') {
-          Wechat.share({
-            message: {
-              title: '欢迎加入不分梨',
-              description: '您的好友 ' + $scope.loginData.nickName + ' ' + '邀请您加入活动: ' + $scope.activityList.workEffortName,
-              thumb: 'www/img/theme/bufenli.jpeg',
-              media: {
-                type: Wechat.Type.WEBPAGE,
-                webpageUrl: 'http://www.vivafoo.com:3400/pewebview/control/main?workEffortId=' + $scope.workEffortId
-              }
-            },
-            scene: Wechat.Scene.SESSION // share to SESSION
-          }, function () {
-            alert("Success");
-          }, function (reason) {
-            alert("Failed: " + reason);
-          });
-        } else if (name == '朋友圈') {
-          alert($scope.workEffortId);
-          Wechat.share({
-            message: {
-              title: '欢迎加入不分梨',
-              description: '您的好友 ' + $scope.loginData.nickName + ' ' + '邀请您加入活动: ' + $scope.activityList.workEffortName,
-              thumb: 'www/img/theme/bufenli.jpeg',
-              media: {
-                type: Wechat.Type.WEBPAGE,
-                webpageUrl: 'http://www.vivafoo.com:3400/pewebview/control/main?workEffortId=' + $scope.workEffortId
-              }
-            },
-            scene: Wechat.Scene.TIMELINE // share to SESSION
-          }, function () {
-            alert("Success");
-          }, function (reason) {
-            alert("Failed: " + reason);
-          });
-        } else if (name == '手动添加') {
-          $state.go("tab.activityAddPerson", {"workEffortId": $scope.workEffortId});
-          $scope.taskModal.hide();
-        }else if(name == '梨友录'){
-          $scope.contact.show();
-          //获得我的全部联系人列表(我参与的活动)
-          Contact.queryAllActivityRelationPersons($scope.partyId,function (data) {
-            $scope.allPersonList=data.allPersonList
-          });
-          //获得参与人列表
-          // for(var i=0;i<=$scope.allPersonList.length;i++){
-          //   for(var j=0;j<=$scope.groupMemberList.length;j++){
-          //     if($scope.allPersonList[i].partyId==$scope.groupMemberList[j].partyId){
-          //       $scope.joined=$scope.groupMemberList[j].partyId
-          //     }
-          //   }
-          // }
-
-          //发送邀请
-          $scope.sendInvitation=function (partyId) {
-            var moreInfoUrl='/tab/activityDetails/'+$scope.workEffortId;
-            var noteInfo=$scope.createPersonInfoList.firstName+'邀请您加入活动:'+$scope.activityList.workEffortName;
-            ActivityServer.createPeSystemInfoAboutActivity(partyId,moreInfoUrl,noteInfo,function (data) {
-              console.log(data);
-              if(data.resultMsg=='成功'){
-                $scope.isJoind=true;
-                alert('邀请成功')
-              }
-            })
-          }
+        //发送邀请
+        $scope.sendInvitation = function (partyId) {
+          var moreInfoUrl = '/tab/activityDetails/' + $scope.workEffortId;
+          var noteInfo = $scope.createPersonInfoList.firstName + '邀请您加入活动:' + $scope.activityList.workEffortName;
+          ActivityServer.createPeSystemInfoAboutActivity(partyId, moreInfoUrl, noteInfo, function (data) {
+            console.log(data);
+            if (data.resultMsg == '成功') {
+              $scope.isJoind = true;
+              alert('邀请成功')
+            }
+          })
         }
       }
-    })
+    }
+  })
 
   //活动照片墙（大图片）***************************************************************************************************
-  .controller('slideCrl', function ($scope, $stateParams, $ionicHistory,ActivityServer,$ionicActionSheet,$location) {
+  .controller('slideCrl', function ($scope, $stateParams, $ionicHistory, ActivityServer, $ionicActionSheet, $location) {
 
     //准备参数
     $scope.workEffortId = $stateParams.activityId;
     $scope.tarjeta = localStorage.getItem("tarjeta");
-    $scope.myActiveSlide=$stateParams.index;
-    $scope.partyId=localStorage.getItem("partyId");
+    $scope.myActiveSlide = $stateParams.index;
+    $scope.partyId = localStorage.getItem("partyId");
 
     //照片INDEX
-    $scope.slideChanged=function (index) {
-      $scope.imgIndex=index;
-      $scope.acountPraiseCount=$scope.pictureList[$scope.imgIndex].praiseCount;
-      $scope.acountTrampleCount=$scope.pictureList[$scope.imgIndex].trampleCount;
+    $scope.slideChanged = function (index) {
+      $scope.imgIndex = index;
+      $scope.acountPraiseCount = $scope.pictureList[$scope.imgIndex].praiseCount;
+      $scope.acountTrampleCount = $scope.pictureList[$scope.imgIndex].trampleCount;
     };
-    if($scope.myActiveSlide==0){
-      $scope.imgIndex=0;
-    }else{
-      $scope.imgIndex=$scope.myActiveSlide
+    if ($scope.myActiveSlide == 0) {
+      $scope.imgIndex = 0;
+    } else {
+      $scope.imgIndex = $scope.myActiveSlide
     }
 
     //获取活动照片墙图片
-    $scope.viewSize='999';
-    $scope.ACTIVITY_PICTURE='ACTIVITY_PICTURE';
-    ActivityServer.queryMyEventContents($scope.tarjeta,$scope.workEffortId,$scope.ACTIVITY_PICTURE,$scope.viewSize,function (data) {
+    $scope.viewSize = '999';
+    $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
+    ActivityServer.queryMyEventContents($scope.tarjeta, $scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize, function (data) {
       $scope.pictureList = data.contentsList;
-      $scope.acountPraiseCount=$scope.pictureList[$scope.myActiveSlide].praiseCount;
-      $scope.acountTrampleCount=$scope.pictureList[$scope.myActiveSlide].trampleCount;
+      $scope.acountPraiseCount = $scope.pictureList[$scope.myActiveSlide].praiseCount;
+      $scope.acountTrampleCount = $scope.pictureList[$scope.myActiveSlide].trampleCount;
     });
 
     //赞和踩
-    $scope.praise='PRAISE_COUNT';
-    $scope.trample='TRAMPLE_COUNT';
-    $scope.praiseselect=function (type) {
-      for(var i=0;i<$scope.pictureList.length;i++){
-        if(i==$scope.imgIndex){
-          $scope.contentId=$scope.pictureList[i].contentId;
-          $scope.contentTypeId=type;
+    $scope.praise = 'PRAISE_COUNT';
+    $scope.trample = 'TRAMPLE_COUNT';
+    $scope.praiseselect = function (type) {
+      for (var i = 0; i < $scope.pictureList.length; i++) {
+        if (i == $scope.imgIndex) {
+          $scope.contentId = $scope.pictureList[i].contentId;
+          $scope.contentTypeId = type;
           //alert( $scope.contentId+$scope.contentTypeId);
-          ActivityServer.praisePicture($scope.tarjeta,$scope.contentTypeId,$scope.contentId,function (data) {
-            if(type=='PRAISE_COUNT'){
-              $scope.acountPraiseCount=data.praiseCount
-            }else {
-              $scope.acountTrampleCount=data.trampleCount
+          ActivityServer.praisePicture($scope.tarjeta, $scope.contentTypeId, $scope.contentId, function (data) {
+            if (type == 'PRAISE_COUNT') {
+              $scope.acountPraiseCount = data.praiseCount
+            } else {
+              $scope.acountTrampleCount = data.trampleCount
             }
           });
         }
       }
-      $scope.$on('$ionicView.beforeEnter',function () {
+      $scope.$on('$ionicView.beforeEnter', function () {
         $scope.doRefresh();
       });
       //location.reload(true)
@@ -974,32 +962,32 @@ angular.module('activity.controllers', [])
     };
 
     // 一个确认对话框  删除图片
-    $scope.showConfirm = function() {
+    $scope.showConfirm = function () {
       // 显示上拉菜单
       var hideSheet = $ionicActionSheet.show({
         buttons: [
-          { text: '<b>发送给好友</b>' },
-          { text: '保存图片' }
+          {text: '<b>发送给好友</b>'},
+          {text: '保存图片'}
         ],
         destructiveText: '删除',
         titleText: '图片操作',
         cancelText: '取消',
-        cancel: function() {
+        cancel: function () {
           // 这里添加取消代码
         },
-        buttonClicked: function(index) {
+        buttonClicked: function (index) {
           return true;
         },
-        destructiveButtonClicked: function(index) {
-          for(var i=0;i<$scope.pictureList.length;i++){
+        destructiveButtonClicked: function (index) {
+          for (var i = 0; i < $scope.pictureList.length; i++) {
             var flag = true;
-            if(i==$scope.imgIndex && flag){
-              if($scope.partyId==$scope.pictureList[i].partyId){
-                ActivityServer.deletePictureWall($scope.tarjeta,$scope.workEffortId,$scope.pictureList[i].contentId,function (data) {
+            if (i == $scope.imgIndex && flag) {
+              if ($scope.partyId == $scope.pictureList[i].partyId) {
+                ActivityServer.deletePictureWall($scope.tarjeta, $scope.workEffortId, $scope.pictureList[i].contentId, function (data) {
                   console.log(data);
                   flag = false;
                 });
-              }else {
+              } else {
                 alert('您只能删除您上传的图片')
               }
             }
@@ -1016,27 +1004,27 @@ angular.module('activity.controllers', [])
   })
 
   //活动二维码***********************************************************************************************************
-  .controller('activityCode',function ($scope,$stateParams) {
-      $scope.workEffortId=$stateParams.workEffortId;
-      jQuery('.items').html("");
-      jQuery('.items').qrcode($scope.workEffortId);
+  .controller('activityCode', function ($scope, $stateParams) {
+    $scope.workEffortId = $stateParams.workEffortId;
+    jQuery('.items').html("");
+    jQuery('.items').qrcode($scope.workEffortId);
   })
 
   //活动讨论*************************************************************************************************************
-  .controller('ActivityDiscuss', function ($scope,$location, $rootScope, $stateParams, ActivityServer, $ionicPopover,
-                                           $ionicScrollDelegate,$cordovaMedia) {
+  .controller('ActivityDiscuss', function ($scope, $location, $rootScope, $stateParams, ActivityServer, $ionicPopover,
+                                           $ionicScrollDelegate, $cordovaMedia) {
 
     //准备参数
     var tarjeta = localStorage.getItem("tarjeta");
     $scope.workEffortId = $stateParams.activityId;
-    $scope.contactImg=localStorage.getItem("contactImg");
+    $scope.contactImg = localStorage.getItem("contactImg");
 
     //查询讨论组相关信息
     ActivityServer.queryActivityChatGroupInfo(tarjeta, $scope.workEffortId, function (data) {
       $scope.groupId = data.chatGroupId;//组ID
-      $scope.firstName=data.firstName;
-      $scope.partyId=data.partyId;
-      $scope.contactNumber=data.contactNumber;
+      $scope.firstName = data.firstName;
+      $scope.partyId = data.partyId;
+      $scope.contactNumber = data.contactNumber;
     });
 
     // //活动参与人员弹出框
@@ -1053,33 +1041,33 @@ angular.module('activity.controllers', [])
     // };
 
     //聊天数据列表
-    $scope.discussList=[];
-    var a=localStorage.getItem($scope.workEffortId);
-    if(a!=null){
-      var b=JSON.parse(a).message;
-      for(var i=0;i<b.length;i++){
-          $scope.discussList.push({'name':b[i].name,'text':b[i].text,'time':b[i].time,'id':$scope.workEffortId})
+    $scope.discussList = [];
+    var a = localStorage.getItem($scope.workEffortId);
+    if (a != null) {
+      var b = JSON.parse(a).message;
+      for (var i = 0; i < b.length; i++) {
+        $scope.discussList.push({'name': b[i].name, 'text': b[i].text, 'time': b[i].time, 'id': $scope.workEffortId})
       }
     }
     //初始化SDK
     var resp = RL_YTX.init('8a216da85b3c225d015b585bbf490c2f');
-    if(170002== resp.code){
+    if (170002 == resp.code) {
       //缺少必要参数，详情见msg参数
       //用户逻辑处理
-    }else if(174001 == resp.code){
+    } else if (174001 == resp.code) {
       //不支持HTML5，关闭页面
       //用户逻辑处理
-    }else if(200 == resp.code){
+    } else if (200 == resp.code) {
       //alert('初始化成功');
       //判断不支持的功能，屏蔽页面展示
       var unsupport = resp.unsupport;
     }
 
     //账号登录参数设置
-    var appId='8a216da85b3c225d015b585bbf490c2f';
-    var appToken='8da3f790a40bbb6607c03c948b8e7c6b';
-    var user_account=$scope.contactNumber;
-    var timeStamp=IM._getTimeStamp();
+    var appId = '8a216da85b3c225d015b585bbf490c2f';
+    var appToken = '8da3f790a40bbb6607c03c948b8e7c6b';
+    var user_account = $scope.contactNumber;
+    var timeStamp = IM._getTimeStamp();
     var sig = hex_md5(appId + user_account + timeStamp + appToken);
     var loginBuilder = new RL_YTX.LoginBuilder();
 
@@ -1090,7 +1078,7 @@ angular.module('activity.controllers', [])
     loginBuilder.setTimestamp(timeStamp);//设置时间戳
 
     //执行用户登录
-    RL_YTX.login(loginBuilder, function(obj){
+    RL_YTX.login(loginBuilder, function (obj) {
       //alert("登陆成功");
       //设置讨论组昵称成功
       var uploadPersonInfoBuilder = new RL_YTX.UploadPersonInfoBuilder();
@@ -1098,31 +1086,31 @@ angular.module('activity.controllers', [])
       uploadPersonInfoBuilder.setSex(1);
       uploadPersonInfoBuilder.setBirth("1990-01-01");
       uploadPersonInfoBuilder.setSign('个人签名');
-      RL_YTX.uploadPerfonInfo(uploadPersonInfoBuilder, function(obj){
+      RL_YTX.uploadPerfonInfo(uploadPersonInfoBuilder, function (obj) {
         //设置成功
         //alert("昵称成功");
         obj.version;//个人信息版本号
 
         //加入群组
-        var builder= new RL_YTX.JoinGroupBuilder();
+        var builder = new RL_YTX.JoinGroupBuilder();
         //设置申请群组id
         builder.setGroupId($scope.groupId);
         //设置申请理由
         builder.setDeclared('要加入');
         //发送请求
-        RL_YTX.joinGroup(builder, function(){
+        RL_YTX.joinGroup(builder, function () {
           //alert('加入成功')
           //操作成功
-        },function(obj){
+        }, function (obj) {
           //操作失败
         });
-      }, function(resp){
+      }, function (resp) {
         //设置失败
-       // alert(resp.code);
+        // alert(resp.code);
       });
 
       //新建获取群组成员列表请求对象
-      $scope.groupMemberList=[];
+      $scope.groupMemberList = [];
       var groupMember = new RL_YTX.GetGroupMemberListBuilder();
       //设置群组id
       groupMember.setGroupId($scope.groupId);
@@ -1130,10 +1118,10 @@ angular.module('activity.controllers', [])
       groupMember.setPageSize(-1);
       //发送请求
 
-      RL_YTX.getGroupMemberList(groupMember, function(obj){
+      RL_YTX.getGroupMemberList(groupMember, function (obj) {
         console.log(obj[1]);
-        for(var i=1;i<obj.length;i++){
-          $scope.groupMemberList.push({firstName:obj[i].nickName,member:obj[i].member});
+        for (var i = 1; i < obj.length; i++) {
+          $scope.groupMemberList.push({firstName: obj[i].nickName, member: obj[i].member});
           $scope.$digest();
         }
 
@@ -1162,16 +1150,14 @@ angular.module('activity.controllers', [])
         //     alert("错误码：" + obj.code + "; 错误描述：" + obj.msg)
         //   }
         // });
-
-
         //成功获取数据，更新页面
-      }, function(obj){
+      }, function (obj) {
         //获取数据失败
       });
 
       //消息监听器
-      RL_YTX.onMsgReceiveListener(function(obj){
-        if(obj.msgType == 12){
+      RL_YTX.onMsgReceiveListener(function (obj) {
+        if (obj.msgType == 12) {
           if (obj.msgDomain == 1) {
             alert("正在输入");
             return;
@@ -1187,12 +1173,12 @@ angular.module('activity.controllers', [])
         }
 
         //获取消息列表
-        var b_isGroupMsg='1';
+        var b_isGroupMsg = '1';
         var you_sender = (b_isGroupMsg) ? obj.msgReceiver : obj.msgSender;
         //获取发送者昵称，如果不存在，使用账号代替
         var you_senderNickName = obj.senderNickName;
         var name = obj.msgSender;
-        if(!!you_senderNickName){
+        if (!!you_senderNickName) {
           name = you_senderNickName;
         }
         var content_type = null;
@@ -1203,26 +1189,26 @@ angular.module('activity.controllers', [])
         //获取消息类型
         //1:文本消息 2:语音消息 4:图片消息6:文件
         var msgType = obj.msgType;
-        if(1 == msgType || 0 == msgType){
+        if (1 == msgType || 0 == msgType) {
           //文本消息，获取消息内容
           var you_msgContent = obj.msgContent;
-          $scope.discussList.push({'name':name,'text':you_msgContent,'time':time,'id':$scope.workEffortId});
+          $scope.discussList.push({'name': name, 'text': you_msgContent, 'time': time, 'id': $scope.workEffortId});
           $scope.$digest();
           console.log($scope.discussList)
-        }else if(2 == msgType){
+        } else if (2 == msgType) {
           //语音消息，获取语音文件url
           var url = obj.msgFileUrl;
           alert(url)
-        }else if(3 == msgType){
+        } else if (3 == msgType) {
           //3：视频消息，获取视频url
           //语音消息，获取语音文件url
           var url = obj.msgFileUrl;
           alert(url)
-        }else if(4 == msgType){
+        } else if (4 == msgType) {
           //图片消息 获取图片url
           var url = obj.msgFileUrl;
           alert(url)
-        }else{
+        } else {
           //后续还会支持(地理位置，视频，以及自定义消息等)
         }
         //通知前端更新页面
@@ -1230,63 +1216,63 @@ angular.module('activity.controllers', [])
       });
 
       //注册群组通知事件监听
-      RL_YTX.onNoticeReceiveListener(function(obj){
+      RL_YTX.onNoticeReceiveListener(function (obj) {
         //收到群组通知
       });
-      RL_YTX.onConnectStateChangeLisenter(function(obj){
+      RL_YTX.onConnectStateChangeLisenter(function (obj) {
         //连接状态变更
         // obj.code;//变更状态 1 断开连接 2 重连中 3 重连成功 4 被踢下线 5 断开连接，需重新登录
         // 断线需要人工重连
       });
-    }, function(obj){
+    }, function (obj) {
       //登录失败方法回调
     });
 
     //语音聊天
-    var voice=true;
-    $scope.voiceChat=function () {
-      if(voice){
+    var voice = true;
+    $scope.voiceChat = function () {
+      if (voice) {
         $("textarea").css({
-          'background-color':'#f8f8f8',
-          'text-align':'center'
+          'background-color': '#f8f8f8',
+          'text-align': 'center'
         }).attr({
-          'readonly':'readonly',
-          'placeholder':'按住发送'
+          'readonly': 'readonly',
+          'placeholder': '按住发送'
         });
-        voice=false;
-      }else {
+        voice = false;
+      } else {
         $("textarea").css({
-          'background-color':'white',
-          'text-align':'left'
-        }).attr('placeholder','请输入你想要发送的信息。。。').removeAttr('readonly');
-        voice=true
+          'background-color': 'white',
+          'text-align': 'left'
+        }).attr('placeholder', '请输入你想要发送的信息。。。').removeAttr('readonly');
+        voice = true
       }
 
     };
 
     //发送语音
-    $scope.holdVoice=function () {
-      var mouseUp=$("textarea").attr('readonly');
-      if(mouseUp=='readonly'){
-        $("textarea").css('background-color','#4d4d4d')
+    $scope.holdVoice = function () {
+      var mouseUp = $("textarea").attr('readonly');
+      if (mouseUp == 'readonly') {
+        $("textarea").css('background-color', '#4d4d4d')
       }
 
     };
 
-    $scope.releaseVoice=function () {
-      var mouseUp=$("textarea").attr('readonly');
-      if(mouseUp=='readonly'){
-        $("textarea").css('background-color','white')
+    $scope.releaseVoice = function () {
+      var mouseUp = $("textarea").attr('readonly');
+      if (mouseUp == 'readonly') {
+        $("textarea").css('background-color', 'white')
       }
 
     };
 
     //发送信息
-    $scope.sentMessage=function () {
+    $scope.sentMessage = function () {
       //新建消息体对象
       var obj = new RL_YTX.MsgBuilder();
       //设置自定义消息id
-      var msgid='100000';
+      var msgid = '100000';
       obj.setId(msgid);
       //假设页面存在一个id为file的<input type=”file”>元素
       //获取图片或附件对象
@@ -1301,53 +1287,58 @@ angular.module('activity.controllers', [])
       //设置接收者
       obj.setReceiver($scope.groupId);
 
-      RL_YTX.sendMsg(obj, function(){
-      //发送消息成功
-      //处理用户逻辑，通知页面
-      }, function(obj){
+      RL_YTX.sendMsg(obj, function () {
+        //发送消息成功
+        //处理用户逻辑，通知页面
+      }, function (obj) {
         //失败ßßssßß
         //发送消息失败
         //处理用户逻辑，通知页面刷新，展现重发按钮
-      }, function(sended, total){
+      }, function (sended, total) {
         //发送图片或附件时的进度条
         //如果发送文本消息，可以不传该参数
       });
-      var time=new Date();
-      $scope.discussList.push({'name':$scope.firstName,'text':$scope.input.message,'time':time,'id':$scope.workEffortId});
+      var time = new Date();
+      $scope.discussList.push({
+        'name': $scope.firstName,
+        'text': $scope.input.message,
+        'time': time,
+        'id': $scope.workEffortId
+      });
       $('textarea').val('');
-      $scope.input.message='';
+      $scope.input.message = '';
       $ionicScrollDelegate.scrollBottom();
     };
 
     //返回活动详情，退出融连云登陆。
-    $scope.goback=function () {
+    $scope.goback = function () {
 
-      RL_YTX.logout(function(){
+      RL_YTX.logout(function () {
         console.log("退出讨论");
         //登出成功处理
-      }, function(obj){
+      }, function (obj) {
         //登出失败处理
       });
-      var messageList={};
-      messageList.message=$scope.discussList;
+      var messageList = {};
+      messageList.message = $scope.discussList;
       //messageList.workEffortId=$scope.workEffortId;
       localStorage.removeItem($scope.workEffortId);
-      localStorage.setItem($scope.workEffortId,JSON.stringify(messageList));
+      localStorage.setItem($scope.workEffortId, JSON.stringify(messageList));
       $location.path("/tab/activityDetails/" + $scope.workEffortId);
     }
 
   })
 
   //活动主题图片界面******************************************************************************************************
-  .controller('ThemeImage', function ($scope, $ionicSlideBoxDelegate, ActivityServer,$ionicHistory) {
+  .controller('ThemeImage', function ($scope, $ionicSlideBoxDelegate, ActivityServer) {
 
     //获得主题类型列表
     ActivityServer.queryContentTypeList(function (data) {
-      $scope.contectTypeList=data.contentTypeList
+      $scope.contectTypeList = data.contentTypeList
     });
 
     //关闭模态框
-    $scope.closeThemeModal = function() {
+    $scope.closeThemeModal = function () {
       $scope.Theme.hide();
     };
 
@@ -1371,23 +1362,23 @@ angular.module('activity.controllers', [])
     };
 
     //获得不同类型图片
-    ActivityServer.queryThemes($scope.contectTypeList[0].contentTypeId,function (data) {
-      $scope.huwaiImgList =data.themesList
+    ActivityServer.queryThemes($scope.contectTypeList[0].contentTypeId, function (data) {
+      $scope.huwaiImgList = data.themesList
     });
-    ActivityServer.queryThemes($scope.contectTypeList[1].contentTypeId,function (data) {
-      $scope.fimilyImgList =data.themesList
+    ActivityServer.queryThemes($scope.contectTypeList[1].contentTypeId, function (data) {
+      $scope.fimilyImgList = data.themesList
     });
-    ActivityServer.queryThemes($scope.contectTypeList[2].contentTypeId,function (data) {
-      $scope.partyImgList =data.themesList
+    ActivityServer.queryThemes($scope.contectTypeList[2].contentTypeId, function (data) {
+      $scope.partyImgList = data.themesList
     });
-    ActivityServer.queryThemes($scope.contectTypeList[3].contentTypeId,function (data) {
-      $scope.businessImgList =data.themesList
+    ActivityServer.queryThemes($scope.contectTypeList[3].contentTypeId, function (data) {
+      $scope.businessImgList = data.themesList
     });
 
     //选定组题图片
-    $scope.selectThemeImg=function (contentId,img) {
-      localStorage.setItem("themeImg",img);
-      localStorage.setItem("themeImgId",contentId);
+    $scope.selectThemeImg = function (contentId, img) {
+      localStorage.setItem("themeImg", img);
+      localStorage.setItem("themeImgId", contentId);
       alert("选择图片成功");
       $scope.Theme.hide();
     }

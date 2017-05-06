@@ -9,7 +9,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   'vote.controllers', 'vote.services', 'login.controllers', 'login.services', 'activity.services', 'activity.controllers',
   'activity.services', 'contact.services', 'contact.controllers','directives.OniBarDirective'])
 
-.run(function($ionicPlatform,ActivityServer,$cordovaDevice,$rootScope,$cordovaStatusbar) {
+.run(function($ionicPlatform,ActivityServer,$cordovaDevice,$rootScope) {
 
   // //连接服务器
   $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
@@ -36,18 +36,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       cordova.plugins.Keyboard.disableScroll(true);
     }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    //
-    // if (cordova.platformId == 'android') {
-    //   StatusBar.backgroundColorByHexString("#333");
-    // }else{
-    //   $cordovaStatusbar.overlaysWebView(true);
-    //   $cordovaStatusbar.style(1);
-    //   StatusBar.styleLightContent();
-    //   StatusBar.backgroundColorByHexString("#333");
-    // }
 
     //通过UUID获取TOKEN
     document.addEventListener("deviceready", function () {
@@ -63,6 +53,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }, false);
   });
+
 })
 
 .config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
@@ -79,12 +70,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
-
-  // Each tab has its own nav history stack:
-
+  //活动首页
   .state('tab.dash', {
     url: '/dash',
-    cache: false,
+    cache: true,
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
@@ -92,18 +81,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-
+  //联系人
   .state('tab.chats', {
       url: '/chats',
       cache: false,
       views: {
         'tab-chats': {
           templateUrl: 'templates/tab-chats.html',
-          controller: 'ContactlistCtrl'
+          controller: 'MainCtrl'
         }
       }
     })
-
+  //活动通知
+  .state('tab.activityNotice', {
+    url: '/activityNotice',
+    cache: false,
+    views: {
+      'tab-notice': {
+        templateUrl: 'templates/activity/activityNotice.html',
+        controller: 'ActivityNotice'
+      }
+    }
+  })
+  //用户账户信息
   .state('tab.account', {
     url: '/account',
     cache: false,

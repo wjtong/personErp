@@ -29,6 +29,7 @@ angular.module('login.controllers', [])
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
             $scope.loginData.captcha='';
             $state.go("tab.dash");
+            $ionicHistory.clearCache()
           } else {
             alert("用户不存在！！！！！！！！！！！！！！！！！！！")
           }

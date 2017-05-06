@@ -579,6 +579,32 @@ a.autolinker {
   height:220px
 }
 
+/*联系人**************************************************************/
+.contact .button.button-icon.input-button {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  color: #bbb;
+}
+
+.contact .item img {
+  height: 60px;
+  width: 60px;
+  float: left;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+.contact .my-item.item {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.contact .full-width {
+  width: 100%;
+}
+
+
 /*活动邀请方式＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
 #share{
   margin-top: 20%;

@@ -31,9 +31,9 @@
     </div>
   </ion-content>
   <div style="height:100%;position: relative;" ng-if="activityHomeNull">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
     <img ng-src="../www/img/tabs/矢量智能对象@2x.png" height="225" width="305" style="margin: 40% 10%"/>
     <p class="tipTextAct" id="box">您还没有活动是否要新建？</p>
     <p class="history" id="history" ng-click="getHistory()">找回历史活动</p>
-    <!--<p class="createActivity" id="createActivity" ng-click="newActivity()">创建活动</p>-->
   </div>
 </ion-view>

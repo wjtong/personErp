@@ -418,6 +418,6 @@ angular.module('contact.services', [])
             }
           }
         });
-      }
+      },
     }
   });
