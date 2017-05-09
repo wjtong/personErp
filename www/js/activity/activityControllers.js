@@ -3,7 +3,9 @@ angular.module('activity.controllers', [])
 //活动首页***************************************************************************************************************
   .controller('ActivityHome', function ($scope, ThemeImage, $location, ActivityServer, $state, $ionicPopover, $cordovaBarcodeScanner, $ionicModal) {
 
+
     //查询我的活动列表
+    $scope.activityHomeNull = true;
     $scope.$on('$ionicView.beforeEnter', function () {
       //准备参数
       var tarjeta = localStorage.getItem("tarjeta");
@@ -12,21 +14,14 @@ angular.module('activity.controllers', [])
       ActivityServer.myActivity(tarjeta, roleTypeId, function (data) {
         $scope.active = data.partyEventsList;
         console.log("查询我参与的活动" + "---------" + data.resultMsg);
-        if (data != null) {
-          $scope.activityHome = true;
+        //如果没有活动  页面调整
+        if(data.resultMsg=='成功'){
           $scope.activityHomeNull = false;
         }
       });
     });
 
-    //如果没有活动  页面调整
-    if (localStorage.getItem("tarjeta") == null || $scope.active == '' || $scope.active == undefined) {
-      $scope.activityHome = false;
-      $scope.activityHomeNull = true;
-    } else if (localStorage.getItem("tarjeta") != null) {
-      $scope.activityHome = true;
-      $scope.activityHomeNull = false;
-    }
+
 
     //顶部功能导航栏
     $scope.topImgList = ThemeImage.getTopImg();
@@ -111,6 +106,7 @@ angular.module('activity.controllers', [])
     //下拉刷新
     $scope.doRefresh = function () {
       var roleTypeId = 'ACTIVITY_MEMBER';
+      var tarjeta = localStorage.getItem("tarjeta");
       ActivityServer.myActivity(tarjeta, roleTypeId, function (data) {
         $scope.active = data.partyEventsList;
         console.log("查询我参与的活动" + "---------" + data.resultMsg);
@@ -523,12 +519,25 @@ angular.module('activity.controllers', [])
     $scope.partyId = localStorage.getItem("partyId");
     $scope.workEffortId = $stateParams.activityId;
 
+    //功能导航栏
+    $scope.activityTabsImg=ThemeImage.getActivityImgTabs();
+    $scope.goNavigation=function (name) {
+      if(name=='账单'){
+        $location.path("/tab/activityBill/" + $scope.workEffortId);
+      }else if(name=='投票'){
+        $state.go('tab.voteList',{'workEffortId':$scope.workEffortId})
+      }
+    };
+
+    //活动详情临时宫格图片
+      $scope.activityTabsJu=ThemeImage.getActivityImgJu();
+
     //获得活动的详细信息
     ActivityServer.getActivityDetails(tarjeta, $scope.workEffortId, function (data) {
       console.log('活动详情信息返回' + "----------" + data.resultMsg);
       //获取需要用到的参数
-      $scope.activityList = data.eventDetail;                    //活动基本信息
-      $scope.themeImgList = data.theme;                               //活动组题图片
+      $scope.activityList = data.eventDetail;                        //活动基本信息
+      $scope.themeImgList = data.theme;                             //活动组题图片
       $scope.userLoginId = data.userLoginId;                        //组织
       $scope.partyId = data.partyId;                                //组织者partyId
       $scope.iAmAdmin = data.iAmAdmin;                              //判断是否是组织者
@@ -566,36 +575,36 @@ angular.module('activity.controllers', [])
       $scope.activityBill = true;
     }
 
-    //判断是否设置了活动地址  如果没有隐藏地图信息
-    $scope.baidu = true;
-    if ($scope.activityList.specialTerms == '' || $scope.activityList.specialTerms == null) {
-      $scope.baidu = false
-    }
-    else {
-      //将经纬度分割开
-      $scope.longitude = $scope.activityList.specialTerms.split("/")[0];
-      $scope.latitude = $scope.activityList.specialTerms.split("/")[1];
-      //嵌入百度地图
-      var posOptions = {timeout: 10000, enableHighAccuracy: false};
-      $cordovaGeolocation
-        .getCurrentPosition(posOptions)
-        .then(function (position) {
-          var map = new BMap.Map("allmap");
-          //var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
-          //map.centerAndZoom(point, 16);
-          //var marker = new BMap.Marker(point);
-          //map.addOverlay(marker);   // 将标注添加到地图中
-          //map.addControl(ctrl_nav);//给地图添加缩放的按钮
-          //map.enableScrollWheelZoom(true);
-          //活动地点的位置
-          var activitypoint = new BMap.Point($scope.latitude, $scope.longitude);   // 创建点坐标
-          map.centerAndZoom(activitypoint, 16);
-          var activitymarker = new BMap.Marker(activitypoint);
-          map.addOverlay(activitymarker);
-        }, function (err) {
-          // error
-        });
-    }
+    // //判断是否设置了活动地址  如果没有隐藏地图信息
+    // $scope.baidu = true;
+    // if ($scope.activityList.specialTerms == '' || $scope.activityList.specialTerms == null) {
+    //   $scope.baidu = false
+    // }
+    // else {
+    //   //将经纬度分割开
+    //   $scope.longitude = $scope.activityList.specialTerms.split("/")[0];
+    //   $scope.latitude = $scope.activityList.specialTerms.split("/")[1];
+    //   //嵌入百度地图
+    //   var posOptions = {timeout: 10000, enableHighAccuracy: false};
+    //   $cordovaGeolocation
+    //     .getCurrentPosition(posOptions)
+    //     .then(function (position) {
+    //       var map = new BMap.Map("allmap");
+    //       //var point = new BMap.Point(data.coords.longitude, data.coords.latitude);   // 创建点坐标
+    //       //map.centerAndZoom(point, 16);
+    //       //var marker = new BMap.Marker(point);
+    //       //map.addOverlay(marker);   // 将标注添加到地图中
+    //       //map.addControl(ctrl_nav);//给地图添加缩放的按钮
+    //       //map.enableScrollWheelZoom(true);
+    //       //活动地点的位置
+    //       var activitypoint = new BMap.Point($scope.latitude, $scope.longitude);   // 创建点坐标
+    //       map.centerAndZoom(activitypoint, 16);
+    //       var activitymarker = new BMap.Marker(activitypoint);
+    //       map.addOverlay(activitymarker);
+    //     }, function (err) {
+    //       // error
+    //     });
+    // }
 
     //活动位置导航（调用本机导航）
     $scope.launchNavigator = function () {
@@ -622,6 +631,10 @@ angular.module('activity.controllers', [])
     //显示照片墙幻灯片（大图片）
     $scope.shouBigImage = function (index) {
       $location.path("/tab/slide/" + $scope.workEffortId + '/' + index);
+    };
+
+    $scope.shouBigImageJu=function () {
+        $('#thumbs').touchTouch();
     };
 
     //显示活动相关菜单（右上。。。)
@@ -932,8 +945,8 @@ angular.module('activity.controllers', [])
     $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
     ActivityServer.queryMyEventContents($scope.tarjeta, $scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize, function (data) {
       $scope.pictureList = data.contentsList;
-      $scope.acountPraiseCount = $scope.pictureList[$scope.myActiveSlide].praiseCount;
-      $scope.acountTrampleCount = $scope.pictureList[$scope.myActiveSlide].trampleCount;
+      //$scope.acountPraiseCount = $scope.pictureList[$scope.myActiveSlide].praiseCount;
+      //$scope.acountTrampleCount = $scope.pictureList[$scope.myActiveSlide].trampleCount;
     });
 
     //赞和踩

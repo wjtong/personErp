@@ -636,13 +636,13 @@ angular.module('activity.services', [])
   .factory('ThemeImage', function () {
 
     var shareImg = [
-      {id: 'Pic_10021', img: 'img/share/Contact.png', name: '手机通讯录'},
-      //{id:'Pic_10022',img:'img/share/QQ.jpeg',name:'QQ'},
-      {id: 'Pic_10023', img: 'img/share/li1.jpeg', name: '梨友录'},
-      {id: 'Pic_10024', img: 'img/share/微信.jpeg', name: '微信'},
-      {id:'Pic_10025',img:'img/share/手动添加.jpeg',name:'手动添加'},
-      {id: 'Pic_10026', img: 'img/share/朋友圈.jpeg', name: '朋友圈'},
-     // {id: 'Pic_10027', img: 'img/share/facebook.png', name: 'faceBook'}
+      {id: 'Pic_10021', img: 'img/shareActivity/btn_微信_n@2x.png', name: '微信'},
+      {id: 'Pic_10022', img: 'img/shareActivity/btn_朋友圈_n@2x.png', name: '朋友圈'},
+      {id: 'Pic_10023', img: 'img/shareActivity/btn_通讯录_n@2x.png', name: '短信'},
+      {id: 'Pic_10024', img: 'img/shareActivity/btn_梨友_n@2x.png', name: '梨友'},
+      {id: 'Pic_10025', img: 'img/shareActivity/btn_手动添加_n@2x.png', name: '手动添加'},
+      {id: 'Pic_10026', img: 'img/shareActivity/btn_复制链接7@2x.png', name: '复制链接'},
+      {id: 'Pic_10027', img: 'img/shareActivity/btn_二维码@2x.png', name: '二维码'}
     ];
     var Img =
     {id: 'Pic_10080', img: 'img/resources/paobu3.jpeg', img2: 'img/team/img1-sm.jpg'};
@@ -651,6 +651,25 @@ angular.module('activity.services', [])
       {id: 'Pic_10027', img: 'img/tabs/扫一扫@3x.png', name: '扫一扫'},
       {id:'Pic_10028',img:'img/tabs/拍照@3x.png',name:'拍照'},
       {id: 'Pic_10029', img: 'img/tabs/随笔记@3x.png', name: '随笔记'}
+    ];
+
+    var activityImgTabs = [
+      {id: 'Pic_10030', img: 'img/activityImg/btn_照片墙_n@2x.png', name: '照片墙'},
+      {id: 'Pic_10031', img: 'img/activityImg/btn_投票_n@2x.png', name: '投票'},
+      {id: 'Pic_10032', img: 'img/activityImg/btn_账单_n@2x.png', name: '账单'},
+      {id: 'Pic_10033', img: 'img/activityImg/btn_附件_n@2x.png', name: '附件'}
+    ];
+
+    var activityImgJu = [
+      {id: 'Pic_10034', img: 'img/activityImg/ju1.jpeg'},
+      {id: 'Pic_10035', img: 'img/activityImg/ju2.jpeg'},
+      {id: 'Pic_10036', img: 'img/activityImg/ju3.jpeg'},
+      {id: 'Pic_10037', img: 'img/activityImg/ju4.jpeg'},
+      {id: 'Pic_10038', img: 'img/activityImg/ju5.jpeg'},
+      {id: 'Pic_10039', img: 'img/activityImg/ju6.jpeg'},
+      {id: 'Pic_10040', img: 'img/activityImg/ju7.jpeg'},
+      {id: 'Pic_10041', img: 'img/activityImg/ju8.jpeg'},
+      {id: 'Pic_10042', img: 'img/activityImg/ju9.jpeg'}
     ];
 
     return {
@@ -663,6 +682,12 @@ angular.module('activity.services', [])
       },
       getShareImg: function () {
         return shareImg;
+      },
+      getActivityImgTabs: function () {
+        return activityImgTabs;
+      },
+      getActivityImgJu: function () {
+        return activityImgJu;
       },
     }
   });

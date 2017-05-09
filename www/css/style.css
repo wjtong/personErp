@@ -518,6 +518,12 @@ a.autolinker {
   font-size: 1.0rem;
   color: #9e9e9e;
 }
+ .activityTabs{
+   background-color: #FFDA44;
+   text-align: center;
+   color: black;
+   height: 30%
+ }
 .createActivity {
   position: absolute;
   top: 77%;
@@ -579,6 +585,131 @@ a.autolinker {
   height:220px
 }
 
+/*活动详情＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
+#activityDel p{
+  font-size: 12px;
+  vertical-align: middle;
+  white-space:normal;
+  tab-index: 10px;
+}
+#activityDel .item{
+  border: solid #B9B9B9;
+  border-width:0 0 5px 0;
+}
+#activityDel .header{
+  border: solid #B9B9B9;
+  border-width:0 0 5px 0;
+}
+#activityDel .item-thumbnail-left{
+  border: 0;
+  padding-left: 35%
+}
+#activityDel .img-header{
+  max-height:106px;
+  max-width: 106px
+}
+#activityDel .img-responsive{
+ width: 50%;
+}
+#activityDel .img-joinP{
+  width:30px;
+  height:30px;
+  border-radius: 50%
+}
+#activityDel .img-zhuzi{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 35%;
+  left: 15%
+}
+#activityDel hr{
+  color: #B9B9B9;
+}
+.activityTimer{
+  background: url(../img/activityImg/icon_时间@2x.png) no-repeat center ;
+  background-size:58%,58%;
+  padding: 5%;
+}
+.activityLocation{
+  background: url(../img/activityImg/icon_地址@2x.png) no-repeat center ;
+  background-size:58%,58%;
+  padding: 5%;
+}
+#activityDel .icon{
+  vertical-align: middle;
+  padding-right: 20px;
+}
+#activityDel .item-joinP{
+  padding-bottom: 0;
+}
+#footer .yuyin{
+  position: absolute;
+  top:15%;
+  left:5%;
+}
+#footer .yuyin img{
+  height: 30px;
+  width: 30px;
+  vertical-align: middle;
+}
+#footer .yaoqing{
+  position: absolute;
+  top:15%;
+  right:45%;
+}
+#footer button{
+  width: 120px;
+  border-radius: 18px;
+  background-color:white;
+  color: white;
+  border:0;
+}
+#footer .baoming{
+  position: absolute;
+  top:15%;
+  right:5%;
+}
+#activityDel h2{
+  font-size: 15px;
+}
+#activityDel span{
+  font-size: 12px;
+}
+#activityDel .activityAddress {
+  margin-top: 10%;
+}
+.activityDetTabs{
+  text-align: center;
+  color: black;
+  border-width: 5px;
+  padding-bottom: 0
+}
+.activityItemImg{
+  background: url(../img/activityImg/icon_活动项@2x.png) no-repeat center top;
+  background-size:40%,40%;
+  padding: 5%;
+}
+#activityDel h2{
+  color: #B9B9B9;
+}
+.activityFootSignUp{
+  background: url(../img/activityImg/icon_报名@2x.png) no-repeat center top;
+  background-size:100%;
+  padding: 5%;
+  margin: 0;
+}
+.activityFootImg{
+  background: url(../img/activityImg/icon_报名@2x.png) no-repeat center ;
+  background-size:100%,100%;
+  padding: 5%;
+}
+.activityInvitationImg{
+  background: url(../img/activityImg/邀请好友@2x.png) no-repeat center ;
+  background-size:100%,100%;
+  padding: 5%;
+}
+
 /*联系人**************************************************************/
 .contact .button.button-icon.input-button {
   position: absolute;
@@ -606,19 +737,59 @@ a.autolinker {
 
 
 /*活动邀请方式＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
-#share{
-  margin-top: 20%;
-}
-#share h3{
+#share .share-container{
   text-align: center;
-  font-size: 17px;
-  color: white;
-  margin-top: 5%
+}
+#share .img-Name{
+  height: 102.5px;
+  width: 102.5px;
+  margin: 58.5px 0 32px 0;
+}
+#share input{
+  width: 311px;
+  height: 44px;
+  border:1px #9e9e9e solid;
+  border-radius:40px;
+  margin:0 auto;
+  text-align: center;
+  font-size: 15px;
+  color: #999999;
+}
+#share span{
+  display: block;
+  background: url(../img/shareActivity/line_分割线@2x.png) no-repeat center ;
+  background-size:100%,100%;
+  margin: 24px 41px 0 41px;
+  color: #999999;
+}
+#share input[type=button]{
+  width: 311px;
+  height: 44px;
+  border:1px #08d918 solid;
+  border-radius:40px;
+  margin:27px auto;
+  text-align: center;
+  font-size: 15px;
+  color: #FFFFFF;
+  background-color: #08d918;
 }
 #share p{
-  margin-top: 12%;
-  white-space:normal
+  margin: 1px auto 22px auto;
+  font-size: 16px;
+  color: #4a4a4a;
 }
+#share  .img-shareActivity{
+  width: 55px;
+  height: 55px;
+}
+#share .col p {
+  font-size: 10px;
+}
+#share .col{
+  height: 90px;
+}
+
+
 
 /*活动账单表格样式*/
 /* ---- Table ---- */
@@ -702,9 +873,6 @@ tbody tr.odd td {
   .history {
     font-size: 1.0rem;
   }
-  #share{
-    margin-top: 80%;
-  }
 }
 
 /*在小于375px的屏幕里，微小屏幕，更低分辨率的手机*/
@@ -715,13 +883,7 @@ tbody tr.odd td {
   .history {
     font-size: 0.8rem;
   }
-  #share{
-    margin-top: 65%;
-  }
-  #share p{
-    font-size: 12px;
-  }
-  #share ion-item{
-    padding-left:60px;
+  #activityDel .item-thumbnail-left{
+    padding-left: 40%
   }
 }

@@ -1,116 +1,84 @@
-<ion-view view-title="活动详情" hide-tabs="true">
-  <ion-nav-bar class="globalColor">
+<ion-view view-title="{{ activityList.workEffortName }}" hide-tabs="true">
+  <ion-nav-bar>
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="goActivityHome()">
         <i class="icon ion-android-arrow-back globalColorButton">活动首页</i>
       </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <button class="button button-clear " ng-click="openPopover($event)">
-        <i class="icon ion-more globalColorButton"></i>
-      </button>
-    </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content id="height">
+  <ion-content id="activityDel">
     <div class="list">
-      <div class="item" style="border-width: 5px">
-        <img ng-src="{{themeImgList.objectInfo}}" style="width: 100%;height: 200px;margin: 0"/>
-      </div>
-      <div class="item" style="border-width: 5px">
-        <h2>{{activityList.workEffortName}}</h2>
-        <!--<p><i class="icon ion-ios-clock-outline"></i>  {{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm'}}</p>-->
-        <!--<p><i class="icon ion-ios-clock"></i>  {{activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm'}}</p>-->
-        <!--<p><i class="ion-ios-location-outline"> {{activityList.locationDesc}}</i></p>-->
-        <label style="display: block;margin: 0;padding: 0">
-          <i class="icon ion-ios-clock-outline" style="font-size: 18px"></i>&nbsp;&nbsp;
-          <input type="text"  value="{{activityList.actualStartDate|date:'yyyy-MM-dd HH:mm'}}" style="display: inline-block;margin: 0;padding: 0;width: 40%">
-          <input type="text"  value="{{activityList.estimatedCompletionDate|date:'yyyy-MM-dd HH:mm'}}"style="display: inline-block;margin: 0;padding: 0">
-        </label>
-        <label style="display: block;margin: 0;padding: 0">
-          <i class="icon ion-ios-location-outline" style="font-size: 18px"></i>&nbsp;&nbsp;
-          <input type="text"  value="{{activityList.locationDesc}}"style="display: inline-block;margin: 0;padding: 0">
-        </label>
-      </div>
-      <div  class="item" style="border-width: 5px">
-        <h2>发起人:</h2>
-        <hr>
-        <a class="item item-avatar" href="#" style="border-width:0">
-          <img src="{{createPersonInfoList.objectInfo}}">
-          <h2>{{createPersonInfoList.firstName}}</h2>
-          <p>{{createPersonInfoList.faqishijian|date:'yyyy-MM-dd HH:mm'}}发起</p>
-        </a>
-      </div>
-      <div class="item" style="width: 100%;border-width: 5px">
-        <h3>详细信息</h3>
-        <label style="display: block;margin: 0;padding: 0">
-          <input type="text"  value="{{activityList.description}}"style="display: inline-block;margin: 0;padding: 0">
-        </label>
-      </div>
-      <div class="item" style="border-width: 5px">
-        <br>
-        <div>
-          <h3 style="display: inline-block">照片墙</h3>
-          <p style="float: right" ng-click="upLoadImage(activityList.id)">上传图片</p>
+      <div class="item">
+        <div class="item item-thumbnail-left">
+          <img class="img-header" src="{{themeImgList.objectInfo}}">
+          <p><i class="icon activityTimer"></i>{{activityList.actualStartDate| date:'yyyy-MM-dd HH:mm' }}</p>
+          <p>{{ activityList.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm' }}</p>
+          <p class="activityAddress"><i class="icon activityLocation"></i>{{activityList.locationDesc }}</p>
         </div>
+      </div>
+      <div class="row header activityDetTabs">
+        <div class="col col-25" ng-repeat="picture in activityTabsImg">
+          <img class="img-responsive" ng-src="{{picture.img}}" ng-click="goNavigation(picture.name)">
+          <p>{{picture.name}}</p>
+        </div>
+      </div>
+      <div class="item item-joinP">
+        <h2 style="float: left">参与人:</h2>
+        <p style="float: right;">{{number}}人</p>
+        <hr class="cleanFloat">
+        <div class="row  activityDetTabs">
+          <div class="col col-20" ng-repeat="item in groupMemberList">
+            <img class="img-joinP" ng-src="{{item.headPortrait}}">
+            <p>{{item.firstName}}</p>
+          </div>
+        </div>
+        <div><img class="img-zhuzi" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/></div>
+      </div>
+      <div class="item">
+        <h2>活动项:</h2>
         <hr>
+        <div style="padding: 5% 0 0 10%;">
+          <img src="../www/img/activityImg/icon_活动项@2x.png" height="30" width="30" style="vertical-align: middle"/>
+          <span style="margin-left: 21px">18:00 体育馆门口集合</span>
+          <hr style="width: 1px;height: 26px;margin: 0 0 0 4%">
+        </div>
+        <div style="padding: 0 0 0 10%">
+          <img src="../www/img/activityImg/icon_活动项@2x.png" height="30" width="30" style="vertical-align: middle"/>
+          <span style="margin-left: 21px">18:00 验票入场</span>
+          <hr style="width: 1px;height: 26px;margin: 0 0 0 4%">
+        </div>
+        <div style="padding: 0 0 0 10%">
+          <img src="../www/img/activityImg/icon_活动项@2x.png" height="30" width="30" style="vertical-align: middle"/>
+          <span style="margin-left: 21px">18:00 场内签名合照</span>
+        </div>
+      </div>
+      <div class="item">
+        <h2>活动描述:</h2>
+        <hr>
+        <label style="display: block;margin: 0;padding: 0">
+          <input type="text" value="{{activityList.description}}"
+                 style="display: inline-block;margin: 0;padding: 0;text-indent: 20px">
+        </label>
         <div class="row padding row-wrap">
           <div class="col col-33"
-               style="width: 100px;height: 100px;padding:3px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;margin: -1px 0 0 -1px;text-align: center"
-               ng-repeat="picture in images_list"  >
-            <img class="img-responsive" style="height: 100%;width: 100px; border:1px solid #ffffff;"
-                 ng-src="{{picture.objectInfo}}" ng-click="shouBigImage($index)">
+               style="width: 100px;height: 100px;"
+               ng-repeat="picture in activityTabsJu">
+            <img class="img-responsive" id="thumbs" style="height: 100%;width: 100%; border:1px solid #555;"
+                 ng-src="{{picture.img}}" ng-click="shouBigImageJu()">
           </div>
         </div>
       </div>
-      <!--活动的地图-->
-      <div class="item" ng-if="baidu" style="border-width: 5px">
-        <br>
-        <h3>
-          <span>位置</span>
-          <span style="float: right" ng-click="launchNavigator()"><i class="icon ion-location">导航</i></span>
-        </h3>
-        <hr>
-        <div id="allmap" style="height: 300px;"></div>
-      </div>
     </div>
-    <br>
-    <br>
-    <br>
   </ion-content>
-  <br>
-  <br>
-  <div class="bar bar-footer globalColor" style="margin-left: -6px;" ng-if="otherActivity">
-    <div class="tab-nav tabs globalColor" style="font-size: 13px">
-      <a class="tab-item tab-item-active" style="line-height: 12px;" ng-click="goInfo(typeMy)">
-        <i class="icon ion-chatbubble-working" style="line-height: 14px;color: white">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;color: white">与他交谈</span>
-      </a>
-      <a class="tab-item tab-item-active" style="line-height: 12px;color: white" ng-click="goInfo(typefinish)">
-        <i class="icon icon-left ion-android-happy" style="line-height: 14px;">
-        </i>
-        <span class="tab-title ng-binding" style="font-size: 10px;color: white">签到</span>
-      </a>
-      <div style="float:right" >
-        <button id="join"  class="button  globalColor ion-android-person-add"
-                style="padding: 0;margin: 0;float: right;width: 150px;height: 47px;font-size: 20px"
-                ng-click="showPopup(activityList.workEffortId)"  >{{activitySignUp}}
-        </button>
-      </div>
+  <ion-footer-bar id="footer" class="bar-light">
+    <div class="yuyin" style="">
+      <img src="../www/img/activityImg/btn_讨论_n@2x.png" ng-click="activityDiscuss()"/>
     </div>
-  </div>
-  <div class="bar bar-footer globalColor" style="margin-left: -6px;" ng-if="myActivity">
-    <div class="tab-nav tabs globalColor">
-      <a class="tab-item tab-item" style="line-height: 10px;color: white" ng-click="editActivty(editEvent)">
-        <i class="icon icon-left ion-network">
-        </i>
-        <span class="tab-title" style="font-size: 13px;color: white">编辑活动</span>
-      </a>
-      <a class="tab-item tab-item" style="line-height: 10px;color: white" ng-click="InviteModal()">
-        <i class="icon icon-left ion-android-list">
-        </i>
-        <span class="tab-title" style="font-size: 13px;color: white">邀请好友</span>
-      </a>
+    <div class="yaoqing">
+      <button ng-click="InviteModal()" class="button  activityInvitationImg"></button>
     </div>
-  </div>
+    <div class="baoming">
+      <button id="join" ng-click="showPopup(activityList.workEffortId)" class="button activityFootImg"></button>
+    </div>
+  </ion-footer-bar>
 </ion-view>
