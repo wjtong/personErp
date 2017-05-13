@@ -86,12 +86,12 @@ angular.module('starter')
         }
       })
       //联系人的标签内的人员
-      .state('app.labelPersonList', {
+      .state('tab.labelPersonList', {
         url: '/labelPersonList/:partyId',
         disableBack: true,
         cache: false,
         views: {
-          'menuContent': {
+          'tab-chats': {
             templateUrl: 'templates/contact/labelPersonList.html',
             controller: 'LabelPersonList'
           }

@@ -5,19 +5,14 @@ angular.module('contact.controllers', [])
     //准备参数
     $scope.tarjeta = localStorage.getItem("tarjeta");
     $scope.partyId = localStorage.getItem("partyId");
-    $scope.img = localStorage.getItem("contactImg");           //显示缺省图片
 
     //查询我的个人信息
     Contact.queryPersonInfo($scope.tarjeta, function (data) {
-      $scope.myInfoList = data
+      $scope.myInfoList = data;
+      console.log('微信openId:'+data.openId);
+      localStorage.removeItem('adminOpenId');
+      localStorage.setItem('adminOpenId',data.openId)
     });
-
-    //如果没有头像 显示缺省图片
-    if ($scope.myInfoList != undefined) {
-      if ($scope.myInfoList.headPortrait == null || $scope.myInfoList.headPortrait == undefined) {
-        $scope.myInfoList.headPortrait = $scope.img;
-      }
-    }
 
     //退出
     $scope.loginOut = function () {
@@ -25,6 +20,47 @@ angular.module('contact.controllers', [])
       localStorage.removeItem("partyId");
       $state.go("login");
       $ionicHistory.clearCache();   //清除缓存数据
+    };
+
+    //判断手机号码是否绑定
+    $scope.telBinding='未绑定';
+    if($scope.myInfoList){
+      var phone = $scope.myInfoList.contactNumber;
+      if((/^1[34578]\d{9}$/.test(phone))){
+        $scope.telBinding='已绑定';
+      }
+    }
+
+    //手机好绑定
+    $scope.telLogin=function () {
+      $state.go('login')
+    };
+
+    //微信绑定
+    $scope.partyId=localStorage.getItem('partyId');
+    console.log($scope.partyId+"1");
+    $scope.wachatLogin=function () {
+      $scope.scope = "snsapi_userinfo";
+      console.log($scope.partyId+"2");
+      Wechat.auth($scope.scope, function (response) {
+        // you may use response.code to get the access token.
+        console.log(JSON.stringify(response)+"微信返回值");
+        var code=response.code;
+        console.log($scope.partyId+"3");
+        ActivityServer.userWeChatAppLogin(code,$scope.partyId,function (data) {
+          console.log(data.tarjeta);
+          if(data.tarjeta){
+            localStorage.removeItem("tarjeta");
+            localStorage.removeItem("partyId");
+            localStorage.removeItem("openId");
+            localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+            localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+            localStorage.setItem("adminOpenId", data.openId);//设置partyId登陆人
+          }
+        })
+      }, function (reason) {
+        alert("Failed: " + reason);
+      });
     };
 
     //上传头像
@@ -69,28 +105,10 @@ angular.module('contact.controllers', [])
           // error getting photos
         });
     }
-
   })
 
   //联系人***************************************************************************************************************
-  .controller('ContactlistCtrl', function ($scope, Contact, ThemeImage, $state) {
-
-    //准备参数
-    var tarjeta = localStorage.getItem("tarjeta");
-    var partyId = localStorage.getItem("partyId");
-
-    //获得我的全部联系人列表(我参与的活动)
-    Contact.queryAllActivityRelationPersons(partyId, function (data) {
-      $scope.allPersonList = data.allPersonList
-    });
-
-    //进入标签内查看人员
-    $scope.goInfo = function (id) {
-      $state.go('app.labelPersonList', {'partyId': id})
-    }
-
-  })
-  .controller('MainCtrl', function ($scope, $ionicScrollDelegate, filterFilter, $location, $anchorScroll, Contact) {
+  .controller('MainCtrl', function ($scope,$state,$ionicPopup,$ionicSlideBoxDelegate, $ionicScrollDelegate, filterFilter, $location, $anchorScroll, Contact,ActivityServer) {
 
     //准备参数
     var tarjeta = localStorage.getItem("tarjeta");
@@ -650,7 +668,6 @@ angular.module('contact.controllers', [])
     $scope.clearSearch = function () {
       $scope.search = '';
     };
-
   })
 
   //更新联系人***********************************************************************************************************

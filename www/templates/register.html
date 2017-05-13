@@ -1,5 +1,5 @@
 <ion-view view-title="Login">
-  <ion-content >
+  <ion-content>
     <div class="bar bar-header bar-light">
       <h1 class="title">用户注册</h1>
       <button class="button button-clear" ng-click="goLogin()">
@@ -28,10 +28,13 @@
       </form>
       <div>
         <label>
-          <input type="button" ng-value="codeBtn" ng-controller="captcha" ng-click="getIdentifyCodeReg(loginData.telephone)" style="background-color:#B9B9B9;text-align: center;text-indent: 8px;z-index:3;position: absolute;top:45%;right: 5%">
+          <input type="button" ng-value="codeBtn" ng-controller="captcha"
+                 ng-click="getIdentifyCodeReg(loginData.telephone)"
+                 style="background-color:#B9B9B9;text-align: center;text-indent: 8px;z-index:3;position: absolute;top:45%;right: 5%">
         </label>
       </div>
-      <span ng-bind="msg" style="width:300px;display: block;text-align: center;font-weight: bold;color: red;position: absolute;bottom:-20%"></span>
+      <span ng-bind="msg"
+            style="width:300px;display: block;text-align: center;font-weight: bold;color: red;position: absolute;bottom:-20%"></span>
     </div>
   </ion-content>
 </ion-view>

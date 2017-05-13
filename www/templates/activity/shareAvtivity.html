@@ -11,31 +11,24 @@
   </ion-header-bar>
   <ion-content id="share">
     <div class="share-container">
-      <img class="img-Name" src="../www/img/shareActivity/形状-12@2x.png"/>
+      <img class="img-Name" ng-src="{{originatorHeadImg}}"/>
       <label>
-        <input type="text"  placeholder="请输入您的昵称"  >
+        <input type="text" id="originator" placeholder="请输入您的昵称" ng-model="originator.nickName"
+                ng-blur="updateUserName()">
       </label>
       <span>OR</span>
       <label>
-        <input type="button"  value="使用微信头像及昵称"  >
+        <input type="button" value="使用微信头像及昵称" ng-if="weixin" ng-click="userWeixinInfo()">
       </label>
       <p>邀请方式</p>
       <div class="row padding row-wrap">
         <div class="col col-20" ng-repeat="picture in shareImgList">
-          <img class="img-shareActivity"  ng-src="{{picture.img}}" ng-click="goNavigation(picture.name)">
+          <img class="img-shareActivity" ng-src="{{picture.img}}"
+               ng-click="chooseWay(picture.name,activityList.workEffortId,partyId)">
           <p>{{picture.name}}</p>
         </div>
       </div>
     </div>
   </ion-content>
 </div>
-<!--<hr>-->
-<!--<div class="row  row-wrap">-->
-  <!--<div class="col col-50" ng-repeat="share in shareImgList" ng-click="chooseWay(share.name,activityList.workEffortId,partyId)" >-->
-    <!--<ion-item class="item-remove-animate item-avatar item-icon-top">-->
-      <!--<img ng-src="{{share.img}}">-->
-      <!--<p>{{share.name}}</p>-->
-    <!--</ion-item>-->
-  <!--</div>-->
-  <!--<button class="button button-block button-light" ng-click="closeNewTask()">取消</button>-->
-<!--</div>-->
+

@@ -1,74 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
 
-    <link rel="manifest" href="manifest.json">
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/touchTouch.css" rel="stylesheet">
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
-    <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <link rel="manifest" href="manifest.json">
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/activity.css" rel="stylesheet">
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+  <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <!--百度地图JS-->
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=z89D54HRzvzF8jobhBktAbqRIKue8gQN"></script>
+  <!--百度地图JS-->
+  <script type="text/javascript"
+          src="http://api.map.baidu.com/api?v=2.0&amp;ak=z89D54HRzvzF8jobhBktAbqRIKue8gQN"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <script src="cordova.js"></script>
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+  <script src="cordova.js"></script>
 
-    <!-- your app's js -->
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/slidingTabsDirective.js"></script>
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/slidingTabsDirective.js"></script>
 
-    <!--投票-->
-    <script src="js/vote/voteControllers.js"></script>
-    <script src="js/vote/voteRouter.js"></script>
-    <script src="js/vote/voteServices.js"></script>
-    <!--登陆-->
-    <script src="js/login/loginControllers.js"></script>
-    <script src="js/login/loginRouter.js"></script>
-    <script src="js/login/loginServices.js"></script>
-    <!--活动-->
-    <script src="js/activity/activityControllers.js"></script>
-    <script src="js/activity/activityRouter.js"></script>
-    <script src="js/activity/activityServices.js"></script>
-    <!--联系人-->
-    <script src="js/contact/contactControllers.js"></script>
-    <script src="js/contact/contactRouter.js"></script>
-    <script src="js/contact/contactServices.js"></script>
-    <!--全局JS-->
-    <script src="js/directives/OniBarDirective.js"></script>
-    <!--引入熔炼云-->
-    <script src="http://app.cloopen.com/im50/ytx-web-im-min-new.js"></script>
-    <script src="js/justdo.js"></script>
-    <!--二维码-->
-    <script type="text/javascript" src="js/jquery.qrcode.js"></script>
-    <script type="text/javascript" src="js/qrcode.js"></script>
-    <script type="text/javascript" src="js/touchTouch.js"></script>
-    <!--微信公众平台-->
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-  </head>
-  <body ng-app="starter">
-    <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
-    <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-    </ion-nav-bar>
-    <!--
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
-    <ion-nav-view></ion-nav-view>
-  </body>
+  <!--投票-->
+  <script src="js/vote/voteControllers.js"></script>
+  <script src="js/vote/voteRouter.js"></script>
+  <script src="js/vote/voteServices.js"></script>
+  <!--登陆-->
+  <script src="js/login/loginControllers.js"></script>
+  <script src="js/login/loginRouter.js"></script>
+  <script src="js/login/loginServices.js"></script>
+  <!--活动-->
+  <script src="js/activity/activityControllers.js"></script>
+  <script src="js/activity/activityRouter.js"></script>
+  <script src="js/activity/activityServices.js"></script>
+  <!--联系人-->
+  <script src="js/contact/contactControllers.js"></script>
+  <script src="js/contact/contactRouter.js"></script>
+  <script src="js/contact/contactServices.js"></script>
+  <!--全局JS-->
+  <script src="js/directives/OniBarDirective.js"></script>
+  <!--引入熔炼云-->
+  <script src="http://app.cloopen.com/im50/ytx-web-im-min-new.js"></script>
+  <script src="js/justdo.js"></script>
+  <!--二维码-->
+  <script type="text/javascript" src="js/jquery.qrcode.js"></script>
+  <script type="text/javascript" src="js/qrcode.js"></script>
+  <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<body ng-app="starter">
+<!--
+  The nav bar that will be updated as we navigate between views.
+-->
+<ion-nav-bar class="bar-stable">
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+</ion-nav-bar>
+<!--
+  The views will be rendered in the <ion-nav-view> directive below
+  Templates are in the /templates folder (but you could also
+  have templates inline in this html file if you'd like).
+-->
+<ion-nav-view></ion-nav-view>
+</body>
 </html>

@@ -1,29 +1,21 @@
-<ion-view view-title="我的信息">
+<ion-view view-title="我的信息" hide-nav-bar="true">
   <ion-nav-bar class="globalColor">
   </ion-nav-bar>
-  <ion-content>
-    <ion-list>
-      <ion-item>
-        <a class="item">
-          <div class="item item-avatar">
-            <img id="myImage" ng-src="{{myInfoList.headPortrait}}" ng-click="uploaPartyContent()">
-            <div style="margin-top: 8px;color: #33cd5f">{{myInfoList.personName}}</div>
-          </div>
-        </a>
-        <a class="item">
-          <div style="font-weight: bold;">电话:</div>
-          {{myInfoList.contactNumber}}
-        </a>
-        <a class="item">
-          <div style="font-weight: bold;">邮箱:</div>
-        </a>
-        <a class="item" menu-close ui-sref="login">
-          <div style="font-weight: bold;">用户登陆</div>
-        </a>
-        <a class="item" menu-close ng-click="loginOut()">
-          <div style="font-weight: bold;">退出登陆</div>
-        </a>
-      </ion-item>
+  <ion-content id="aboutMe">
+    <div class="img-headerMe">
+      <img class="img-Name" ng-src="{{myInfoList.headPortrait}}" ng-click="uploaPartyContent()"/>
+      <h3>{{myInfoList.personName}}</h3>
+      <label>
+        <input type="button" value="完善信息">
+      </label>
+    </div>
+    <ion-list class="containerMe">
+      <ion-item><i class="my-tel"></i><span>手机号 {{myInfoList.contactNumber}}</span><button class="binding－button" ng-click="telLogin()">{{telBinding}}</button></ion-item>
+      <ion-item><i class="my-weixin"></i><span>微信</span><button ng-click="wachatLogin()" class="binding－button">未绑定</button></ion-item>
+      <ion-item><i class="my-yijian"></i><span>意见反馈</span></ion-item>
+      <ion-item><i class="my-haoping"></i><span>给个好评</span></ion-item>
+      <ion-item><i class="my-about"></i><span>关于</span></ion-item>
+      <ion-item ng-click="loginOut()"><i class="my-logout"></i><span>退出</span></ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

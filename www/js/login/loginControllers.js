@@ -1,7 +1,7 @@
 angular.module('login.controllers', [])
 
 //登陆*****************************************************************************************************************
-  .controller('LoginCtrl', function ($http, $scope, Login, $state, ThemeImage, $ionicHistory) {
+  .controller('LoginCtrl', function ($http, $scope, Login, $state, ThemeImage, $ionicHistory,ActivityServer) {
     // $scope.$on('$ionicView.beforeEnter', function () {                              // 这个玩意儿不错，刚加载执行的广播通知方法
     //   $scope.user = {"identifyCode": ""};
     //   // 退出登录后，清空验证码
@@ -38,18 +38,31 @@ angular.module('login.controllers', [])
     };
 
     //微信登陆
+    $scope.partyId=localStorage.getItem('partyId');
+    console.log($scope.partyId+"1");
     $scope.wachatLogin=function () {
-      var scope = "snsapi_userinfo";
-      Wechat.auth(scope, function (response) {
+      $scope.scope = "snsapi_userinfo";
+      console.log($scope.partyId+"2");
+      Wechat.auth($scope.scope, function (response) {
         // you may use response.code to get the access token.
-        alert(JSON.stringify(response));
+        console.log(JSON.stringify(response)+"微信返回值");
+        var code=response.code;
+        console.log($scope.partyId+"3");
+        ActivityServer.userWeChatAppLogin(code,$scope.partyId,function (data) {
+          console.log(data.tarjeta);
+          if(data.tarjeta){
+            localStorage.removeItem("tarjeta");
+            localStorage.removeItem("partyId");
+            localStorage.removeItem("openId");
+            localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+            localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+            localStorage.setItem("adminOpenId", data.openId);//设置partyId登陆人
+          }
+        })
       }, function (reason) {
         alert("Failed: " + reason);
       });
     };
-    if($scope.wachatCode!=null){
-      alert('123')
-    }
 
     //返回首页
     $scope.goHome = function () {

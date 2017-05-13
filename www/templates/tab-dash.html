@@ -19,8 +19,7 @@
          class="item item-thumbnail-left homeImgList">
         <img ng-src="{{ item.objectInfo }}"  style="max-height:130px;max-width: 160px">
         <h2>{{ item.workEffortName }}</h2>
-        <p><i class="icon ion-ios-clock-outline"></i>{{ item.actualStartDate| date:'yyyy-MM-dd HH:mm' }}</p>
-        <p>&nbsp;&nbsp;&nbsp;{{ item.estimatedCompletionDate| date:'yyyy-MM-dd HH:mm' }}</p>
+        <p><i class="icon ion-ios-clock-outline"></i>{{ item.actualStartDate| date:'MM月dd'}}至{{ item.estimatedCompletionDate| date:'MM月dd' }}</p>
         <p><i class="icon ion-ios-location-outline"></i>{{ item.locationDesc }}</p>
       </a>
       <div style="margin: 3% 5% 0 5%">

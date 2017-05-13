@@ -3,7 +3,7 @@ angular.module('starter')
   .config(function ($stateProvider) {
     $stateProvider
 
-    //活动详情
+       //活动详情
       .state('tab.activityDetails', {
         url: '/activityDetails/:activityId',
         disableBack: true,
@@ -63,26 +63,6 @@ angular.module('starter')
           }
         }
       })
-      //新建活动
-      .state('tab.newActivity', {
-        url: '/newActivity',
-        disableBack: true,
-        cache: false,
-        templateUrl: 'templates/activity/newActivity.html',
-        controller: 'NewActivity'
-      })
-      //活动主题图片
-      // .state('tab.themeImage', {
-      //   url: '/themeImage',
-      //   disableBack: true,
-      //   cache: true,
-      //   views: {
-      //     'tab-dash': {
-      //       templateUrl: 'templates/activity/activityThemeImage.html',
-      //       controller: 'ThemeImage'
-      //     }
-      //   }
-      // })
       //活动讨论（实时聊天融云）
       .state('tab.activityDiscuss', {
         url: '/activityDiscuss/:activityId',
@@ -116,18 +96,6 @@ angular.module('starter')
           'tab-dash': {
             templateUrl: 'templates/activity/activityInvitation.html',
             controller: 'ActivityInvitation'
-          }
-        }
-      })
-      //编辑活动
-      .state('app.editActivty', {
-        url: '/editActivty/:id/:type',
-        disableBack: true,
-        cache: false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/activity/newActivity.html',
-            controller: 'NewActivity'
           }
         }
       })

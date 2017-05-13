@@ -110,6 +110,50 @@ angular.module('contact.services', [])
           }
         });
       },
+      //更新联系人信息
+      updatePersonInfo: function (partyId,firstName, cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "updatePersonInfo",
+          data: {
+            partyId: partyId,
+            firstName:firstName
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //创建标签
+      createLable: function (tarjeta,lableName, cb) {
+        $.ajax({
+          url: $rootScope.communicationfaceUrl + "createLable",
+          data: {
+            tarjeta: tarjeta,
+            lableName:lableName
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //上传用户头像
       uploadPartyContent: function (dataCategoryId,contentTypeId, statusId,isPublic,partyContentTypeId,partyId,uploadedFile,cb) {
         $.ajax({

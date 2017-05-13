@@ -4,12 +4,12 @@ angular.module('activity.services', [])
   .factory('ActivityServer', function ($rootScope, $q, $http) {
 
     return {
-      //上次UUID
+      //设置UUID
       setUUID: function (uuid, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "getTarJetaFromUUID",
           data: {
-            uuid:uuid
+            uuid: uuid
           },
           async: false,
           type: 'POST',
@@ -27,7 +27,7 @@ angular.module('activity.services', [])
       },
       //新建活动
       createActivity: function (tarjeta, workEffortName, actualStartDate, estimatedCompletionDate,
-                                locationDesc, description, specialTerms,themesId,universalId, cb) {
+                                locationDesc, description, specialTerms, themesId, universalId, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "createNewEvent",
           data: {
@@ -38,8 +38,8 @@ angular.module('activity.services', [])
             locationDesc: locationDesc,
             description: description,
             specialTerms: specialTerms,
-            themesId:themesId,
-            universalId:universalId
+            themesId: themesId,
+            universalId: universalId
           },
           async: false,
           type: 'POST',
@@ -70,6 +70,29 @@ angular.module('activity.services', [])
             specialTerms: specialTerms,
             workEffortId:workEffortId,
             themesId:themesId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //更新活动状态
+      updateEventStatus: function (tarjeta, workEffortId,currentStatusId, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "updateEventStatus",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+            currentStatusId: currentStatusId,
           },
           async: false,
           type: 'POST',
@@ -220,16 +243,16 @@ angular.module('activity.services', [])
         });
       },
       //组织者信息填写
-      userAppRegister: function (tarjeta, workEffortId,partyId,nickName,tel,captcha,cb) {
+      userAppRegister: function (tarjeta, workEffortId, partyId, nickName, tel, captcha, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "userAppRegister",
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
-            partyId:partyId,
-            nickName:nickName,
-            tel:tel,
-            captcha:captcha
+            partyId: partyId,
+            nickName: nickName,
+            tel: tel,
+            captcha: captcha
           },
           async: false,
           type: 'POST',
@@ -244,7 +267,7 @@ angular.module('activity.services', [])
             }
           }
         });
-       },
+      },
       //活动报名
       signUp: function (tarjeta, workEffortId, cb) {
         $.ajax({
@@ -316,15 +339,15 @@ angular.module('activity.services', [])
         });
       },
       //创建活动中的昵称
-      createNickName: function (tarjeta,entityId,partyId,nickName,cb) {
+      createNickName: function (tarjeta, entityId, partyId, nickName, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "createNickName",
           data: {
             tarjeta: tarjeta,
             entityId: entityId,
-            nickNameTypeId:"10000",
-            partyId:partyId,
-            nickName:nickName
+            nickNameTypeId: "10000",
+            partyId: partyId,
+            nickName: nickName
           },
           async: false,
           type: 'POST',
@@ -341,13 +364,13 @@ angular.module('activity.services', [])
         });
       },
       //手动添加人员
-      addConceptPersonToActivity: function (tarjeta,workEffortId,personInfoArray,cb) {
+      addConceptPersonToActivity: function (tarjeta, workEffortId, personInfoArray, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "addConceptPersonToActivity",
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
-            personInfoArray:personInfoArray,
+            personInfoArray: personInfoArray,
           },
           async: false,
           type: 'POST',
@@ -364,13 +387,13 @@ angular.module('activity.services', [])
         });
       },
       //上传图片到照片墙
-      uploadPictureWall: function (tarjeta,workEffortId,imageData,cb) {
+      uploadPictureWall: function (tarjeta, workEffortId, imageData, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "uploadPictureWall",
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
-            imageData:imageData,
+            imageData: imageData,
           },
           async: false,
           type: 'POST',
@@ -387,14 +410,14 @@ angular.module('activity.services', [])
         });
       },
       //查询照片墙图片
-      queryMyEventContents: function (tarjeta,workEffortId,contentTypeId,viewSize,cb) {
+      queryMyEventContents: function (tarjeta, workEffortId, contentTypeId, viewSize, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "queryMyEventContents",
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
-            contentTypeId:contentTypeId,
-            viewSize:viewSize,
+            contentTypeId: contentTypeId,
+            viewSize: viewSize,
           },
           async: false,
           type: 'POST',
@@ -411,13 +434,13 @@ angular.module('activity.services', [])
         });
       },
       //删除照片墙图片
-      deletePictureWall: function (tarjeta,workEffortId,contentId,cb) {
+      deletePictureWall: function (tarjeta, workEffortId, contentId, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "deletePictureWall",
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
-            contentId:contentId,
+            contentId: contentId,
           },
           async: false,
           type: 'POST',
@@ -434,13 +457,13 @@ angular.module('activity.services', [])
         });
       },
       //照片墙图片 赞踩
-      praisePicture: function (tarjeta,partyContentTypeId,contentId,cb) {
+      praisePicture: function (tarjeta, partyContentTypeId, contentId, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "praisePicture",
           data: {
             tarjeta: tarjeta,
             partyContentTypeId: partyContentTypeId,
-            contentId:contentId,
+            contentId: contentId,
           },
           async: false,
           type: 'POST',
@@ -457,7 +480,7 @@ angular.module('activity.services', [])
         });
       },
       //查询消息列表
-      querySystemInfoList: function (tarjeta,cb) {
+      querySystemInfoList: function (tarjeta, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "querySystemInfoList",
           data: {
@@ -525,7 +548,7 @@ angular.module('activity.services', [])
       wachatInfo: function (appid, secret, code, grant_type) {
         var d = $q.defer();
         var promise = d.promise;
-        $http.jsonp("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + secret + "&code=" + code + "&grant_type=" + grant_type)
+        $http.jsonp("http://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + secret + "&code=" + code + "&grant_type=" + grant_type)
           .success(function (data) {
             d.resolve(data);
           })
@@ -568,13 +591,13 @@ angular.module('activity.services', [])
         });
       },
       //活动主题图片
-      createPeSystemInfoAboutActivity: function (partyIdTo,moreInfoUrl,noteInfo,cb) {
+      createPeSystemInfoAboutActivity: function (partyIdTo, moreInfoUrl, noteInfo, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "createPeSystemInfoAboutActivity",
-          data:{
-            partyIdTo:partyIdTo,
-            moreInfoUrl:moreInfoUrl,
-            noteInfo:noteInfo
+          data: {
+            partyIdTo: partyIdTo,
+            moreInfoUrl: moreInfoUrl,
+            noteInfo: noteInfo
           },
           async: false,
           type: 'POST',
@@ -609,11 +632,33 @@ angular.module('activity.services', [])
         });
       },
       //活动主题图片类型列表
-      queryThemes: function (contentTypeId,cb) {
+      queryThemes: function (contentTypeId, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "queryThemes",
-          data:{
-            contentTypeId:contentTypeId
+          data: {
+            contentTypeId: contentTypeId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //微信登陆
+      userWeChatAppLogin: function (code,partyId, cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "userWeChatAppLogin",
+          data: {
+            code: code,
+            partyId:partyId
           },
           async: false,
           type: 'POST',
@@ -649,7 +694,7 @@ angular.module('activity.services', [])
 
     var topImg = [
       {id: 'Pic_10027', img: 'img/tabs/扫一扫@3x.png', name: '扫一扫'},
-      {id:'Pic_10028',img:'img/tabs/拍照@3x.png',name:'拍照'},
+      {id: 'Pic_10028', img: 'img/tabs/拍照@3x.png', name: '拍照'},
       {id: 'Pic_10029', img: 'img/tabs/随笔记@3x.png', name: '随笔记'}
     ];
 

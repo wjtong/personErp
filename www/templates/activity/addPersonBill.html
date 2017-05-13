@@ -9,22 +9,23 @@
   <ion-content class="padding">
     <div class="cardinputInfo">
       <form name="accreForm">
-        <div class="list" >
+        <div class="list">
           <label class="item item-input">
             <span class="input-label">姓名：</span>
-            <input type="text" id="pname" placeholder="请输入姓名" ng-click="openContact()" >
+            <input type="text" id="pname" placeholder="请输入姓名" ng-click="openContact()">
           </label>
           <label class="item item-input">
             <span class="input-label">实缴：</span>
-            <input type="number"  name="money" ng-model="Order.money"  placeholder="请输入缴费金额" >
+            <input type="number" name="money" ng-model="Order.money" placeholder="请输入缴费金额">
           </label>
           <label class="item item-input">
             <span class="input-label">应缴：</span>
-            <input type="number" name="ymoney" ng-model="Order.ymoney"  placeholder="请输入缴费金额" required>
+            <input type="number" name="ymoney" ng-model="Order.ymoney" placeholder="请输入缴费金额" required>
           </label>
           <label class="item item-input">
             <span class="input-label">时间：</span>
-            <input type="text" id="mydate" placeholder="请输入时间" readonly=“readonly” style="background-color: white" ng-click="openDatePicker()">
+            <input type="text" id="mydate" placeholder="请输入时间" readonly=“readonly” style="background-color: white"
+                   ng-click="openDatePicker()">
           </label>
         </div>
         <div>

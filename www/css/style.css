@@ -2,10 +2,6 @@ body {
   /*cursor: url('http://ionicframework.com/img/finger.png'), auto;*/
 }
 
-/* allows the bar-footer to be elastic /*
-/* optionally set a max-height */
-/* maxlength on the textarea will prevent /*
-/* it from getting too large also */
 .bar-footer {
   overflow: visible !important;
 }
@@ -127,7 +123,7 @@ img.profile-pic.right {
   top: -3px;
 }
 
-input[type='text'], textarea{
+input[type='text'], textarea {
   width: 100%;
 }
 
@@ -192,7 +188,8 @@ a.autolinker {
   color: #545454;
   margin-top: 50px;
 }
- .rj-sm-red-icon {
+
+.rj-sm-red-icon {
   position: absolute;
   display: inline-block;
   width: 0.8rem;
@@ -203,72 +200,80 @@ a.autolinker {
   text-align: center;
   top: -10%;
   right: -10%;
- }
+}
 
 .rj-sm-red-icon > p {
   color: #FFF;
-  font-size: 12px; }
+  font-size: 12px;
+}
 
 .rj-contacts-right-bar div {
   height: 16px;
 }
+
 .wide-as-needed {
   overflow: scroll;
   white-space: nowrap;
 }
+
 .scroll {
   min-width: 100%;
 }
-.moveRight{
-  right:70px !important;
+
+.moveRight {
+  right: 70px !important;
 }
+
 .has-header {
-  color:red;
+  color: red;
 
 }
-.content-bar{
+
+.content-bar {
   /* background-color:green;
    margin-top:10px;
    color:white;
    margin-bottom:10px;*/
   position: relative;
   height: 30px;
-  margin-top:5px;
-  margin-bottom:5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   background: #c0c0c0;
   width: auto;
-  color:white;
+  color: white;
   font-size: 10px;
   padding-left: 5px;
   padding-bottom: 5px;
 }
+
 .elastic-image {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width:350px;
-  height:180px;
+  width: 350px;
+  height: 180px;
   margin-top: 0px;
   /* Initial image height: */
 }
-.huodong{
+
+.huodong {
   /* background-color:green;
    margin-top:10px;
    color:white;
    margin-bottom:10px;*/
   position: relative;
   height: 30px;
-  margin-top:0px;
-  margin-bottom:5px;
-  line-height:5px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  line-height: 5px;
   width: auto;
-  color:black;
+  color: black;
   font-size: 10px;
   padding-left: 5px;
   padding-bottom: 5px;
 }
 
-.tab-red-point:after,.red-point:after{
+.tab-red-point:after, .red-point:after {
   position: absolute;
   content: '';
   height: 12px;
@@ -277,34 +282,35 @@ a.autolinker {
   background-color: red;
 }
 
-.tab-red-point:after{
+.tab-red-point:after {
   top: 7px;
   right: 5030%;
 }
 
-.red-point:after{
+.red-point:after {
   top: 6px;
   right: 25%;
 }
-.slide-tab{
+
+.slide-tab {
   display: table;
   overflow: hidden;
   margin: 0;
   width: 100%;
-  background-color: #eff0f2;
+  background-color: #FFDA44;
   border-bottom: 2px solid #00897B;
 
 }
 
-.slide-tab li{
+.slide-tab li {
   float: left;
   line-height: 38px;
   overflow: hidden;
   padding: 0;
 }
 
-.slide-tab a{
-  background-color: #eff0f2;
+.slide-tab a {
+  background-color: #FFDA44;
   border-bottom: 1px solid #fff;
   color: #888;
   font-weight: 500;
@@ -316,34 +322,38 @@ a.autolinker {
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-  border-bottom: 2px solid #00897B;
-}
-.current a{
-  color: #fff;
-  background: #00897B;
-}
-#fixed_header {
-  position:fixed;
-  z-index:1;
-  top:0;
-  width:100%;
-  background-color:#ccc;
 }
 
-.button.button-full{
+.current a {
+  color: #fff;
+  background: #4a87ee;
+}
+
+#fixed_header {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100%;
+  background-color: #ccc;
+}
+
+.button.button-full {
   margin-top: 0px;
 }
-.cardinputInfo{
+
+.cardinputInfo {
   margin: 20px auto;
   text-align: center;
   width: 90%;
   height: 90%;
 }
+
 #nav {
   height: 40px;
   width: 100%;
   background-color: #4b8bf4;
 }
+
 #nav ul {
   height: 100%;
   margin: 0 auto;
@@ -354,34 +364,44 @@ a.autolinker {
   white-space: nowrap;
 
 }
+
 #nav li {
-  vertical-align:middle;
+  vertical-align: middle;
   margin: 0 20px;
   font-size: 16px;
   padding: 0;
   list-style-type: none;
   display: inline;
 }
+
 #nav li a {
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
   padding: 7px 10px;
   color: #FFF;
 }
+
 #nav li a:hover {
   color: #00CCCC;
   background-color: #c0c0c0;
 }
+
 .slider {
   height: 100%;
 }
+
 .slider-slide {
   color: #000;
-  background-color: #fff; text-align: center;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; font-weight: 300; }
+  background-color: #fff;
+  text-align: center;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+}
+
 .blue {
   background-color: blue;
 }
+
 .tabs {
   -webkit-transition: all linear 0.2s;
   transition: all linear 0.2s;
@@ -394,320 +414,146 @@ a.autolinker {
 .pink {
   background-color: pink;
 }
-.box{
-  height:100%;
+
+.box {
+  height: 100%;
 }
-.box h1{
-  position:relative; top:50%; transform:translateY(-50%);
+
+.box h1 {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
-#Nav_01 li{
+
+#Nav_01 li {
   display: inline-block;
   font-size: 14px;
 }
-/*tabs图标*********************************************************/
+
+/*tabs图标**************************************************************************************************************/
 .tab-item i.icon {
   margin-top: 1px;
 }
+
 .bar-home-on {
   background: url(../img/tabs/首页_选中.png) no-repeat center top;
-  background-size:40%,40%;
+  background-size: 40%, 40%;
   padding: 5%;
 }
 
 .bar-home-off {
   background: url(../img/tabs/首页.png) no-repeat center top;
-  background-size:40%,40%;
+  background-size: 40%, 40%;
   padding: 5%;
 }
+
 .bar-contact-on {
   background: url(../img/tabs/联系人_选中.png) no-repeat center top;
-  background-size:40%,40%;
+  background-size: 40%, 40%;
   padding: 5%;
 }
 
 .bar-contact-off {
   background: url(../img/tabs/联系人.png) no-repeat center top;
-  background-size:40%,40%;
+  background-size: 40%, 40%;
   padding: 5%;
 }
+
 .bar-my-on {
   background: url(../img/tabs/我_选中.png) no-repeat center top;
-  background-size:40%,40%;
+  background-size: 40%, 40%;
   padding: 5%;
 }
 
 .bar-my-off {
   background: url(../img/tabs/我.png) no-repeat center top;
-  background-size:40%,40%;
+  background-size: 40%, 40%;
   padding: 5%;
 }
+
 .bar-message-on {
   background: url(../img/tabs/消息_选中.png) no-repeat center top;
-  background-size:40%,40%;
+  background-size: 40%, 40%;
   padding: 5%;
 }
 
 .bar-message-off {
   background: url(../img/tabs/消息.png) no-repeat center top;
-  background-size:40%,40%;
+  background-size: 40%, 40%;
   padding: 5%;
 }
-.bar-newActivity-on{
+
+.bar-newActivity-on {
   position: fixed;
-  bottom:0;
+  bottom: 0;
   z-index: 999;
   color: red;
   right: 40%;
   width: 20%;
   height: 100%;
   background: url(../img/tabs/创建边.png) no-repeat center top;
-  background-size:60%,60%;
+  background-size: 60%, 60%;
 }
 
-/*全局样式设置*/
+/*全局样式设置***********************************************************************************************************/
 .globalColor {
   background-color: #FFDA44;
   color: black;
 }
-.globalColorButton{
+
+.globalColorButton {
   color: black;
 }
 
-/*登陆＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
-#login .inputLogin{
-   border:1px #9e9e9e solid;
-   border-radius:40px;
-   width: 80%;
-   margin:17px auto;
-   text-indent:25px
- }
-#login .buttonLogin{
-  border:1px #9e9e9e solid;
-  border-radius:40px;
+/*登陆******************************************************************************************************************/
+#login .inputLogin {
+  border: 1px #9e9e9e solid;
+  border-radius: 40px;
+  width: 80%;
+  height: 44px;
+  margin: 20px auto 0 auto;
+  font-size: 16px;
+  text-indent: 20px;
+}
+
+#login .buttonLogin {
+  border: 1px #9e9e9e solid;
+  border-radius: 40px;
   width: 80%;
   height: 45px;
   background-color: #FFDA44;
-  margin: 30px 10% 0 10%;
-  font-size: 20px;
-  color:white;
+  margin: 17px 10% 0 10%;
+  font-size: 16px;
+  color: white;
 }
-#wecat .buttonLogin{
-  border:1px #1AAD19 solid;
-  border-radius:40px;
+
+#login span {
+  display: block;
+  background: url(../img/shareActivity/line_分割线@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  margin: 24px 41px 5px 41px;
+  color: #999999;
+  text-align: center
+}
+#login .captcha{
+  position: absolute;
+  top:28%;
+  right: 15%;
+}
+#login img{
+  height:60px;
+  width:60px;
+}
+
+#wecat .buttonLogin {
+  border: 1px #1AAD19 solid;
+  border-radius: 40px;
   width: 80%;
   height: 45px;
   background-color: white;
-  margin:20% 10% 15% 10%;
+  margin: 20% 10% 15% 10%;
   font-size: 20px;
-  color:#1AAD19;
-}
-/*活动首页＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
-/*没有活动时的提示文字*/
- .tipTextAct {
-  font-size: 1.4rem;
-  color: #9e9e9e;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 15%;
-}
- .history {
-  position: absolute;
-  top: 73%;
-  left: 37%;
-  font-size: 1.0rem;
-  color: #9e9e9e;
-}
- .activityTabs{
-   background-color: #FFDA44;
-   text-align: center;
-   color: black;
-   height: 30%
- }
-.createActivity {
-  position: absolute;
-  top: 77%;
-  left: 41%;
-  font-size: 1.0rem;
-  color: rgb(57,184,152);
-}
-.homeImgList{
-  min-height:150px;
-  padding-left:180px
-}
-.cleanFloat{
-  clear: both;
-}
-/*@-webkit-keyframes fadeIn {*/
-  /*0% {*/
-    /*opacity: 0; !*初始状态 透明度为0*!*/
-  /*}*/
-  /*50% {*/
-    /*opacity: 0; !*中间状态 透明度为0*!*/
-  /*}*/
-  /*100% {*/
-    /*opacity: 1; !*结尾状态 透明度为1*!*/
-  /*}*/
-/*}*/
-/*#box{*/
-  /*-webkit-animation-name: fadeIn; !*动画名称*!*/
-  /*-webkit-animation-duration: 3s; !*动画持续时间*!*/
-  /*-webkit-animation-iteration-count: 1; !*动画次数*!*/
-  /*-webkit-animation-delay: 0s; !*延迟时间*!*/
-/*}*/
-/*#newActivity{*/
-  /*-webkit-animation-name: fadeIn; !*动画名称*!*/
-  /*-webkit-animation-duration: 6s; !*动画持续时间*!*/
-  /*-webkit-animation-iteration-count: 1; !*动画次数*!*/
-  /*-webkit-animation-delay: 0s; !*延迟时间*!*/
-/*}*/
-/*#history{*/
-  /*-webkit-animation-name: fadeIn; !*动画名称*!*/
-  /*-webkit-animation-duration: 6s; !*动画持续时间*!*/
-  /*-webkit-animation-iteration-count: 1; !*动画次数*!*/
-  /*-webkit-animation-delay: 0s; !*延迟时间*!*/
-/*}*/
-#activityListInfo .item{
-  padding: 0;
-  margin-top: 2%;
-  position: relative
-}
-#activityListInfo .info{
-  position: absolute;
-  right: 5%;
-  top: 45%;
-}
-#activityListInfo .info p{
-  color: white;
-}
-#activityListInfo img{
-  width:100%;
-  height:220px
-}
-
-/*活动详情＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
-#activityDel p{
-  font-size: 12px;
-  vertical-align: middle;
-  white-space:normal;
-  tab-index: 10px;
-}
-#activityDel .item{
-  border: solid #B9B9B9;
-  border-width:0 0 5px 0;
-}
-#activityDel .header{
-  border: solid #B9B9B9;
-  border-width:0 0 5px 0;
-}
-#activityDel .item-thumbnail-left{
-  border: 0;
-  padding-left: 35%
-}
-#activityDel .img-header{
-  max-height:106px;
-  max-width: 106px
-}
-#activityDel .img-responsive{
- width: 50%;
-}
-#activityDel .img-joinP{
-  width:30px;
-  height:30px;
-  border-radius: 50%
-}
-#activityDel .img-zhuzi{
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 35%;
-  left: 15%
-}
-#activityDel hr{
-  color: #B9B9B9;
-}
-.activityTimer{
-  background: url(../img/activityImg/icon_时间@2x.png) no-repeat center ;
-  background-size:58%,58%;
-  padding: 5%;
-}
-.activityLocation{
-  background: url(../img/activityImg/icon_地址@2x.png) no-repeat center ;
-  background-size:58%,58%;
-  padding: 5%;
-}
-#activityDel .icon{
-  vertical-align: middle;
-  padding-right: 20px;
-}
-#activityDel .item-joinP{
-  padding-bottom: 0;
-}
-#footer .yuyin{
-  position: absolute;
-  top:15%;
-  left:5%;
-}
-#footer .yuyin img{
-  height: 30px;
-  width: 30px;
-  vertical-align: middle;
-}
-#footer .yaoqing{
-  position: absolute;
-  top:15%;
-  right:45%;
-}
-#footer button{
-  width: 120px;
-  border-radius: 18px;
-  background-color:white;
-  color: white;
-  border:0;
-}
-#footer .baoming{
-  position: absolute;
-  top:15%;
-  right:5%;
-}
-#activityDel h2{
-  font-size: 15px;
-}
-#activityDel span{
-  font-size: 12px;
-}
-#activityDel .activityAddress {
-  margin-top: 10%;
-}
-.activityDetTabs{
-  text-align: center;
-  color: black;
-  border-width: 5px;
-  padding-bottom: 0
-}
-.activityItemImg{
-  background: url(../img/activityImg/icon_活动项@2x.png) no-repeat center top;
-  background-size:40%,40%;
-  padding: 5%;
-}
-#activityDel h2{
-  color: #B9B9B9;
-}
-.activityFootSignUp{
-  background: url(../img/activityImg/icon_报名@2x.png) no-repeat center top;
-  background-size:100%;
-  padding: 5%;
-  margin: 0;
-}
-.activityFootImg{
-  background: url(../img/activityImg/icon_报名@2x.png) no-repeat center ;
-  background-size:100%,100%;
-  padding: 5%;
-}
-.activityInvitationImg{
-  background: url(../img/activityImg/邀请好友@2x.png) no-repeat center ;
-  background-size:100%,100%;
-  padding: 5%;
+  color: #1AAD19;
 }
 
 /*联系人**************************************************************/
@@ -735,155 +581,153 @@ a.autolinker {
   width: 100%;
 }
 
+/*关于我****************************************************************************************************************/
+#aboutMe{
+  background: url(../img/aboutMe/con_顶部渐变圆@3x.png) no-repeat top;
+  background-size: 100%, 100%;
+}
+#aboutMe .img-headerMe{
+  text-align: center;
+}
 
-/*活动邀请方式＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
-#share .share-container{
-  text-align: center;
+#aboutMe .img-Name {
+  height: 94px;
+  width: 94px;
+  margin: 70px 0 0 0;
+  border-radius: 94px;
 }
-#share .img-Name{
-  height: 102.5px;
-  width: 102.5px;
-  margin: 58.5px 0 32px 0;
+
+#aboutMe h3{
+  font-size: 17px;
+  margin: 11px 0 0 0;
 }
-#share input{
-  width: 311px;
-  height: 44px;
-  border:1px #9e9e9e solid;
-  border-radius:40px;
-  margin:0 auto;
-  text-align: center;
-  font-size: 15px;
-  color: #999999;
-}
-#share span{
-  display: block;
-  background: url(../img/shareActivity/line_分割线@2x.png) no-repeat center ;
-  background-size:100%,100%;
-  margin: 24px 41px 0 41px;
-  color: #999999;
-}
-#share input[type=button]{
-  width: 311px;
-  height: 44px;
-  border:1px #08d918 solid;
-  border-radius:40px;
-  margin:27px auto;
-  text-align: center;
-  font-size: 15px;
-  color: #FFFFFF;
-  background-color: #08d918;
-}
-#share p{
-  margin: 1px auto 22px auto;
-  font-size: 16px;
+#aboutMe p{
   color: #4a4a4a;
+  margin: 11px 0 0 0;
 }
-#share  .img-shareActivity{
-  width: 55px;
-  height: 55px;
+#aboutMe p span{
+  color: #B9B9B9;
 }
-#share .col p {
+#aboutMe input[type=button] {
+  width: 188px;
+  height: 42px;
+  border: 1px #FFDA44 solid;
+  border-radius: 40px;
+  margin: 8px 0 0 0;
+  text-align: center;
+  font-size: 18px;
+  color: #333333;
+  background-color: #FFDA44;
+}
+#aboutMe ion-item{
+  color: #434343;
+  margin: 0 31.5px;
+  border: 0;
+  border-bottom: 1px #D9D9D9 solid;
+}
+#aboutMe ion-item span{
+  text-indent: 30px;
+}
+#aboutMe .my-logout{
+  background: url(../img/aboutMe/形状-28@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 17.5px;
+}
+#aboutMe .my-weixin{
+  background: url(../img/aboutMe/icon_微信@2x.png) no-repeat center;
+  background-size:100%, 100%;
+  padding: 5%;
+  margin-right: 17.5px;
+}
+#aboutMe .my-yijian{
+  background: url(../img/aboutMe/icon_意见反馈@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 17.5px;
+}
+#aboutMe .my-haoping{
+  background: url(../img/aboutMe/icon-给个好评@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 17.5px;
+}
+#aboutMe .my-about{
+  background: url(../img/aboutMe/icon_关于@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 17.5px;
+}
+#aboutMe .my-tel{
+  background: url(../img/aboutMe/icon_手机@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 17.5px;
+}
+#aboutMe .my-enter{
+  background: url(../img/aboutMe/icon_进入@2x.png) no-repeat right;
+  background-size: 25%, 25%;
+  padding:5%;
+  float: right;
+}
+#aboutMe .my-unvalidated {
+  background: url(../img/aboutMe/未验证.png) no-repeat right;
+  background-size: 25%, 25%;
+  padding:5%;
+  float: right;
+}
+#aboutMe .binding－button{
+  float: right;
+  background-color: white;
+  border: 1px solid #1AAD19;
+  color: #1AAD19;
+  border-radius: 21px;
+  height: 21px;
+  width: 53px;
   font-size: 10px;
-}
-#share .col{
-  height: 90px;
-}
-
-
-
-/*活动账单表格样式*/
-/* ---- Table ---- */
-
-table {
-  border-collapse:collapse;
-  margin-bottom:15px;
-  width:100%;
+  text-align: center;
+  padding-right: 0;
 }
 
-caption {
-  text-align:left;
-  font-size:15px;
-  padding-bottom:10px;
-}
-
-table td,
-table th {
-  padding:5px;
-  border:1px solid #fff;
-  border-width:0 1px 1px 0;
-}
-
-thead th {
-  background:#91c5d4;
-}
-
-thead th[colspan],
-thead th[rowspan] {
-  background:#66a9bd;
-}
-
-tbody th,
-tfoot th {
-  text-align:left;
-  background:#91c5d4;
-}
-
-tbody td,
-tfoot td {
-  text-align:center;
-  background:#d5eaf0;
-}
-
-tfoot th {
-  background:#b0cc7f;
-}
-
-tfoot td {
-  background:#d7e1c5;
-  font-weight:bold;
-}
-
-tbody tr.odd td {
-  background:#bcd9e1;
-}
-
-
-/*兼容性问题*************************************************************************************************************
-*****************************************************屏幕大小兼容性*******************************************************/
+/*兼容性问题******************************************屏幕大小兼容性*******************************************************/
 
 /*当页面大于1024px时，大屏幕，主要显示PC端*************/
-@media (min-width: 1024px){
+@media (min-width: 1024px) {
 }
 
 /*在768 和1024 像素之间的屏幕里，中等屏幕，分辨率低的PC  PAD*/
-@media (min-width: 767px) and (max-width: 1023px){
+@media (min-width: 767px) and (max-width: 1023px) {
   .tipTextAct {
     font-size: 3.5rem;
   }
+
   .history {
     font-size: 2.5rem;
   }
 }
 
 /*在375 和768 像素之间的屏幕里，中等屏幕，主要是手机*/
-@media (min-width: 374px) and (max-width: 767px){
+@media (min-width: 374px) and (max-width: 767px) {
   .tipTextAct {
     font-size: 1.5rem;
   }
+
   .history {
     font-size: 1.0rem;
   }
 }
 
 /*在小于375px的屏幕里，微小屏幕，更低分辨率的手机*/
-@media (max-width: 374px){
+@media (max-width: 374px) {
   .tipTextAct {
     font-size: 1.2rem;
   }
+
   .history {
     font-size: 0.8rem;
   }
-  #activityDel .item-thumbnail-left{
+
+  #activityDel .item-thumbnail-left {
     padding-left: 40%
   }
 }
