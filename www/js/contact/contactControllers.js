@@ -5,13 +5,14 @@ angular.module('contact.controllers', [])
     //准备参数
     $scope.tarjeta = localStorage.getItem("tarjeta");
     $scope.partyId = localStorage.getItem("partyId");
+    console.log("token:"+$scope.tarjeta+'/partyId:'+$scope.partyId);
 
     //查询我的个人信息
     Contact.queryPersonInfo($scope.tarjeta, function (data) {
       $scope.myInfoList = data;
-      console.log('微信openId:'+data.openId);
+      console.log('微信openId:' + data.openId);
       localStorage.removeItem('adminOpenId');
-      localStorage.setItem('adminOpenId',data.openId)
+      localStorage.setItem('adminOpenId', data.openId)
     });
 
     //退出
@@ -23,33 +24,46 @@ angular.module('contact.controllers', [])
     };
 
     //判断手机号码是否绑定
-    $scope.telBinding='未绑定';
-    if($scope.myInfoList){
+    $scope.telBinding = '未绑定';
+    if ($scope.myInfoList) {
       var phone = $scope.myInfoList.contactNumber;
-      if((/^1[34578]\d{9}$/.test(phone))){
-        $scope.telBinding='已绑定';
+      if ((/^1[34578]\d{9}$/.test(phone))) {
+        $scope.telBinding = '已绑定';
       }
     }
 
+    //绑定手机号码
+    $scope.bindTelephone = function () {
+      $state.go('tab.bindTelephone', {'partyId': $scope.partyId})
+    };
+
     //手机好绑定
-    $scope.telLogin=function () {
+    $scope.telLogin = function () {
       $state.go('login')
     };
 
+    //判断手机号码是否绑定
+    $scope.weixinBinding = '未绑定';
+    if ($scope.myInfoList) {
+      var openId = $scope.myInfoList.openId;
+      if (openId != "NA") {
+        $scope.weixinBinding = '已绑定';
+      }
+    }
+
     //微信绑定
-    $scope.partyId=localStorage.getItem('partyId');
-    console.log($scope.partyId+"1");
-    $scope.wachatLogin=function () {
+    console.log($scope.partyId + "1");
+    $scope.wachatLogin = function () {
       $scope.scope = "snsapi_userinfo";
-      console.log($scope.partyId+"2");
+      console.log($scope.partyId + "2");
       Wechat.auth($scope.scope, function (response) {
         // you may use response.code to get the access token.
-        console.log(JSON.stringify(response)+"微信返回值");
-        var code=response.code;
-        console.log($scope.partyId+"3");
-        ActivityServer.userWeChatAppLogin(code,$scope.partyId,function (data) {
+        console.log(JSON.stringify(response) + "微信返回值");
+        var code = response.code;
+        console.log($scope.partyId + "3");
+        ActivityServer.userWeChatAppLogin(code, $scope.partyId, function (data) {
           console.log(data.tarjeta);
-          if(data.tarjeta){
+          if (data.tarjeta) {
             localStorage.removeItem("tarjeta");
             localStorage.removeItem("partyId");
             localStorage.removeItem("openId");
@@ -57,7 +71,8 @@ angular.module('contact.controllers', [])
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
             localStorage.setItem("adminOpenId", data.openId);//设置partyId登陆人
           }
-        })
+        });
+        location.reload(true)
       }, function (reason) {
         alert("Failed: " + reason);
       });
@@ -104,11 +119,15 @@ angular.module('contact.controllers', [])
         }, function (error) {
           // error getting photos
         });
+    };
+    //完善编辑个人信息
+    $scope.editPersonInfo = function () {
+      $state.go('tab.editPersonInfo', {'partyId': $scope.partyId})
     }
   })
 
   //联系人***************************************************************************************************************
-  .controller('MainCtrl', function ($scope,$state,$ionicPopup,$ionicSlideBoxDelegate, $ionicScrollDelegate, filterFilter, $location, $anchorScroll, Contact,ActivityServer) {
+  .controller('MainCtrl', function ($scope, $state, $ionicPopup, $ionicSlideBoxDelegate, $ionicScrollDelegate, filterFilter, $location, $anchorScroll, Contact, ActivityServer) {
 
     //准备参数
     var tarjeta = localStorage.getItem("tarjeta");
@@ -664,432 +683,77 @@ angular.module('contact.controllers', [])
         return true;
       });
     };
-    console.log(contacts)
+    console.log(contacts);
     $scope.clearSearch = function () {
       $scope.search = '';
     };
   })
 
-  //更新联系人***********************************************************************************************************
-  .controller('UpdatePersonInfo', function ($scope, Contact, $stateParams, PersonData, PersonLabel, $rootScope) {
-    var partyId = $stateParams.personId;
-    $scope.partyId = partyId;
-    $scope.title = "编辑人员";
-    $scope.Persondata = {};
-    //获取联系人个人信息
-    PersonData.getContactInfo($scope.partyId, function (data) {
-      $scope.personInfo = data;
-      $scope.Persondata.personName = data.personName;
-      $scope.Persondata.contactNumber = data.contactNumber;
-      $scope.Persondata.gender = data.gender;
-      $scope.Persondata.lable = data.lable;
-      $scope.Persondata.email = data.email;
-      $scope.Persondata.company = data.company;
-    });
-    //更新联系人信息
-    $scope.addContact = function () {
-      PersonData.updatePerson($scope.partyId, $scope.Persondata.personName, $scope.Persondata.contactNumber, $scope.Persondata.email, $scope.Persondata.company,
-        $scope.Persondata.lable, $scope.Persondata.gender, $scope.Persondata.area, $scope.Persondata.city, $scope.Persondata.stateProvinceGeoId, $scope.Persondata.address, function (data) {
-          $scope.infoList = data;
-        });
-      $scope.$ionicGoBack();
-    };
-    //获取用户拥有的标签
-    PersonLabel.getAllLabl($rootScope.userLoginId, function (data) {
-      $scope.labelList = data;
-    });
-    //省市区下拉菜单
-    PersonData.showPersonAddress($scope.partyId, function (data) {
-      $scope.data = data;
-      $scope.provinceList = [];
-      $scope.Persondata.stateProvinceGeoId = data.stateProvinceGeoId;
-      $scope.Persondata.area = data.geoIdArea;
-      $scope.Persondata.city = data.geoIdCity;
-      $scope.Persondata.address = data.address1
-      if (data.addressSelectData != null) {
-        for (var i = 0; i < data.addressSelectData.length; i++) {
-          var provinceMap = {'id': data.addressSelectData[i].geoId, "name": data.addressSelectData[i].geoName};
-          $scope.provinceList.push(provinceMap);
-
-          if ($scope.Persondata.stateProvinceGeoId != null && $scope.Persondata.stateProvinceGeoId == data.addressSelectData[i].geoId) {
-            $scope.cityList = [];
-            var thisCityList = data.addressSelectData[i].child;
-            for (var j = 0; j < thisCityList.length; j++) {
-              var cityMap = {"id": thisCityList[j].geoId, "name": thisCityList[j].geoName};
-              $scope.cityList.push(cityMap);
-
-              if ($scope.Persondata.city != null && $scope.Persondata.city == thisCityList[j].geoId) {
-                $scope.areaList = [];
-                var areaList = thisCityList[j].child;
-                for (var w = 0; w < areaList.length; w++) {
-                  var areaMap = {"id": areaList[w].geoId, "name": areaList[w].geoName};
-                  $scope.areaList.push(areaMap);
-                }
-              }
-
-            }
-
-          }
-        }
-      }
-    });
-
-    $scope.changeProvince = function (stateProvinceGeoId) {
-      $scope.stateProvinceGeoId = stateProvinceGeoId;
-      $scope.cityList = [];
-      if ($scope.data.addressSelectData != null) {
-        for (var i = 0; i < $scope.data.addressSelectData.length; i++) {
-          if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
-            var thisCityList = $scope.data.addressSelectData[i].child;
-            for (var j = 0; j < thisCityList.length; j++) {
-              var cityMap = {"id": thisCityList[j].geoId, "name": thisCityList[j].geoName};
-              $scope.cityList.push(cityMap);
-            }
-          }
-        }
-        $scope.areaList = [];
-      }
-    };
-
-    $scope.changeCity = function (geoIdCity) {
-      $scope.geoIdCity = geoIdCity;
-      if ($scope.data.addressSelectData != null) {
-        for (var i = 0; i < $scope.data.addressSelectData.length; i++) {
-          if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
-            var thisCityList = $scope.data.addressSelectData[i].child;
-            for (var j = 0; j < thisCityList.length; j++) {
-              if ($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId) {
-                $scope.areaList = [];
-                var areaList = thisCityList[j].child;
-                for (var w = 0; w < areaList.length; w++) {
-                  var areaMap = {"id": areaList[w].geoId, "name": areaList[w].geoName};
-                  $scope.areaList.push(areaMap);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  })
-
-  //添加联系人***********************************************************************************************************
-  .controller('AddPerson', function ($scope, PersonLabel, $rootScope, $location, PersonData, $ionicHistory) {
-    $scope.title = "添加人员";
-    //获得全部标签
-    PersonLabel.getAllLabl($rootScope.userLoginId, function (data) {
-      $scope.labelList = data;
-    });
-    var partyId = "";
-    //编辑地址
-    $scope.addAddress = function () {
-      $location.path("/app/addAddress");
-    };
-    //提交联系人数据
-    $scope.Persondata = {};
-    $scope.addContact = function () {
-      PersonData.createPerson($rootScope.partyId, $scope.Persondata.personName, $scope.Persondata.contactNumber, $scope.Persondata.email, $scope.Persondata.company,
-        $scope.Persondata.lable, $scope.Persondata.gender, $scope.Persondata.area, $scope.Persondata.city, $scope.Persondata.stateProvinceGeoId, $scope.Persondata.address, function (data) {
-          $scope.infoList = data;
-        });
-      $ionicHistory.goBack();
-
-    };
-    //省市区下拉菜单
-    PersonData.showPersonAddress($rootScope.partyId, function (data) {
-      $scope.data = data;
-      $scope.provinceList = [];
-      if (data.addressSelectData != null) {
-        for (var i = 0; i < data.addressSelectData.length; i++) {
-          var provinceMap = {'id': data.addressSelectData[i].geoId, "name": data.addressSelectData[i].geoName};
-          $scope.provinceList.push(provinceMap);
-
-          if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == data.addressSelectData[i].geoId) {
-            $scope.cityList = [];
-            var thisCityList = data.addressSelectData[i].child;
-            for (var j = 0; j < thisCityList.length; j++) {
-              var cityMap = {"id": thisCityList[j].geoId, "name": thisCityList[j].geoName};
-              $scope.cityList.push(cityMap);
-
-              if ($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId) {
-                $scope.areaList = [];
-                var areaList = thisCityList[j].child;
-                for (var w = 0; w < areaList.length; w++) {
-                  var areaMap = {"id": areaList[w].geoId, "name": areaList[w].geoName};
-                  $scope.areaList.push(areaMap);
-                }
-              }
-
-            }
-
-          }
-        }
-      }
-    });
-
-    $scope.changeProvince = function (stateProvinceGeoId) {
-      $scope.stateProvinceGeoId = stateProvinceGeoId;
-      $scope.cityList = [];
-      if ($scope.data.addressSelectData != null) {
-        for (var i = 0; i < $scope.data.addressSelectData.length; i++) {
-          if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
-            var thisCityList = $scope.data.addressSelectData[i].child;
-            for (var j = 0; j < thisCityList.length; j++) {
-              var cityMap = {"id": thisCityList[j].geoId, "name": thisCityList[j].geoName};
-              $scope.cityList.push(cityMap);
-            }
-          }
-        }
-        $scope.areaList = [];
-      }
-    }
-
-    $scope.changeCity = function (geoIdCity) {
-      $scope.geoIdCity = geoIdCity;
-      if ($scope.data.addressSelectData != null) {
-        for (var i = 0; i < $scope.data.addressSelectData.length; i++) {
-          if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
-            var thisCityList = $scope.data.addressSelectData[i].child;
-            for (var j = 0; j < thisCityList.length; j++) {
-              if ($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId) {
-                $scope.areaList = [];
-                var areaList = thisCityList[j].child;
-                for (var w = 0; w < areaList.length; w++) {
-                  var areaMap = {"id": areaList[w].geoId, "name": areaList[w].geoName};
-                  $scope.areaList.push(areaMap);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  })
-
-  //关于联系人***********************************************************************************************************
-  .controller('AboutHim', function ($scope, Contact, $stateParams, $location, PersonData) {
-    var partyId = $stateParams.personId;
-    PersonData.getPersonInfo(partyId, function (data) {
-      $scope.personInfo = data;
-    });
-    //$scope.personInfo = Contact.get(id);
-    $scope.goInfo = function (id) {
-      $location.path('/app/editPerson/' + id);
-    };
-    $scope.goResources = function (id) {
-      $location.path('/app/getResources/' + id);
-    };
-    $scope.goEvents = function () {
-      $location.path('/app/getEvents/');
-    };
-    $scope.goOrder = function (name) {
-      $location.path('/app/assOrder/' + name);
-    };
-    $scope.gobusiness = function () {
-      $location.path('/app/getBusiness/');
-    };
-  })
-
-  //编辑地址*************************************************************************************************************
-  .controller('EditAddress', function ($scope, PersonData, $rootScope, popupUtil, $ionicLoading, $ionicHistory) {
-    PersonData.showPersonAddress($rootScope.partyId, function (data) {
-      //alert($rootScope.partyId);
-      $scope.data = data;
-      $scope.provinceList = [];
-      $scope.stateProvinceGeoId = data.stateProvinceGeoId;
-      $scope.geoIdCity = data.geoIdCity;
-      $scope.geoIdArea = data.geoIdArea;
-      $scope.address1 = data.address1;
-      //alert(data.addressSelectData.length);
-      //alert("asdadf");
-      if (data.addressSelectData != null) {
-        for (var i = 0; i < data.addressSelectData.length; i++) {
-          var provinceMap = {'id': data.addressSelectData[i].geoId, "name": data.addressSelectData[i].geoName};
-          $scope.provinceList.push(provinceMap);
-
-          if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == data.addressSelectData[i].geoId) {
-            $scope.cityList = [];
-            var thisCityList = data.addressSelectData[i].child;
-            for (var j = 0; j < thisCityList.length; j++) {
-              var cityMap = {"id": thisCityList[j].geoId, "name": thisCityList[j].geoName};
-              $scope.cityList.push(cityMap);
-
-              if ($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId) {
-                $scope.areaList = [];
-                var areaList = thisCityList[j].child;
-                for (var w = 0; w < areaList.length; w++) {
-                  var areaMap = {"id": areaList[w].geoId, "name": areaList[w].geoName};
-                  $scope.areaList.push(areaMap);
-                }
-              }
-
-            }
-
-          }
-        }
-      }
-    });
-    $scope.changeProvince = function (stateProvinceGeoId) {
-      $scope.data.stateProvinceGeoId = stateProvinceGeoId;
-      $scope.cityList = [];
-      $scope.data.geoIdCity = '';
-      if ($scope.data.addressSelectData != null) {
-        for (var i = 0; i < $scope.data.addressSelectData.length; i++) {
-          if ($scope.data.stateProvinceGeoId != null && $scope.data.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
-            var thisCityList = $scope.data.addressSelectData[i].child;
-            for (var j = 0; j < thisCityList.length; j++) {
-              var cityMap = {"id": thisCityList[j].geoId, "name": thisCityList[j].geoName};
-              $scope.cityList.push(cityMap);
-            }
-          }
-        }
-        $scope.areaList = [];
-        $scope.data.geoIdArea = '';
-      }
-    };
-    $scope.changeCity = function (geoIdCity) {
-      $scope.data.geoIdCity = geoIdCity;
-      $scope.data.geoIdArea = '';
-      if ($scope.data.addressSelectData != null) {
-        for (var i = 0; i < $scope.data.addressSelectData.length; i++) {
-          if ($scope.stateProvinceGeoId != null && $scope.stateProvinceGeoId == $scope.data.addressSelectData[i].geoId) {
-            var thisCityList = $scope.data.addressSelectData[i].child;
-            for (var j = 0; j < thisCityList.length; j++) {
-              if ($scope.geoIdCity != null && $scope.geoIdCity == thisCityList[j].geoId) {
-                $scope.areaList = [];
-                var areaList = thisCityList[j].child;
-                for (var w = 0; w < areaList.length; w++) {
-                  var areaMap = {"id": areaList[w].geoId, "name": areaList[w].geoName};
-                  $scope.areaList.push(areaMap);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    $scope.submintFrom = function (input) {
-      //alert(input.address1);
-      //验证表单
-      var msg = "";
-      if (input.geoIdCity == null || input.geoIdCity == '')msg += '市不能为空<br>';
-      if (input.geoIdArea == null || input.geoIdArea == '')msg += '区不能为空<br>';
-      if (input.address1 == null || input.address1 == '')msg += '详细地址不能为空<br>';
-      if (input.contactNumber == null || input.contactNumber == '')msg += '电话号码不能为空<br>';
-      if (input.email == null || input.email == '')msg += '电子邮箱不能为空<br>';
-      if (msg != "") {
-        popupUtil.showAlert('error', msg);
-        return;
-      }
-      //加载动画
-      $ionicLoading.show({
-        content: 'Loading',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-      });
-
-      var dataMap = {
-        stateProvinceGeoId: $scope.data.stateProvinceGeoId,
-        geoIdCity: $scope.data.geoIdCity,
-        geoIdArea: $scope.data.geoIdArea,
-        address1: $scope.data.address1,
-        contactNumber: $scope.data.contactNumber,
-        email: $scope.data.email,
-        partyId: $rootScope.partyId
-      };
-      //alert("test");
-
-      PersonData.editPersonAddress(dataMap, function (data) {
-        //alert("成功了");
-        $ionicLoading.hide();
-        if (data.resultMsg == 'Success' || data.resultMsg == '成功') {
-          $ionicHistory.goBack();
-        } else {
-          popupUtil.showAlert('error', data.resultMsg);
-        }
-      });
-
-    }
-
-  })
-
-  //标签****************************************************************************************************************
-  .controller('PersonLabel', function ($scope, $location, $ionicPopup, PersonLabel, $rootScope) {
-    //查询用户拥有标签
-    PersonLabel.getAllLabl($rootScope.userLoginId, function (data) {
-      $scope.labelList = data;
-    });
-    $scope.goLableInfo = function (partyId) {
-      $location.path("/app/labelPersonList/" + partyId);
-    };
-    //创建标签
-    $scope.showAddLab = function () {
-      $scope.data = {};
-      var myPopup = $ionicPopup.show({
-        template: '<input type="text" ng-model="data.addLabel"/>' +
-        '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">创建</button><br/>' +
-        '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">关闭</button>',
-        title: '创建标签',
-        scope: $scope
-      });
-      myPopup.then(function (res) {
-        console.log('Tapped!', res);
-      });
-      $scope.addLab = myPopup;
-    };
-    $scope.createLabel = function () {
-      if ($scope.data.addLabel == null || $scope.data.addLabel == '') {
-      } else {
-        PersonLabel.addPersonLab($scope.data.addLabel, $rootScope.userLoginId, function (data) {
-          console.log(data.partyId)
-        });
-        $scope.addLab.close();
-        PersonLabel.getAllLabl($rootScope.userLoginId, function (data) {
-          $scope.labelList = data;
-        });
-      }
-    };
-    $scope.closeLab = function () {
-      $scope.addLab.close();
-    };
-    //删除标签
-    $scope.deleteLable = function (partyId) {
-      PersonLabel.removeLable(partyId);
-      PersonLabel.getAllLabl($rootScope.userLoginId, function (data) {
-        $scope.labelList = data;
-      });
-      // location.replace("http://localhost:63342/personErp/www/index.html?_ijt=tvc45tmh1jv443vv2cp2mvnf6j#/app/personLabel")
-    };
-    //下拉刷新
-    $scope.doRefresh = function () {
-      PersonLabel.getAllLabl($rootScope.userLoginId, function (data) {
-        $scope.labelList = data;
-      });
-      $scope.$broadcast("scroll.refreshComplete");
-    };
-  })
-
-  //标签内人员***********************************************************************************************************
-  .controller('LabelPersonList', function ($scope, $stateParams, ActivityServer) {
-    //准备参数
-    $scope.tarjeta = localStorage.getItem("tarjeta");
-    $scope.partyId = localStorage.getItem("partyId");
-    $scope.img = localStorage.getItem("contactImg");
+  //更新个人信息***********************************************************************************************************
+  .controller('editPersonInfo', function ($scope, Contact, $stateParams, $state) {
 
     //准备参数
-    var tarjeta = localStorage.getItem("tarjeta");
-    $scope.partyId = localStorage.getItem("partyId");
-    $scope.img = localStorage.getItem("activityImg");
-    $scope.contactImg = localStorage.getItem("contactImg");
-    $scope.workEffortId = $stateParams.partyId;
+    $scope.partyId = $stateParams.partyId;
+    $scope.tarjeta = localStorage.getItem('tarjeta');
 
-    //获得活动的详细信息
-    ActivityServer.getActivityDetails(tarjeta, $scope.workEffortId, function (data) {
-      $scope.groupMemberList = data.partyJoinEventsList;            //参与人员、
-    })
+    //查询我的个人信息
+    console.log($scope.tarjeta);
+    Contact.queryPersonInfo($scope.tarjeta, function (data) {
+      $scope.myInfoList = data;
+      console.log(data)
+    });
+
+    //返回
+    $scope.goBack = function () {
+      $state.go('tab.account')
+    };
+
+    //更新信息
+    $scope.sex = {};
+    $scope.updatePersonInfo = function () {
+      alert($scope.myInfoList.personName + '/' + $scope.sex.male + '/' + $scope.sex.female)
+    }
 
   })
-;
+
+
+  //绑定手机号码***********************************************************************************************************
+  .controller('bindTelephone', function ($scope, Contact, $stateParams, $state,$ionicPopup) {
+
+    //准备参数
+    $scope.partyId = localStorage.getItem('partyId');
+    $scope.tarjeta = localStorage.getItem('tarjeta');
+    console.log("token:"+$scope.tarjeta+'/-------------partyId:'+$scope.partyId);
+
+    //查询我的个人信息
+    console.log($scope.tarjeta);
+    Contact.queryPersonInfo($scope.tarjeta, function (data) {
+      $scope.myInfoList = data;
+      console.log(data)
+    });
+
+    //返回
+    $scope.goBack = function () {
+      $state.go('tab.account')
+    };
+
+    //完成
+    $scope.loginData = {};
+    $scope.updateLoginTel = function () {
+      console.log($scope.tarjeta + '/' + $scope.partyId + '/' + $scope.loginData.mobileNumber + '/' + $scope.loginData.captcha);
+      Contact.updateLoginTel($scope.tarjeta, $scope.partyId, $scope.loginData.mobileNumber, $scope.loginData.captcha, function (data) {
+        console.log(data.resultMsg);
+        localStorage.removeItem("tarjeta");
+        localStorage.setItem("tarjeta",data.tarjeta);
+        $ionicPopup.alert({
+          title: '绑定成功',
+          template: "你可以通过手机号码找回您参与的活动",
+        });
+        $state.go('tab.account')
+      })
+    }
+
+  });
+
+
+

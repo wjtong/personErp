@@ -535,14 +535,16 @@ a.autolinker {
   color: #999999;
   text-align: center
 }
-#login .captcha{
+
+#login .captcha {
   position: absolute;
-  top:28%;
+  top: 28%;
   right: 15%;
 }
-#login img{
-  height:60px;
-  width:60px;
+
+#login img {
+  height: 60px;
+  width: 60px;
 }
 
 #wecat .buttonLogin {
@@ -582,12 +584,14 @@ a.autolinker {
 }
 
 /*关于我****************************************************************************************************************/
-#aboutMe{
+#aboutMe {
   background: url(../img/aboutMe/con_顶部渐变圆@3x.png) no-repeat top;
   background-size: 100%, 100%;
 }
-#aboutMe .img-headerMe{
+
+#aboutMe .img-headerMe {
   text-align: center;
+  margin-bottom: 10px;
 }
 
 #aboutMe .img-Name {
@@ -597,17 +601,20 @@ a.autolinker {
   border-radius: 94px;
 }
 
-#aboutMe h3{
+#aboutMe h3 {
   font-size: 17px;
   margin: 11px 0 0 0;
 }
-#aboutMe p{
+
+#aboutMe p {
   color: #4a4a4a;
   margin: 11px 0 0 0;
 }
-#aboutMe p span{
+
+#aboutMe p span {
   color: #B9B9B9;
 }
+
 #aboutMe input[type=button] {
   width: 188px;
   height: 42px;
@@ -619,64 +626,76 @@ a.autolinker {
   color: #333333;
   background-color: #FFDA44;
 }
-#aboutMe ion-item{
+
+#aboutMe ion-item {
   color: #434343;
   margin: 0 31.5px;
   border: 0;
   border-bottom: 1px #D9D9D9 solid;
+  padding: 10px 0;
 }
-#aboutMe ion-item span{
+
+#aboutMe ion-item span {
   text-indent: 30px;
 }
-#aboutMe .my-logout{
+
+#aboutMe .my-logout {
   background: url(../img/aboutMe/形状-28@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 17.5px;
 }
-#aboutMe .my-weixin{
+
+#aboutMe .my-weixin {
   background: url(../img/aboutMe/icon_微信@2x.png) no-repeat center;
-  background-size:100%, 100%;
+  background-size: 100%, 100%;
   padding: 5%;
   margin-right: 17.5px;
 }
-#aboutMe .my-yijian{
+
+#aboutMe .my-yijian {
   background: url(../img/aboutMe/icon_意见反馈@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 17.5px;
 }
-#aboutMe .my-haoping{
+
+#aboutMe .my-haoping {
   background: url(../img/aboutMe/icon-给个好评@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 17.5px;
 }
-#aboutMe .my-about{
+
+#aboutMe .my-about {
   background: url(../img/aboutMe/icon_关于@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 17.5px;
 }
-#aboutMe .my-tel{
+
+#aboutMe .my-tel {
   background: url(../img/aboutMe/icon_手机@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 17.5px;
 }
-#aboutMe .my-enter{
+
+#aboutMe .my-enter {
   background: url(../img/aboutMe/icon_进入@2x.png) no-repeat right;
   background-size: 25%, 25%;
-  padding:5%;
+  padding: 5%;
   float: right;
 }
+
 #aboutMe .my-unvalidated {
   background: url(../img/aboutMe/未验证.png) no-repeat right;
   background-size: 25%, 25%;
-  padding:5%;
+  padding: 5%;
   float: right;
 }
-#aboutMe .binding－button{
+
+#aboutMe .binding－button {
   float: right;
   background-color: white;
   border: 1px solid #1AAD19;
@@ -686,7 +705,6 @@ a.autolinker {
   width: 53px;
   font-size: 10px;
   text-align: center;
-  padding-right: 0;
 }
 
 /*兼容性问题******************************************屏幕大小兼容性*******************************************************/

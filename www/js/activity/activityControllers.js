@@ -3,15 +3,15 @@ angular.module('activity.controllers', [])
 //活动首页***************************************************************************************************************
   .controller('ActivityHome', function ($scope, ThemeImage, $location, ActivityServer, $state, $ionicPopover, $cordovaBarcodeScanner, $ionicModal) {
 
-
     //查询我的活动列表
     $scope.activityHomeNull = true;
     $scope.$on('$ionicView.beforeEnter', function () {
       //准备参数
-      var tarjeta = localStorage.getItem("tarjeta");
+      $scope.tarjeta = localStorage.getItem("tarjeta");
+      console.log("token:"+$scope.tarjeta+'/partyId:'+$scope.partyId);
       //获得我的全部活动列表(我参与的活动)
       var roleTypeId = 'ACTIVITY_MEMBER';
-      ActivityServer.myActivity(tarjeta, roleTypeId, function (data) {
+      ActivityServer.myActivity($scope.tarjeta, roleTypeId, function (data) {
         $scope.active = data.partyEventsList;
         console.log("查询我参与的活动" + "---------" + data.resultMsg);
         //如果没有活动  页面调整
@@ -34,8 +34,8 @@ angular.module('activity.controllers', [])
     //下拉刷新
     $scope.doRefresh = function () {
       var roleTypeId = 'ACTIVITY_MEMBER';
-      var tarjeta = localStorage.getItem("tarjeta");
-      ActivityServer.myActivity(tarjeta, roleTypeId, function (data) {
+      $scope.tarjeta = localStorage.getItem("tarjeta");
+      ActivityServer.myActivity($scope.tarjeta, roleTypeId, function (data) {
         $scope.active = data.partyEventsList;
         console.log("查询我参与的活动" + "---------" + data.resultMsg);
         if (data != null) {
@@ -457,8 +457,8 @@ angular.module('activity.controllers', [])
             var id = data.workEffortId;
             $location.path("/tab/activityDetails/" + id);
             $scope.modal.hide();
-            $cordovaProgress.showDeterminateWithLabel(true, 15000, "创建中");
-            $cordovaVibration.vibrate(3000);
+            // $cordovaProgress.showDeterminateWithLabel(true, 15000, "创建中");
+            // $cordovaVibration.vibrate(3000);
           }
         );
         localStorage.removeItem("themeImg");
@@ -475,7 +475,7 @@ angular.module('activity.controllers', [])
     var tarjeta = localStorage.getItem("tarjeta");
     var type = $stateParams.type;
     $scope.img = localStorage.getItem("activityImg");
-    $scope.adminOpenId=localStorage.getItem('adminOpenId');
+    $scope.adminOpenId = localStorage.getItem('adminOpenId');
 
     //通过类型  分别显示不同的数据   由我组织  往期活动  活动邀请
     if (type == 'finish') {
@@ -504,15 +504,14 @@ angular.module('activity.controllers', [])
 
   //活动详情*************************************************************************************************************
   .controller('ActivityDetails', function ($stateParams, $state, ThemeImage, ionicDatePicker, $scope, ActivityServer,
-                                           $rootScope, $ionicPopup, $ionicPopover, $ionicHistory, $location, $ionicModal,
-                                           PersonLabel, $timeout, $cordovaLaunchNavigator, $cordovaImagePicker,
-                                           $cordovaFileTransfer, $cordovaProgress, $cordovaGeolocation, Contact,$cordovaDatePicker) {
+                                           $rootScope, $ionicPopup, $ionicPopover, $ionicHistory, $location, $ionicModal, $timeout, $cordovaLaunchNavigator, $cordovaImagePicker,
+                                           $cordovaFileTransfer, $cordovaProgress, $cordovaClipboard, $cordovaGeolocation, Contact, $cordovaDatePicker) {
     //准备参数
     $scope.tarjeta = localStorage.getItem("tarjeta");
     $scope.partyId = localStorage.getItem("partyId");
     $scope.workEffortId = $stateParams.activityId;
-    $scope.adminOpenId=localStorage.getItem('adminOpenId');
-    console.log('用户OPENID'+$scope.adminOpenId);
+    $scope.adminOpenId = localStorage.getItem('adminOpenId');
+    console.log('用户OPENID' + $scope.adminOpenId);
 
     //功能导航栏
     $scope.activityTabsImg = ThemeImage.getActivityImgTabs();
@@ -525,29 +524,28 @@ angular.module('activity.controllers', [])
     };
 
     //更新活动
-    $scope.startDate='活动开始时间';
-    $scope.endDate='活动结束时间';
-    $scope.address='活动地址';
-    $scope.description='活动描述';
-    $scope.updateAvtivityInfo = function(type) {
+    $scope.startDate = '活动开始时间';
+    $scope.endDate = '活动结束时间';
+    $scope.address = '活动地址';
+    $scope.description = '活动描述';
+    $scope.updateAvtivityInfo = function (type) {
       $scope.data = {};
-      if(type=='活动开始时间'||type=='活动结束时间'){
+      if (type == '活动开始时间' || type == '活动结束时间') {
         var myPopup = $ionicPopup.show({
-          template:
-          '<input  type="text" readonly  ng-model="data.addLabel" ng-click="updateDate()"/>' +
+          template: '<input  type="text" readonly  ng-model="data.addLabel" ng-click="updateDate()"/>' +
           '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">修改</button><br/>' +
-          '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>' ,
-          title: type+'更新',
+          '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>',
+          title: type + '更新',
           scope: $scope
         });
-        myPopup.then(function(res) {
+        myPopup.then(function (res) {
           console.log('Tapped!', res);
         });
         $scope.addLab = myPopup;
         $scope.closeLab = function () {
           $scope.addLab.close();
         };
-        $scope.updateDate=function () {
+        $scope.updateDate = function () {
           document.addEventListener("deviceready", function () {
             var options = {
               date: new Date(),
@@ -573,31 +571,30 @@ angular.module('activity.controllers', [])
               if (Minutes < 10) {
                 Minutes = '0' + Minutes;
               }
-              $scope.data.addLabel=date.getFullYear() + "-" + parseFloat(date.getMonth() + 1) + "-" + date.getDate() + " " + Hours + ":" + Minutes + ":" + "00";
+              $scope.data.addLabel = date.getFullYear() + "-" + parseFloat(date.getMonth() + 1) + "-" + date.getDate() + " " + Hours + ":" + Minutes + ":" + "00";
             });
           }, false);
         };
         $scope.createLabel = function () {
-          if($scope.data.addLabel == null || $scope.data.addLabel == ''){
+          if ($scope.data.addLabel == null || $scope.data.addLabel == '') {
             alert("请输入修改信息")
-          }else{
-            ActivityServer.updateActivity($scope.tarjeta,null,$scope.data.addLabel,null,null,null,null,$scope.workEffortId,null,function (data) {
+          } else {
+            ActivityServer.updateActivity($scope.tarjeta, null, $scope.data.addLabel, null, null, null, null, $scope.workEffortId, null, function (data) {
               console.log(data);
             });
             $scope.addLab.close();
             location.reload(true)
           }
         };
-      }else if(type=='活动地址'){
+      } else if (type == '活动地址') {
         var myPopupAdd = $ionicPopup.show({
-          template:
-          '<input  type="text" ng-model="data.addLabel"/>' +
+          template: '<input  type="text" ng-model="data.addLabel"/>' +
           '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">修改</button><br/>' +
-          '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>' ,
-          title: type+'更新',
+          '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>',
+          title: type + '更新',
           scope: $scope
         });
-        myPopupAdd.then(function(res) {
+        myPopupAdd.then(function (res) {
           console.log('Tapped!', res);
         });
         $scope.addLab = myPopupAdd;
@@ -605,26 +602,25 @@ angular.module('activity.controllers', [])
           $scope.addLab.close();
         };
         $scope.createLabel = function () {
-          if($scope.data.addLabel == null || $scope.data.addLabel == ''){
+          if ($scope.data.addLabel == null || $scope.data.addLabel == '') {
             alert("请输入修改信息")
-          }else{
-            ActivityServer.updateActivity($scope.tarjeta,null,null,null,$scope.data.addLabel,null,null,$scope.workEffortId,null,function (data) {
+          } else {
+            ActivityServer.updateActivity($scope.tarjeta, null, null, null, $scope.data.addLabel, null, null, $scope.workEffortId, null, function (data) {
               console.log(data)
             });
             $scope.addLab.close();
             location.reload(true)
           }
         };
-      }else if(type=='活动描述'){
+      } else if (type == '活动描述') {
         var myPopupDis = $ionicPopup.show({
-          template:
-          '<input  type="text" ng-model="data.addLabel"/>' +
+          template: '<input  type="text" ng-model="data.addLabel"/>' +
           '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="createLabel();">修改</button><br/>' +
-          '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>' ,
-          title: type+'更新',
+          '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>',
+          title: type + '更新',
           scope: $scope
         });
-        myPopupDis.then(function(res) {
+        myPopupDis.then(function (res) {
           console.log('Tapped!', res);
         });
         $scope.addLab = myPopupDis;
@@ -632,10 +628,10 @@ angular.module('activity.controllers', [])
           $scope.addLab.close();
         };
         $scope.createLabel = function () {
-          if($scope.data.addLabel == null || $scope.data.addLabel == ''){
+          if ($scope.data.addLabel == null || $scope.data.addLabel == '') {
             alert("请输入修改信息")
-          }else{
-            ActivityServer.updateActivity($scope.tarjeta,null,null,null,null,$scope.data.addLabel,null,$scope.workEffortId,null,function (data) {
+          } else {
+            ActivityServer.updateActivity($scope.tarjeta, null, null, null, null, $scope.data.addLabel, null, $scope.workEffortId, null, function (data) {
               console.log(data)
             });
             $scope.addLab.close();
@@ -645,12 +641,17 @@ angular.module('activity.controllers', [])
       }
     };
 
+    //返回活动首页
+    $scope.goActivityHome = function () {
+      $state.go("tab.dash")
+    };
+
     //修改活动状态
-    $scope.updateEventStatus=function () {
-      var currentStatusId="CAL_CONFIRMED";
-        ActivityServer.updateEventStatus($scope.tarjeta, $scope.workEffortId,currentStatusId,function (data) {
-          console.log(data)
-        })
+    $scope.updateEventStatus = function () {
+      var currentStatusId = "CAL_CONFIRMED";
+      ActivityServer.updateEventStatus($scope.tarjeta, $scope.workEffortId, currentStatusId, function (data) {
+        console.log(data)
+      })
     };
 
     //活动详情临时宫格图片
@@ -726,9 +727,9 @@ angular.module('activity.controllers', [])
       $location.path("/tab/slide/" + $scope.workEffortId + '/' + index);
     };
 
-    $scope.shouBigImageJu = function () {
-      $('#thumbs').touchTouch();
-    };
+    // $scope.shouBigImageJu = function () {
+    //   $('#thumbs').touchTouch();
+    // };
 
     //进入活动讨论
     $scope.activityDiscuss = function () {
@@ -870,25 +871,25 @@ angular.module('activity.controllers', [])
     };
 
     //修改用户昵称
-    $scope.updateUserName=function () {
-      Contact.updatePersonInfo($scope.partyId,$scope.originator.nickName,function (data) {
-        console.log('修改用户昵称'+data)
+    $scope.updateUserName = function () {
+      Contact.updatePersonInfo($scope.partyId, $scope.originator.nickName, function (data) {
+        console.log('修改用户昵称' + data)
       })
     };
 
     //使用微信信息
-    console.log($scope.partyId+"1");
-    $scope.userWeixinInfo=function () {
+    console.log($scope.partyId + "1");
+    $scope.userWeixinInfo = function () {
       $scope.scope = "snsapi_userinfo";
-      console.log($scope.partyId+"2");
+      console.log($scope.partyId + "2");
       Wechat.auth($scope.scope, function (response) {
         // you may use response.code to get the access token.
-        console.log(JSON.stringify(response)+"微信返回值");
-        var code=response.code;
-        console.log($scope.partyId+"3");
-        ActivityServer.userWeChatAppLogin(code,$scope.partyId,function (data) {
+        console.log(JSON.stringify(response) + "微信返回值");
+        var code = response.code;
+        console.log($scope.partyId + "3");
+        ActivityServer.userWeChatAppLogin(code, $scope.partyId, function (data) {
           console.log(data.tarjeta);
-          if(data.tarjeta){
+          if (data.tarjeta) {
             localStorage.removeItem("tarjeta");
             localStorage.removeItem("partyId");
             localStorage.removeItem("openId");
@@ -900,9 +901,9 @@ angular.module('activity.controllers', [])
         //查询我的个人信息
         Contact.queryPersonInfo($scope.tarjeta, function (data) {
           $scope.myInfoList = data;
-          console.log('微信openId:'+data.openId);
+          console.log('微信openId:' + data.openId);
           localStorage.removeItem('adminOpenId');
-          localStorage.setItem('adminOpenId',data.openId)
+          localStorage.setItem('adminOpenId', data.openId)
         });
         location.reload(true)
       }, function (reason) {
@@ -910,18 +911,20 @@ angular.module('activity.controllers', [])
       });
     };
 
-    //组织者信息
+    //判断组织者是否绑定微信
     $scope.weixin = true;
     $scope.changeName = false;
     $scope.originator = {};
-    $scope.originatorHeadImg = '../www/img/shareActivity/形状-12@2x.png';
-    if ($scope.createPersonInfoList.firstName != '本人') {
-      $scope.originator.nickName = $scope.createPersonInfoList.firstName;
-      $scope.originatorHeadImg = $scope.createPersonInfoList.objectInfo;
+    if ($scope.adminOpenId != 'NA') {
       $scope.weixin = false;
       $scope.changeName = true;
+      $scope.originator.nickName = $scope.createPersonInfoList.firstName;
+      $scope.originatorHeadImg = $scope.createPersonInfoList.objectInfo;
     } else {
-      $scope.originator.nickName = '';
+      if($scope.createPersonInfoList.firstName=='本人'){
+        $scope.originator.nickName = '';
+        $scope.originatorHeadImg = '../www/img/shareActivity/形状-12@2x.png';
+      }
     }
 
     //选择哪种方式邀请好友
@@ -943,7 +946,7 @@ angular.module('activity.controllers', [])
               thumb: 'www/img/theme/bufenli.jpeg',
               media: {
                 type: Wechat.Type.WEBPAGE,
-                webpageUrl: 'http://www.vivafoo.com:3400/pewebview/control/main?workEffortId=' + $scope.workEffortId+ "&adminOpenId=" + $scope.adminOpenId,
+                webpageUrl: 'http://www.vivafoo.com:3400/pewebview/control/main?workEffortId=' + $scope.workEffortId + "&adminOpenId=" + $scope.adminOpenId,
               }
             },
             scene: Wechat.Scene.SESSION // share to SESSION
@@ -991,7 +994,20 @@ angular.module('activity.controllers', [])
               }
             })
           }
+        } else if (name == '复制链接') {
+          $ionicPopup.alert({
+            title: '复制成功',
+            template: "粘贴链接邀请好友",
+          });
+          $cordovaClipboard
+            .copy('http://www.vivafoo.com:3400/pewebview/control/otherView?workEffortId=' + $scope.workEffortId)
+            .then(function () {
+              // success
+            }, function () {
+              // error
+            });
         }
+
       }
     }
 

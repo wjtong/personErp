@@ -81,7 +81,7 @@ angular.module('login.controllers', [])
 
   //验证码***************************************************************************************************************
   .controller('captcha', function ($scope, $http, $rootScope, $interval, Login,$state) {
-    $scope.codeBtn = '获取验证码';
+    $scope.codeBtn = '立即验证';
     //登陆获取验证码
     $scope.getIdentifyCode = function (tel) {
       //定义一个是登陆获取验证吗
@@ -158,13 +158,13 @@ angular.module('login.controllers', [])
               } else {
                 //倒计时
                 $scope.n = 60;
-                $scope.codeBtn = "获取中 " + $scope.n + " 秒";
+                $scope.codeBtn =$scope.n + " 秒";
                 var time = $interval(function () {
                   $scope.n--;
-                  $scope.codeBtn = "获取中 " + $scope.n + " 秒";
+                  $scope.codeBtn = $scope.n + " 秒";
                   if ($scope.n == 0) {
                     $interval.cancel(time); // 取消定时任务
-                    $scope.codeBtn = '获取验证码';
+                    $scope.codeBtn = '立即获取';
                     $scope.codeBtnDisable = false;
                   }
                 }, 1000);

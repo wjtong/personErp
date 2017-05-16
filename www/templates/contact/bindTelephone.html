@@ -1,0 +1,27 @@
+<ion-view title="绑定手机号">
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="goBack()">
+        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content id="bindTel" >
+    <div class="bindTelephone">
+      <label>
+        <span class="bing-tel">电话:</span>
+        <input  type="tel" placeholder="  请输入手机号码" ng-model="loginData.mobileNumber">
+      </label>
+        <button class="codeBtn" ng-controller="captcha"
+                ng-click="getIdentifyCodeReg(loginData.mobileNumber)">{{codeBtn}}
+        </button>
+      <label>
+        <span class="bind-code">验证码:</span>
+        <input type="tel" placeholder="  请输入验证吗" ng-model="loginData.captcha">
+      </label>
+      <label>
+        <input type="button" value="完成" ng-click="updateLoginTel()">
+      </label>
+    </div>
+  </ion-content>
+</ion-view>

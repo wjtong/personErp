@@ -12,18 +12,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .run(function ($ionicPlatform, ActivityServer, $cordovaDevice, $rootScope) {
 
     //连接服务器
-    $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
-    $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
-    $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
-    $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
-    $rootScope.communicationfaceUrl = "http://114.215.200.46:3400/communication/control/";//活动接口
+    // $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
+    // $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
+    // $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
+    // $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
+    // $rootScope.communicationfaceUrl = "http://114.215.200.46:3400/communication/control/";//活动接口
 
     //链接沈演麟本地
-    // $rootScope.interfaceUrl = "http://192.168.3.102:3400/personContacts/control/";
-    // $rootScope.voteInterfaceUrl = "http://192.168.3.102:3400/pevote/control/";//投票接口
-    // $rootScope.activityInterfaceUrl = "http://192.168.3.102:3400/personactivity/control/";//活动接口
-    // $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
-    // $rootScope.communicationfaceUrl = "http://192.168.3.102:3400/communication/control/";//活动接口
+    $rootScope.interfaceUrl = "http://192.168.3.102:3400/personContacts/control/";
+    $rootScope.voteInterfaceUrl = "http://192.168.3.102:3400/pevote/control/";//投票接口
+    $rootScope.activityInterfaceUrl = "http://192.168.3.102:3400/personactivity/control/";//活动接口
+    $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
+    $rootScope.communicationfaceUrl = "http://192.168.3.102:3400/communication/control/";//活动接口
 
     //链接沈演麟本地网络
     // $rootScope.interfaceUrl = "http://159742z17s.iask.in:29130/personContacts/control/";
@@ -46,7 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
         if (localStorage.getItem("tarjeta") == null) {
           ActivityServer.setUUID(uuid, function (data) {
-            console.log("创建新用户通过UUID" + "token:" + data.tarjeta + "UUID:" + uuid);
+            console.log("创建新用户通过UUID" + "token:" + data.tarjeta + "UUID:" + uuid+'PartyId:'+data.partyId);
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
           })

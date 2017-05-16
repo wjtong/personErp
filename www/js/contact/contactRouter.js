@@ -1,101 +1,28 @@
 angular.module('starter')
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider) {
     $stateProvider
-    //联系人列表
-      .state('app.contactlist', {
-        url: '/contactlist',
-        cache: false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/contactlist.html',
-            controller: 'ContactlistCtrl'
-          }
-        }
-      })
-      //添加新联系人
-      .state('app.addPerson', {
-        url: '/addPerson',
-        disableBack: true,
-        cache: false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/addPerson.html',
-            controller: 'AddPerson'
-          }
-        }
-      })
       //编辑联系人
-      .state('app.editPerson', {
-        url: '/editPerson/:personId',
-        disableBack: true,
+      .state('tab.editPersonInfo', {
+        url: '/editPersonInfo/:partyId',
         cache: false,
         views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/addPerson.html',
-            controller: 'UpdatePersonInfo'
+          'tab-account': {
+            templateUrl: 'templates/contact/editPersonInfo.html',
+            controller: 'editPersonInfo'
           }
         }
       })
-      //关于联系人的信息
-      .state('app.abouthim', {
-        url: '/abouthim/:personId',
-        disableBack: true,
+      //绑定手机号码
+      .state('tab.bindTelephone', {
+        url: '/bindTelephone/:partyId',
         cache: false,
         views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/abouthim.html',
-            controller: 'AboutHim'
+          'tab-account': {
+            templateUrl: 'templates/contact/bindTelephone.html',
+            controller: 'bindTelephone'
           }
         }
-      })
-      //添加联系人地址
-      .state('app.addAddress', {
-        url: '/addAddress',
-        disableBack: true,
-        cache: false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/editAddress.html',
-            controller: 'EditAddress'
-          }
-        }
-      })
-      //联系人编辑地址
-      .state('app.editAddress', {
-        url: '/editAddress/:id',
-        disableBack: true,
-        cache: false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/editAddress.html',
-            controller: 'EditAddress'
-          }
-        }
-      })
-      //联系人拥有的标签
-      .state('app.personLabel', {
-        url: '/personLabel',
-        disableBack: true,
-        cache: false,
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/contact/personLabel.html',
-            controller: 'PersonLabel'
-          }
-        }
-      })
-      //联系人的标签内的人员
-      .state('tab.labelPersonList', {
-        url: '/labelPersonList/:partyId',
-        disableBack: true,
-        cache: false,
-        views: {
-          'tab-chats': {
-            templateUrl: 'templates/contact/labelPersonList.html',
-            controller: 'LabelPersonList'
-          }
-        }
-      })
+      });
 
   });
