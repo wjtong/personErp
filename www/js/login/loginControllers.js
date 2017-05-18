@@ -49,13 +49,13 @@ angular.module('login.controllers', [])
         var code=response.code;
         console.log($scope.partyId+"3");
         ActivityServer.userWeChatAppLogin(code,$scope.partyId,function (data) {
-          console.log(data.tarjeta);
+          console.log('微信绑定后返回的数据'+'token:'+data.tarjeta+"--------partyId:"+data.partyId+'-----openId:'+data.openId);
           if(data.tarjeta){
-            localStorage.removeItem("tarjeta");
-            localStorage.removeItem("partyId");
+            // localStorage.removeItem("tarjeta");
+            // localStorage.removeItem("partyId");
             localStorage.removeItem("openId");
-            localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
-            localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+            // localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+            // localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
             localStorage.setItem("adminOpenId", data.openId);//设置partyId登陆人
           }
         })

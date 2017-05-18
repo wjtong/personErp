@@ -13,8 +13,8 @@
   </ion-nav-bar>
   <ion-content id="editPerson">
     <div class="edit">
-      <img class="edit-img-header" ng-src="{{myInfoList.headPortrait}}">
-      <div class="camera"></div>
+      <img class="edit-img-header" id="myImage"  ng-src="{{myInfoList.headPortrait}}">
+      <div class="camera" ng-click="uploaPartyContent()"></div>
     </div>
     <ion-list>
       <ion-item>
@@ -25,8 +25,8 @@
       </ion-item>
       <ion-item>
           <span>性别:</span>
-          <input class="male" type="radio" name="sex" ng-checked="sex.male">男
-          <input class="female" type="radio" name="sex" ng-checked="sex.female">女
+          <input class="male" type="radio" name="sex" value="M" ng-checked="male">男
+          <input class="female" type="radio" name="sex" value="F" ng-checked="female">女
       </ion-item>
     </ion-list>
   </ion-content>

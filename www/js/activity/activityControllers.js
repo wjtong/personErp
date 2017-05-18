@@ -8,7 +8,8 @@ angular.module('activity.controllers', [])
     $scope.$on('$ionicView.beforeEnter', function () {
       //准备参数
       $scope.tarjeta = localStorage.getItem("tarjeta");
-      console.log("token:"+$scope.tarjeta+'/partyId:'+$scope.partyId);
+      $scope.partyId = localStorage.getItem('partyId');
+      console.log("token:" + $scope.tarjeta + '/partyId:' + $scope.partyId);
       //获得我的全部活动列表(我参与的活动)
       var roleTypeId = 'ACTIVITY_MEMBER';
       ActivityServer.myActivity($scope.tarjeta, roleTypeId, function (data) {
@@ -79,7 +80,7 @@ angular.module('activity.controllers', [])
       //账号登录参数设置
       var appId = '8a216da85b3c225d015b585bbf490c2f';
       var appToken = '8da3f790a40bbb6607c03c948b8e7c6b';
-      var user_account = 'ddf101';
+      var user_account = 'ddf105';
       var timeStamp = IM._getTimeStamp();
       var sig = hex_md5(appId + user_account + timeStamp + appToken);
       var loginBuilder = new RL_YTX.LoginBuilder();
@@ -505,7 +506,7 @@ angular.module('activity.controllers', [])
   //活动详情*************************************************************************************************************
   .controller('ActivityDetails', function ($stateParams, $state, ThemeImage, ionicDatePicker, $scope, ActivityServer,
                                            $rootScope, $ionicPopup, $ionicPopover, $ionicHistory, $location, $ionicModal, $timeout, $cordovaLaunchNavigator, $cordovaImagePicker,
-                                           $cordovaFileTransfer, $cordovaProgress, $cordovaClipboard, $cordovaGeolocation, Contact, $cordovaDatePicker) {
+                                           $cordovaFileTransfer, $ionicLoading, $cordovaProgress, $cordovaClipboard, $cordovaGeolocation, Contact, $cordovaDatePicker) {
     //准备参数
     $scope.tarjeta = localStorage.getItem("tarjeta");
     $scope.partyId = localStorage.getItem("partyId");
@@ -872,7 +873,7 @@ angular.module('activity.controllers', [])
 
     //修改用户昵称
     $scope.updateUserName = function () {
-      Contact.updatePersonInfo($scope.partyId, $scope.originator.nickName, function (data) {
+      Contact.updatePersonInfo($scope.partyId, $scope.originator.nickName, null, function (data) {
         console.log('修改用户昵称' + data)
       })
     };
@@ -890,11 +891,11 @@ angular.module('activity.controllers', [])
         ActivityServer.userWeChatAppLogin(code, $scope.partyId, function (data) {
           console.log(data.tarjeta);
           if (data.tarjeta) {
-            localStorage.removeItem("tarjeta");
-            localStorage.removeItem("partyId");
+            // localStorage.removeItem("tarjeta");
+            // localStorage.removeItem("partyId");
             localStorage.removeItem("openId");
-            localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
-            localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+            // localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+            // localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
             localStorage.setItem("adminOpenId", data.openId);//设置partyId登陆人
           }
         });
@@ -903,27 +904,39 @@ angular.module('activity.controllers', [])
           $scope.myInfoList = data;
           console.log('微信openId:' + data.openId);
           localStorage.removeItem('adminOpenId');
-          localStorage.setItem('adminOpenId', data.openId)
+          localStorage.setItem('adminOpenId', data.openId);
+          console.log("获取的微信数据" + data.personName + data.headPortrait);
+          $scope.originator.nickName = data.personName;
+          $scope.originatorHeadImg = data.headPortrait;
         });
-        location.reload(true)
+        location.reload(true);
       }, function (reason) {
         alert("Failed: " + reason);
       });
     };
 
+    //如果用户不是组织者不可以邀请好友
+    if($scope.createPersonInfoList.activityAdminPartyId!=$scope.partyId){
+      $('#invent').attr('disabled', true);
+    }
+
     //判断组织者是否绑定微信
     $scope.weixin = true;
     $scope.changeName = false;
     $scope.originator = {};
-    if ($scope.adminOpenId != 'NA') {
+    console.log('判断是否绑定了微信' + $scope.adminOpenId);
+    if ($scope.adminOpenId != 'NA' && $scope.adminOpenId != null) {
       $scope.weixin = false;
       $scope.changeName = true;
       $scope.originator.nickName = $scope.createPersonInfoList.firstName;
       $scope.originatorHeadImg = $scope.createPersonInfoList.objectInfo;
     } else {
-      if($scope.createPersonInfoList.firstName=='本人'){
+      if ($scope.createPersonInfoList.firstName == '本人') {
         $scope.originator.nickName = '';
         $scope.originatorHeadImg = '../www/img/shareActivity/形状-12@2x.png';
+      } else {
+        $scope.originator.nickName = $scope.createPersonInfoList.firstName;
+        $scope.originatorHeadImg = $scope.createPersonInfoList.objectInfo;
       }
     }
 
@@ -1025,8 +1038,8 @@ angular.module('activity.controllers', [])
     //照片INDEX
     $scope.slideChanged = function (index) {
       $scope.imgIndex = index;
-      $scope.acountPraiseCount = $scope.pictureList[$scope.imgIndex].praiseCount;
-      $scope.acountTrampleCount = $scope.pictureList[$scope.imgIndex].trampleCount;
+       $scope.acountPraiseCount = $scope.pictureList[$scope.imgIndex].praiseCount;
+      // $scope.acountTrampleCount = $scope.pictureList[$scope.imgIndex].trampleCount;
     };
     if ($scope.myActiveSlide == 0) {
       $scope.imgIndex = 0;
@@ -1039,7 +1052,7 @@ angular.module('activity.controllers', [])
     $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
     ActivityServer.queryMyEventContents($scope.tarjeta, $scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize, function (data) {
       $scope.pictureList = data.contentsList;
-      //$scope.acountPraiseCount = $scope.pictureList[$scope.myActiveSlide].praiseCount;
+      $scope.acountPraiseCount = $scope.pictureList[$scope.myActiveSlide].praiseCount;
       //$scope.acountTrampleCount = $scope.pictureList[$scope.myActiveSlide].trampleCount;
     });
 

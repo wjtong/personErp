@@ -24,12 +24,13 @@ angular.module('contact.services', [])
         });
       },
       //更新联系人信息
-      updatePersonInfo: function (partyId,firstName, cb) {
+      updatePersonInfo: function (partyId,firstName,gender, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "updatePersonInfo",
           data: {
             partyId: partyId,
-            firstName:firstName
+            firstName:firstName,
+            gender:gender,
           },
           async: false,
           type: 'POST',

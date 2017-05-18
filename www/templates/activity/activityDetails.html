@@ -14,8 +14,10 @@
       <div class="item">
         <div class="item item-thumbnail-left">
           <img class="img-header" src="{{themeImgList.objectInfo}}">
-          <p ng-click="updateAvtivityInfo(startDate)"><i class="icon activityTimer"></i>{{activityList.actualStartDate| date:'MM月dd HH:mm' }}</p>
-          <p class="activityAddress" ng-click="updateAvtivityInfo(address)"><i class="icon activityLocation"></i>{{activityList.locationDesc }}</p>
+          <p ng-click="updateAvtivityInfo(startDate)"><i class="icon activityTimer"></i>{{activityList.actualStartDate|
+            date:'MM月dd HH:mm' }}</p>
+          <p class="activityAddress" ng-click="updateAvtivityInfo(address)"><i class="icon activityLocation"></i>{{activityList.locationDesc
+            }}</p>
         </div>
       </div>
       <div class="row header activityDetTabs">
@@ -37,6 +39,24 @@
         <div><img class="img-zhuzi" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/></div>
       </div>
       <div class="item">
+        <h2>活动描述:</h2>
+        <hr>
+        <p ng-click="updateAvtivityInfo(description)">{{activityList.description}}</p>
+      </div>
+      <div class="item">
+        <div>
+          <h3 style="display: inline-block">照片墙</h3>
+          <p style="float: right" ng-click="upLoadImage(activityList.id)">上传图片</p>
+        </div>
+        <hr>
+        <div class="row  row-wrap">
+          <div class="col col-33" style="text-align: center;height:100px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;"
+               ng-repeat="picture in images_list" ng-click="shouBigImage($index)">
+            <img class="img-responsive"style="width: 100%;height: 100%;" ng-src="{{picture.objectInfo}}">
+          </div>
+        </div>
+      </div>
+      <div class="item">
         <h2>活动项:</h2>
         <hr>
         <div style="padding: 5% 0 0 10%;">
@@ -54,19 +74,6 @@
           <span style="margin-left: 21px">18:00 场内签名合照</span>
         </div>
       </div>
-      <div class="item">
-        <h2>活动描述:</h2>
-        <hr>
-        <p ng-click="updateAvtivityInfo(description)">{{activityList.description}}</p>
-        <div class="row padding row-wrap">
-          <div class="col col-33"
-               style="width: 100px;height: 100px;"
-               ng-repeat="picture in activityTabsJu">
-            <img class="img-responsive" id="thumbs" style="height: 100%;width: 100%; border:1px solid #555;"
-                 ng-src="{{picture.img}}" ng-click="shouBigImageJu()">
-          </div>
-        </div>
-      </div>
     </div>
   </ion-content>
   <ion-footer-bar id="footer" class="bar-light">
@@ -74,7 +81,7 @@
       <img src="../www/img/activityImg/btn_讨论_n@2x.png" ng-click="activityDiscuss()"/>
     </div>
     <div class="yaoqing">
-      <button ng-click="InviteModal()" class="button  activityInvitationImg"></button>
+      <button id="invent" ng-click="InviteModal()" class="button  activityInvitationImg"></button>
     </div>
     <div class="baoming">
       <button id="join" ng-click="showPopup(activityList.workEffortId)" class="button activityFootImg"></button>
