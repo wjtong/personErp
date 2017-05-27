@@ -1,12 +1,126 @@
+/*用户个人信息****************************************************************************************************************/
+#aboutMe {
+  background: url(../img/aboutMe/con_顶部渐变圆@3x.png) no-repeat top;
+  background-size: 100%, 100%;
+}
+#aboutMe .img-headerMe {
+  text-align: center;
+  margin-bottom: 0.625rem;
+}
+#aboutMe .img-Name {
+  height: 5.875rem;
+  width: 5.875rem;
+  margin: 4.375rem 0 0 0;
+  border-radius: 5.875rem;
+}
+#aboutMe h3 {
+  font-size: 1.0625rem;
+  margin: 0.6875rem 0 0 0;
+}
+#aboutMe p {
+  color: #4a4a4a;
+  margin: 0.6875rem 0 0 0;
+}
+#aboutMe p span {
+  color: #B9B9B9;
+}
+#aboutMe input[type=button] {
+  width: 11.75rem;
+  height: 2.625rem;
+  border: 1px #FFDA44 solid;
+  border-radius: 2.5rem;
+  margin: 0.5rem 0 0 0;
+  text-align: center;
+  font-size: 1.125rem;
+  color: #333333;
+  background-color: #FFDA44;
+}
+#aboutMe ion-item {
+  color: #434343;
+  margin: 0 1.9375rem;
+  border: 0;
+  border-bottom: 0.0625rem #D9D9D9 solid;
+  padding: 0.625rem 0;
+}
+#aboutMe ion-item span {
+  font-size: 1rem;
+}
+#aboutMe .i-icon {
+  float: right;
+}
+#aboutMe .my-logout {
+  background: url(../img/aboutMe/形状-28@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 1.0625rem;
+}
+#aboutMe .my-weixin {
+  background: url(../img/aboutMe/icon_微信@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 1.0625rem;
+}
+#aboutMe .my-yijian {
+  background: url(../img/aboutMe/icon_意见反馈@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 1.0625rem;
+}
+#aboutMe .my-haoping {
+  background: url(../img/aboutMe/icon-给个好评@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 1.0625rem;
+}
+#aboutMe .my-about {
+  background: url(../img/aboutMe/icon_关于@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 1.0625rem;
+}
+#aboutMe .my-tel {
+  background: url(../img/aboutMe/icon_手机@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  padding: 5%;
+  margin-right: 1.0625rem;
+}
+#aboutMe .my-enter {
+  background: url(../img/aboutMe/icon_进入@2x.png) no-repeat right;
+  background-size: 25%, 25%;
+  padding: 5%;
+  float: right;
+}
+#aboutMe .my-unvalidated {
+  background: url(../img/aboutMe/未验证.png) no-repeat right;
+  background-size: 25%, 25%;
+  padding: 5%;
+  float: right;
+}
+#aboutMe .binding－button {
+  float: right;
+  background-color: white;
+  border: 1px solid #1AAD19;
+  color: #1AAD19;
+  border-radius: 1.3125rem;
+  height: 1.3125rem;
+  width: 3.3125rem;
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+  text-align: center;
+}
+
+
 /*编辑用户信息***********************************************************************************************************/
-#editPerson{
+#editPerson {
   background-color: #D9D9D9;
 }
-#editPerson .edit{
+
+#editPerson .edit {
   text-align: center;
   margin-bottom: 10px;
   position: relative;
 }
+
 #editPerson .edit-img-header {
   height: 94px;
   width: 94px;
@@ -14,44 +128,54 @@
   border-radius: 94px;
   background-color: white;
 }
-#editPerson .camera{
+
+#editPerson .camera {
   background: url(../img/aboutMe/传头像@2x.png) no-repeat right;
   background-size: 100%, 100%;
   height: 25px;
   width: 25px;
   position: absolute;
-  top:80%;
-  right:35%;
+  top: 80%;
+  right: 35%;
 }
+
 #editPerson ion-item {
   padding-left: 10%;
 }
-#editPerson span{
+
+#editPerson span {
   font-size: 18px;
   vertical-align: middle;
 }
-#editPerson input{
+
+#editPerson input {
   display: inline-block;
   font-size: 16px;
 }
-#editPerson input[name='userName']{
+
+#editPerson input[name='userName'] {
   text-indent: 20px;
 }
-#editPerson .male{
+
+#editPerson .male {
   margin-left: 20%;
 }
-#editPerson .female{
+
+#editPerson .female {
   margin-left: 60px;
 }
+
 /*绑定手机号码***********************************************************************************************************/
-#bindTel{
+#bindTel {
 
 }
-#bindTel .bindTelephone{
+
+#bindTel .bindTelephone {
   text-align: center;
   margin-top: 33px;
 }
-#bindTel input{
+
+#bindTel input {
   outline: none;
   -webkit-appearance: none; /*去除系统默认的样式*/
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 点击高亮的颜色*/
@@ -64,12 +188,14 @@
   text-indent: 20px;
   text-align: center;
 }
-#bindTel input[type='button']{
+
+#bindTel input[type='button'] {
   background-color: #ff4444;
   color: #FFFFFF;
   margin-top: 55px;
 }
-#bindTel .codeBtn{
+
+#bindTel .codeBtn {
   background-color: #FFDA44;
   position: absolute;
   right: 10%;
@@ -77,24 +203,259 @@
   margin: 1px 0 0 0;
   height: 43px;
   width: 87px;
-  border:0 ;
+  border: 0;
   font-size: 14px;
-  border-radius:0 40px 40px 0;
+  border-radius: 0 40px 40px 0;
 }
+
 #bindTel .bing-tel {
   position: absolute;
   left: 15%;
   top: 5%;
 }
-#bindTel span{
+
+#bindTel span {
   color: #333333;
   font-size: 16px;
 }
+
 #bindTel .bind-code {
   position: absolute;
   left: 15%;
   top: 35%;
 }
+
+/*联系人****************************************************************************************************************/
+.contact .button.button-icon.input-button {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  color: #bbb;
+}
+
+.contact .item img {
+  height: 36px;
+  width: 36px;
+  margin-right: 10px;
+  position: relative;
+  top: 12px;
+  border-radius: 50%;
+}
+
+.contact .my-item.item {
+  padding-top: 3px;
+  padding-bottom: 0;
+
+}
+
+.contact span {
+  float: right;
+  color: #1AAD19;
+  font-size: 14px;
+}
+
+.lianxi {
+  position: relative;
+  top: -15px;
+  width: 100px;
+
+}
+
+.lianxi p {
+  font-size: 12px;
+  position: absolute;
+  top: 30%
+}
+
+.lianxi p i {
+  color: #1AAD19;
+}
+
+.contact-join-activity {
+  position: absolute;
+  top: 28px;
+  left: -113px;
+}
+
+.contact .full-width {
+  width: 100%;
+}
+
+/*联系人信息详情**********************************************************************************************************/
+#contactInfo {
+  margin: 0;
+  padding: 0;
+}
+
+.CI-header {
+  width: 100%;
+  height: 256px;
+  text-align: center;
+  position: relative;
+}
+
+.CI-header img {
+  margin-top: 30px;
+  width: 117px;
+  height: 117px;
+  border-radius: 50%;
+}
+
+.CI-header h2 {
+  font-size: 20px;
+  color: #4a4a4a;
+  margin: 24.5px 0 0 0;
+}
+
+.CI-header p {
+  margin: 18.5px 0 0 0;
+  font-size: 14px;
+  color: #ACABAB;
+}
+
+.CI-List {
+  padding: 0 14px;
+}
+
+.CI-List .item {
+  padding: 8px;
+  height: 38px;
+  border-left: none;
+  border-right: none;
+  color: #1d1d1d;
+}
+
+.CI-List .item i {
+  float: right;
+  font-size: 16px;
+}
+
+.CI-List .item span {
+  float: right;
+  margin-right: 30%;
+  font-size: 16px;
+  color: #017AFF;
+}
+
+.CI-List .item img {
+  width: 20px;
+  height: 20px;
+  margin-right: 80px;
+}
+
+.CI-List .item:last-child {
+  color: #FF6344;
+}
+
+.button-businessCard {
+  border: 1px solid #FFDA44;
+  background-color: white;
+  border-radius: 37px;
+  width: 123px;
+  height: 37px;
+  font-size: 16px;
+  color: #262626;
+  position: absolute;
+  left: 10%;
+}
+
+.button-sendMessage {
+  background-color: #FFDA44;
+  border: 0;
+  border-radius: 37px;
+  width: 123px;
+  height: 37px;
+  font-size: 16px;
+  color: #262626;
+  position: absolute;
+  right: 10%;
+}
+
+.mutual-activity {
+  border: 1px solid #ddd;
+  border-left: none;
+  border-right: none;
+  background-color: #fff;
+  color: #444;
+  display: block;
+  margin: -1px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.mutual-activity p {
+  margin-bottom: 0;
+  color: #1d1d1d;
+}
+
+.mutual-activity img {
+  width: 73px;
+  height: 58px;
+  border-radius: 10px;
+}
+
+.mutual-activity span {
+  display: block;
+  font-size: 12px;
+  color: #9c9c9c;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.mutual-activity .row {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.mutual-activity .col {
+  margin-bottom: 0;
+}
+
+.item-divider-chats {
+  min-height: 25px;
+}
+
+/*兼容性问题******************************************屏幕大小兼容性*******************************************************/
+
+/*当页面大于1024px时，大屏幕，主要显示PC端*************/
+@media (min-width: 1024px) {
+  html {
+    font-size: 24px;
+  }
+}
+
+/*在768 和1024 像素之间的屏幕里，中等屏幕，分辨率低的PC  PAD*/
+@media (min-width: 767px) and (max-width: 1023px) {
+  html {
+    font-size: 20px;
+  }
+
+  #aboutMe ion-item {
+    padding: 1.2rem 0;
+  }
+}
+
+/*在375 和768 像素之间的屏幕里，中等屏幕，主要是手机*/
+@media (min-width: 374px) and (max-width: 767px) {
+  html {
+    font-size: 16px;
+  }
+
+}
+
+/*在小于375px的屏幕里，微小屏幕，更低分辨率的手机*/
+@media (max-width: 374px) {
+  html {
+    font-size: 14px;
+  }
+
+}
+
+
+
 
 
 

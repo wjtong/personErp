@@ -38,6 +38,7 @@
 
 .cleanFloat {
   clear: both;
+  margin: 0;
 }
 
 /*@-webkit-keyframes fadeIn {*/
@@ -95,17 +96,42 @@
   font-size: 13px;
   vertical-align: middle;
   white-space: normal;
-  tab-index: 10px;
+  margin: 0;
+  color: #4a4a4a;
 }
 
 #activityDel .item {
-  border: solid #B9B9B9;
-  border-width: 0 0 5px 0;
+  border: 1px solid #D9D9D9;
+  border-left: none;
+  border-right: none;
 }
 
 #activityDel .header {
   border: solid #B9B9B9;
-  border-width: 0 0 5px 0;
+}
+
+#activityDel .pe-num {
+  font-size: 14px;
+  color: #B9B9B9;
+  position: absolute;
+  top: 5px;
+  right: 4%;
+}
+
+#activityDel .del-top {
+  display: flex;
+  padding: 0;
+  height: 120px;
+  width: 375px;
+}
+
+.del-left {
+  padding: 3px 0 3px 16px;
+  flex: 1;
+}
+
+.del-right {
+  flex: 2;
 }
 
 #activityDel .item-thumbnail-left {
@@ -114,8 +140,8 @@
 }
 
 #activityDel .img-header {
-  max-height: 106px;
-  max-width: 106px
+  height: 106px;
+  width: 106px;
 }
 
 #activityDel .img-responsive {
@@ -132,12 +158,13 @@
   width: 20px;
   height: 20px;
   position: absolute;
-  top: 35%;
-  left: 15%
+  top: 0;
+  left: 10%
 }
 
 #activityDel hr {
-  color: #B9B9B9;
+  color: #D9D9D9;
+  border: 1px solid white;
 }
 
 .activityTimer {
@@ -158,7 +185,12 @@
 }
 
 #activityDel .item-joinP {
-  padding-bottom: 0;
+  padding: 0 16px 0 16px;
+  height: 100px;
+}
+
+#activityDel .item-wall {
+  padding: 0 16px 0 16px;
 }
 
 #footer .yuyin {
@@ -166,6 +198,10 @@
   top: 15%;
   left: 5%;
 }
+
+/*#activityDel .row{*/
+/*padding: 0;*/
+/*}*/
 
 #footer .yuyin img {
   height: 30px;
@@ -193,8 +229,11 @@
   right: 5%;
 }
 
-#activityDel h2 {
+#activityDel h3 {
   font-size: 15px;
+  padding: 5px 0;
+  color: #4a4a4a;
+  border-bottom: 1px solid #D9D9D9;
 }
 
 #activityDel span {
@@ -204,12 +243,18 @@
 #activityDel .activityAddress {
   margin-top: 10%;
 }
+#address{
+  display: inline-block;
+  width: 85%;
+  resize: none;
+}
 
 .activityDetTabs {
   text-align: center;
   color: black;
-  border-width: 5px;
-  padding-bottom: 0
+  border-left: none;
+  border-right: none;
+  height: 90px;
 }
 
 .activityItemImg {
@@ -218,8 +263,10 @@
   padding: 5%;
 }
 
-#activityDel h2 {
+#activityDel .col {
   color: #B9B9B9;
+  height: 70px;
+  text-align: center;
 }
 
 .activityFootSignUp {
@@ -241,13 +288,34 @@
   padding: 5%;
 }
 
-#activityDel input{
-  width: auto;
-  display: inline-block;
-  background-color: white;
-  vertical-align: middle;
+#activityDel label {
+  display: block;
 }
 
+#activityDel input {
+  display: inline;
+  width: 80%;
+  background-color: white;
+  color: black;
+}
+
+#activityDel textarea {
+  background-color: white;
+}
+
+#activityDel input:nth-child(1) {
+  margin-left: 29px;
+}
+
+#activityDel input[disabled] {
+  color: black;
+  opacity: 1
+}
+
+#activityDel textarea[disabled] {
+  color: black;
+  opacity: 1
+}
 
 /*活动邀请方式***********************************************************************************************************/
 #share .share-container {
@@ -255,61 +323,149 @@
 }
 
 #share .img-Name {
-  height: 102.5px;
-  width: 102.5px;
-  border-radius: 102.5px;
-  margin: 28.5px 0 32px 0;
-}
-
-#share input {
-  width: 311px;
-  height: 44px;
-  border: 1px #9e9e9e solid;
-  border-radius: 40px;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 15px;
-  color: #999999;
+  height: 6.375rem;
+  width: 6.375rem;
+  border-radius: 6.375rem;
+  margin: 1.75rem 0 2rem 0;
 }
 
 #share span {
   display: block;
   background: url(../img/shareActivity/line_分割线@2x.png) no-repeat center;
   background-size: 100%, 100%;
-  margin: 24px 41px 0 41px;
+  margin: 1.5rem 2.5625rem 0 2.5625rem;
+  color: #999999;
+}
+
+#share input {
+  -webkit-appearance: none;
+  /*去除系统默认的样式*/
+  width: 85%;
+  height: 2.75rem;
+  border: 1px #9e9e9e solid;
+  border-radius: 2.5rem;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.9375rem;
   color: #999999;
 }
 
 #share input[type=button] {
-   width: 311px;
-   height: 44px;
-   border: 1px #08d918 solid;
-   border-radius: 40px;
-   margin: 27px auto;
-   text-align: center;
-   font-size: 15px;
-   color: #FFFFFF;
-   background-color: #08d918;
- }
+  -webkit-appearance: none;
+  /*去除系统默认的样式*/
+  width: 85%;
+  height: 2.75rem;
+  border: 1px #08d918 solid;
+  border-radius: 2.5rem;
+  margin: 1.6875rem auto 0.3125rem auto;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: #FFFFFF;
+  background-color: #08d918;
+}
 
 #share p {
-  margin: 1px auto 22px auto;
-  font-size: 16px;
   color: #4a4a4a;
 }
 
 #share .img-shareActivity {
-  width: 55px;
-  height: 55px;
-
+  width: 3.4375rem;
+  height: 3.4375rem;
 }
 
 #share .col p {
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 
 #share .col {
-  height: 90px;
+  height: 5.625rem;
+}
+
+.share-preview {
+  background: url(../img/shareActivity/组-1@2x.png) no-repeat center;
+  background-size: 100%, 100%;
+  width: 96%;
+  height: 11.5rem;
+  margin: 0 2%;
+  display: flex;
+}
+
+.preview-title {
+  color: black;
+  font-size: 1rem;
+}
+
+.share-preview .left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.share-preview .left-top {
+  flex: 1;
+  margin: 0 auto;
+}
+
+.event-name {
+  margin: 2rem auto 0 auto;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bolder;
+  padding: 0 1.4375rem;
+}
+
+.event-date {
+  margin: 0.625rem auto 0.3125rem auto;
+  width: 80%;
+}
+
+.event-address {
+  margin: 0.3125rem auto;
+  width: 80%;
+}
+
+.share-preview .left-bottom {
+  flex: 1.5;
+}
+
+.share-preview .right {
+  flex: 1;
+}
+
+.share-preview .right p {
+  margin: 0.3125rem auto;
+}
+
+.share-preview h4 {
+  margin-top: 1.875rem;
+  font-size: 1rem;
+}
+
+.share-preview img {
+  display: block;
+  margin: 0.3125rem auto;
+  border-radius: 50%;
+}
+
+.share-footer {
+  height: 12%;
+}
+
+.share-footer img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.share-footer p {
+  font-size: 0.875rem;
+}
+
+.share-footer .row {
+  padding: 0;
+}
+
+.share-footer .col {
+  text-align: center;
 }
 
 /*活动账单表格样式********************************************************************************************************/
@@ -370,10 +526,17 @@ tbody tr.odd td {
 
 /*当页面大于1024px时，大屏幕，主要显示PC端*************/
 @media (min-width: 1024px) {
+  html {
+    font-size: 24px;
+  }
 }
 
 /*在768 和1024 像素之间的屏幕里，中等屏幕，分辨率低的PC  PAD*/
 @media (min-width: 767px) and (max-width: 1023px) {
+  html {
+    font-size: 20px;
+  }
+
   .tipTextAct {
     font-size: 3.5rem;
   }
@@ -385,6 +548,10 @@ tbody tr.odd td {
 
 /*在375 和768 像素之间的屏幕里，中等屏幕，主要是手机*/
 @media (min-width: 374px) and (max-width: 767px) {
+  html {
+    font-size: 16px;
+  }
+
   .tipTextAct {
     font-size: 1.5rem;
   }
@@ -396,8 +563,29 @@ tbody tr.odd td {
 
 /*在小于375px的屏幕里，微小屏幕，更低分辨率的手机*/
 @media (max-width: 374px) {
+  html {
+    font-size: 14px;
+  }
+
   .tipTextAct {
     font-size: 1.2rem;
+  }
+
+  #share .img-Name {
+    height: 4.375rem;
+    width: 4.375rem;
+    border-radius: 50%;
+    margin: 1.75rem 0 0 0;
+  }
+
+  #share input {
+    width: 85%;
+    height: 35px;
+  }
+
+  #share input[type=button] {
+    width: 85%;
+    height: 35px;
   }
 
   .history {
@@ -406,5 +594,16 @@ tbody tr.odd td {
 
   #activityDel .item-thumbnail-left {
     padding-left: 40%
+  }
+
+  #activityDel .del-top {
+    display: flex;
+    padding: 0;
+    height: 120px;
+    width: 320px;
+  }
+
+  #activityDel input {
+    white-space: normal
   }
 }

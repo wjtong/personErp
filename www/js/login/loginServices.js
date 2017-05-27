@@ -3,7 +3,7 @@ angular.module('login.services', [])
   //登陆*****************************************************************************************************************
   .factory('Login', function ($rootScope) {
     return {
-      //登陆
+      //手机好登陆（找回）
       login: function (userLoginId, captcha, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "userAppLogin",
@@ -25,12 +25,12 @@ angular.module('login.services', [])
           }
         });
       },
-      //验证用户是否存在
-      userLoginExsit: function (userLoginId, cb) {
+      //微信登陆(找回)
+      userWeChatAppLoginBack: function (code, cb) {
         $.ajax({
-          url: $rootScope.platformInterfaceUrl + "isUserLoginExsits",
+          url: $rootScope.platformInterfaceUrl + "userWeChatAppLoginBack",
           data: {
-            userLoginId: userLoginId
+            code: code
           },
           async: false,
           type: 'POST',
@@ -46,14 +46,13 @@ angular.module('login.services', [])
           }
         });
       },
-      //用户注册
-      userAppRegister: function (tel, captcha, nickName, cb) {
+      //微信登陆(绑定)
+      userWeChatAppLogin: function (code,partyId, cb) {
         $.ajax({
-          url: $rootScope.platformInterfaceUrl + "userAppRegister",
+          url: $rootScope.platformInterfaceUrl + "userWeChatAppLogin",
           data: {
-            tel: teleNumber,
-            captcha: captcha,
-            nickName: nickName
+            code: code,
+            partyId:partyId
           },
           async: false,
           type: 'POST',

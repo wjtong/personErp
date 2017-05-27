@@ -1,16 +1,9 @@
 angular.module('login.controllers', [])
 
-//登陆*****************************************************************************************************************
-  .controller('LoginCtrl', function ($http, $scope, Login, $state, ThemeImage, $ionicHistory,ActivityServer) {
-    // $scope.$on('$ionicView.beforeEnter', function () {                              // 这个玩意儿不错，刚加载执行的广播通知方法
-    //   $scope.user = {"identifyCode": ""};
-    //   // 退出登录后，清空验证码
-    //   if (localStorage.getItem("tarjeta") != null) {   // 登录成功了，按物理返回键，就别想重新登录
-    //     $state.go("app.home");
-    //   }
-    // });
+//找回活动(登陆)*****************************************************************************************************************
+  .controller('LoginCtrl', function ($http, $scope, Login, $state, ThemeImage, $ionicHistory, ActivityServer) {
 
-    //如果token不存在或者失效＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+    //手机号码找回
     $scope.loginData = {};
     $scope.doLogin = function () {
       if (Object.keys($scope.loginData).length == 0) {
@@ -21,42 +14,38 @@ angular.module('login.controllers', [])
         alert("请输入验证码!!!")
       } else {
         Login.login($scope.loginData.mobileNumber, $scope.loginData.captcha, function (data) {
-          console.log(data.tarjeta);
+          console.log(data.resultMsg);
           if (data.resultMsg === 'PE平台登录成功') {
             localStorage.removeItem("tarjeta");
             localStorage.removeItem("partyId");
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
-            $scope.loginData.captcha='';
+            $scope.loginData.captcha = '';
             $state.go("tab.dash");
-            $ionicHistory.clearCache()
+            $ionicHistory.clearCache(); //清理旧数据，刷新
           } else {
-            alert("用户不存在！！！！！！！！！！！！！！！！！！！")
+            alert("用户不存在")
           }
         })
       }
     };
 
-    //微信登陆
-    $scope.partyId=localStorage.getItem('partyId');
-    console.log($scope.partyId+"1");
-    $scope.wachatLogin=function () {
-      $scope.scope = "snsapi_userinfo";
-      console.log($scope.partyId+"2");
-      Wechat.auth($scope.scope, function (response) {
-        // you may use response.code to get the access token.
-        console.log(JSON.stringify(response)+"微信返回值");
-        var code=response.code;
-        console.log($scope.partyId+"3");
-        ActivityServer.userWeChatAppLogin(code,$scope.partyId,function (data) {
-          console.log('微信绑定后返回的数据'+'token:'+data.tarjeta+"--------partyId:"+data.partyId+'-----openId:'+data.openId);
-          if(data.tarjeta){
-            // localStorage.removeItem("tarjeta");
-            // localStorage.removeItem("partyId");
+    //微信找回
+    $scope.wachatLogin = function () {
+      var scope = "snsapi_userinfo";
+      Wechat.auth(scope, function (response) {
+        console.log("微信返回值:" + JSON.stringify(response));
+        var code = response.code;
+        Login.userWeChatAppLoginBack(code,function (data) {
+          console.log('微信找回的Token:'+data.tarjeta);
+          if (data.tarjeta) {
+            localStorage.removeItem("tarjeta");
+            localStorage.removeItem("partyId");
             localStorage.removeItem("openId");
-            // localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
-            // localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
-            localStorage.setItem("adminOpenId", data.openId);//设置partyId登陆人
+            localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+            localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+            localStorage.setItem("adminOpenId", data.openId);//设置adminOpenId登陆人
+            $state.go("tab.dash");
           }
         })
       }, function (reason) {
@@ -68,25 +57,17 @@ angular.module('login.controllers', [])
     $scope.goHome = function () {
       $state.go("tab.dash");
     };
-    //设置全局的变量
-    // $scope.activityImg = ThemeImage.getRangeImg();
-    // localStorage.setItem("activityImg", $scope.activityImg.img);//全局活动图片
-    // localStorage.setItem("contactImg", $scope.activityImg.img2);//全局人员图片
-    //用户注册**************************
-    $scope.goRegister = function () {
-      $state.go("register");
-    }
 
   })
 
   //验证码***************************************************************************************************************
-  .controller('captcha', function ($scope, $http, $rootScope, $interval, Login,$state) {
+  .controller('captcha', function ($scope, $http, $rootScope, $interval) {
+
     $scope.codeBtn = '立即验证';
     //登陆获取验证码
     $scope.getIdentifyCode = function (tel) {
-      //定义一个是登陆获取验证吗
       $scope.smsType = 'LOGIN';
-      $scope.msg = "";//先清空错误提示
+      $scope.msg = ""; //先清空错误提示
       if (tel) {
         $http({
           method: "POST",
@@ -110,7 +91,7 @@ angular.module('login.controllers', [])
           } else {
             //倒计时
             $scope.n = 60;
-            $scope.codeBtn =  $scope.n + " 秒";
+            $scope.codeBtn = $scope.n + " 秒";
             var time = $interval(function () {
               $scope.n--;
               $scope.codeBtn = $scope.n + " 秒";
@@ -127,91 +108,5 @@ angular.module('login.controllers', [])
         $scope.msg = "请输入您的手机号码！！"
       }
     };
+  });
 
-    //注册获取验证码
-    $scope.getIdentifyCodeReg = function (tel) {
-      Login.userLoginExsit(tel, function (data) {     //判断用户是否存在
-        if (data.resultMsg === '成功') {
-          //定义一个是登陆获取验证吗＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-          $scope.smsType = 'REGISTER';             //定义获取验证码用于注册
-          $scope.msg = "";//先清空错误提示
-          if (tel) {
-            $http({
-              method: "POST",
-              url: $rootScope.platformInterfaceUrl + "getLoginCaptcha",
-              data: {
-                "teleNumber": tel,
-                "smsType": $scope.smsType,
-              },
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'},         // 默认的Content-Type是text/plain;charset=UTF-8，所以需要更改下
-              transformRequest: function (obj) {                                      // 参数是对象的话，需要把参数转成序列化的形式
-                var str = [];
-                for (var p in obj) {
-                  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                }
-                return str.join("&");
-              }
-            }).success(function (result) {
-              console.log(result.code + " " + result.msg);
-              if (result.code == '500') {
-                $scope.msg = result.msg;
-              } else {
-                //倒计时
-                $scope.n = 60;
-                $scope.codeBtn =$scope.n + " 秒";
-                var time = $interval(function () {
-                  $scope.n--;
-                  $scope.codeBtn = $scope.n + " 秒";
-                  if ($scope.n == 0) {
-                    $interval.cancel(time); // 取消定时任务
-                    $scope.codeBtn = '立即获取';
-                    $scope.codeBtnDisable = false;
-                  }
-                }, 1000);
-                $scope.codeBtnDisable = true;
-              }
-            });
-          } else {
-            $scope.msg = "请输入您的手机号码！！"
-          }
-        } else {
-          alert("用户已存在！！！！！！！！！！！！");
-          //$state.go('login')
-        }
-      })
-    };
-  })
-
-  //注册*****************************************************************************************************************
-  .controller('RegisterCtrl', function ($scope, $state, ActivityServer) {
-    //参数准备
-    $scope.tarjeta=localStorage.getItem('tarjeta');
-    $scope.partyId=localStorage.getItem('partyId');
-
-    //取消注册
-    $scope.goLogin = function () {
-      $state.go("login");
-    };
-    //注册＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-    $scope.loginData = {};
-    $scope.doRegister = function () {
-      if (Object.keys($scope.loginData).length == 0) {
-        alert("请输入登录信息!!!")
-      } else if ($scope.loginData.telephone == null) {
-        alert("请输入手机号码!!!")
-      } else if ($scope.loginData.captcha == null) {
-        alert("请输入验证码!!!")
-      } else if ($scope.loginData.nickname == null) {
-        alert("请输入用户姓名!!!")
-      } else {
-        ActivityServer.userAppRegister(tarjeta, $scope.workEffortId,$scope.partyId,$scope.loginData.nickname,$scope.loginData.telephone,$scope.loginData.captcha, function (data) {
-          if (data.resultMsg === '成功') {
-            $state.go("login");
-          } else {
-            alert("失败")
-          }
-        })
-      }
-    };
-  })
-;

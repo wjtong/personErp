@@ -450,7 +450,7 @@ angular.module('tools.services', [])
         while (I1.indexOf('--') > 0) {
           I1 = I1.replace('--', '-');
         }
-        return I1;
+        return I1 == "" ? '#' : I1
       }
     };
 

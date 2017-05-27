@@ -7,11 +7,11 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker', 'ionic-timepicker',
   'vote.controllers', 'vote.services', 'login.controllers', 'login.services', 'activity.services', 'activity.controllers',
-  'activity.services', 'contact.services', 'contact.controllers', 'directives.OniBarDirective','tools.services'])
+  'activity.services', 'contact.services', 'contact.controllers', 'directives.OniBarDirective', 'tools.services'])
 
   .run(function ($ionicPlatform, ActivityServer, $cordovaDevice, $rootScope) {
 
-    // //连接服务器
+    //连接服务器
     $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
     $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
     $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
@@ -25,11 +25,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     // $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
     // $rootScope.communicationfaceUrl = "http://192.168.3.102:3400/communication/control/";//活动接口
 
-    //链接沈演麟本地网络
-    // $rootScope.interfaceUrl = "http://159742z17s.iask.in:29130/personContacts/control/";
-    // $rootScope.voteInterfaceUrl = "http://159742z17s.iask.in:29130/pevote/control/";//投票接口
-    // $rootScope.activityInterfaceUrl = "http://159742z17s.iask.in:29130/personactivity/control/";//活动接口
-    // $rootScope.platformInterfaceUrl = "http://159742z17s.iask.in:29130/peplatform/control/";//活动接口
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -46,15 +41,39 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
         if (localStorage.getItem("tarjeta") == null) {
           ActivityServer.setUUID(uuid, function (data) {
-            console.log("创建新用户通过UUID" + "token:" + data.tarjeta + "UUID:" + uuid+'PartyId:'+data.partyId);
+            console.log("创建新用户通过UUID" + "token:" + data.tarjeta + "UUID:" + uuid + 'PartyId:' + data.partyId);
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
-          })
+          });
         }
       }, false);
     });
 
   })
+  .config(['$provide',function($provide){
+    //解决重复点击BUG
+    $provide.decorator('ngClickDirective',['$delegate','$timeout',function($delegate,$timeout){
+      var original = $delegate[0].compile;
+      var delay = 500;
+      $delegate[0].compile = function(element,attrs,transclude){
+        var disabled = false;
+        function onClick(evt){
+          if(disabled){
+            evt.preventDefault();
+            evt.stopImmediatePropagation();
+          }else{
+            disabled = true;
+            $timeout(function(){
+              disabled = false;
+            }, delay, false);
+          }
+        }
+        element.on('click', onClick);
+        return original(element, attrs, transclude);
+      };
+      return $delegate;
+    }]);
+  }])
 
   .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.views.swipeBackEnabled(false); // 防止ios左滑出现白屏

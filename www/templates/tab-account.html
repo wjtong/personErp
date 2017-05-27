@@ -1,4 +1,4 @@
-<ion-view view-title="我的信息" hide-nav-bar="true">
+<ion-view title="我的信息" hide-nav-bar="true">
   <ion-nav-bar class="globalColor">
   </ion-nav-bar>
   <ion-content id="aboutMe">
@@ -10,12 +10,32 @@
       </label>
     </div>
     <ion-list class="containerMe">
-      <ion-item ng-click="bindTelephone()"><i class="my-tel"></i><span>手机号 {{myInfoList.contactNumber}}</span><button class="binding－button">{{telBinding}}</button></ion-item>
-      <ion-item ng-click="wachatLogin()"><i class="my-weixin"></i><span>微信</span><button  class="binding－button">{{weixinBinding}}</button></ion-item>
-      <ion-item><i class="my-yijian"></i><span>意见反馈</span></ion-item>
-      <ion-item><i class="my-haoping"></i><span>给个好评</span></ion-item>
-      <ion-item><i class="my-about"></i><span>关于</span></ion-item>
-      <ion-item ng-click="loginOut()"><i class="my-logout"></i><span>退出</span></ion-item>
+      <ion-item ng-click="bindTelephone()"><i class="my-tel"></i><span>手机号 {{myInfoList.contactNumber}}</span>
+        <button class="binding－button">{{telBinding}}</button>
+      </ion-item>
+      <ion-item ng-click="wachatLogin()"><i class="my-weixin"></i><span>微信</span>
+        <button class="binding－button">{{weixinBinding}}</button>
+      </ion-item>
+      <ion-item>
+        <i class="my-yijian"></i>
+        <span>意见反馈</span>
+        <i class="icon ion-ios-arrow-forward i-icon"></i>
+      </ion-item>
+      <ion-item>
+        <i class="my-haoping"></i>
+        <span>给个好评</span>
+        <i class="icon ion-ios-arrow-forward i-icon"></i>
+      </ion-item>
+      <ion-item>
+        <i class="my-about"></i>
+        <span>关于</span>
+        <i class="icon ion-ios-arrow-forward i-icon"></i>
+      </ion-item>
+      <ion-item ng-click="loginOut()">
+        <i class="my-logout"></i>
+        <span>切换账号</span>
+        <i class="icon ion-ios-arrow-forward i-icon"></i>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

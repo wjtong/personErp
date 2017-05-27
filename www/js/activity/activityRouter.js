@@ -3,7 +3,7 @@ angular.module('starter')
   .config(function ($stateProvider) {
     $stateProvider
 
-       //活动详情
+      //活动详情
       .state('tab.activityDetails', {
         url: '/activityDetails/:activityId',
         disableBack: true,
@@ -133,5 +133,4 @@ angular.module('starter')
           }
         }
       })
-
   });

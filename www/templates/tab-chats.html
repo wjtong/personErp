@@ -1,48 +1,18 @@
-<ion-view view-title="联系人列表">
-  <ion-nav-bar class="globalColor">
+<ion-view title="联系人">
+  <ion-nav-bar>
   </ion-nav-bar>
   <ion-content>
     <ion-list class="contact">
-      <ion-item class="my-item"
+      <ion-item class="my-item item-divider-chats"
+                ng-click="goContactInfo(item.partyId)"
                 ng-repeat="item in getContacts()"
                 item-height="getItemHeight(item)"
-
+                id="{{ item.isLetter ? (item.letter + '_divider') : ''}}"
                 ng-style="{'line-height': getItemHeight(item) + 'px'}"
                 ng-class="{'item-divider': item.isLetter}">
         <img ng-if="!item.isLetter" ng-src="{{item.headPortrait}}">
-        {{item.letter || (item.first_name)}}
-      </ion-item>
+        {{item.letter || (item.first_name)}} <span ng-if="!item.isLetter&&item.appUser=='Y'">不分梨用户</span>
     </ion-list>
   </ion-content>
-  <div class="rj-contacts-right-bar">
-    <div>&uarr;</div>
-    <div>☆</div>
-    <div>A</div>
-    <div>B</div>
-    <div>C</div>
-    <div>D</div>
-    <div>E</div>
-    <div>F</div>
-    <div>G</div>
-    <div>H</div>
-    <div>I</div>
-    <div>J</div>
-    <div>K</div>
-    <div>L</div>
-    <div>M</div>
-    <div>N</div>
-    <div>O</div>
-    <div>P</div>
-    <div>Q</div>
-    <div>R</div>
-    <div>S</div>
-    <div>T</div>
-    <div>U</div>
-    <div>V</div>
-    <div>W</div>
-    <div>X</div>
-    <div>Y</div>
-    <div>Z</div>
-    <div>#</div>
-  </div>
 </ion-view>
+

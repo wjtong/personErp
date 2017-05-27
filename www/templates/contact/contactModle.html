@@ -1,6 +1,6 @@
-<ion-modal-view view-title="联系人">
+<ion-modal-view title="联系人">
   <ion-header-bar class="globalColor">
-    <h1 class="title globalColorButton" >点击邀请梨友</h1>
+    <h1 class="title globalColorButton">点击邀请梨友</h1>
     <div class="buttons">
       <button class="button button-icon globalColorButton" ng-click="closeContact()">
         返回
@@ -9,14 +9,16 @@
   </ion-header-bar>
   <ion-content class="has-header">
     <ion-list>
-      <ion-item ng-if="chat.partyId!=joined" class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in allPersonList"  type="item-text-wrap" ng-click="sendInvitation(chat.partyId)" ">
-        <img ng-src="{{chat.headPortrait}}">
-        <h2>{{chat.firstName}}</h2>
-        <p >{{chat.contactNumber}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
-          Delete
-        </ion-option-button>
+      <ion-item ng-if="chat.appUser=='Y'" class="item-remove-animate item-avatar item-icon-right"
+                ng-repeat="chat in allPersonList" type="item-text-wrap" ng-click="sendInvitation(chat.partyId)"
+      ">
+      <img ng-src="{{chat.headPortrait}}">
+      <h2>{{chat.firstName}}</h2>
+      <p>{{chat.contactNumber}}</p>
+      <i class="icon ion-chevron-right icon-accessory"></i>
+      <ion-option-button class="button-assertive" ng-click="remove(chat)">
+        Delete
+      </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>

@@ -4,7 +4,7 @@ angular.module('contact.services', [])
   .factory('Contact', function ($rootScope) {
 
     return {
-      //获得联系人(联动)
+      //获得联系人列表
       queryAllActivityRelationPersons: function (partyId, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "queryAllActivityRelationPersons",
@@ -23,14 +23,14 @@ angular.module('contact.services', [])
           }
         });
       },
-      //更新联系人信息
-      updatePersonInfo: function (partyId,firstName,gender, cb) {
+      //更新用户个人信息
+      updatePersonInfo: function (partyId, firstName, gender, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "updatePersonInfo",
           data: {
             partyId: partyId,
-            firstName:firstName,
-            gender:gender,
+            firstName: firstName,
+            gender: gender
           },
           async: false,
           type: 'POST',
@@ -47,7 +47,7 @@ angular.module('contact.services', [])
         });
       },
       //上传用户头像
-      uploadPartyContent: function (dataCategoryId,contentTypeId, statusId,isPublic,partyContentTypeId,partyId,uploadedFile,cb) {
+      uploadPartyContent: function (dataCategoryId, contentTypeId, statusId, isPublic, partyContentTypeId, partyId, uploadedFile, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "uploadPartyContent",
           data: {
@@ -73,7 +73,7 @@ angular.module('contact.services', [])
           }
         });
       },
-      //查询联系人的个人信息
+      //查询用户的个人信息
       queryPersonInfo: function (tarjeta, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "queryPersonInfo",
@@ -92,15 +92,15 @@ angular.module('contact.services', [])
           }
         });
       },
-      //绑定联系人手机号码
-      updateLoginTel: function (tarjeta,partyId,tel,captcha,cb) {
+      //绑定用户手机号码
+      updateLoginTel: function (tarjeta, partyId, tel, captcha, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "updateLoginTel",
           data: {
             tarjeta: tarjeta,
-            partyId:partyId,
-            tel:tel,
-            captcha:captcha
+            partyId: partyId,
+            tel: tel,
+            captcha: captcha
           },
           async: false,
           type: 'POST',
@@ -116,7 +116,51 @@ angular.module('contact.services', [])
           }
         });
       },
-
+      //查询联系人的信息详情
+      findUserDetail: function (tarjeta, partyId, cb) {
+        $.ajax({
+          url: $rootScope.communicationfaceUrl + "findUserDetail",
+          data: {
+            tarjeta: tarjeta,
+            partyId: partyId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //修改联系人备注名称
+      remarksContact: function (tarjeta, partyId, markName, cb) {
+        $.ajax({
+          url: $rootScope.communicationfaceUrl + "remarksContact",
+          data: {
+            tarjeta: tarjeta,
+            partyId: partyId,
+            markName: markName
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      }
     }
   });
 

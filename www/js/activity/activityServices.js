@@ -652,34 +652,13 @@ angular.module('activity.services', [])
           }
         });
       },
-      //微信登陆
-      userWeChatAppLogin: function (code,partyId, cb) {
-        $.ajax({
-          url: $rootScope.platformInterfaceUrl + "userWeChatAppLogin",
-          data: {
-            code: code,
-            partyId:partyId
-          },
-          async: false,
-          type: 'POST',
-          success: function (result) {
-            if (jQuery.type(result) === "string") {
-              result = jQuery.parseJSON(result);
-            }
-            if (result.resultMap != null) {
-              if ($.type(cb) === 'function') {
-                cb(result.resultMap);
-              }
-            }
-          }
-        });
-      },
     }
   })
 
   //活动主题图片＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
   .factory('ThemeImage', function () {
 
+    //活动分享方式图片
     var shareImg = [
       {id: 'Pic_10021', img: 'img/shareActivity/btn_微信_n@2x.png', name: '微信'},
       {id: 'Pic_10022', img: 'img/shareActivity/btn_朋友圈_n@2x.png', name: '朋友圈'},
@@ -689,15 +668,15 @@ angular.module('activity.services', [])
       {id: 'Pic_10026', img: 'img/shareActivity/btn_复制链接7@2x.png', name: '复制链接'},
       {id: 'Pic_10027', img: 'img/shareActivity/btn_二维码@2x.png', name: '二维码'}
     ];
-    var Img =
-    {id: 'Pic_10080', img: 'img/resources/paobu3.jpeg', img2: 'img/team/img1-sm.jpg'};
 
+    //活动首页顶部功能图片
     var topImg = [
       {id: 'Pic_10027', img: 'img/tabs/扫一扫@3x.png', name: '扫一扫'},
       {id: 'Pic_10028', img: 'img/tabs/拍照@3x.png', name: '拍照'},
       {id: 'Pic_10029', img: 'img/tabs/随笔记@3x.png', name: '随笔记'}
     ];
 
+    //活动详情功能导航栏
     var activityImgTabs = [
       {id: 'Pic_10030', img: 'img/activityImg/btn_照片墙_n@2x.png', name: '照片墙'},
       {id: 'Pic_10031', img: 'img/activityImg/btn_投票_n@2x.png', name: '投票'},
@@ -705,23 +684,7 @@ angular.module('activity.services', [])
       {id: 'Pic_10033', img: 'img/activityImg/btn_附件_n@2x.png', name: '附件'}
     ];
 
-    var activityImgJu = [
-      {id: 'Pic_10034', img: 'img/activityImg/ju1.jpeg'},
-      {id: 'Pic_10035', img: 'img/activityImg/ju2.jpeg'},
-      {id: 'Pic_10036', img: 'img/activityImg/ju3.jpeg'},
-      {id: 'Pic_10037', img: 'img/activityImg/ju4.jpeg'},
-      {id: 'Pic_10038', img: 'img/activityImg/ju5.jpeg'},
-      {id: 'Pic_10039', img: 'img/activityImg/ju6.jpeg'},
-      {id: 'Pic_10040', img: 'img/activityImg/ju7.jpeg'},
-      {id: 'Pic_10041', img: 'img/activityImg/ju8.jpeg'},
-      {id: 'Pic_10042', img: 'img/activityImg/ju9.jpeg'}
-    ];
-
     return {
-
-      getRangeImg: function () {
-        return Img;
-      },
       getTopImg: function () {
         return topImg;
       },
@@ -730,10 +693,7 @@ angular.module('activity.services', [])
       },
       getActivityImgTabs: function () {
         return activityImgTabs;
-      },
-      getActivityImgJu: function () {
-        return activityImgJu;
-      },
+      }
     }
   });
 

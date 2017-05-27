@@ -398,36 +398,16 @@ a.autolinker {
   font-weight: 300;
 }
 
-.blue {
-  background-color: blue;
+
+
+/*全局样式设置***********************************************************************************************************/
+.globalColor {
+  background-color: #FFDA44;
+  color: black;
 }
 
-.tabs {
-  -webkit-transition: all linear 0.2s;
-  transition: all linear 0.2s;
-}
-
-.yellow {
-  background-color: yellow;
-}
-
-.pink {
-  background-color: pink;
-}
-
-.box {
-  height: 100%;
-}
-
-.box h1 {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#Nav_01 li {
-  display: inline-block;
-  font-size: 14px;
+.globalColorButton {
+  color: black;
 }
 
 /*tabs图标**************************************************************************************************************/
@@ -495,18 +475,10 @@ a.autolinker {
   background-size: 60%, 60%;
 }
 
-/*全局样式设置***********************************************************************************************************/
-.globalColor {
-  background-color: #FFDA44;
-  color: black;
-}
-
-.globalColorButton {
-  color: black;
-}
-
 /*登陆******************************************************************************************************************/
 #login .inputLogin {
+  -webkit-appearance: none; /*去除系统默认的样式*/
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 点击高亮的颜色*/
   border: 1px #9e9e9e solid;
   border-radius: 40px;
   width: 80%;
@@ -517,6 +489,8 @@ a.autolinker {
 }
 
 #login .buttonLogin {
+  -webkit-appearance: none; /*去除系统默认的样式*/
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 点击高亮的颜色*/
   border: 1px #9e9e9e solid;
   border-radius: 40px;
   width: 80%;
@@ -558,155 +532,6 @@ a.autolinker {
   color: #1AAD19;
 }
 
-/*联系人**************************************************************/
-.contact .button.button-icon.input-button {
-  position: absolute;
-  right: 0;
-  top: 5px;
-  color: #bbb;
-}
-
-.contact .item img {
-  height: 60px;
-  width: 60px;
-  float: left;
-  margin-top: 20px;
-  margin-right: 10px;
-}
-
-.contact .my-item.item {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.contact .full-width {
-  width: 100%;
-}
-
-/*关于我****************************************************************************************************************/
-#aboutMe {
-  background: url(../img/aboutMe/con_顶部渐变圆@3x.png) no-repeat top;
-  background-size: 100%, 100%;
-}
-
-#aboutMe .img-headerMe {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-#aboutMe .img-Name {
-  height: 94px;
-  width: 94px;
-  margin: 70px 0 0 0;
-  border-radius: 94px;
-}
-
-#aboutMe h3 {
-  font-size: 17px;
-  margin: 11px 0 0 0;
-}
-
-#aboutMe p {
-  color: #4a4a4a;
-  margin: 11px 0 0 0;
-}
-
-#aboutMe p span {
-  color: #B9B9B9;
-}
-
-#aboutMe input[type=button] {
-  width: 188px;
-  height: 42px;
-  border: 1px #FFDA44 solid;
-  border-radius: 40px;
-  margin: 8px 0 0 0;
-  text-align: center;
-  font-size: 18px;
-  color: #333333;
-  background-color: #FFDA44;
-}
-
-#aboutMe ion-item {
-  color: #434343;
-  margin: 0 31.5px;
-  border: 0;
-  border-bottom: 1px #D9D9D9 solid;
-  padding: 10px 0;
-}
-
-#aboutMe ion-item span {
-  text-indent: 30px;
-}
-
-#aboutMe .my-logout {
-  background: url(../img/aboutMe/形状-28@2x.png) no-repeat center;
-  background-size: 100%, 100%;
-  padding: 5%;
-  margin-right: 17.5px;
-}
-
-#aboutMe .my-weixin {
-  background: url(../img/aboutMe/icon_微信@2x.png) no-repeat center;
-  background-size: 100%, 100%;
-  padding: 5%;
-  margin-right: 17.5px;
-}
-
-#aboutMe .my-yijian {
-  background: url(../img/aboutMe/icon_意见反馈@2x.png) no-repeat center;
-  background-size: 100%, 100%;
-  padding: 5%;
-  margin-right: 17.5px;
-}
-
-#aboutMe .my-haoping {
-  background: url(../img/aboutMe/icon-给个好评@2x.png) no-repeat center;
-  background-size: 100%, 100%;
-  padding: 5%;
-  margin-right: 17.5px;
-}
-
-#aboutMe .my-about {
-  background: url(../img/aboutMe/icon_关于@2x.png) no-repeat center;
-  background-size: 100%, 100%;
-  padding: 5%;
-  margin-right: 17.5px;
-}
-
-#aboutMe .my-tel {
-  background: url(../img/aboutMe/icon_手机@2x.png) no-repeat center;
-  background-size: 100%, 100%;
-  padding: 5%;
-  margin-right: 17.5px;
-}
-
-#aboutMe .my-enter {
-  background: url(../img/aboutMe/icon_进入@2x.png) no-repeat right;
-  background-size: 25%, 25%;
-  padding: 5%;
-  float: right;
-}
-
-#aboutMe .my-unvalidated {
-  background: url(../img/aboutMe/未验证.png) no-repeat right;
-  background-size: 25%, 25%;
-  padding: 5%;
-  float: right;
-}
-
-#aboutMe .binding－button {
-  float: right;
-  background-color: white;
-  border: 1px solid #1AAD19;
-  color: #1AAD19;
-  border-radius: 21px;
-  height: 21px;
-  width: 53px;
-  font-size: 10px;
-  text-align: center;
-}
-
 /*兼容性问题******************************************屏幕大小兼容性*******************************************************/
 
 /*当页面大于1024px时，大屏幕，主要显示PC端*************/
@@ -715,6 +540,10 @@ a.autolinker {
 
 /*在768 和1024 像素之间的屏幕里，中等屏幕，分辨率低的PC  PAD*/
 @media (min-width: 767px) and (max-width: 1023px) {
+  html {
+    font-size: 20px;
+  }
+
   .tipTextAct {
     font-size: 3.5rem;
   }
@@ -722,10 +551,50 @@ a.autolinker {
   .history {
     font-size: 2.5rem;
   }
+
+  .bar-home-on {
+    background-size: 20%, 20%;
+  }
+
+  .bar-home-off {
+    background-size: 20%, 20%;
+  }
+
+  .bar-contact-on {
+    background-size: 20%, 20%;
+  }
+
+  .bar-contact-off {
+    background-size: 20%, 20%;
+  }
+
+  .bar-my-on {
+    background-size: 20%, 20%;
+  }
+
+  .bar-my-off {
+    background-size: 20%, 20%;
+  }
+
+  .bar-message-on {
+    background-size: 20%, 20%;
+  }
+
+  .bar-message-off {
+    background-size: 20%, 20%;
+  }
+
+  .bar-newActivity-on {
+    background-size: 20%, 20%;
+  }
 }
 
 /*在375 和768 像素之间的屏幕里，中等屏幕，主要是手机*/
 @media (min-width: 374px) and (max-width: 767px) {
+  html {
+    font-size: 16px;
+  }
+
   .tipTextAct {
     font-size: 1.5rem;
   }
@@ -737,6 +606,10 @@ a.autolinker {
 
 /*在小于375px的屏幕里，微小屏幕，更低分辨率的手机*/
 @media (max-width: 374px) {
+  html {
+    font-size: 14px;
+  }
+
   .tipTextAct {
     font-size: 1.2rem;
   }

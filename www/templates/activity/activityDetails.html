@@ -1,63 +1,80 @@
-<ion-view view-title="{{ activityList.workEffortName }}" hide-tabs="true">
+<ion-view title="{{ activityList.workEffortName }}" hide-tabs="true">
   <ion-nav-bar>
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="goActivityHome()">
-        <i class="icon  ion-ios-arrow-back globalColorButton">活动首页</i>
+        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
       </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <button class="button button-dark button-small" ng-click="updateEventStatus()">开始活动</button>
+    <ion-nav-buttons side="right" >
+      <button id="editEvent" class="button button-clear button-dark" ng-if="!editIf" ng-click="editEvent(editButton)">{{editButton}}</button>
     </ion-nav-buttons>
+    <!--<ion-nav-buttons side="right">-->
+      <!--<button class="button button-dark button-small" ng-click="updateEventStatus()">开始活动</button>-->
+    <!--</ion-nav-buttons>-->
   </ion-nav-bar>
   <ion-content id="activityDel">
     <div class="list">
-      <div class="item">
-        <div class="item item-thumbnail-left">
+      <div class="item del-top">
+        <div class="del-left">
           <img class="img-header" src="{{themeImgList.objectInfo}}">
-          <p ng-click="updateAvtivityInfo(startDate)"><i class="icon activityTimer"></i>{{activityList.actualStartDate|
-            date:'MM月dd HH:mm' }}</p>
-          <p class="activityAddress" ng-click="updateAvtivityInfo(address)"><i class="icon activityLocation"></i>{{activityList.locationDesc
-            }}</p>
+        </div>
+        <div class="del-right">
+          <label>
+            <i class="icon activityTimer"></i>
+            <input id="startDate"  type="text" placeholder="开始时间" readonly ng-click="startDate()" ng-disabled="edit" ng-model="activityStartDate">
+          </label>
+          <label>
+            <input id="endDate"  type="text" placeholder="结束时间" readonly ng-click="endDate()" ng-disabled="edit" ng-model="activityEndDate">
+          </label>
+          <label>
+            <i class="icon activityLocation"></i>
+            <textarea id="address" placeholder="活动地点" readonly ng-disabled="edit" ng-click="openModalAddress()" ng-model="activityList.locationDesc">
+            </textarea>
+          </label>
         </div>
       </div>
-      <div class="row header activityDetTabs">
+      <div class="row activityDetTabs">
         <div class="col col-25" ng-repeat="picture in activityTabsImg">
           <img class="img-responsive" ng-src="{{picture.img}}" ng-click="goNavigation(picture.name)">
           <p>{{picture.name}}</p>
         </div>
       </div>
       <div class="item item-joinP">
-        <h2 style="float: left">参与人:</h2>
-        <p style="float: right;">{{number}}人</p>
+        <h3 >参与人:</h3>
+        <p class="pe-num">{{number}}人</p>
         <hr class="cleanFloat">
-        <div class="row  activityDetTabs">
-          <div class="col col-20" ng-repeat="item in groupMemberList">
-            <img class="img-joinP" ng-src="{{item.headPortrait}}">
-            <p>{{item.firstName}}</p>
+        <ion-scroll direction="x" class="wide-as-needed">
+          <div class="row ">
+            <div class="col col-20" ng-repeat="item in groupMemberList">
+              <img class="img-joinP" ng-src="{{item.headPortrait}}">
+              <p>{{item.firstName}}</p>
+            </div>
           </div>
-        </div>
-        <div><img class="img-zhuzi" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/></div>
+          <div><img class="img-zhuzi" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/></div>
+        </ion-scroll>
       </div>
-      <div class="item">
-        <h2>活动描述:</h2>
-        <hr>
-        <p ng-click="updateAvtivityInfo(description)">{{activityList.description}}</p>
+      <div class="item item-joinP">
+        <h3>活动描述:</h3>
+        <label>
+          <textarea style="resize:none" placeholder="活动描述" ng-disabled="edit" ng-model="activityList.description"></textarea>
+        </label>
       </div>
-      <div class="item">
+      <div class="item item-wall">
         <div>
-          <h3 style="display: inline-block">照片墙</h3>
-          <p style="float: right" ng-click="upLoadImage(activityList.id)">上传图片</p>
+          <h3 >照片墙</h3>
+          <p class="pe-num" ng-click="upLoadImage(activityList.id)">上传图片</p>
         </div>
         <hr>
         <div class="row  row-wrap">
-          <div class="col col-33" style="text-align: center;height:100px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;"
+          <div class="col col-33"
+               style="text-align: center;height:100px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;"
                ng-repeat="picture in images_list" ng-click="shouBigImage($index)">
-            <img class="img-responsive"style="width: 100%;height: 100%;" ng-src="{{picture.objectInfo}}">
+            <img class="img-responsive" style="width: 100%;height: 100%;" ng-src="{{picture.objectInfo}}">
           </div>
         </div>
       </div>
       <div class="item">
-        <h2>活动项:</h2>
+        <h3>活动项:</h3>
         <hr>
         <div style="padding: 5% 0 0 10%;">
           <img src="../www/img/activityImg/icon_活动项@2x.png" height="30" width="30" style="vertical-align: middle"/>

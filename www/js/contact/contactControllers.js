@@ -2,10 +2,10 @@ angular.module('contact.controllers', [])
 
 //关于我的个人信息******************************************************************************************************
   .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, $cordovaBarcodeScanner, ActivityServer, $cordovaImagePicker, $cordovaFileTransfer) {
+
     //准备参数
     $scope.tarjeta = localStorage.getItem("tarjeta");
     $scope.partyId = localStorage.getItem("partyId");
-    console.log("token:"+$scope.tarjeta+'/partyId:'+$scope.partyId);
 
     //查询我的个人信息
     Contact.queryPersonInfo($scope.tarjeta, function (data) {
@@ -15,7 +15,7 @@ angular.module('contact.controllers', [])
       localStorage.setItem('adminOpenId', data.openId)
     });
 
-    //退出
+    //切换账户
     $scope.loginOut = function () {
       localStorage.removeItem('tarjeta');
       localStorage.removeItem("partyId");
@@ -37,12 +37,7 @@ angular.module('contact.controllers', [])
       $state.go('tab.bindTelephone', {'partyId': $scope.partyId})
     };
 
-    //手机好绑定
-    $scope.telLogin = function () {
-      $state.go('login')
-    };
-
-    //判断手机号码是否绑定
+    //判断是否绑定微信
     $scope.weixinBinding = '未绑定';
     if ($scope.myInfoList) {
       var openId = $scope.myInfoList.openId;
@@ -52,18 +47,13 @@ angular.module('contact.controllers', [])
     }
 
     //微信绑定
-    console.log($scope.partyId + "1");
     $scope.wachatLogin = function () {
       $scope.scope = "snsapi_userinfo";
-      console.log($scope.partyId + "2");
       Wechat.auth($scope.scope, function (response) {
-        // you may use response.code to get the access token.
         console.log(JSON.stringify(response) + "微信返回值");
         var code = response.code;
-        console.log($scope.partyId + "3");
-        ActivityServer.userWeChatAppLogin(code,$scope.partyId,function (data) {
-          console.log('微信绑定后返回的数据'+'token:'+data.tarjeta+"--------partyId:"+data.partyId+'-----openId:'+data.openId);
-          if(data.tarjeta){
+        ActivityServer.userWeChatAppLogin(code, $scope.partyId, function (data) {
+          if (data.tarjeta) {
             // localStorage.removeItem("tarjeta");
             // localStorage.removeItem("partyId");
             localStorage.removeItem("openId");
@@ -72,7 +62,7 @@ angular.module('contact.controllers', [])
             localStorage.setItem("adminOpenId", data.openId);//设置partyId登陆人
           }
         });
-        location.reload(true)
+        $state.reload();
       }, function (reason) {
         alert("Failed: " + reason);
       });
@@ -82,11 +72,12 @@ angular.module('contact.controllers', [])
     $scope.editPersonInfo = function () {
       $state.go('tab.editPersonInfo', {'partyId': $scope.partyId})
     }
+
   })
 
   //联系人***************************************************************************************************************
   .controller('MainCtrl', function ($scope, $state, $ionicPopup, $ionicSlideBoxDelegate, $ionicScrollDelegate,
-                                    filterFilter, $location, $anchorScroll, Tools,Contact) {
+                                    filterFilter, $location, $anchorScroll, Tools, Contact) {
 
     //准备参数
     var tarjeta = localStorage.getItem("tarjeta");
@@ -105,7 +96,9 @@ angular.module('contact.controllers', [])
         array.push({
           'last_name': Tools.ConvertPinyin($scope.allPersonList[j].firstName).toUpperCase(),
           'first_name': $scope.allPersonList[j].firstName,
-          'headPortrait': $scope.allPersonList[j].headPortrait
+          'headPortrait': $scope.allPersonList[j].headPortrait,
+          'partyId': $scope.allPersonList[j].partyId,
+          'appUser': $scope.allPersonList[j].appUser
         })
       }
     }
@@ -147,7 +140,7 @@ angular.module('contact.controllers', [])
     }
 
     $scope.getItemHeight = function (item) {
-      return item.isLetter ? 40 : 100;
+      return item.isLetter ? 20 : 56;
     };
 
     $scope.scrollTop = function () {
@@ -184,40 +177,101 @@ angular.module('contact.controllers', [])
         return true;
       });
     };
-    console.log(contacts);
+
+    //搜索好友暂时不做
     $scope.clearSearch = function () {
       $scope.search = '';
     };
 
+    //跳转至联系人信息详情
+    $scope.goContactInfo = function (partyId) {
+      $state.go('tab.contactInfo', {'partyId': partyId})
+    }
+
+  })
+
+  //联系人信息详情***********************************************************************************************************
+  .controller('contactInfo', function ($scope, $state, Contact, $stateParams, $ionicPopup) {
+
+    //准备参数
+    $scope.partyId = $stateParams.partyId;
+    $scope.tarjeta = localStorage.getItem("tarjeta");
+
+    //返回联系人列表
+    $scope.goBack = function () {
+      $state.go("tab.chats")
+    };
+
+    //查询联系人信息详情
+    Contact.findUserDetail($scope.tarjeta, $scope.partyId, function (data) {
+      console.log('联系人信息详情－－－－－' + data);
+      $scope.personInfoList = data.personInfo;
+      $scope.mutualActivityList = data.mutualActivityList;
+    });
+
+    //修改备注名字
+    $scope.remark = function () {
+      $scope.data = {};
+      $scope.data.addLabel = $scope.personInfoList.remarkName;
+      var myPopupAdd = $ionicPopup.show({
+        template: '<input  type="text" ng-model="data.addLabel"/>' +
+        '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="remarksContact();">修改</button><br/>' +
+        '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>',
+        title: '修改备注名称',
+        scope: $scope
+      });
+      myPopupAdd.then(function (res) {
+        console.log('Tapped!', res);
+      });
+      $scope.addLab = myPopupAdd;
+      $scope.closeLab = function () {
+        $scope.addLab.close();
+      };
+      $scope.remarksContact = function () {
+        if ($scope.data.addLabel == null || $scope.data.addLabel == '') {
+          alert("请输入修改信息")
+        } else {
+          Contact.remarksContact($scope.tarjeta, $scope.partyId, $scope.data.addLabel, function (data) {
+            console.log(data)
+          });
+          $scope.addLab.close();
+          $state.reload();
+        }
+      };
+    };
+
+    //跳转至相应活动详情
+    $scope.goActivityDetail = function (workEffortId) {
+      $state.go("tab.activityDetails", {'activityId': workEffortId})
+    }
+
   })
 
   //更新个人信息***********************************************************************************************************
-  .controller('editPersonInfo', function ($scope,$cordovaFileTransfer, Contact, $stateParams, $state,$ionicPopup,$cordovaImagePicker,$rootScope) {
+  .controller('editPersonInfo', function ($scope, $cordovaFileTransfer, Contact, $stateParams, $state, $ionicPopup, $cordovaImagePicker, $rootScope) {
 
     //准备参数
     $scope.partyId = $stateParams.partyId;
     $scope.tarjeta = localStorage.getItem('tarjeta');
 
     //查询我的个人信息
-    console.log($scope.tarjeta);
     Contact.queryPersonInfo($scope.tarjeta, function (data) {
       $scope.myInfoList = data;
-      if(data.gender=='男'){
-        $scope.male=true;
-      }else if(data.gender=='女'){
-        $scope.female=true;
+      if (data.gender == '男') {
+        $scope.male = true;
+      } else if (data.gender == '女') {
+        $scope.female = true;
       }
       console.log(data)
     });
 
-    //返回
+    //返回我的信息
     $scope.goBack = function () {
       $state.go('tab.account')
     };
 
-    //上传头像
+    //上传更换头像
     $scope.uploaPartyContent = function () {
-      console.log("上传头像");
       var options = {
         maximumImagesCount: 1,
         width: 800,
@@ -228,22 +282,12 @@ angular.module('contact.controllers', [])
         .then(function (results) {
           var image = document.getElementById('myImage');
           for (var i = 0; i < results.length; i++) {
-            //console.log('Image URI: ' + results[i]);//返回参数是图片地址 results 是一个数组
             image.src = results[i];
-            // image.style.height = '200px';
-            // image.style.width = '330px';
-            //$cordovaProgress.showSimpleWithLabel(true, "上传中");
             document.addEventListener('deviceready', function () {
               var url = $rootScope.platformInterfaceUrl + "uploadHeadPortrait?partyId=" + $scope.partyId + '&tarjeta=' + $scope.tarjeta;
               var options = {};
               $cordovaFileTransfer.upload(url, results[i], options)
                 .then(function (result) {
-                  //var ImgId=JSON.stringify(result.response);
-                  //$scope.themeImgId=ImgId.substring(18,23);
-                  //alert($scope.themeImgId);
-                  //localStorage.setItem("themeImg",results[i]);
-                  //$cordovaProgress.hide();
-                  //alert(result.message);
                   alert('上传成功')
                 }, function (err) {
                   //alert(JSON.stringify(err));
@@ -259,18 +303,18 @@ angular.module('contact.controllers', [])
         });
     };
 
-    //更新信息
+    //更新用户个人信息
     $scope.updatePersonInfo = function () {
       var sex = document.getElementsByName("sex");
-      for (var i=0; i<sex.length; i++) {
+      for (var i = 0; i < sex.length; i++) {
         if (sex[i].checked) {
-          $scope.sex=sex[i].value
+          $scope.sex = sex[i].value
         }
       }
-      Contact.updatePersonInfo($scope.partyId, $scope.myInfoList.personName,$scope.sex, function (data) {
+      Contact.updatePersonInfo($scope.partyId, $scope.myInfoList.personName, $scope.sex, function (data) {
         $ionicPopup.alert({
           title: '完成更新',
-          template: data.resultMsg,
+          template: data.resultMsg
         });
       })
     }
@@ -279,41 +323,41 @@ angular.module('contact.controllers', [])
 
 
   //绑定手机号码***********************************************************************************************************
-  .controller('bindTelephone', function ($scope, Contact, $stateParams, $state,$ionicPopup) {
+  .controller('bindTelephone', function ($scope, Contact, $stateParams, $state, $ionicPopup) {
 
     //准备参数
     $scope.partyId = localStorage.getItem('partyId');
     $scope.tarjeta = localStorage.getItem('tarjeta');
-    console.log("token:"+$scope.tarjeta+'/-------------partyId:'+$scope.partyId);
 
     //查询我的个人信息
-    console.log($scope.tarjeta);
     Contact.queryPersonInfo($scope.tarjeta, function (data) {
       $scope.myInfoList = data;
       console.log(data)
     });
 
-    //返回
+    //返回个人信息页面
     $scope.goBack = function () {
       $state.go('tab.account')
     };
 
-    //完成
+    //完成绑定手机号码
     $scope.loginData = {};
     $scope.updateLoginTel = function () {
-      console.log($scope.tarjeta + '/' + $scope.partyId + '/' + $scope.loginData.mobileNumber + '/' + $scope.loginData.captcha);
       Contact.updateLoginTel($scope.tarjeta, $scope.partyId, $scope.loginData.mobileNumber, $scope.loginData.captcha, function (data) {
         console.log(data.resultMsg);
         localStorage.removeItem("tarjeta");
-        localStorage.setItem("tarjeta",data.tarjeta);
+        localStorage.setItem("tarjeta", data.tarjeta);
         $ionicPopup.alert({
           title: '绑定成功',
-          template: "你可以通过手机号码找回您参与的活动",
+          template: "你可以通过手机号码找回您参与的活动"
         });
         $state.go('tab.account')
       })
     }
   });
+
+
+
 
 
 

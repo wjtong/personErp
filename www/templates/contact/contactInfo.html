@@ -1,0 +1,45 @@
+<ion-view title="详细资料" hide-tabs="true">
+  <ion-nav-bar>
+    <ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="goBack()">
+        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content id="contactInfo">
+    <div class="CI-header">
+      <img ng-src="{{personInfoList.headPortrait}}"/>
+      <h2>{{personInfoList.remarkName}}</h2>
+      <p>昵称：{{personInfoList.firstName}}</p>
+    </div>
+    <div class="list CI-List">
+      <div class="item" ng-if="personInfoList.contactNumber!='NA'">
+        手机号:<span>{{personInfoList.contactNumber}}</span>
+      </div>
+      <div class="item">
+        已绑定账户:<span ng-if="personInfoList.wechat=='Y'"><img src="../www/img/shareActivity/btn_微信_n@2x.png"/></span>
+      </div>
+      <div class="item" ng-click="remark()">
+        修改备注<i class="icon ion-ios-arrow-forward"></i>
+      </div>
+      <div class="mutual-activity">
+        <p>共同活动</p>
+        <ion-scroll direction="x" class="wide-as-needed">
+          <div class="row">
+            <div class="col col-34" ng-repeat="item in mutualActivityList">
+              <img class="img-joinP" ng-src="{{item.objectInfo}}" ng-click="goActivityDetail(item.workEffortId)">
+              <span>{{item.workEffortName}}</span>
+            </div>
+          </div>
+        </ion-scroll>
+      </div>
+      <div class="item">
+        屏蔽<i class="icon ion-ios-arrow-forward"></i>
+      </div>
+    </div>
+  </ion-content>
+  <div class="bar bar-footer">
+    <button class="button-businessCard">分享名片</button>
+    <button class="button-sendMessage">发消息</button>
+  </div>
+</ion-view>
