@@ -100,7 +100,6 @@ angular.module('activity.controllers', [])
 
   //活动消息通知*********************************************************************************************************
   .controller('ActivityNotice', function ($scope, ActivityServer, $location) {
-
     //准备参数
     var tarjeta = localStorage.getItem("tarjeta");
 
@@ -227,12 +226,10 @@ angular.module('activity.controllers', [])
       });
       $scope.statusPopup = myPopup;
     };
+
+    //关闭选择框
     $scope.closeMyPopup = function () {
       $scope.statusPopup.close();
-    };
-    $scope.goThemeImage = function () {
-      $scope.statusPopup.close();
-      $scope.Theme.show();
     };
 
     //预设主题图片模态框
@@ -249,6 +246,63 @@ angular.module('activity.controllers', [])
       $scope.Theme.hide();
     };
 
+    //进入选择预设主题图片页面
+    $scope.goThemeImage = function () {
+      $scope.statusPopup.close();
+      $scope.Theme.show();
+
+      //预设主题图片数据
+      ActivityServer.queryContentTypeList(function (data) {
+        $scope.contectTypeList = data.contentTypeList
+      });
+
+      //关闭模态框
+      $scope.closeThemeModal = function () {
+        $scope.Theme.hide();
+      };
+
+      //滑动选择类型
+      $scope.slideIndex = 0;
+      $scope.slideChanged = function (index) {
+        $scope.slideIndex = index;
+        console.log("slide Change");
+        if ($scope.slideIndex == 0) {
+          console.log("slide 1");
+        }
+        else if ($scope.slideIndex == 1) {
+          console.log("slide 2");
+        }
+        else if ($scope.slideIndex == 2) {
+          console.log("slide 3");
+        }
+      };
+      $scope.activeSlide = function (index) {
+        $ionicSlideBoxDelegate.slide(index);
+      };
+
+      //获得不同类型图片
+      ActivityServer.queryThemes($scope.contectTypeList[0].contentTypeId, function (data) {
+        $scope.huwaiImgList = data.themesList
+      });
+      ActivityServer.queryThemes($scope.contectTypeList[1].contentTypeId, function (data) {
+        $scope.fimilyImgList = data.themesList
+      });
+      ActivityServer.queryThemes($scope.contectTypeList[2].contentTypeId, function (data) {
+        $scope.partyImgList = data.themesList
+      });
+      ActivityServer.queryThemes($scope.contectTypeList[3].contentTypeId, function (data) {
+        $scope.businessImgList = data.themesList
+      });
+
+      //选定组题图片
+      $scope.selectThemeImg = function (contentId, img) {
+        localStorage.setItem("themeImg", img);
+        localStorage.setItem("themeImgId", contentId);
+        alert("选择图片成功");
+        $scope.Theme.hide();
+      }
+    };
+
     //上传主题图片（手机相册）
     $scope.selectPhoto = function () {
       var options = {
@@ -257,6 +311,7 @@ angular.module('activity.controllers', [])
         height: 800,
         quality: 100
       };
+
       $cordovaImagePicker.getPictures(options)
         .then(function (results) {
           var image = document.getElementById('myImage');
@@ -594,18 +649,18 @@ angular.module('activity.controllers', [])
         });
         $('textarea').css('color', 'red');
       } else {
-        $('#editEvent').attr('disabled',true);
+        $('#editEvent').attr('disabled', true);
         $('input').css({
           'color': 'black'
         });
         $('textarea').css('color', 'black');
         $scope.startDate = $("#startDate").val();
         $scope.endDate = $("#endDate").val();
-        if($scope.startDate=='开始时间待定'){
-          $scope.startDate=''
+        if ($scope.startDate == '开始时间待定') {
+          $scope.startDate = ''
         }
-        if($scope.endDate=='结束时间待定'){
-          $scope.endDate=''
+        if ($scope.endDate == '结束时间待定') {
+          $scope.endDate = ''
         }
         $scope.address = $("#address").val();
         var token = localStorage.getItem("tarjeta");
@@ -745,7 +800,7 @@ angular.module('activity.controllers', [])
     //进入活动讨论
     $scope.activityDiscuss = function () {
       $state.go("tab.activityDiscuss", {"activityId": $scope.workEffortId}, {reload: false});
-      $scope.popover.hide();
+      //$scope.popover.hide();
     };
 
     //进入活动项
@@ -1408,61 +1463,6 @@ angular.module('activity.controllers', [])
 
   })
 
-  //活动主题图片界面******************************************************************************************************
-  .controller('ThemeImage', function ($scope, $ionicSlideBoxDelegate, ActivityServer) {
-
-    //获得主题类型列表
-    ActivityServer.queryContentTypeList(function (data) {
-      $scope.contectTypeList = data.contentTypeList
-    });
-
-    //关闭模态框
-    $scope.closeThemeModal = function () {
-      $scope.Theme.hide();
-    };
-
-    //滑动选择类型
-    $scope.slideIndex = 0;
-    $scope.slideChanged = function (index) {
-      $scope.slideIndex = index;
-      console.log("slide Change");
-      if ($scope.slideIndex == 0) {
-        console.log("slide 1");
-      }
-      else if ($scope.slideIndex == 1) {
-        console.log("slide 2");
-      }
-      else if ($scope.slideIndex == 2) {
-        console.log("slide 3");
-      }
-    };
-    $scope.activeSlide = function (index) {
-      $ionicSlideBoxDelegate.slide(index);
-    };
-
-    //获得不同类型图片
-    ActivityServer.queryThemes($scope.contectTypeList[0].contentTypeId, function (data) {
-      $scope.huwaiImgList = data.themesList
-    });
-    ActivityServer.queryThemes($scope.contectTypeList[1].contentTypeId, function (data) {
-      $scope.fimilyImgList = data.themesList
-    });
-    ActivityServer.queryThemes($scope.contectTypeList[2].contentTypeId, function (data) {
-      $scope.partyImgList = data.themesList
-    });
-    ActivityServer.queryThemes($scope.contectTypeList[3].contentTypeId, function (data) {
-      $scope.businessImgList = data.themesList
-    });
-
-    //选定组题图片
-    $scope.selectThemeImg = function (contentId, img) {
-      localStorage.setItem("themeImg", img);
-      localStorage.setItem("themeImgId", contentId);
-      alert("选择图片成功");
-      $scope.Theme.hide();
-    }
-  })
-
   //活动项***************************************************************************************************************
   .controller('ActivityItem', function ($scope, $rootScope, $stateParams, ActivityServer, $ionicPopup, ionicDatePicker) {
 
@@ -1612,8 +1612,8 @@ angular.module('activity.controllers', [])
     };
 
     //返回
-    $scope.goBack=function (id) {
-      $state.go('tab.activityDetails',{'activityId':$scope.workEffortId})
+    $scope.goBack = function (id) {
+      $state.go('tab.activityDetails', {'activityId': $scope.workEffortId})
     };
 
     // 添加人员

@@ -1,4 +1,4 @@
-/*活动首页＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
+/*活动首页***************************************************************************************************************/
 .tipTextAct {
   font-size: 1.4rem;
   color: #9e9e9e;
@@ -243,7 +243,8 @@
 #activityDel .activityAddress {
   margin-top: 10%;
 }
-#address{
+
+#address {
   display: inline-block;
   width: 85%;
   resize: none;
@@ -434,6 +435,12 @@
 
 .share-preview .right p {
   margin: 0.3125rem auto;
+}
+
+.share-preview .create-date {
+  text-align: left;
+  font-size: 0.5rem;
+  padding-left: 1rem;
 }
 
 .share-preview h4 {
