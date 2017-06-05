@@ -25,7 +25,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     // $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
     // $rootScope.communicationfaceUrl = "http://192.168.3.102:3400/communication/control/";//活动接口
 
-    $ionicPlatform.ready(function () {
+    $ionicPlatform.ready(function (Contact) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -39,7 +39,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //通过UUID获取TOKEN
       document.addEventListener("deviceready", function () {
         var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
+        console.log("设别准备就绪");
         if (localStorage.getItem("tarjeta") == null) {
+          console.log("设别准备就绪11111");
           ActivityServer.setUUID(uuid, function (data) {
             console.log("创建新用户通过UUID" + "token:" + data.tarjeta + "UUID:" + uuid + 'PartyId:' + data.partyId);
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
@@ -50,24 +52,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     });
 
   })
-  .config(['$provide',function($provide){
+  .config(['$provide', function ($provide) {
     //解决重复点击BUG
-    $provide.decorator('ngClickDirective',['$delegate','$timeout',function($delegate,$timeout){
+    $provide.decorator('ngClickDirective', ['$delegate', '$timeout', function ($delegate, $timeout) {
       var original = $delegate[0].compile;
       var delay = 500;
-      $delegate[0].compile = function(element,attrs,transclude){
+      $delegate[0].compile = function (element, attrs, transclude) {
         var disabled = false;
-        function onClick(evt){
-          if(disabled){
+
+        function onClick(evt) {
+          if (disabled) {
             evt.preventDefault();
             evt.stopImmediatePropagation();
-          }else{
+          } else {
             disabled = true;
-            $timeout(function(){
+            $timeout(function () {
               disabled = false;
             }, delay, false);
           }
         }
+
         element.on('click', onClick);
         return original(element, attrs, transclude);
       };

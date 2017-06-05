@@ -1,7 +1,11 @@
 angular.module('contact.controllers', [])
 
-//关于我的个人信息******************************************************************************************************
-  .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, $cordovaBarcodeScanner, ActivityServer, $cordovaImagePicker, $cordovaFileTransfer) {
+/*********************************************************************************************************************
+ * Desc 查询用户个人信息
+ * Author LX
+ * Date 2017-3-3
+ * */
+  .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, Login, ActivityServer, $cordovaImagePicker, $cordovaFileTransfer) {
 
     //准备参数
     $scope.tarjeta = localStorage.getItem("tarjeta");
@@ -52,7 +56,7 @@ angular.module('contact.controllers', [])
       Wechat.auth($scope.scope, function (response) {
         console.log(JSON.stringify(response) + "微信返回值");
         var code = response.code;
-        ActivityServer.userWeChatAppLogin(code, $scope.partyId, function (data) {
+        Login.userWeChatAppLogin(code, $scope.partyId, function (data) {
           if (data.tarjeta) {
             // localStorage.removeItem("tarjeta");
             // localStorage.removeItem("partyId");
@@ -72,10 +76,13 @@ angular.module('contact.controllers', [])
     $scope.editPersonInfo = function () {
       $state.go('tab.editPersonInfo', {'partyId': $scope.partyId})
     }
-
   })
 
-  //联系人***************************************************************************************************************
+  /*********************************************************************************************************************
+   * Desc 联系人列表
+   * Author LX
+   * Date 2017-3-3
+   * */
   .controller('MainCtrl', function ($scope, $state, $ionicPopup, $ionicSlideBoxDelegate, $ionicScrollDelegate,
                                     filterFilter, $location, $anchorScroll, Tools, Contact) {
 
@@ -190,7 +197,11 @@ angular.module('contact.controllers', [])
 
   })
 
-  //联系人信息详情***********************************************************************************************************
+  /*********************************************************************************************************************
+   * Desc 联系人详情
+   * Author LX
+   * Date 2017-3-3
+   * */
   .controller('contactInfo', function ($scope, $state, Contact, $stateParams, $ionicPopup) {
 
     //准备参数
@@ -247,7 +258,11 @@ angular.module('contact.controllers', [])
 
   })
 
-  //更新个人信息***********************************************************************************************************
+  /*********************************************************************************************************************
+   * Desc 编辑联系人信息
+   * Author LX
+   * Date 2017-3-3
+   * */
   .controller('editPersonInfo', function ($scope, $cordovaFileTransfer, Contact, $stateParams, $state, $ionicPopup, $cordovaImagePicker, $rootScope) {
 
     //准备参数
@@ -322,7 +337,11 @@ angular.module('contact.controllers', [])
   })
 
 
-  //绑定手机号码***********************************************************************************************************
+  /*********************************************************************************************************************
+   * Desc 绑定用户手机号码
+   * Author LX
+   * Date 2017-3-3
+   * */
   .controller('bindTelephone', function ($scope, Contact, $stateParams, $state, $ionicPopup) {
 
     //准备参数

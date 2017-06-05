@@ -154,6 +154,28 @@ angular.module('activity.services', [])
           }
         });
       },
+      //删除活动项
+      deleteActivityProject: function (workEffortIdFrom, workEffortIdTo, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "deleteActivityProject",
+          data: {
+            workEffortIdFrom: workEffortIdFrom,
+            workEffortIdTo: workEffortIdTo
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //活动讨论的相关参数
       queryActivityChatGroupInfo: function (tarjeta, workEffortId, cb) {
         $.ajax({
@@ -323,6 +345,28 @@ angular.module('activity.services', [])
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //保存活动账单
+      updatePartyPayment: function (tarjeta, paymentList, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "updatePartyPayment",
+          data: {
+            tarjeta: tarjeta,
+            paymentList: paymentList,
           },
           async: false,
           type: 'POST',
@@ -678,10 +722,11 @@ angular.module('activity.services', [])
 
     //活动详情功能导航栏
     var activityImgTabs = [
-      {id: 'Pic_10030', img: 'img/activityImg/btn_照片墙_n@2x.png', name: '照片墙'},
+      //{id: 'Pic_10030', img: 'img/activityImg/btn_照片墙_n@2x.png', name: '照片墙'},
       {id: 'Pic_10031', img: 'img/activityImg/btn_投票_n@2x.png', name: '投票'},
+      {id: 'Pic_10033', img: 'img/activityImg/btn_附件_n@2x.png', name: '活动项'},
       {id: 'Pic_10032', img: 'img/activityImg/btn_账单_n@2x.png', name: '账单'},
-      {id: 'Pic_10033', img: 'img/activityImg/btn_附件_n@2x.png', name: '附件'}
+
     ];
 
     return {

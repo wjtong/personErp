@@ -1,41 +1,34 @@
-<ion-view hide-nav-bar="false">
-  <ion-nav-bar class="globalColor"></ion-nav-bar>
-  <ion-header-bar class="item-input-inset globalColor">
-    <label class="item-input-wrapper"
-           style=" width:100px; height:25px;margin: 0 25px; color:#666666; line-height:25px; border:1px #000000 solid; border-radius:18px;background-color: #FFDA44">
-      <i class="icon ion-ios-search placeholder-icon"></i>
-      <input type="search" placeholder="搜索活动名称或地点" ng-model="searchContent">
-    </label>
-  </ion-header-bar>
-  <ion-content class="has-header">
-    <div class="row header activityTabs">
-      <div class="col col-33" ng-repeat="picture in topImgList">
-        <img class="img-responsive" ng-src="{{picture.img}}" style="width: 60%">
-        <p>{{picture.name}}</p>
-      </div>
-    </div>
+<ion-view title="我参与的活动"  hide-nav-bar="false">
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="getActivityCode()">
+        <i class="icon  ion-qr-scanner globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
-    <div class="list" ng-repeat="item in active">
-      <a href="#/tab/activityDetails/{{item.workEffortId}}"
-         class="item item-thumbnail-left homeImgList">
-        <img ng-src="{{ item.objectInfo }}" style="max-height:130px;max-width: 160px">
-        <h2>{{ item.workEffortName }}</h2>
-        <p><i class="icon ion-ios-clock-outline"></i>{{ item.actualStartDate| date:'MM月dd'}}至{{
-          item.estimatedCompletionDate| date:'MM月dd' }}</p>
-        <p><i class="icon ion-ios-location-outline"></i>{{ item.locationDesc }}</p>
-      </a>
-      <div style="margin: 3% 5% 0 5%">
-        <p style="float: left;">
-          <button class="button button-dark button-small" style="border-radius:15px;letter-spacing:5px;font-size: 15px">
+    <div class="event-list" ng-repeat="item in active">
+      <div class="event-top" ng-click="activityDetails(item.workEffortId)">
+        <div><img ng-src="{{ item.objectInfo }}"></div>
+        <div>
+          <h3>{{ item.workEffortName }}</h3>
+          <p><i class="icon activityTimer"></i>{{item.actualStartDate|date:'yyyy年MM月dd HH:mm'}}</p>
+          <p><i class="icon activityLocation"></i>{{ item.locationDesc }}</p>
+          <p class="organizer-home"><i class="icon ion-ios-circle-outline activityOrganizer"></i> {{item.adminFirstName}} <em>发起</em></p>
+        </div>
+      </div>
+      <div class="event-bottom">
+        <div class="join-count">
+          <button>
             {{item.joinsCount}}人参与
           </button>
-        </p>
-        <p style="float: right">
-          <button class="button button-outline button-stable button-small"
-                  style="border-radius:15px;letter-spacing:8px;font-size: 18px">距离开始{{item.exDay}}
+        </div>
+        <div class="from-start">
+          <button>
+            {{item.exDay}}
           </button>
-        </p>
-        <br>
+        </div>
       </div>
     </div>
   </ion-content>

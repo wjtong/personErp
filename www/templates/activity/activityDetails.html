@@ -16,25 +16,25 @@
     <div class="list">
       <div class="item del-top">
         <div class="del-left">
-          <img class="img-header" src="{{themeImgList.objectInfo}}">
+          <img id="activityImage" class="img-header" src="{{themeImgList.objectInfo}}" ng-click="updateActivityPhoto()">
         </div>
         <div class="del-right">
           <label>
             <i class="icon activityTimer"></i>
-            <input id="startDate"  type="text" placeholder="开始时间" readonly ng-click="startDate()" ng-disabled="edit" ng-model="activityStartDate">
+            <input type="text" placeholder="开始时间" readonly ng-click="startDate()" ng-disabled="edit" ng-model="ActivityData.startDate">
           </label>
           <label>
-            <input id="endDate"  type="text" placeholder="结束时间" readonly ng-click="endDate()" ng-disabled="edit" ng-model="activityEndDate">
+            <i class="icon activityTimerEnd"></i>
+            <input type="text" placeholder="结束时间" readonly ng-click="endDate()" ng-disabled="edit" ng-model="ActivityData.endDate">
           </label>
           <label>
             <i class="icon activityLocation"></i>
-            <textarea id="address" placeholder="活动地点" readonly ng-disabled="edit" ng-click="openModalAddress()" ng-model="activityList.locationDesc">
-            </textarea>
+            <input type="text" placeholder="活动地点" readonly ng-disabled="edit" ng-click="openModalAddress()" ng-model="ActivityData.address">
           </label>
         </div>
       </div>
       <div class="row activityDetTabs">
-        <div class="col col-25" ng-repeat="picture in activityTabsImg">
+        <div class="col col-{{col}}" ng-repeat="picture in activityTabsImg">
           <img class="img-responsive" ng-src="{{picture.img}}" ng-click="goNavigation(picture.name)">
           <p>{{picture.name}}</p>
         </div>
@@ -45,7 +45,7 @@
         <hr class="cleanFloat">
         <ion-scroll direction="x" class="wide-as-needed">
           <div class="row ">
-            <div class="col col-20" ng-repeat="item in groupMemberList">
+            <div class="col col-20" ng-repeat="item in groupMemberList" ng-click="getPersonInfo(item.partyId)">
               <img class="img-joinP" ng-src="{{item.headPortrait}}">
               <p>{{item.firstName}}</p>
             </div>
@@ -61,34 +61,24 @@
       </div>
       <div class="item item-wall">
         <div>
-          <h3 >照片墙</h3>
+          <h3>照片墙:</h3>
           <p class="pe-num" ng-click="upLoadImage(activityList.id)">上传图片</p>
         </div>
         <hr>
         <div class="row  row-wrap">
           <div class="col col-33"
                style="text-align: center;height:100px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;"
-               ng-repeat="picture in images_list" ng-click="shouBigImage($index)">
+               ng-repeat="picture in images_list" ng-click="shouBigImage($index,picture.firstName)">
             <img class="img-responsive" style="width: 100%;height: 100%;" ng-src="{{picture.objectInfo}}">
           </div>
         </div>
       </div>
-      <div class="item">
+      <div class="item" ng-if="activityItemNull">
         <h3>活动项:</h3>
         <hr>
-        <div style="padding: 5% 0 0 10%;">
-          <img src="../www/img/activityImg/icon_活动项@2x.png" height="30" width="30" style="vertical-align: middle"/>
-          <span style="margin-left: 21px">18:00 体育馆门口集合</span>
-          <hr style="width: 1px;height: 26px;margin: 0 0 0 4%">
-        </div>
-        <div style="padding: 0 0 0 10%">
-          <img src="../www/img/activityImg/icon_活动项@2x.png" height="30" width="30" style="vertical-align: middle"/>
-          <span style="margin-left: 21px">18:00 验票入场</span>
-          <hr style="width: 1px;height: 26px;margin: 0 0 0 4%">
-        </div>
-        <div style="padding: 0 0 0 10%">
-          <img src="../www/img/activityImg/icon_活动项@2x.png" height="30" width="30" style="vertical-align: middle"/>
-          <span style="margin-left: 21px">18:00 场内签名合照</span>
+        <div class="activity-item" ng-repeat="item in projectList">
+          <img src="../www/img/activityImg/icon_活动项@2x.png"/>
+          <span>{{item.actualStartDate| date:'MM月dd日 HH时mm分'}} {{item.workEffortName}}</span>
         </div>
       </div>
     </div>

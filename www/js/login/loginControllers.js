@@ -61,7 +61,7 @@ angular.module('login.controllers', [])
   })
 
   //验证码***************************************************************************************************************
-  .controller('captcha', function ($scope, $http, $rootScope, $interval) {
+  .controller('captcha', function ($scope, $http, $rootScope, $interval,Login) {
 
     $scope.codeBtn = '立即验证';
     //登陆获取验证码
@@ -107,6 +107,59 @@ angular.module('login.controllers', [])
       } else {
         $scope.msg = "请输入您的手机号码！！"
       }
+    };
+
+    //注册获取验证码
+    $scope.getIdentifyCodeReg = function (tel) {
+      Login.userLoginExsit(tel, function (data) {     //判断用户是否存在
+        if (data.resultMsg === '成功') {
+          //定义一个是登陆获取验证吗＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+          $scope.smsType = 'REGISTER';             //定义获取验证码用于注册
+          $scope.msg = "";//先清空错误提示
+          if (tel) {
+            $http({
+              method: "POST",
+              url: $rootScope.platformInterfaceUrl + "getLoginCaptcha",
+              data: {
+                "teleNumber": tel,
+                "smsType": $scope.smsType,
+              },
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'},         // 默认的Content-Type是text/plain;charset=UTF-8，所以需要更改下
+              transformRequest: function (obj) {                                      // 参数是对象的话，需要把参数转成序列化的形式
+                var str = [];
+                for (var p in obj) {
+                  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+              }
+            }).success(function (result) {
+              console.log(result.code + " " + result.msg);
+              if (result.code == '500') {
+                $scope.msg = result.msg;
+              } else {
+                //倒计时
+                $scope.n = 60;
+                $scope.codeBtn = "获取中 " + $scope.n + " 秒";
+                var time = $interval(function () {
+                  $scope.n--;
+                  $scope.codeBtn = "获取中 " + $scope.n + " 秒";
+                  if ($scope.n == 0) {
+                    $interval.cancel(time); // 取消定时任务
+                    $scope.codeBtn = '获取验证码';
+                    $scope.codeBtnDisable = false;
+                  }
+                }, 1000);
+                $scope.codeBtnDisable = true;
+              }
+            });
+          } else {
+            $scope.msg = "请输入您的手机号码！！"
+          }
+        } else {
+          alert("用户已存在！！！！！！！！！！！！");
+          //$state.go('login')
+        }
+      })
     };
   });
 

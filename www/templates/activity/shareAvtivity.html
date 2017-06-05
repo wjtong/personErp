@@ -2,7 +2,7 @@
   <ion-nav-bar>
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="taskModal.hide()">
-        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+        <i class="icon ion-android-arrow-back globalColorButton"></i>
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
@@ -20,35 +20,14 @@
       <label>
         <input type="button" value="使用微信头像及昵称" ng-if="weixin" ng-click="userWeixinInfo()">
       </label>
-      <div class="preview-title">邀请函预览</div>
-      <div class="share-preview">
-        <div class="left">
-          <div class="left-top">
-            <p class="event-name">{{activityList.workEffortName}}</p>
-          </div>
-          <div class="left-bottom">
-            <p class="event-date">时间:{{activityStartDate| date:'MM月dd'}}</p>
-            <p class="event-address">地点:{{activityList.locationDesc}}</p>
-          </div>
-        </div>
-        <div class="right">
-          <h4>发起人</h4>
-          <img ng-src="{{originatorHeadImg}}" height="24" width="24"/>
-          <p>{{originator.nickName}}</p>
-          <p class="create-date">发起时间:</p>
-          <p>2015-05-04</p>
+      <p>邀请方式</p>
+      <div class="row padding row-wrap">
+        <div class="col col-20" ng-repeat="picture in shareImgList">
+          <img class="img-shareActivity" ng-src="{{picture.img}}"
+               ng-click="chooseWay(picture.name,activityList.workEffortId,partyId)">
+          <p>{{picture.name}}</p>
         </div>
       </div>
     </div>
   </ion-content>
-  <ion-footer-bar class="share-footer">
-    <div class="row row-wrap">
-      <div class="col col-20" ng-repeat="picture in shareImgList">
-        <img class="share-footer" ng-src="{{picture.img}}"
-             ng-click="chooseWay(picture.name,activityList.workEffortId,partyId)">
-        <p>{{picture.name}}</p>
-      </div>
-    </div>
-  </ion-footer-bar>
 </div>
-

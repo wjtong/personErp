@@ -453,5 +453,51 @@ angular.module('tools.services', [])
         return I1 == "" ? '#' : I1
       }
     };
+  })
 
-  });
+.factory('SelectDate',function ($cordovaDatePicker) {
+
+  return {
+    nativeDate:function (cb) {
+      document.addEventListener("deviceready", function () {
+        var options = {
+          date: new Date(),
+          mode: 'dateTime', // or 'time'
+          minDate: new Date() - 10000,
+          maxDate: new Date() + 10000,
+          allowOldDates: true,
+          allowFutureDates: true,
+          doneButtonLabel: '确定',
+          doneButtonColor: '#000000',
+          cancelButtonLabel: '取消',
+          cancelButtonColor: '#000000',
+          locale: "zh_cn",
+          minuteInterval: 30
+        };
+        $cordovaDatePicker.show(options).then(function (date) {
+          if(date){
+            var Month = date.getMonth() + 1;
+            if (Month < 10) {
+              Month = '0' + Month;
+            }
+            var Date = date.getDate();
+            if (Date < 10) {
+              Date = '0' + Date;
+            }
+            var Hours = date.getHours();
+            if (Hours < 10) {
+              Hours = '0' + Hours;
+            }
+            var Minutes = date.getMinutes();
+            if (Minutes < 10) {
+              Minutes = '0' + Minutes;
+            }
+            cb(date.getFullYear() + "-" + Month + "-" + Date + " " + Hours + ":" + Minutes + ":" + "00");
+          }
+        });
+
+      }, false);
+    }
+  }
+});
+

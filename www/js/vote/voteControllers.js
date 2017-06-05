@@ -1,11 +1,33 @@
 angular.module('vote.controllers', [])
 
-/*
- * Desc 创建投票
- * Author LN
- * Date 2017-3-3
- * */
-  .controller('editVoteCtrl', function($scope, $state, $stateParams, $ionicPopup, voteService) {
+/***********************************************************************************************************************
+   * Desc 投票列表
+   * Author LN
+   * Date 2017-3-3
+   * */
+  .controller('voteListCtrl', function ($scope, $state, $ionicPopup, $stateParams, voteService) {
+    //参数准备
+    $scope.workEffortId = $stateParams.workEffortId;
+
+    //如果没有投票
+    $scope.vote_empty = true;
+
+    //查询我的投票列表
+    voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
+      console.log(data.resultMap.activityPollQuestionsTitle);
+      $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle;
+      if ($scope.activityPollQuestionsTitles.length > 0) {
+        $scope.vote_empty = false;
+      }
+    });
+  })
+
+  /*********************************************************************************************************************
+   * Desc 创建投票
+   * Author LN
+   * Date 2017-3-3
+   */
+  .controller('editVoteCtrl', function ($scope, $state, $stateParams, $ionicPopup, voteService) {
     $scope.workEffortId = $stateParams.workEffortId; // 活动ID
     // alert($scope.workEffortId);
     // 添加投票选项
@@ -18,22 +40,22 @@ angular.module('vote.controllers', [])
 
     // 创建投票
     $scope.createSurveyAndQuestions = function () {
-      var voteTitle=$("input").val()
+      var voteTitle = $("input").val()
       var questions = ''; // 投票项
 
       for (var i = 0; i < $("textarea").length; i++) {
         var question = $("textarea").eq(i).val();
-        if(question.trim() == ''){
+        if (question.trim() == '') {
           continue;
         }
-        questions += question+"&";
+        questions += question + "&";
       }
       voteService.createSurveyAndQuestions($scope.workEffortId, voteTitle, questions).success(function (data) {
         var alertPopup = $ionicPopup.alert({
           title: '成功',
           template: "创建投票项成功！"
         });
-        alertPopup.then(function(res) {
+        alertPopup.then(function (res) {
           $state.go("tab.voteList", {"workEffortId": $scope.workEffortId});
         });
       }).error(function (data) {
@@ -47,12 +69,12 @@ angular.module('vote.controllers', [])
   })
 
 
-/*
- * Desc 投票页面
- * Author LN
- * Date 2017-3-3
- * */
-  .controller('castVoteCtrl', function($scope, $stateParams, $ionicPopup, $state, Contact, voteService) {
+  /*********************************************************************************************************************
+   * Desc 投票页面
+   * Author LN
+   * Date 2017-3-3
+   * */
+  .controller('castVoteCtrl', function ($scope, $stateParams, $ionicPopup, $state, Contact, voteService) {
     // 投票详情 展开/合拢
     $scope.onOff = false;
     $scope.changeOnOff = function (onOff) {
@@ -66,7 +88,7 @@ angular.module('vote.controllers', [])
     $scope.surveyId = $stateParams.surveyId;          // 投票标题ID
     $scope.surveyName = $stateParams.surveyName;      // 投票标题
     $scope.workEffortId = $stateParams.workEffortId;  // 活动ID
-    $scope.siginUp='投票';
+    $scope.siginUp = '投票';
 
     voteService.findActivityPollQuestions($scope.surveyId).success(function (data) {
       $scope.questions = data.resultMap.questions;                         // 投票项列表
@@ -74,21 +96,21 @@ angular.module('vote.controllers', [])
 
       var partyResponceAnswers = data.resultMap.partyResponceAnswer;       // 投票详情列表
       var voteArr = [];
-      for(var i=0;i<partyResponceAnswers.length;i++){
-        if(partyResponceAnswers[i] == null){
+      for (var i = 0; i < partyResponceAnswers.length; i++) {
+        if (partyResponceAnswers[i] == null) {
           continue;
-        }else{
+        } else {
           voteArr.push({
-            'question':partyResponceAnswers[i].question,
-            'firstName':partyResponceAnswers[i].firstName
+            'question': partyResponceAnswers[i].question,
+            'firstName': partyResponceAnswers[i].firstName
           });
         }
         //判断用户是否已经投票，不允许重复投票
-        var partyId=localStorage.getItem("partyId");
-        if(partyResponceAnswers[i].partyId==partyId){
+        var partyId = localStorage.getItem("partyId");
+        if (partyResponceAnswers[i].partyId == partyId) {
           $(function () {
-            $('#signUp').attr("disabled",true);
-            $scope.siginUp='已投票';
+            $('#signUp').attr("disabled", true);
+            $scope.siginUp = '已投票';
           })
         }
       }
@@ -97,7 +119,7 @@ angular.module('vote.controllers', [])
     });
 
     $scope.doPollQuestion = function (surveyQuestionId) {
-      if(surveyQuestionId == '0'){
+      if (surveyQuestionId == '0') {
         $ionicPopup.alert({
           title: '提示',
           template: "请选择要投票的选项！"
@@ -108,7 +130,7 @@ angular.module('vote.controllers', [])
           title: '成功',
           template: "投票成功！"
         });
-        alertPopup.then(function(res) {
+        alertPopup.then(function (res) {
           $state.go("tab.voteList", {"workEffortId": $scope.workEffortId});
         });
       }).error(function (data) {
@@ -118,21 +140,6 @@ angular.module('vote.controllers', [])
         });
       });
     };
-
-  })
-
-
-/*
- * Desc 投票列表
- * Author LN
- * Date 2017-3-3
- * */
-  .controller('voteListCtrl', function($scope, $state, $ionicPopup, $stateParams, voteService) {
-    $scope.workEffortId = $stateParams.workEffortId; // 活动ID
-    voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
-      console.log(data.resultMap.activityPollQuestionsTitle);
-      $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle; // 投票列表
-    });
 
   })
 

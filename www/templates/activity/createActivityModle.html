@@ -15,16 +15,17 @@
           </label>
         </div>
         <div class="item">
-          <input type="text" readonly=“readonly” placeholder="活动开始日期"
-                 style="width: 45%;display: inline-block;background-color: white" id="startDate" ng-click="startDate()">
-          <input type="text" readonly=“readonly” placeholder="活动结束日期"
-                 style="width: 45%;display: inline-block;background-color: white;float: right" id="endDate"
+          <input type="text" readonly placeholder="活动开始日期"
+                 style="width: 45%;display: inline-block;background-color: white" ng-model="ActivityData.startDate"
+                 ng-click="startDate()">
+          <input type="text" readonly placeholder="活动结束日期"
+                 style="width: 45%;display: inline-block;background-color: white;float: right" ng-model="ActivityData.endDate"
                  ng-click="endDate()">
         </div>
         <div class="item">
           <label class="">
-            <input type="text" readonly=“readonly” style="background-color: white" ng-click="openModalAddress()"
-                   placeholder="活动举办地点" style="width: 100%" ng-model="ActivityData.address">
+            <input type="text" readonly=“readonly” ng-click="openModalAddress()"
+                   placeholder="活动举办地点" style="width: 100%;background-color: white" ng-model="ActivityData.address">
           </label>
         </div>
         <div class="item">

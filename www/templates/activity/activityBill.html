@@ -5,111 +5,44 @@
         <i class="icon  ion-ios-arrow-back globalColorButton"></i>
       </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <button class="button button-icon ion-plus globalColor" ng-click="addBill()">
-      </button>
-    </ion-nav-buttons>
+    <!--<ion-nav-buttons side="right">-->
+      <!--<button class="button button-icon ion-plus globalColor" ng-click="addBill()">-->
+      <!--</button>-->
+    <!--</ion-nav-buttons>-->
   </ion-nav-bar>
-  <ion-content>
-    <!--<ion-list>-->
-      <!--<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in billList" type="item-text-wrap">-->
-        <!--&lt;!&ndash;这里加入逻辑，如果数据库存在图片就显示数据库里面的图片，否则就给一张默认的图片&ndash;&gt;-->
-        <!--<img ng-src="{{contactImg}}"  style="top: 26px;max-width:55px;max-height:55px">-->
-        <!--<div style="padding-left: 20px">-->
-          <!--<h2>{{chat.nickName}}</h2>-->
-          <!--<p>应缴: {{chat.invoiceApplied}}</p>-->
-          <!--<p>实缴: {{chat.amountApplied}}</p>-->
-          <!--<p>时间: {{chat.payDate}}</p>-->
-        <!--</div>-->
-        <!--<ion-option-button class="button-assertive">-->
-          <!--Delete-->
-        <!--</ion-option-button>-->
-      <!--</ion-item>-->
-    <!--</ion-list>-->
-    <table id="travel" summary="Travel times to work by main mode (Autumn 2006) - Source: London Travel Report 2007 http://www.tfl.gov.uk/assets/downloads/corporate/London-Travel-Report-2007-final.pdf">
-
-      <!--<caption>Travel patterns in London - Travel times to work by main mode (Autumn 2006) - Minutes</caption>-->
-
+  <ion-content id="activityBill">
+    <table>
       <thead>
-      <!--<tr>-->
-        <!--<th scope="col" rowspan="2">Main mode</th>-->
-        <!--<th scope="col" colspan="6">Area of workplace</th>-->
-      <!--</tr>-->
-
-      <tr>
-        <th scope="col">姓名</th>
-        <th scope="col">应缴金额</th>
-        <th scope="col">实缴金额</th>
-        <th scope="col">缴费日期</th>
-      </tr>
+        <tr>
+          <th>姓名</th>
+          <th>应缴金额</th>
+          <th>实缴金额</th>
+          <th>缴费日期</th>
+        </tr>
       </thead>
+
+      <tbody>
+        <tr ng-repeat="item in billList">
+          <th scope="row">{{item.firstName}}</th>
+          <td><label><input type="number" ng-model="item.invoiceApplied"></label></td>
+          <td><label><input type="number" ng-model="item.amountApplied"></label></td>
+          <td><label><input type="text" name="payDate"  readonly ng-model="item.payDate" ng-click="payDate($index)"></label></td>
+        </tr>
+      </tbody>
 
       <tfoot>
       <tr>
-        <th scope="row">总计</th>
-        <td contentEditable="true">350</td>
-        <td contentEditable="true">330</td>
-        <td contentEditable="true"></td>
+        <th>总计</th>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
       </tfoot>
-
-      <tbody>
-      <tr>
-        <th scope="row">金龙熙</th>
-        <td contentEditable="true">48</td>
-        <td contentEditable="true">32</td>
-        <td contentEditable="true">2017-04-01</td>
-      </tr>
-
-      <tr>
-        <th scope="row">小沈</th>
-        <td contentEditable="true">36</td>
-        <td contentEditable="true">29</td>
-        <td contentEditable="true">2017-04-01</td>
-      </tr>
-
-      <tr>
-        <th scope="row">王坤</th>
-        <td contentEditable="true">33</td>
-        <td contentEditable="true">24</td>
-        <td contentEditable="true">2017-04-01</td>
-      </tr>
-
-      <tr>
-        <th scope="row">李宁</th>
-        <td contentEditable="true">47</td>
-        <td contentEditable="true">39</td>
-        <td>2017-04-01</td>
-      </tr>
-
-      <tr>
-        <th scope="row">董梦杰</th>
-        <td contentEditable="true">69</td>
-        <td contentEditable="true">66</td>
-        <td contentEditable="true"> 2017-04-01</td>
-      </tr>
-
-      <tr>
-        <th scope="row">冯浩</th>
-        <td contentEditable="true">49</td>
-        <td contentEditable="true">45</td>
-        <td contentEditable="true">2017-04-01</td>
-      </tr>
-
-      </tbody>
-
     </table>
   </ion-content>
   <div class="tab-nav tabs globalColor">
-    <a class="tab-item tab-item" style="line-height: 10px;" ng-click="editActivty(editEvent)">
-      <i class="icon icon-left ion-wrench">
-      </i>
-      <span class="tab-title" style="font-size: 13px;">编辑账单</span>
-    </a>
-    <a class="tab-item tab-item" style="line-height: 10px;" ng-click="InviteModal()">
-      <i class="icon icon-left ion-checkmark-round">
-      </i>
-      <span class="tab-title" style="font-size: 13px;">保存账单</span>
+    <a class="tab-item tab-item" ng-click="saveBill()">
+      <span class="tab-title">保存</span>
     </a>
   </div>
 </ion-view>
