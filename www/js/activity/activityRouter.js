@@ -87,6 +87,18 @@ angular.module('starter')
           }
         }
       })
+      //活动项
+      .state('tab.activityMatter', {
+        url: '/activityMatter/:workEffortId',
+        disableBack: true,
+        cache: false,
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/activity/activityMatter.html',
+            controller: 'ActivityMatter'
+          }
+        }
+      })
       //活动邀请
       .state('tab.activityInvitation', {
         url: '/activityInvitation/:workEffortId/:partyId',
@@ -111,26 +123,5 @@ angular.module('starter')
           }
         }
       })
-      //活动账单的显示
-      .state('tab.activityBill', {
-        url: '/activityBill/:workEffortId',
-        cache: false,
-        views: {
-          'tab-dash': {
-            templateUrl: 'templates/activity/activityBill.html',
-            controller: 'activityBillCtrl'
-          }
-        }
-      })
-      //活动账单的添加页面
-      .state('app.addPersonBill', {
-        url: '/addPersonBill/:workEffortId',
-        cache: false,
-        views: {
-          'tab-dash': {
-            templateUrl: 'templates/activity/addPersonBill.html',
-            controller: 'addPersonBillCtrl'
-          }
-        }
-      })
+
   });

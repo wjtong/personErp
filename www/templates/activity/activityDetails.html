@@ -5,11 +5,13 @@
         <i class="icon  ion-ios-arrow-back globalColorButton"></i>
       </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right" >
-      <button id="editEvent" class="button button-clear button-dark" ng-if="!editIf" ng-click="editEvent(editButton)">{{editButton}}</button>
+    <ion-nav-buttons side="right">
+      <button id="editEvent" class="button button-clear button-dark" ng-if="!editIf" ng-click="editEvent(editButton)">
+        {{editButton}}
+      </button>
     </ion-nav-buttons>
     <!--<ion-nav-buttons side="right">-->
-      <!--<button class="button button-dark button-small" ng-click="updateEventStatus()">开始活动</button>-->
+    <!--<button class="button button-dark button-small" ng-click="updateEventStatus()">开始活动</button>-->
     <!--</ion-nav-buttons>-->
   </ion-nav-bar>
   <ion-content id="activityDel">
@@ -21,15 +23,18 @@
         <div class="del-right">
           <label>
             <i class="icon activityTimer"></i>
-            <input type="text" placeholder="开始时间" readonly ng-click="startDate()" ng-disabled="edit" ng-model="ActivityData.startDate">
+            <input type="text" placeholder="开始时间" readonly ng-click="startDate()" ng-disabled="edit"
+                   ng-model="ActivityData.startDate">
           </label>
           <label>
             <i class="icon activityTimerEnd"></i>
-            <input type="text" placeholder="结束时间" readonly ng-click="endDate()" ng-disabled="edit" ng-model="ActivityData.endDate">
+            <input type="text" placeholder="结束时间" readonly ng-click="endDate()" ng-disabled="edit"
+                   ng-model="ActivityData.endDate">
           </label>
           <label>
             <i class="icon activityLocation"></i>
-            <input type="text" placeholder="活动地点" readonly ng-disabled="edit" ng-click="openModalAddress()" ng-model="ActivityData.address">
+            <input type="text" placeholder="活动地点" readonly ng-disabled="edit" ng-click="openModalAddress()"
+                   ng-model="ActivityData.address">
           </label>
         </div>
       </div>
@@ -39,8 +44,12 @@
           <p>{{picture.name}}</p>
         </div>
       </div>
+      <div class="item">
+          <h3>公告:</h3>
+          <textarea style="resize:none"  rows="3" ng-model="activityList.serviceLoaderName" ng-disabled="edit"></textarea>
+      </div>
       <div class="item item-joinP">
-        <h3 >参与人:</h3>
+        <h3>参与人:</h3>
         <p class="pe-num">{{number}}人</p>
         <hr class="cleanFloat">
         <ion-scroll direction="x" class="wide-as-needed">
@@ -56,7 +65,8 @@
       <div class="item item-joinP">
         <h3>活动描述:</h3>
         <label>
-          <textarea style="resize:none" placeholder="活动描述" ng-disabled="edit" ng-model="activityList.description"></textarea>
+          <textarea style="resize:none" placeholder="活动描述" ng-disabled="edit"
+                    ng-model="activityList.description"></textarea>
         </label>
       </div>
       <div class="item item-wall">
@@ -71,6 +81,8 @@
                ng-repeat="picture in images_list" ng-click="shouBigImage($index,picture.firstName)">
             <img class="img-responsive" style="width: 100%;height: 100%;" ng-src="{{picture.objectInfo}}">
           </div>
+        </div>
+        <div id="content">
         </div>
       </div>
       <div class="item" ng-if="activityItemNull">

@@ -1,0 +1,33 @@
+<ion-view title="活动账单"   hide-tabs="true">
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="goBack()">
+        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button class="button button-icon ion-plus globalColor" ng-click="addBill()">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content id="activityBill">
+    <div class="list card">
+      <div class="item" ng-repeat="item in billList">
+          <h3 style="text-align: center">{{item.paymentGroupName}}</h3>
+          <p>单位:元</p>
+          <hr>
+          <div class="partition" ng-repeat="member in item.memberList">
+              <span>{{member.firstName}}</span>
+              <input type="text" name="{{member.paymentId}}" ng-model="member.amount" ng-change="onfocus(member.paymentId)">
+              <button class="Payment-edit" id="{{member.paymentId}}" ng-click="updatePaymentAmount(member.paymentId)">修改</button>
+              <button class="Payment-status" ng-click="partyPay(member.partyIdFrom,member.paymentId)">{{member.statusId}}</button>
+          </div>
+      </div>
+    </div>
+  </ion-content>
+  <div class="tab-nav tabs globalColor">
+    <a class="tab-item tab-item" ng-click="saveBill()">
+      <span class="tab-title">保存</span>
+    </a>
+  </div>
+</ion-view>

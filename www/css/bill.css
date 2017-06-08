@@ -1,0 +1,40 @@
+/*活动账单表格样式********************************************************************************************************/
+#activityBill .item {
+  border-bottom: 20px solid saddlebrown;
+  position: relative;
+}
+
+#activityBill input {
+  display: inline-block;
+  width: 30%;
+  border: 1px solid silver;
+  padding: 0;
+  position: absolute;
+  left: 20%;
+  height: 28px;
+}
+
+#activityBill .Payment-status {
+  position: absolute;
+  right: 5%;
+  height: 28px;
+  background-color: #FFDA44;
+  border: 0;
+  border-radius: 5px;
+}
+
+#activityBill .Payment-edit {
+  position: absolute;
+  right: 25%;
+  height: 28px;
+  background-color: #4cd964;
+  border: 0;
+  border-radius: 5px;
+  display: none;
+}
+
+#activityBill .partition {
+  position: relative;
+  height: 30px;
+}
+

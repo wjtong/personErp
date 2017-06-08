@@ -57,7 +57,7 @@ angular.module('activity.services', [])
       },
       //编辑活动
       updateActivity: function (tarjeta, workEffortName, actualStartDate, estimatedCompletionDate, locationDesc,
-                                description, specialTerms,workEffortId,themesId, cb) {
+                                description, specialTerms, workEffortId, themesId, serviceLoaderName, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "updateEvent",
           data: {
@@ -68,8 +68,9 @@ angular.module('activity.services', [])
             locationDesc: locationDesc,
             description: description,
             specialTerms: specialTerms,
-            workEffortId:workEffortId,
-            themesId:themesId
+            workEffortId: workEffortId,
+            themesId: themesId,
+            serviceLoaderName: serviceLoaderName
           },
           async: false,
           type: 'POST',
@@ -86,7 +87,7 @@ angular.module('activity.services', [])
         });
       },
       //更新活动状态
-      updateEventStatus: function (tarjeta, workEffortId,currentStatusId, cb) {
+      updateEventStatus: function (tarjeta, workEffortId, currentStatusId, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "updateEventStatus",
           data: {
@@ -161,6 +162,31 @@ angular.module('activity.services', [])
           data: {
             workEffortIdFrom: workEffortIdFrom,
             workEffortIdTo: workEffortIdTo
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //更新活动项
+      updateEventProject: function (tarjeta, workEffortId, workEffortName, sequenceNum, actualStartDate, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "updateEventProject",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+            workEffortName: workEffortName,
+            sequenceNum: sequenceNum,
+            actualStartDate: actualStartDate
           },
           async: false,
           type: 'POST',
@@ -312,76 +338,6 @@ angular.module('activity.services', [])
           }
         });
       },
-      //新建活动账单
-      createActivityPayment: function (tarjeta, workEffortId, partyIdFrom, invoiceApplied, amountApplied, payDate, cb) {
-        $.ajax({
-          url: $rootScope.activityInterfaceUrl + "createPartyPayment",
-          data: {
-            tarjeta: tarjeta,
-            workEffortId: workEffortId,
-            partyIdFrom: partyIdFrom,
-            invoiceApplied: invoiceApplied,
-            amountApplied: amountApplied,
-            payDate: payDate
-          },
-          async: false,
-          type: 'POST',
-          success: function (result) {
-            if (jQuery.type(result) === "string") {
-              result = jQuery.parseJSON(result);
-            }
-            if (result.resultMap != null) {
-              if ($.type(cb) === 'function') {
-                cb(result.resultMap);
-              }
-            }
-          }
-        });
-      },
-      //查询活动账单
-      findActivityPayment: function (tarjeta, workEffortId, cb) {
-        $.ajax({
-          url: $rootScope.activityInterfaceUrl + "queryActivityPayment",
-          data: {
-            tarjeta: tarjeta,
-            workEffortId: workEffortId,
-          },
-          async: false,
-          type: 'POST',
-          success: function (result) {
-            if (jQuery.type(result) === "string") {
-              result = jQuery.parseJSON(result);
-            }
-            if (result.resultMap != null) {
-              if ($.type(cb) === 'function') {
-                cb(result.resultMap);
-              }
-            }
-          }
-        });
-      },
-      //保存活动账单
-      updatePartyPayment: function (tarjeta, paymentList, cb) {
-        $.ajax({
-          url: $rootScope.activityInterfaceUrl + "updatePartyPayment",
-          data: {
-            tarjeta: tarjeta,
-            paymentList: paymentList,
-          },
-          async: false,
-          type: 'POST',
-          success: function (result) {
-            if (jQuery.type(result) === "string") {
-              result = jQuery.parseJSON(result);
-            }
-            if (result.resultMap != null) {
-              if ($.type(cb) === 'function') {
-                cb(result.resultMap);
-              }
-            }
-          }
-        });
-      },
       //创建活动中的昵称
       createNickName: function (tarjeta, entityId, partyId, nickName, cb) {
         $.ajax({
@@ -415,6 +371,76 @@ angular.module('activity.services', [])
             tarjeta: tarjeta,
             workEffortId: workEffortId,
             personInfoArray: personInfoArray,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //新建活动事项
+      createActivityJob: function (tarjeta, workEffortId, surveyName,questions, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "createActivityJob",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+            surveyName: surveyName,
+            questions:questions
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //查询活动事项
+      queryEventJobs: function (tarjeta, workEffortId, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "queryEventJobs",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //加入活动事项
+      pushMyJob: function (tarjeta, surveyQuestionId,surveyId,answer, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "pushMyJob",
+          data: {
+            tarjeta: tarjeta,
+            surveyQuestionId: surveyQuestionId,
+            surveyId:surveyId,
+            answer:answer
           },
           async: false,
           type: 'POST',
@@ -634,6 +660,30 @@ angular.module('activity.services', [])
           }
         });
       },
+      //举报活动
+      createActivityReview: function (tarjeta, workEffortId, reviewText, rating, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "createActivityReview",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+            reviewText: reviewText,
+            rating: rating
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //活动主题图片
       createPeSystemInfoAboutActivity: function (partyIdTo, moreInfoUrl, noteInfo, cb) {
         $.ajax({
@@ -722,10 +772,11 @@ angular.module('activity.services', [])
 
     //活动详情功能导航栏
     var activityImgTabs = [
-      //{id: 'Pic_10030', img: 'img/activityImg/btn_照片墙_n@2x.png', name: '照片墙'},
+      {id: 'Pic_10030', img: 'img/activityImg/更多.jpeg', name: '更多'},
       {id: 'Pic_10031', img: 'img/activityImg/btn_投票_n@2x.png', name: '投票'},
       {id: 'Pic_10033', img: 'img/activityImg/btn_附件_n@2x.png', name: '活动项'},
-      {id: 'Pic_10032', img: 'img/activityImg/btn_账单_n@2x.png', name: '账单'},
+      {id: 'Pic_10033', img: 'img/activityImg/事项.jpeg', name: '事项'},
+      {id: 'Pic_10034', img: 'img/activityImg/btn_账单_n@2x.png', name: '账单'},
 
     ];
 

@@ -7,23 +7,24 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker', 'ionic-timepicker',
   'vote.controllers', 'vote.services', 'login.controllers', 'login.services', 'activity.services', 'activity.controllers',
-  'activity.services', 'contact.services', 'contact.controllers', 'directives.OniBarDirective', 'tools.services'])
+  'activity.services', 'contact.services', 'contact.controllers', 'directives.OniBarDirective', 'tools.services','bill.controllers',
+  'bill.services'])
 
   .run(function ($ionicPlatform, ActivityServer, $cordovaDevice, $rootScope) {
 
     //连接服务器
-    $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
-    $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
-    $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
-    $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
-    $rootScope.communicationfaceUrl = "http://114.215.200.46:3400/communication/control/";//活动接口
+    // $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
+    // $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
+    // $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
+    // $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
+    // $rootScope.communicationfaceUrl = "http://114.215.200.46:3400/communication/control/";//活动接口
 
     //链接沈演麟本地
-    // $rootScope.interfaceUrl = "http://192.168.3.102:3400/personContacts/control/";
-    // $rootScope.voteInterfaceUrl = "http://192.168.3.102:3400/pevote/control/";//投票接口
-    // $rootScope.activityInterfaceUrl = "http://192.168.3.102:3400/personactivity/control/";//活动接口
-    // $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
-    // $rootScope.communicationfaceUrl = "http://192.168.3.102:3400/communication/control/";//活动接口
+    $rootScope.interfaceUrl = "http://192.168.3.102:3400/personContacts/control/";
+    $rootScope.voteInterfaceUrl = "http://192.168.3.102:3400/pevote/control/";//投票接口
+    $rootScope.activityInterfaceUrl = "http://192.168.3.102:3400/personactivity/control/";//活动接口
+    $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
+    $rootScope.communicationfaceUrl = "http://192.168.3.102:3400/communication/control/";//活动接口
 
     $ionicPlatform.ready(function (Contact) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

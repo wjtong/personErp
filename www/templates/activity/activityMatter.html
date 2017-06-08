@@ -1,0 +1,28 @@
+<ion-view title="活动事项" hide-tabs="true">
+  <ion-nav-bar class="globalColor">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="goBack()">
+        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button class="button button-icon ion-plus globalColor" ng-click="newActivityMatter()">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content id="activityMatter">
+    <ion-list>
+      <ion-item ng-repeat="item in activityJobsList">
+        <h3>{{item.surveyName}}</h3>
+        <textarea rows="2" readonly="readonly" style="resize: none;background-color: white">{{item.questionName}}</textarea>
+        <button class="button button-positive button-small" style="margin-bottom: 5px" ng-click="joinMatter(item.surveyId,item.surveyQuestionId)">参与</button>
+        <hr>
+        <div class="list" ng-repeat="anwser in item.partyAnswer">
+          <div class="item">{{anwser.firstName}}：{{anwser.textResponse}}</div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <!--<div class="item-empty" ng-if="item_empty">还没有相关活动事项</div>-->
+  </ion-content>
+</ion-view>
+

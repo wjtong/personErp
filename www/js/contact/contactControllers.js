@@ -5,7 +5,7 @@ angular.module('contact.controllers', [])
  * Author LX
  * Date 2017-3-3
  * */
-  .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, Login, ActivityServer, $cordovaImagePicker, $cordovaFileTransfer) {
+  .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, Login, $ionicPopup) {
 
     //准备参数
     $scope.tarjeta = localStorage.getItem("tarjeta");
@@ -21,10 +21,21 @@ angular.module('contact.controllers', [])
 
     //切换账户
     $scope.loginOut = function () {
-      localStorage.removeItem('tarjeta');
-      localStorage.removeItem("partyId");
-      $state.go("login");
-      $ionicHistory.clearCache();   //清除缓存数据
+      var confirmPopup = $ionicPopup.confirm({
+        title: '切换账户',
+        template: '是否确定要更换账户'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          localStorage.removeItem('tarjeta');
+          localStorage.removeItem("partyId");
+          $state.go("login");
+          $ionicHistory.clearCache();   //清除缓存数据
+        } else {
+          console.log('You are not sure');
+        }
+        });
+
     };
 
     //判断手机号码是否绑定
@@ -58,11 +69,7 @@ angular.module('contact.controllers', [])
         var code = response.code;
         Login.userWeChatAppLogin(code, $scope.partyId, function (data) {
           if (data.tarjeta) {
-            // localStorage.removeItem("tarjeta");
-            // localStorage.removeItem("partyId");
             localStorage.removeItem("openId");
-            // localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
-            // localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
             localStorage.setItem("adminOpenId", data.openId);//设置partyId登陆人
           }
         });
@@ -194,7 +201,6 @@ angular.module('contact.controllers', [])
     $scope.goContactInfo = function (partyId) {
       $state.go('tab.contactInfo', {'partyId': partyId})
     }
-
   })
 
   /*********************************************************************************************************************
@@ -251,11 +257,10 @@ angular.module('contact.controllers', [])
       };
     };
 
-    //跳转至相应活动详情
+    //跳转至相应活动详情页面
     $scope.goActivityDetail = function (workEffortId) {
       $state.go("tab.activityDetails", {'activityId': workEffortId})
     }
-
   })
 
   /*********************************************************************************************************************
@@ -333,7 +338,6 @@ angular.module('contact.controllers', [])
         });
       })
     }
-
   })
 
 

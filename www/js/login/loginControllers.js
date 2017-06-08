@@ -1,7 +1,11 @@
 angular.module('login.controllers', [])
 
-//找回活动(登陆)*****************************************************************************************************************
-  .controller('LoginCtrl', function ($http, $scope, Login, $state, ThemeImage, $ionicHistory, ActivityServer) {
+/*********************************************************************************************************************
+ * Desc 找回活动
+ * Author LX
+ * Date 2017-3-3
+ * */
+  .controller('LoginCtrl', function ($http, $scope, Login, $state, ThemeImage, $ionicHistory) {
 
     //手机号码找回
     $scope.loginData = {};
@@ -36,8 +40,8 @@ angular.module('login.controllers', [])
       Wechat.auth(scope, function (response) {
         console.log("微信返回值:" + JSON.stringify(response));
         var code = response.code;
-        Login.userWeChatAppLoginBack(code,function (data) {
-          console.log('微信找回的Token:'+data.tarjeta);
+        Login.userWeChatAppLoginBack(code, function (data) {
+          console.log('微信找回的Token:' + data.tarjeta);
           if (data.tarjeta) {
             localStorage.removeItem("tarjeta");
             localStorage.removeItem("partyId");
@@ -60,11 +64,15 @@ angular.module('login.controllers', [])
 
   })
 
-  //验证码***************************************************************************************************************
-  .controller('captcha', function ($scope, $http, $rootScope, $interval,Login) {
+  /*********************************************************************************************************************
+   * Desc 获取验证码
+   * Author LX
+   * Date 2017-3-3
+   * */
+  .controller('captcha', function ($scope, $http, $rootScope, $interval, Login) {
 
-    $scope.codeBtn = '立即验证';
     //登陆获取验证码
+    $scope.codeBtn = '立即验证';
     $scope.getIdentifyCode = function (tel) {
       $scope.smsType = 'LOGIN';
       $scope.msg = ""; //先清空错误提示
@@ -113,8 +121,7 @@ angular.module('login.controllers', [])
     $scope.getIdentifyCodeReg = function (tel) {
       Login.userLoginExsit(tel, function (data) {     //判断用户是否存在
         if (data.resultMsg === '成功') {
-          //定义一个是登陆获取验证吗＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-          $scope.smsType = 'REGISTER';             //定义获取验证码用于注册
+          $scope.smsType = 'REGISTER';                //定义获取验证码用于注册
           $scope.msg = "";//先清空错误提示
           if (tel) {
             $http({
@@ -122,7 +129,7 @@ angular.module('login.controllers', [])
               url: $rootScope.platformInterfaceUrl + "getLoginCaptcha",
               data: {
                 "teleNumber": tel,
-                "smsType": $scope.smsType,
+                "smsType": $scope.smsType
               },
               headers: {'Content-Type': 'application/x-www-form-urlencoded'},         // 默认的Content-Type是text/plain;charset=UTF-8，所以需要更改下
               transformRequest: function (obj) {                                      // 参数是对象的话，需要把参数转成序列化的形式
@@ -157,7 +164,6 @@ angular.module('login.controllers', [])
           }
         } else {
           alert("用户已存在！！！！！！！！！！！！");
-          //$state.go('login')
         }
       })
     };
