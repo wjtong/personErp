@@ -1,10 +1,10 @@
 angular.module('vote.controllers', [])
 
 /***********************************************************************************************************************
-   * Desc 投票列表
-   * Author LN
-   * Date 2017-3-3
-   * */
+ * Desc 投票列表
+ * Author LN
+ * Date 2017-3-3
+ * */
   .controller('voteListCtrl', function ($scope, $state, $ionicPopup, $stateParams, voteService) {
     //参数准备
     $scope.workEffortId = $stateParams.workEffortId;
@@ -141,9 +141,6 @@ angular.module('vote.controllers', [])
       });
     };
 
-  })
-
-
-;
+  });
 
 

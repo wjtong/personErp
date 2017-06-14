@@ -1,12 +1,12 @@
 <ion-view title="活动事项" hide-tabs="true">
-  <ion-nav-bar class="globalColor">
+  <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="goBack()">
-        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+        <i class="icon  ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button class="button button-icon ion-plus globalColor" ng-click="newActivityMatter()">
+      <button class="button button-icon ion-plus" ng-click="newActivityMatter()">
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
@@ -22,7 +22,7 @@
         </div>
       </ion-item>
     </ion-list>
-    <!--<div class="item-empty" ng-if="item_empty">还没有相关活动事项</div>-->
+    <div class="empty" ng-if="item_empty">还没有相关活动事项</div>
   </ion-content>
 </ion-view>
 

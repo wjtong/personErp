@@ -1,12 +1,12 @@
-<ion-view view-title="活动投票列表" hide-tabs="true">
-  <ion-nav-bar class="globalColor">
+<ion-view title="活动投票列表" hide-tabs="true">
+  <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
-        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+        <i class="icon  ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <a class="button icon-left globalColor" ui-sref="tab.goEditVote({workEffortId:{{workEffortId}}})">
+      <a class="button icon-left" ui-sref="tab.goEditVote({workEffortId:{{workEffortId}}})">
         创建
       </a>
     </ion-nav-buttons>
@@ -22,6 +22,6 @@
         <ion-option-button class="button-assertive">移除</ion-option-button>
       </ion-item>
     </ion-list>
-    <div class="vote-empty" ng-if="vote_empty">还没有相关投票内容</div>
+    <div class="empty" ng-if="vote_empty">还没有相关投票内容</div>
   </ion-content>
 </ion-view>

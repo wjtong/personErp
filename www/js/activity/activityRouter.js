@@ -3,7 +3,7 @@ angular.module('starter')
   .config(function ($stateProvider) {
     $stateProvider
 
-      //活动详情
+    //活动详情
       .state('tab.activityDetails', {
         url: '/activityDetails/:activityId',
         disableBack: true,
@@ -31,7 +31,7 @@ angular.module('starter')
       .state('tab.slide', {
         url: '/slide/:activityId/:index',
         disableBack: true,
-        cache: false,
+        cache: true,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activitySlide.html',
@@ -65,9 +65,9 @@ angular.module('starter')
       })
       //活动讨论（实时聊天融云）
       .state('tab.activityDiscuss', {
-        url: '/activityDiscuss/:activityId',
+        url: '/activityDiscuss/:communicationEventId/:workEffortId',
         disableBack: true,
-        cache: true,
+        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityDiscuss.html',
@@ -87,7 +87,7 @@ angular.module('starter')
           }
         }
       })
-      //活动项
+      //活动事项
       .state('tab.activityMatter', {
         url: '/activityMatter/:workEffortId',
         disableBack: true,
@@ -123,5 +123,4 @@ angular.module('starter')
           }
         }
       })
-
   });

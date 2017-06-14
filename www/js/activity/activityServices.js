@@ -1,6 +1,10 @@
 angular.module('activity.services', [])
 
-//活动连接后台************************************************************************************************************
+/*********************************************************************************************************************
+ * Desc 活动相关服务
+ * Author LX
+ * Date 2017-6-12
+ * */
   .factory('ActivityServer', function ($rootScope, $q, $http) {
 
     return {
@@ -202,6 +206,28 @@ angular.module('activity.services', [])
           }
         });
       },
+      //活动项排序
+      updateProjectsequenceNum: function (tarjeta, sequenceArray, cb) {
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "updateProjectsequenceNum",
+          data: {
+            tarjeta: tarjeta,
+            sequenceArray: sequenceArray,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //活动讨论的相关参数
       queryActivityChatGroupInfo: function (tarjeta, workEffortId, cb) {
         $.ajax({
@@ -387,14 +413,14 @@ angular.module('activity.services', [])
         });
       },
       //新建活动事项
-      createActivityJob: function (tarjeta, workEffortId, surveyName,questions, cb) {
+      createActivityJob: function (tarjeta, workEffortId, surveyName, questions, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "createActivityJob",
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
             surveyName: surveyName,
-            questions:questions
+            questions: questions
           },
           async: false,
           type: 'POST',
@@ -433,14 +459,14 @@ angular.module('activity.services', [])
         });
       },
       //加入活动事项
-      pushMyJob: function (tarjeta, surveyQuestionId,surveyId,answer, cb) {
+      pushMyJob: function (tarjeta, surveyQuestionId, surveyId, answer, cb) {
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "pushMyJob",
           data: {
             tarjeta: tarjeta,
             surveyQuestionId: surveyQuestionId,
-            surveyId:surveyId,
-            answer:answer
+            surveyId: surveyId,
+            answer: answer
           },
           async: false,
           type: 'POST',
@@ -684,6 +710,76 @@ angular.module('activity.services', [])
           }
         });
       },
+      //发表评论
+      queryActivityCommunication: function (tarjeta, communicationEventId, cb) {
+        $.ajax({
+          url: $rootScope.communicationfaceUrl + "queryActivityCommunication",
+          data: {
+            tarjeta: tarjeta,
+            communicationEventId: communicationEventId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //查询评论
+      createActivityCommunication: function (tarjeta, communicationEventId, contentId, text, cb) {
+        $.ajax({
+          url: $rootScope.communicationfaceUrl + "createActivityCommunication",
+          data: {
+            tarjeta: tarjeta,
+            communicationEventId: communicationEventId,
+            contentId: contentId,
+            text: text
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+              /**/
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //查询回复消息
+      queryActivityCommunicationResponce: function (tarjeta, contentId, cb) {
+        $.ajax({
+          url: $rootScope.communicationfaceUrl + "queryActivityCommunicationResponce",
+          data: {
+            tarjeta: tarjeta,
+            contentId: contentId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+              /**/
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //活动主题图片
       createPeSystemInfoAboutActivity: function (partyIdTo, moreInfoUrl, noteInfo, cb) {
         $.ajax({
@@ -745,11 +841,15 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
     }
   })
 
-  //活动主题图片＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+  /*********************************************************************************************************************
+   * Desc 活动功能按键图片
+   * Author LX
+   * Date 2017-6-12
+   * */
   .factory('ThemeImage', function () {
 
     //活动分享方式图片
@@ -772,11 +872,12 @@ angular.module('activity.services', [])
 
     //活动详情功能导航栏
     var activityImgTabs = [
-      {id: 'Pic_10030', img: 'img/activityImg/更多.jpeg', name: '更多'},
       {id: 'Pic_10031', img: 'img/activityImg/btn_投票_n@2x.png', name: '投票'},
       {id: 'Pic_10033', img: 'img/activityImg/btn_附件_n@2x.png', name: '活动项'},
       {id: 'Pic_10033', img: 'img/activityImg/事项.jpeg', name: '事项'},
       {id: 'Pic_10034', img: 'img/activityImg/btn_账单_n@2x.png', name: '账单'},
+      {id: 'Pic_10030', img: 'img/activityImg/更多.jpeg', name: '更多'},
+
 
     ];
 

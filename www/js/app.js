@@ -7,52 +7,69 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker', 'ionic-timepicker',
   'vote.controllers', 'vote.services', 'login.controllers', 'login.services', 'activity.services', 'activity.controllers',
-  'activity.services', 'contact.services', 'contact.controllers', 'directives.OniBarDirective', 'tools.services','bill.controllers',
+  'activity.services', 'contact.services', 'contact.controllers', 'directives.OniBarDirective', 'tools.services', 'bill.controllers',
   'bill.services'])
 
   .run(function ($ionicPlatform, ActivityServer, $cordovaDevice, $rootScope) {
 
     //连接服务器
-    // $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
-    // $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
-    // $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
-    // $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
-    // $rootScope.communicationfaceUrl = "http://114.215.200.46:3400/communication/control/";//活动接口
+    $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
+    $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
+    $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
+    $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
+    $rootScope.communicationfaceUrl = "http://114.215.200.46:3400/communication/control/";//活动接口
 
     //链接沈演麟本地
-    $rootScope.interfaceUrl = "http://192.168.3.102:3400/personContacts/control/";
-    $rootScope.voteInterfaceUrl = "http://192.168.3.102:3400/pevote/control/";//投票接口
-    $rootScope.activityInterfaceUrl = "http://192.168.3.102:3400/personactivity/control/";//活动接口
-    $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
-    $rootScope.communicationfaceUrl = "http://192.168.3.102:3400/communication/control/";//活动接口
+    // $rootScope.interfaceUrl = "http://192.168.3.102:3400/personContacts/control/";
+    // $rootScope.voteInterfaceUrl = "http://192.168.3.102:3400/pevote/control/";//投票接口
+    // $rootScope.activityInterfaceUrl = "http://192.168.3.102:3400/personactivity/control/";//活动接口
+    // $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
+    // $rootScope.communicationfaceUrl = "http://192.168.3.102:3400/communication/control/";//活动接口
 
-    $ionicPlatform.ready(function (Contact) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
+
+    $ionicPlatform.ready(function ($cordovaStatusbar) {
+      //通过UUID获取TOKEN
+      document.addEventListener("deviceready", function () {
+        var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
+        if(localStorage.getItem("tarjeta") == null){
+          ActivityServer.setUUID(uuid,function (data) {
+            localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+            localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+            localStorage.setItem("RongCloudToken", data.rongCloudToken);//设置partyId登陆人
+            //alert(localStorage.getItem("partyId"));
+            console.log("创建新用户通过UUID"+"token:"+data.tarjeta+"UUID:"+uuid)
+          })
+        }
+      }, false);
+
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
         cordova.plugins.Keyboard.disableScroll(true);
       }
       if (window.StatusBar) {
-        StatusBar.styleDefault();
+        $cordovaStatusbar.overlaysWebView(true);
+        // 样式: 无 : 0, 白色不透明: 1, 黑色半透明: 2, 黑色不透明: 3
+        $cordovaStatusbar.style(1);
+        // 背景颜色名字 : black, darkGray, lightGray, white, gray, red, green,
+        // blue, cyan, yellow, magenta, orange, purple, brown 注:需要开启状态栏占用视图.
+        $cordovaStatusbar.styleColor('white');
+        $cordovaStatusbar.styleHex('#000');
+        $cordovaStatusbar.hide();
+        $cordovaStatusbar.show();
+        var isVisible = $cordovaStatusbar.isVisible();
       }
-
-      //通过UUID获取TOKEN
-      document.addEventListener("deviceready", function () {
-        var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
-        console.log("设别准备就绪");
-        if (localStorage.getItem("tarjeta") == null) {
-          console.log("设别准备就绪11111");
-          ActivityServer.setUUID(uuid, function (data) {
-            console.log("创建新用户通过UUID" + "token:" + data.tarjeta + "UUID:" + uuid + 'PartyId:' + data.partyId);
-            localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
-            localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
-          });
-        }
-      }, false);
     });
 
   })
+
+  .constant('$ionicLoadingConfig', {
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  })
+
   .config(['$provide', function ($provide) {
     //解决重复点击BUG
     $provide.decorator('ngClickDirective', ['$delegate', '$timeout', function ($delegate, $timeout) {

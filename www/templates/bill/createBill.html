@@ -1,8 +1,8 @@
 <ion-view title="账单录入" hide-tabs="true">
-  <ion-nav-bar class="globalColor">
+  <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
-        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+        <i class="icon  ion-ios-arrow-back "></i>
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
@@ -12,7 +12,7 @@
         <div class="list">
           <label class="item item-input">
             <span class="input-label">账单名称：</span>
-            <input type="text" name="billName" ng-model="Bill.billName" placeholder="请输入账单名称" >
+            <input type="text" name="billName" ng-model="Bill.billName" placeholder="请输入账单名称">
           </label>
           <label class="item item-input">
             <span class="input-label">应付金额/每人：</span>
@@ -21,7 +21,7 @@
         </div>
         <div>
           <button class="button button-positive" style="width: 100%"
-                   ng-click="createBill()">确认
+                  ng-click="createBill()">确认
           </button>
         </div>
       </form>

@@ -5,12 +5,25 @@
   color: black;
   height: 30%
 }
+
 .event-list {
   width: 100%;
   height: 10rem;
   display: flex;
   flex-direction: column;
   border-top: 0.1875rem solid silver;
+}
+
+.act-gridding {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background-color: #e8e8e8;
 }
 
 .event-list img {
@@ -36,9 +49,9 @@
   position: relative;
 }
 
-.event-list .event-top .organizer-home{
+.event-list .event-top .organizer-home {
   position: absolute;
-  bottom:-10%;
+  bottom: -10%;
   right: 0;
   color: #08d918;
 }
@@ -46,7 +59,7 @@
 .event-list h3 {
   font-size: 1rem;
   margin: 0.1875rem 0;
-  color:#4d4d4d;
+  color: #4d4d4d;
 }
 
 .event-list p {
@@ -61,8 +74,6 @@
   color: #717171;
   font-weight: bold;
 }
-
-
 
 .event-list .activityTimer {
   background: url(../img/activityImg/icon_时间@2x.png) no-repeat center;
@@ -137,6 +148,60 @@
   color: #9e9e9e;
 }
 
+/*活动照片***************************************************************************************************************/
+#act-img .imgWall {
+  width: 100%;
+  height: 500px;
+  line-height: 700px;
+  background-color: black;
+}
+
+#act-img .imgWall-list {
+  width: 80px;
+  height: 80px;
+  padding: 5px;
+}
+
+/*活动讨论***************************************************************************************************************/
+.profile-box {
+  width: 100%;
+  display: flex;
+}
+
+.profile-box-thumb {
+  flex: 1;
+}
+
+.profile-box-details {
+  display: inline-block;
+  flex: 5;
+  position: relative;
+}
+
+.profile-name {
+  color: #0c60ee;
+}
+
+#act-discuss .profile-Message {
+  width: 80%;
+  white-space: normal
+}
+
+#act-discuss img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.profile-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #f0f0f0;
+  border-radius: 25%;
+  border: 0;
+}
+
 /*活动详情***************************************************************************************************************/
 #activityDel p {
   font-size: 13px;
@@ -192,7 +257,20 @@
 
 #activityDel .img-responsive {
   width: 40px;
-  height:40px;
+  height: 40px;
+}
+
+.red-point {
+  background-color: red;
+  color: white;
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  border-radius: 50%;
+  font-size: 10px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
 }
 
 #activityDel .img-joinP {
@@ -220,6 +298,7 @@
   background-size: 58%, 58%;
   padding: 5%;
 }
+
 .activityTimerEnd {
   background: url(../img/activityImg/icon_时间@2x.png) no-repeat center;
   background-size: 58%, 58%;
@@ -252,10 +331,6 @@
   top: 15%;
   left: 5%;
 }
-
-/*#activityDel .row{*/
-/*padding: 0;*/
-/*}*/
 
 #footer .yuyin img {
   height: 30px;
@@ -372,7 +447,7 @@
   opacity: 1
 }
 
-#activityDel .activity-item img{
+#activityDel .activity-item img {
   width: 30px;
   height: 30px;
   vertical-align: middle;
@@ -380,43 +455,48 @@
   border: 0;
 }
 
-#activityDel .activity-item{
+#activityDel .activity-item {
   margin: 10px auto;
   font-size: 14px;
 }
 
 /*活动项****************************************************************************************************************/
-#activityItem .item-empty{
+#activityItem .item-empty {
   width: 100%;
   text-align: center;
   margin-top: 250px;
   font-size: 26px;
   color: #4d4d4d;
 }
-#activityItem img{
+
+#activityItem img {
   width: 30px;
   height: 30px;
   vertical-align: middle;
   margin-right: 5%;
 }
-#activityItem span:last-child{
-  white-space:normal;
+
+#activityItem span:last-child {
+  white-space: normal;
   font-size: 14px;
   color: #4a4a4a;
   width: 80%;
 }
 
 /*活动事项**************************************************************************************************************/
-#activityMatter hr{
+#activityMatter hr {
   clear: both
 }
-#activityMatter p{
+
+#activityMatter p {
   float: left;
 }
-#activityMatter button{
+
+#activityMatter button {
   float: right;
 }
-#activityMatter h3{
+
+#activityMatter h3 {
   font-size: 18px;
   text-align: center;
 }
@@ -615,6 +695,7 @@
   .history {
     font-size: 1.0rem;
   }
+
 }
 
 /*在小于375px的屏幕里，微小屏幕，更低分辨率的手机*/
@@ -632,6 +713,17 @@
     width: 4.375rem;
     border-radius: 50%;
     margin: 1.75rem 0 0 0;
+  }
+
+  #act-img .imgWall {
+    width: 100%;
+    height: 420px;
+    line-height: 620px;
+  }
+
+  #act-img .imgWall-list {
+    width: 60px;
+    height: 60px;
   }
 
   #share input {

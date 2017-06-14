@@ -1,36 +1,31 @@
-<ion-view title="我参与的活动"  hide-nav-bar="false">
-  <ion-nav-bar class="globalColor">
-    <ion-nav-buttons>
-      <button class="button button-clear" ng-click="getActivityCode()">
-        <i class="icon  ion-qr-scanner globalColorButton"></i>
+<ion-view hide-nav-bar="true">
+  <ion-header-bar align-title="left" class="bar-dark">
+    <div class="h1 title">活动( {{quantity }} )</div>
+    <div class="buttons">
+      <button class="button no-animation button-icon icon ion-ios-photos-outline" ng-click="Management()">
       </button>
-    </ion-nav-buttons>
-  </ion-nav-bar>
-  <ion-content>
-    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
-    <div class="event-list" ng-repeat="item in active">
-      <div class="event-top" ng-click="activityDetails(item.workEffortId)">
-        <div><img ng-src="{{ item.objectInfo }}"></div>
-        <div>
-          <h3>{{ item.workEffortName }}</h3>
-          <p><i class="icon activityTimer"></i>{{item.actualStartDate|date:'yyyy年MM月dd HH:mm'}}</p>
-          <p><i class="icon activityLocation"></i>{{ item.locationDesc }}</p>
-          <p class="organizer-home"><i class="icon ion-ios-circle-outline activityOrganizer"></i> {{item.adminFirstName}} <em>发起</em></p>
-        </div>
-      </div>
-      <div class="event-bottom">
-        <div class="join-count">
-          <button>
-            {{item.joinsCount}}人参与
-          </button>
-        </div>
-        <div class="from-start">
-          <button>
-            {{item.exDay}}
-          </button>
-        </div>
-      </div>
     </div>
+  </ion-header-bar>
+  <ion-content on-swipe-left="onSwipeLeft()">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <ion-list rj-close-back-drop>
+      <ion-item class="item-avatar" ng-class="{'rj-item-top': message.isTop}" on-hold="popupMessageOpthins(message)"
+                rj-hold-active ng-repeat="message in active | orderBy:['isTop', 'lastMessage.timeFrome1970']:true"
+                ng-click="activityDetails(message.workEffortId)">
+        <div class="act-gridding">
+          <div class="row  row-wrap" style="padding: 0;margin: 0">
+            <div class="col col-33" style="padding: 0;margin: 0" ng-repeat="picture in message.partyHeadImgList"
+                 ng-click="shouBigImage($index,picture.firstName)">
+              <img class="img-responsive" style="width: 13px;height: 13px;" ng-src="{{picture.headPortrait}}">
+            </div>
+          </div>
+        </div>
+        <span class="rj-sm-red-icon" ng-show="message.showHints"><p ng-bind="message.noReadMessages"></p></span>
+        <h2 ng-bind="message.workEffortName"></h2>
+        <p class="rj-list-p" ng-bind="message.exDay"></p>
+        <span class="rj-push-right" ng-bind="message.adminFirstName"></span>
+      </ion-item>
+    </ion-list>
   </ion-content>
   <div style="height:100%;position: relative;" ng-if="activityHomeNull">
     <img ng-src="../www/img/tabs/矢量智能对象@2x.png" height="225" width="305" style="margin: 40% 10%"/>
@@ -38,3 +33,4 @@
     <p class="history" id="history" ng-click="getHistory()">找回历史活动</p>
   </div>
 </ion-view>
+

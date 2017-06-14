@@ -1,0 +1,35 @@
+<ion-modal-view style="height: 300px" hide-nav-bar="true">
+  <ion-header-bar>
+    <h1 class="title">回复</h1>
+    <button class="button button-clear " ng-click="closeResponse()">
+      <i class="icon">取消</i>
+    </button>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="item in CommunicationResponceList">
+        <div class="profile-box">
+          <div class="profile-box-thumb">
+            <img ng-src="{{item.headPortrait}}" width="50" height="50">
+          </div>
+          <div class="profile-box-details">
+            <h3 class="profile-name">{{item.firstName}}</h3>
+            <p class="profile-Message">{{item.textData}}</p>
+            <p class="profile-Message">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <form name="sendMessageForm">
+    <ion-footer-bar keyboardshow class="bar-stable item-input-inset message-footer">
+      <label class="item-input-wrapper">
+        <textarea ng-model="Response.message" placeholder="写回复.."
+                  style="width: 100%"></textarea>
+      </label>
+      <button class="button button-icon icon ion-android-send" type="submit" ng-click="sentResponse()"
+              ng-disabled="!Response.message||Response.message==''">
+      </button>
+    </ion-footer-bar>
+  </form>
+</ion-modal-view>

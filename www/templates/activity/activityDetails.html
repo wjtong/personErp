@@ -1,18 +1,15 @@
 <ion-view title="{{ activityList.workEffortName }}" hide-tabs="true">
-  <ion-nav-bar>
+  <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="goActivityHome()">
-        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+        <i class="icon  ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button id="editEvent" class="button button-clear button-dark" ng-if="!editIf" ng-click="editEvent(editButton)">
+      <button id="editEvent" class="button button-clear" ng-if="!editIf" ng-click="editEvent(editButton)">
         {{editButton}}
       </button>
     </ion-nav-buttons>
-    <!--<ion-nav-buttons side="right">-->
-    <!--<button class="button button-dark button-small" ng-click="updateEventStatus()">开始活动</button>-->
-    <!--</ion-nav-buttons>-->
   </ion-nav-bar>
   <ion-content id="activityDel">
     <div class="list">
@@ -39,14 +36,14 @@
         </div>
       </div>
       <div class="row activityDetTabs">
-        <div class="col col-{{col}}" ng-repeat="picture in activityTabsImg">
+        <div class="col col-20" ng-repeat="picture in activityTabsImg">
           <img class="img-responsive" ng-src="{{picture.img}}" ng-click="goNavigation(picture.name)">
           <p>{{picture.name}}</p>
         </div>
       </div>
       <div class="item">
-          <h3>公告:</h3>
-          <textarea style="resize:none"  rows="3" ng-model="activityList.serviceLoaderName" ng-disabled="edit"></textarea>
+        <h3>公告:</h3>
+        <textarea style="resize:none" rows="3" ng-model="activityList.serviceLoaderName" ng-disabled="edit"></textarea>
       </div>
       <div class="item item-joinP">
         <h3>参与人:</h3>
@@ -97,7 +94,8 @@
   </ion-content>
   <ion-footer-bar id="footer" class="bar-light">
     <div class="yuyin" style="">
-      <img src="../www/img/activityImg/btn_讨论_n@2x.png" ng-click="activityDiscuss()"/>
+      <img src="../www/img/activityImg/评论.jpeg" width="30" height="30" ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)"/>
+      <span class="red-point">{{commEventCount}}</span>
     </div>
     <div class="yaoqing">
       <button id="invent" ng-click="InviteModal()" class="button  activityInvitationImg"></button>

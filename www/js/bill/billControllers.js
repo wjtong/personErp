@@ -1,6 +1,6 @@
 angular.module('bill.controllers', [])
 
-/*********************************************************************************************************************
+/***********************************************************************************************************************
  * Desc 活动账单
  * Author LX
  * Date 2017-3-3
@@ -11,10 +11,16 @@ angular.module('bill.controllers', [])
     //准备参数
     var tarjeta = localStorage.getItem("tarjeta");
     var id = $stateParams.workEffortId;
+    var activityData=localStorage.getItem("activityData"+id);
+    $scope.workEffortName=jQuery.parseJSON(activityData).workEffortName;
+    $scope.billEmpty=true;
 
     //查询账单信息
     billServer.findActivityPayment(tarjeta, id, function (data) {
       $scope.billList = data.paymentGroupList;
+      if($scope.billList.length>0){
+        $scope.billEmpty=false
+      }
       console.log("查询活动列表——————————" + data.resultMsg)
     });
 
@@ -85,6 +91,26 @@ angular.module('bill.controllers', [])
     $scope.payDate = function (index) {
       SelectDate.nativeDate(function (data) {
         $scope.billList[index].payDate = data.substring(0, 10);
+      });
+    };
+
+    //微信分析账单
+    $scope.billShare=function (paymentGroupId,paymentGroupName) {
+      Wechat.share({
+        message: {
+          title: '分享账单: ' +paymentGroupName,
+          description: '活动: '+$scope.workEffortName,
+          thumb: 'www/img/shareActivity/btn_梨友_n@2x.png',
+          media: {
+            type: Wechat.Type.WEBPAGE,
+            webpageUrl: 'http://www.vivafoo.com:3400/pewebview/control/viewAccountList?workEffortId=' + id + "&paymentGroupId=" + paymentGroupId,
+          }
+        },
+        scene: Wechat.Scene.SESSION // share to SESSION
+      }, function () {
+        alert("Success");
+      }, function (reason) {
+        alert("Failed: " + reason);
       });
     }
   })

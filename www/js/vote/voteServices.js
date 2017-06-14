@@ -4,15 +4,13 @@ angular.module('vote.services', [])
     var tarjeta = localStorage.getItem("tarjeta"); // token
 
     return {
-      /* @Service 当前活动的投票标题列表
-       * @Params 活动ID、活动标题、投票选项
-       * */
+      //查询投票
       findActivityPollQuestionsTitle: function (workEffortId) {
         var deferred = $q.defer();
         var promise = deferred.promise;
         $.ajax(
           {
-            url: $rootScope.voteInterfaceUrl  + "queryActivityVoteQuestionsTitle",
+            url: $rootScope.voteInterfaceUrl + "queryActivityVoteQuestionsTitle",
             type: "POST",
             data: {
               "tarjeta": tarjeta,
@@ -37,10 +35,7 @@ angular.module('vote.services', [])
         };
         return promise;
       },
-
-      /* @Service 创建一个新的投票标题、和它的投票项
-       * @Params 活动ID、活动标题、投票选项
-       * */
+      //创建投票
       createSurveyAndQuestions: function (workEffortId, surveyName, questions) {
         var deferred = $q.defer();
         var promise = deferred.promise;
@@ -51,11 +46,11 @@ angular.module('vote.services', [])
             data: {
               "tarjeta": tarjeta,
               "workEffortId": workEffortId,  // 活动id
-              "surveyName":surveyName,
-              "isAnonymous":"N",
-              "allowMultiple":"Y",
-              "allowUpdate":"Y",
-              "questions":questions
+              "surveyName": surveyName,
+              "isAnonymous": "N",
+              "allowMultiple": "Y",
+              "allowUpdate": "Y",
+              "questions": questions
 
             },
             success: function (result) {
@@ -77,20 +72,17 @@ angular.module('vote.services', [])
         };
         return promise;
       },
-
-      /* @Service 查询投票项的投票情况 和实际投票的人
-       * @Params 投票标题ID
-       * */
+      //查询投票
       findActivityPollQuestions: function (surveyId) {
         var deferred = $q.defer();
         var promise = deferred.promise;
         $.ajax(
           {
-            url: $rootScope.voteInterfaceUrl  + "queryActivityVoteQuestions",
+            url: $rootScope.voteInterfaceUrl + "queryActivityVoteQuestions",
             type: "POST",
             data: {
               "tarjeta": tarjeta,
-              "surveyId":surveyId
+              "surveyId": surveyId
             },
             success: function (result) {
               console.log(result);
@@ -111,10 +103,7 @@ angular.module('vote.services', [])
         };
         return promise;
       },
-
-      /* @Service 用户点击投票
-       * @Params 投票标题ID,投票项ID
-       * */
+      //点击投票
       doPollQuestion: function (surveyId, surveyQuestionId) {
         var deferred = $q.defer();
         var promise = deferred.promise;
@@ -145,9 +134,6 @@ angular.module('vote.services', [])
           return promise;
         };
         return promise;
-      },
-
-
-
+      }
     };
   });

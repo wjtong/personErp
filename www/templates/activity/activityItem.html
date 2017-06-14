@@ -1,17 +1,39 @@
 <ion-view title="活动安排" hide-tabs="true">
-  <ion-nav-bar class="globalColor">
+  <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
-        <i class="icon  ion-ios-arrow-back globalColorButton"></i>
+        <i class="icon  ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button class="button button-icon ion-plus globalColor" ng-click="newActivityItem(createItemType)">
+      <button class="button button-icon ion-plus" ng-click="newActivityItem(createItemType)">
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content id="activityItem">
-    <ion-list class="list" ng-repeat="item in activityItemList">
+  <ion-content id="activityItem" overflow-scroll="true" style="overflow: hidden">
+    <!-- Connected lists -->
+    <!--<div class="container">-->
+      <!--<div data-force="30" class="layer block" style="width: 100%">-->
+        <!--<ul id="foo" class="block__list block__list_words" >-->
+          <!--<li ng-repeat="item in activityItemList" on-release="startIndexItem($index,item.sequenceNum)">-->
+            <!--<ion-item>-->
+              <!--<span style="color: white">{{item.sequenceNum}}.</span>-->
+              <!--<img src="../www/img/activityImg/icon_活动项@2x.png"/>-->
+              <!--<span>{{item.actualStartDate| date:'MM月dd日 HH时mm分'}} {{item.workEffortName}}</span>-->
+              <!--<ion-option-button class="button-assertive"-->
+              <!--ng-click="deleteActivityItem(item.workEffortIdFrom)">-->
+              <!--删除-->
+              <!--</ion-option-button>-->
+              <!--<ion-option-button class="button-positive"-->
+              <!--ng-click="updateActivityItem(item.workEffortIdFrom,item.workEffortName,item.sequenceNum,item.actualStartDate)">-->
+              <!--编辑-->
+              <!--</ion-option-button>-->
+            <!--</ion-item>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+    <!--</div>-->
+    <ion-list id="foo" class="list" ng-repeat="item in activityItemList">
       <ion-item>
         <span>{{$index+1}}.</span>
         <img src="../www/img/activityImg/icon_活动项@2x.png"/>
@@ -27,7 +49,11 @@
         </ion-option-button>
       </ion-item>
     </ion-list>
-    <div class="item-empty" ng-if="item_empty">还没有相关活动项内容</div>
   </ion-content>
+  <div class="tab-nav tabs globalColor">
+    <a class="tab-item tab-item" ng-click="saveActivityItem()">
+      <span class="tab-title">保存排序</span>
+    </a>
+  </div>
 </ion-view>
 
