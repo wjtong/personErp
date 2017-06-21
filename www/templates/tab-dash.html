@@ -10,7 +10,7 @@
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
     <ion-list rj-close-back-drop>
       <ion-item class="item-avatar" ng-class="{'rj-item-top': message.isTop}" on-hold="popupMessageOpthins(message)"
-                rj-hold-active ng-repeat="message in active | orderBy:['isTop', 'lastMessage.timeFrome1970']:true"
+                rj-hold-active ng-repeat="message in activtyList | orderBy:['isTop', 'lastMessage.timeFrome1970']:true"
                 ng-click="activityDetails(message.workEffortId)">
         <div class="act-gridding">
           <div class="row  row-wrap" style="padding: 0;margin: 0">
@@ -27,8 +27,8 @@
       </ion-item>
     </ion-list>
   </ion-content>
-  <div style="height:100%;position: relative;" ng-if="activityHomeNull">
-    <img ng-src="../www/img/tabs/矢量智能对象@2x.png" height="225" width="305" style="margin: 40% 10%"/>
+  <div class="activityNull" ng-if="activityHomeNull">
+    <img ng-src="../www/img/tabs/矢量智能对象@2x.png"/>
     <p class="tipTextAct" id="box">您还没有活动是否要新建？</p>
     <p class="history" id="history" ng-click="getHistory()">找回历史活动</p>
   </div>

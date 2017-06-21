@@ -9,14 +9,16 @@ angular.module('bill.services', [])
 
     return {
       //新建活动账单
-      createActivityInvoice: function (tarjeta, workEffortId, invoiceName, amount, cb) {
+      createActivityInvoice: function (workEffortId, invoiceName, amount, isPrivate, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "createActivityPaymentGroup",
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
             invoiceName: invoiceName,
-            amount: amount
+            amount: amount,
+            isPrivate: isPrivate
           },
           async: false,
           type: 'POST',
@@ -33,7 +35,8 @@ angular.module('bill.services', [])
         });
       },
       //查询活动账单
-      findActivityPayment: function (tarjeta, workEffortId, cb) {
+      findActivityPayment: function (workEffortId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "queryActivityPaymentGroup",
           data: {
@@ -55,7 +58,8 @@ angular.module('bill.services', [])
         });
       },
       //保存活动账单
-      updatePartyPayment: function (tarjeta, paymentList, cb) {
+      updatePartyPayment: function (paymentList, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "updatePartyPayment",
           data: {
@@ -77,7 +81,8 @@ angular.module('bill.services', [])
         });
       },
       //用户确认支付
-      partyPay: function (tarjeta, partyIdFrom, paymentId, cb) {
+      partyPay: function (partyIdFrom, paymentId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "partyPay",
           data: {
@@ -100,7 +105,8 @@ angular.module('bill.services', [])
         });
       },
       //用户修改金额
-      updatePaymentAmount: function (tarjeta, paymentId, amount, cb) {
+      updatePaymentAmount: function (paymentId, amount, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "updatePaymentAmount",
           data: {

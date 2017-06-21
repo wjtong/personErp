@@ -1,4 +1,4 @@
-<ion-view title="活动安排" hide-tabs="true">
+<ion-view title="日程安排" hide-tabs="true">
   <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
@@ -6,11 +6,12 @@
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button class="button button-icon ion-plus" ng-click="newActivityItem(createItemType)">
+      <button class="button button-icon" ng-click="shareItem()">
+        分享
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content id="activityItem" overflow-scroll="true" style="overflow: hidden">
+  <ion-content id="activityItem" overflow-scroll="false" style="overflow: hidden">
     <!-- Connected lists -->
     <!--<div class="container">-->
       <!--<div data-force="30" class="layer block" style="width: 100%">-->
@@ -49,11 +50,17 @@
         </ion-option-button>
       </ion-item>
     </ion-list>
+    <div class="empty" ng-if="itemEmpty">还没有相关日程安排</div>
   </ion-content>
-  <div class="tab-nav tabs globalColor">
-    <a class="tab-item tab-item" ng-click="saveActivityItem()">
-      <span class="tab-title">保存排序</span>
+  <div class="tab-nav tabs act-foot-btn">
+    <a class="tab-item tab-item" ng-click="newActivityItem()">
+      <span class="tab-create">创建日程</span>
     </a>
   </div>
+  <!--<div class="tab-nav tabs globalColor">-->
+    <!--<a class="tab-item tab-item" ng-click="saveActivityItem()">-->
+      <!--<span class="tab-title">保存排序</span>-->
+    <!--</a>-->
+  <!--</div>-->
 </ion-view>
 

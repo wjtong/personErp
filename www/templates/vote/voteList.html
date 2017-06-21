@@ -5,23 +5,35 @@
         <i class="icon  ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <a class="button icon-left" ui-sref="tab.goEditVote({workEffortId:{{workEffortId}}})">
-        创建
-      </a>
-    </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content class="vote">
     <ion-list>
-      <ion-item class="item-icon-right" can-swipe="true" ng-repeat="activityPollQuestionsTitle in activityPollQuestionsTitles">
-        <div ui-sref="tab.goCastVote({surveyId:activityPollQuestionsTitle.surveyId,surveyName:activityPollQuestionsTitle.surveyName,workEffortId:workEffortId})" >
-          <h2>投票名称： {{activityPollQuestionsTitle.surveyName}}</h2>
-          <p ng-bind="activityPollQuestionsTitle.fromDate | date:'yyyy-MM-dd HH:mm:ss'"></p>
-          <i class="icon ion-ios-arrow-right" style="color:darkgrey"></i>
+      <ion-item ng-repeat="activityPollQuestionsTitle in activityPollQuestionsTitles"
+                ui-sref="tab.goCastVote({surveyId:activityPollQuestionsTitle.surveyId,surveyName:activityPollQuestionsTitle.surveyName,workEffortId:workEffortId})">
+        <div class="item-avatar" style="position: relative">
+          <img src="../www/img/activityImg/touxiang.jpg" height="32" width="32" style="top: 0"/>
+          <h2>桃子</h2>
+          <p>{{activityPollQuestionsTitle.fromDate | date:'yyyy年MM月dd日 HH:mm'}}</p>
+          <div style="position: absolute;top: 0;right: 0;background-color: #ffc900;color: white;height: 18px;width: 68px;
+          text-align: center;font-size: 12px">
+            进行中
+          </div>
+        </div>
+        <div style="padding-bottom: 22px;text-indent: 12px">
+          {{activityPollQuestionsTitle.surveyName}}
+        </div>
+        <div
+          style="height: 34px;background-color: #ffc900;width: 100%;text-align: center;color: white;line-height: 34px">
+          正在进行,立即参与
         </div>
         <ion-option-button class="button-assertive">移除</ion-option-button>
       </ion-item>
     </ion-list>
     <div class="empty" ng-if="vote_empty">还没有相关投票内容</div>
   </ion-content>
+  <div class="tab-nav tabs act-foot-btn">
+    <a class="tab-item tab-item" ui-sref="tab.goEditVote({workEffortId:{{workEffortId}}})">
+      <span class="tab-create">创建投票</span>
+    </a>
+  </div>
 </ion-view>

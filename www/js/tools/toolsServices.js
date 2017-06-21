@@ -472,6 +472,7 @@ angular.module('tools.services', [])
           cancelButtonLabel: '取消',
           cancelButtonColor: '#000000',
           locale: "zh_cn",
+          is24Hour: false,
           minuteInterval: 30
         };
         $cordovaDatePicker.show(options).then(function (date) {

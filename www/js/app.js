@@ -13,11 +13,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .run(function ($ionicPlatform, ActivityServer, $cordovaDevice, $rootScope) {
 
     //连接服务器
-    $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//活动接口
+    $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//联系人
     $rootScope.voteInterfaceUrl = "http://114.215.200.46:3400/pevote/control/";//投票接口
     $rootScope.activityInterfaceUrl = "http://114.215.200.46:3400/personactivity/control/";//活动接口
     $rootScope.platformInterfaceUrl = "http://114.215.200.46:3400/peplatform/control/";//平台接口
-    $rootScope.communicationfaceUrl = "http://114.215.200.46:3400/communication/control/";//活动接口
+    $rootScope.communicationfaceUrl = "http://114.215.200.46:3400/communication/control/";//评论接口
 
     //链接沈演麟本地
     // $rootScope.interfaceUrl = "http://192.168.3.102:3400/personContacts/control/";
@@ -32,7 +32,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       document.addEventListener("deviceready", function () {
         var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
         if(localStorage.getItem("tarjeta") == null){
-          ActivityServer.setUUID(uuid,function (data) {
+          ActivityServer.setUUID(uuid+'aa',function (data) {
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
             localStorage.setItem("RongCloudToken", data.rongCloudToken);//设置partyId登陆人
@@ -99,6 +99,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.views.swipeBackEnabled(false); // 防止ios左滑出现白屏
+    //解决 Android tab 样式问题
+    $ionicConfigProvider.tabs.style('standard'); // Tab风格
+    $ionicConfigProvider.tabs.position('bottom'); // Tab位置
+    $ionicConfigProvider.navBar.alignTitle('center'); // 标题位置
+    $ionicConfigProvider.navBar.positionPrimaryButtons('left'); // 主要操作按钮位置
+    $ionicConfigProvider.navBar.positionSecondaryButtons('right'); //次要操作按钮位置
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
     // Set up the various states which the app can be in.
@@ -136,7 +142,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //活动通知
       .state('tab.activityNotice', {
         url: '/activityNotice',
-        cache: false,
+        cache: true,
         views: {
           'tab-notice': {
             templateUrl: 'templates/activity/activityNotice.html',
@@ -147,7 +153,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //用户账户信息
       .state('tab.account', {
         url: '/account',
-        cache: false,
+        cache: true,
         views: {
           'tab-account': {
             templateUrl: 'templates/tab-account.html',

@@ -26,7 +26,6 @@ angular.module('login.controllers', [])
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
             $scope.loginData.captcha = '';
             $state.go("tab.dash");
-            $ionicHistory.clearCache(); //清理旧数据，刷新
           } else {
             alert("用户不存在")
           }
@@ -93,7 +92,6 @@ angular.module('login.controllers', [])
             return str.join("&");
           }
         }).success(function (result) {
-          console.log(result.code + " " + result.msg);
           if (result.code == '500') {
             $scope.msg = result.msg;
           } else {

@@ -1,6 +1,6 @@
 angular.module('login.services', [])
 
-  //登陆*****************************************************************************************************************
+//登陆*****************************************************************************************************************
   .factory('Login', function ($rootScope) {
     return {
       //手机好登陆（找回）
@@ -47,12 +47,12 @@ angular.module('login.services', [])
         });
       },
       //微信登陆(绑定)
-      userWeChatAppLogin: function (code,partyId, cb) {
+      userWeChatAppLogin: function (code, partyId, cb) {
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "userWeChatAppLogin",
           data: {
             code: code,
-            partyId:partyId
+            partyId: partyId
           },
           async: false,
           type: 'POST',

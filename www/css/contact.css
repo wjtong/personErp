@@ -184,7 +184,6 @@
   height: 45px;
   margin: 20px auto 0 auto;
   font-size: 16px;
-  text-indent: 20px;
   text-align: center;
 }
 
@@ -192,6 +191,7 @@
   background-color: #ff4444;
   color: #FFFFFF;
   margin-top: 55px;
+  text-align: center;
 }
 
 #bindTel .codeBtn {
@@ -237,14 +237,8 @@
   width: 36px;
   margin-right: 10px;
   position: relative;
-  top: 12px;
   border-radius: 50%;
-}
-
-.contact .my-item.item {
-  padding-top: 3px;
-  padding-bottom: 0;
-
+  vertical-align: middle;
 }
 
 .contact span {
@@ -285,91 +279,78 @@
   margin: 0;
   padding: 0;
 }
-
 .CI-header {
   width: 100%;
-  height: 256px;
+  height: 16rem;
   text-align: center;
   position: relative;
 }
-
 .CI-header img {
-  margin-top: 30px;
-  width: 117px;
-  height: 117px;
+  margin-top: 1.875rem;
+  width: 7.3125rem;
+  height: 7.3125rem;
   border-radius: 50%;
 }
-
 .CI-header h2 {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: #4a4a4a;
-  margin: 24.5px 0 0 0;
+  margin: 1.5rem 0 0 0;
 }
-
 .CI-header p {
-  margin: 18.5px 0 0 0;
-  font-size: 14px;
+  margin: 1.125rem 0 0 0;
+  font-size: 0.875rem;
   color: #ACABAB;
 }
-
 .CI-List {
-  padding: 0 14px;
+  padding: 0 0.875rem;
 }
-
 .CI-List .item {
-  padding: 8px;
-  height: 38px;
+  padding: 0.5rem;
+  height: 2.375rem;
   border-left: none;
   border-right: none;
   color: #1d1d1d;
 }
-
 .CI-List .item i {
   float: right;
-  font-size: 16px;
+  font-size: 1rem;
 }
-
 .CI-List .item span {
   float: right;
   margin-right: 30%;
-  font-size: 16px;
+  font-size: 1rem;
   color: #017AFF;
 }
-
 .CI-List .item img {
-  width: 20px;
-  height: 20px;
-  margin-right: 80px;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 5rem;
 }
-
 .CI-List .item:last-child {
   color: #FF6344;
 }
-
 .button-businessCard {
   border: 1px solid #FFDA44;
   background-color: white;
-  border-radius: 37px;
-  width: 123px;
-  height: 37px;
-  font-size: 16px;
+  border-radius: 2.3125rem;
+  width: 7.6875rem;
+  height: 2.3125rem;
+  font-size: 1rem;
   color: #262626;
   position: absolute;
   left: 10%;
 }
-
 .button-sendMessage {
   background-color: #FFDA44;
   border: 0;
-  border-radius: 37px;
-  width: 123px;
-  height: 37px;
-  font-size: 16px;
+  border-radius: 2.3125rem;
+  width: 7.6875rem;
+  height: 2.3125rem;
+  font-size: 1rem;
   color: #262626;
   position: absolute;
   right: 10%;
 }
-
 .mutual-activity {
   border: 1px solid #ddd;
   border-left: none;
@@ -377,25 +358,22 @@
   background-color: #fff;
   color: #444;
   display: block;
-  margin: -1px;
-  padding: 8px;
-  font-size: 16px;
+  margin: -0.0625rem;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
-
 .mutual-activity p {
   margin-bottom: 0;
   color: #1d1d1d;
 }
-
 .mutual-activity img {
-  width: 73px;
-  height: 58px;
-  border-radius: 10px;
+  width: 4.5625rem;
+  height: 3.625rem;
+  border-radius: 0.625rem;
 }
-
 .mutual-activity span {
   display: block;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #9c9c9c;
   width: 100%;
   overflow: hidden;
@@ -403,19 +381,17 @@
   text-overflow: ellipsis;
   text-align: center;
 }
-
 .mutual-activity .row {
   text-align: center;
   margin-bottom: 0;
 }
-
 .mutual-activity .col {
   margin-bottom: 0;
 }
-
 .item-divider-chats {
-  min-height: 25px;
+  min-height: 1.5625rem;
 }
+
 
 /*兼容性问题******************************************屏幕大小兼容性*******************************************************/
 
@@ -449,6 +425,34 @@
 @media (max-width: 374px) {
   html {
     font-size: 14px;
+  }
+  #bindTel .codeBtn {
+    width: 70px;
+  }
+  #bindTel input {
+    font-size: 12px;
+  }
+  #aboutMe .img-Name {
+    height: 3.875rem;
+    width: 3.875rem;
+  }
+  #aboutMe ion-item {
+    padding: 8px 0;
+  }
+  .contact .item {
+    font-size: 14px;
+    padding:  4px 10px;
+  }
+  .contact .item-divider{
+    min-height: 0;
+  }
+  .CI-header img {
+    width: 80px;
+    height: 80px;
+    margin-top: 1.5rem;
+  }
+  .CI-header {
+    height: 13rem;
   }
 
 }

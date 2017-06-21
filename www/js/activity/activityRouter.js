@@ -51,6 +51,29 @@ angular.module('starter')
           }
         }
       })
+      //活动文本预览
+      .state('tab.activityPreview', {
+        url: '/activityPreview/:workEffortId',
+        disableBack: true,
+        cache: true,
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/activity/activityPreview.html',
+            controller: 'activityPreview'
+          }
+        }
+      })
+      //联系人信息详情
+      .state('tab.joinContactInfo', {
+        url: '/contactInfo/:partyId',
+        cache: false,
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/contact/contactInfo.html',
+            controller: 'contactInfo'
+          }
+        }
+      })
       //活动二微码
       .state('tab.activityCode', {
         url: '/activityCode/:workEffortId',
@@ -96,18 +119,6 @@ angular.module('starter')
           'tab-dash': {
             templateUrl: 'templates/activity/activityMatter.html',
             controller: 'ActivityMatter'
-          }
-        }
-      })
-      //活动邀请
-      .state('tab.activityInvitation', {
-        url: '/activityInvitation/:workEffortId/:partyId',
-        disableBack: true,
-        cache: false,
-        views: {
-          'tab-dash': {
-            templateUrl: 'templates/activity/activityInvitation.html',
-            controller: 'ActivityInvitation'
           }
         }
       })

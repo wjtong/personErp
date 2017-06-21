@@ -18,6 +18,10 @@
             <span class="input-label">应付金额/每人：</span>
             <input type="number" name="amount" ng-model="Bill.amount" placeholder="请输入应付金额/每人">
           </label>
+          <lable class="item">
+            <input class="male" type="radio" name="public" value="y" ng-checked="male">公开
+            <input class="female" type="radio" name="public" value="n" ng-checked="female">不公开
+          </lable>
         </div>
         <div>
           <button class="button button-positive" style="width: 100%"

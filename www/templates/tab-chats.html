@@ -5,7 +5,7 @@
     <ion-list class="contact">
       <ion-item class="my-item item-divider-chats"
                 ng-click="goContactInfo(item.partyId)"
-                ng-repeat="item in getContacts()"
+                ng-repeat="item in getContacts() track by $index"
                 item-height="getItemHeight(item)"
                 id="{{ item.isLetter ? (item.letter + '_divider') : ''}}"
                 ng-style="{'line-height': getItemHeight(item) + 'px'}"

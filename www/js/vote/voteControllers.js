@@ -8,8 +8,6 @@ angular.module('vote.controllers', [])
   .controller('voteListCtrl', function ($scope, $state, $ionicPopup, $stateParams, voteService) {
     //参数准备
     $scope.workEffortId = $stateParams.workEffortId;
-
-    //如果没有投票
     $scope.vote_empty = true;
 
     //查询我的投票列表
@@ -27,20 +25,29 @@ angular.module('vote.controllers', [])
    * Author LN
    * Date 2017-3-3
    */
-  .controller('editVoteCtrl', function ($scope, $state, $stateParams, $ionicPopup, voteService) {
-    $scope.workEffortId = $stateParams.workEffortId; // 活动ID
-    // alert($scope.workEffortId);
+  .controller('editVoteCtrl', function ($scope, $state, $stateParams, $ionicPopup, voteService,SelectDate) {
+    //准备参数
+    $scope.workEffortId = $stateParams.workEffortId;
+
     // 添加投票选项
     $scope.addVotes = function () {
       $("#votes").append("" +
-        "<textarea style='display: inline-block;width: 81%;resize:none' class='questions' placeholder='投票项'></textarea>" +
-        "<img src='img/shanchu.jpeg' width=48px height=48px onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><hr>" +
+        "<textarea style='display: inline-block;width: 81%;resize:none' rows='1' class='questions' placeholder='选项'></textarea>" +
+        "<img src='../www/img/activityImg/矢量智能对象-拷贝@2x.png' width=18 height=18 onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><hr>" +
         "");
+    };
+
+    //选择投票截止日期
+    $scope.itemData={};
+    $scope.selectDate=function () {
+      SelectDate.nativeDate(function (data) {
+        $scope.itemData.date = data
+      })
     };
 
     // 创建投票
     $scope.createSurveyAndQuestions = function () {
-      var voteTitle = $("input").val()
+      var voteTitle = $("input").val();
       var questions = ''; // 投票项
 
       for (var i = 0; i < $("textarea").length; i++) {
@@ -50,6 +57,7 @@ angular.module('vote.controllers', [])
         }
         questions += question + "&";
       }
+      console.log(questions);
       voteService.createSurveyAndQuestions($scope.workEffortId, voteTitle, questions).success(function (data) {
         var alertPopup = $ionicPopup.alert({
           title: '成功',
@@ -68,13 +76,21 @@ angular.module('vote.controllers', [])
     };
   })
 
-
   /*********************************************************************************************************************
    * Desc 投票页面
    * Author LN
    * Date 2017-3-3
    * */
   .controller('castVoteCtrl', function ($scope, $stateParams, $ionicPopup, $state, Contact, voteService) {
+    //参数准备
+    $scope.surveyId = $stateParams.surveyId;
+    $scope.surveyName = $stateParams.surveyName;
+    $scope.workEffortId = $stateParams.workEffortId;
+    var activityData = localStorage.getItem("activityData" + $scope.workEffortId);
+    $scope.workEffortName = jQuery.parseJSON(activityData).workEffortName;
+    $scope.siginUp = '投票';
+    $scope.partyId=localStorage.getItem('partyId');
+
     // 投票详情 展开/合拢
     $scope.onOff = false;
     $scope.changeOnOff = function (onOff) {
@@ -85,62 +101,85 @@ angular.module('vote.controllers', [])
       }
     };
 
-    $scope.surveyId = $stateParams.surveyId;          // 投票标题ID
-    $scope.surveyName = $stateParams.surveyName;      // 投票标题
-    $scope.workEffortId = $stateParams.workEffortId;  // 活动ID
-    $scope.siginUp = '投票';
-
+    //查询投票列表
     voteService.findActivityPollQuestions($scope.surveyId).success(function (data) {
-      $scope.questions = data.resultMap.questions;                         // 投票项列表
-      $scope.ret = {choice: '0'};                                          // 单选必须初始化 不然拿不到想要的值 卧槽
+      $scope.questions = data.resultMap.questions;
+      $scope.ret = {choice: '0'};
 
-      var partyResponceAnswers = data.resultMap.partyResponceAnswer;       // 投票详情列表
+      var partyResponceAnswers = data.resultMap.partyResponceAnswer;
+      $scope.partyResponceAnswersCount=partyResponceAnswers.length;
+      if(partyResponceAnswers.length>0){
+        $scope.responceAnswersCount = partyResponceAnswers.length;
+      }else {
+        $scope.responceAnswersCount=1
+      }
+
       var voteArr = [];
       for (var i = 0; i < partyResponceAnswers.length; i++) {
-        if (partyResponceAnswers[i] == null) {
-          continue;
-        } else {
-          voteArr.push({
-            'question': partyResponceAnswers[i].question,
-            'firstName': partyResponceAnswers[i].firstName
-          });
-        }
-        //判断用户是否已经投票，不允许重复投票
-        var partyId = localStorage.getItem("partyId");
-        if (partyResponceAnswers[i].partyId == partyId) {
-          $(function () {
-            $('#signUp').attr("disabled", true);
-            $scope.siginUp = '已投票';
-          })
+        if(partyResponceAnswers[i].partyId==$scope.partyId){
+         $scope.mySelect=partyResponceAnswers[i].question
         }
       }
-      // console.log(voteArr);
       $scope.voteArrs = voteArr;
+      console.log($scope.voteArrs)
     });
 
     $scope.doPollQuestion = function (surveyQuestionId) {
-      if (surveyQuestionId == '0') {
-        $ionicPopup.alert({
-          title: '提示',
-          template: "请选择要投票的选项！"
+      if($scope.mySelect!=undefined){
+        alert('你已经投过票了，不能重复投票')
+      }else{
+        var confirmPopup = $ionicPopup.confirm({
+          title: '确定投票',
+          template: '确定投票不可修改，是否继续？'
+        });
+        confirmPopup.then(function (res) {
+          if (res) {
+            if (surveyQuestionId == '0') {
+              $ionicPopup.alert({
+                title: '提示',
+                template: "请选择要投票的选项！"
+              });
+            }
+            voteService.doPollQuestion($scope.surveyId, surveyQuestionId).success(function (data) {
+              var alertPopup = $ionicPopup.alert({
+                title: '成功',
+                template: "投票成功！"
+              });
+              alertPopup.then(function (res) {
+                $state.go("tab.voteList", {"workEffortId": $scope.workEffortId});
+              });
+            }).error(function (data) {
+              var alertPopup = $ionicPopup.alert({
+                title: '错误',
+                template: "添加失败，请重新添加！"
+              });
+            });
+          } else {
+            console.log('You are not sure');
+          }
         });
       }
-      voteService.doPollQuestion($scope.surveyId, surveyQuestionId).success(function (data) {
-        var alertPopup = $ionicPopup.alert({
-          title: '成功',
-          template: "投票成功！"
-        });
-        alertPopup.then(function (res) {
-          $state.go("tab.voteList", {"workEffortId": $scope.workEffortId});
-        });
-      }).error(function (data) {
-        var alertPopup = $ionicPopup.alert({
-          title: '错误',
-          template: "添加失败，请重新添加！"
-        });
-      });
     };
 
+    //微信分享投票
+    $scope.voteShare = function () {
+      Wechat.share({
+        message: {
+          title: '分享投票: ' + $scope.surveyName,
+          description: '活动: ' + $scope.workEffortName,
+          thumb: 'www/img/activityImg/btn_投票_n@2x.png',
+          media: {
+            type: Wechat.Type.WEBPAGE,
+            webpageUrl: 'http://www.vivafoo.com:3400/pewebview/control/viewVoteList?workEffortId=' + $scope.workEffortId + "&surveyId=" + $scope.surveyId,
+          }
+        },
+        scene: Wechat.Scene.SESSION // share to SESSION
+      }, function () {
+        alert("Success");
+      }, function (reason) {
+        alert("Failed: " + reason);
+      });
+    }
   });
 
 

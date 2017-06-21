@@ -6,20 +6,19 @@ angular.module('bill.controllers', [])
  * Date 2017-3-3
  * */
   .controller('activityBillCtrl', function ($scope, $ionicPopup, Contact, $state, $stateParams, billServer, SelectDate,
-                                            $timeout) {
+                                            $timeout, $ionicActionSheet) {
 
     //准备参数
-    var tarjeta = localStorage.getItem("tarjeta");
     var id = $stateParams.workEffortId;
-    var activityData=localStorage.getItem("activityData"+id);
-    $scope.workEffortName=jQuery.parseJSON(activityData).workEffortName;
-    $scope.billEmpty=true;
+    var activityData = localStorage.getItem("activityData" + id);
+    $scope.workEffortName = jQuery.parseJSON(activityData).workEffortName;
+    $scope.billEmpty = true;
 
     //查询账单信息
-    billServer.findActivityPayment(tarjeta, id, function (data) {
+    billServer.findActivityPayment(id, function (data) {
       $scope.billList = data.paymentGroupList;
-      if($scope.billList.length>0){
-        $scope.billEmpty=false
+      if ($scope.billList.length > 0) {
+        $scope.billEmpty = false
       }
       console.log("查询活动列表——————————" + data.resultMsg)
     });
@@ -34,40 +33,68 @@ angular.module('bill.controllers', [])
       $state.go("tab.activityDetails", {activityId: id});
     };
 
-    //保存账单
-    $scope.saveBill = function () {
-      console.log('paymentList----------' + $scope.billList);
-      billServer.updatePartyPayment(tarjeta, JSON.stringify($scope.billList), function (data) {
-        console.log('保存账单' + data.resultMsg);
-        if (data.resultMsg == '成功') {
-          var myPopup = $ionicPopup.show({
-            template: '',
-            title: '保存成功',
-            scope: $scope,
-            buttons: [
-              {
-                text: '返回'
-              }
-            ]
-          });
-          myPopup.then(function (res) {
-            console.log('Tapped!', res);
-          });
-          $timeout(function () {
-            myPopup.close();
-          }, 1500);
+    //隐藏已付
+    $scope.billHideText = '隐藏已付';
+    $scope.billHide = function (billHideText) {
+      var obj = document.getElementsByClassName('Payment-status');
+      if (billHideText == '隐藏已付') {
+        for (var i = 0; i < obj.length; i++) {
+          if (obj[i].innerText == '已付') {
+            obj[i].parentNode.style.display = 'none';
+          }
         }
-      })
+        $scope.billHideText = '显示已付';
+      } else {
+        $state.reload()
+      }
     };
 
     //用户确认支付
     $scope.partyPay = function (partyIdFrom, paymentId) {
-      billServer.partyPay(tarjeta, partyIdFrom, paymentId, function (data) {
-        console.log(data);
-        if (data.resultMsg == '成功') {
-          $state.reload()
+      // 显示上拉菜单
+      var hideSheet = $ionicActionSheet.show({
+        buttons: [
+          {text: '支付宝'},
+          {text: '微信'},
+          {text: '银行卡转账'}
+        ],
+        destructiveText: '',
+        titleText: '支付方式',
+        cancelText: '取消',
+        cancel: function () {
+          // 这里添加取消代码
+        },
+        buttonClicked: function (index) {
+          switch (index) {
+            case 0:
+              billServer.partyPay(partyIdFrom, paymentId, function (data) {
+                console.log(data);
+                if (data.resultMsg == '成功') {
+                  $state.reload()
+                }
+              });
+              break;
+            case 1:
+              billServer.partyPay(partyIdFrom, paymentId, function (data) {
+                console.log(data);
+                if (data.resultMsg == '成功') {
+                  $state.reload()
+                }
+              });
+              break;
+            case 2:
+              billServer.partyPay(partyIdFrom, paymentId, function (data) {
+                console.log(data);
+                if (data.resultMsg == '成功') {
+                  $state.reload()
+                }
+              });
+              break;
+            default:
+              alert('请选择')
+          }
         }
-      })
+      });
     };
 
     //获取要修改金额焦点
@@ -79,7 +106,7 @@ angular.module('bill.controllers', [])
     //修改金额
     $scope.updatePaymentAmount = function (paymentId) {
       var amount = document.getElementsByName(paymentId)[0].value;
-      billServer.updatePaymentAmount(tarjeta, paymentId, amount, function (data) {
+      billServer.updatePaymentAmount(paymentId, amount, function (data) {
         console.log(data);
         if (data.resultMsg == '成功') {
           $state.reload()
@@ -94,13 +121,13 @@ angular.module('bill.controllers', [])
       });
     };
 
-    //微信分析账单
-    $scope.billShare=function (paymentGroupId,paymentGroupName) {
+    //微信分享账单
+    $scope.billShare = function (paymentGroupId, paymentGroupName) {
       Wechat.share({
         message: {
-          title: '分享账单: ' +paymentGroupName,
-          description: '活动: '+$scope.workEffortName,
-          thumb: 'www/img/shareActivity/btn_梨友_n@2x.png',
+          title: '分享账单: ' + paymentGroupName,
+          description: '活动: ' + $scope.workEffortName,
+          thumb: 'www/img/activityImg/btn_账单_n@2x.png',
           media: {
             type: Wechat.Type.WEBPAGE,
             webpageUrl: 'http://www.vivafoo.com:3400/pewebview/control/viewAccountList?workEffortId=' + id + "&paymentGroupId=" + paymentGroupId,
@@ -124,12 +151,17 @@ angular.module('bill.controllers', [])
                                              $stateParams, billServer, $ionicPopup) {
     //准备参数
     $scope.workEffortId = $stateParams.workEffortId;
-    $scope.tarjeta = localStorage.getItem("tarjeta");
     $scope.Bill = {};
 
     //提交新录入账单
     $scope.createBill = function () {
-      billServer.createActivityInvoice($scope.tarjeta, $scope.workEffortId, $scope.Bill.billName, $scope.Bill.amount, function (data) {
+      var public = document.getElementsByName("public");
+      for (var i = 0; i < public.length; i++) {
+        if (public[i].checked) {
+          $scope.public = public[i].value
+        }
+      }
+      billServer.createActivityInvoice($scope.workEffortId, $scope.Bill.billName, $scope.Bill.amount, $scope.public, function (data) {
         console.log("创建账单:" + data);
         if (data.resultMsg == '账单创建成功!') {
           $ionicPopup.alert({

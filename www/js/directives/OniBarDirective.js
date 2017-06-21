@@ -47,15 +47,15 @@ angular.module('directives.OniBarDirective', [])
     };
   })
   .directive('rjHoldActive', ['$ionicGesture', '$timeout', '$ionicBackdrop',
-    function($ionicGesture, $timeout, $ionicBackdrop) {
+    function ($ionicGesture, $timeout, $ionicBackdrop) {
       return {
         scope: false,
         restrict: 'A',
         replace: false,
-        link: function(scope, iElm, iAttrs, controller) {
-          $ionicGesture.on("hold", function() {
+        link: function (scope, iElm, iAttrs, controller) {
+          $ionicGesture.on("hold", function () {
             iElm.addClass('active');
-            $timeout(function() {
+            $timeout(function () {
               iElm.removeClass('active');
             }, 300);
           }, iElm);
@@ -63,14 +63,14 @@ angular.module('directives.OniBarDirective', [])
       };
     }
   ])
-  .directive('rjCloseBackDrop', [function() {
+  .directive('rjCloseBackDrop', [function () {
     return {
       scope: false,
       restrict: 'A',
       replace: false,
-      link: function(scope, iElm, iAttrs, controller) {
+      link: function (scope, iElm, iAttrs, controller) {
         var htmlEl = angular.element(document.querySelector('html'));
-        htmlEl.on("click", function(event) {
+        htmlEl.on("click", function (event) {
           if (event.target.nodeName === "HTML" &&
             scope.popup.optionsPopup &&
             scope.popup.isPopup) {
@@ -81,12 +81,12 @@ angular.module('directives.OniBarDirective', [])
       }
     };
   }])
-  .directive('resizeFootBar', ['$ionicScrollDelegate', function($ionicScrollDelegate){
+  .directive('resizeFootBar', ['$ionicScrollDelegate', function ($ionicScrollDelegate) {
     // Runs during compile
     return {
       replace: false,
-      link: function(scope, iElm, iAttrs, controller) {
-        scope.$on("taResize", function(e, ta) {
+      link: function (scope, iElm, iAttrs, controller) {
+        scope.$on("taResize", function (e, ta) {
           if (!ta) return;
           var scroll = document.body.querySelector("#message-detail-content");
           var scrollBar = $ionicScrollDelegate.$getByHandle('messageDetailsScroll');
@@ -102,14 +102,14 @@ angular.module('directives.OniBarDirective', [])
       }
     };
   }])
-  .directive('rjPositionMiddle', ['$window', function($window){
-    return{
+  .directive('rjPositionMiddle', ['$window', function ($window) {
+    return {
       replace: false,
-      link: function(scope, iElm, iAttrs, controller){
+      link: function (scope, iElm, iAttrs, controller) {
         var height = $window.innerHeight - 44 - 49 - iElm[0].offsetHeight;
         if (height >= 0) {
           iElm[0].style.top = (height / 2 + 44) + 'px';
-        }else{
+        } else {
           iElm[0].style.top = 44 + 'px';
         }
       }

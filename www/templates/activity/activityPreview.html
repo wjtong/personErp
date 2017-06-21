@@ -1,0 +1,17 @@
+<ion-view title="文本预览" hide-tabs="true">
+  <ion-nav-bar class="bar-dark">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon  ion-ios-arrow-back "></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content keyboardshow id="act-discuss">
+   {{activityInfo}}
+  </ion-content>
+  <div class="tab-nav tabs act-foot-btn">
+    <a class="tab-item tab-item" ng-click="Clipboard(activityInfo)">
+      <span class="tab-create">复制信息</span>
+    </a>
+  </div>
+</ion-view>

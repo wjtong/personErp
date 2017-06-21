@@ -1,4 +1,16 @@
 /*活动首页***************************************************************************************************************/
+
+.activityNull {
+  height: 100%;
+  position: relative;
+}
+
+.activityNull img {
+  margin: 40% 0%;
+  width: 100%;
+  height: 50%;
+}
+
 .activityTabs {
   background-color: #FFDA44;
   text-align: center;
@@ -223,7 +235,6 @@
 
 #activityDel .pe-num {
   font-size: 14px;
-  color: #B9B9B9;
   position: absolute;
   top: 5px;
   right: 4%;
@@ -242,6 +253,7 @@
 }
 
 .del-right {
+  padding: 3px;
   flex: 2;
 }
 
@@ -253,6 +265,9 @@
 #activityDel .img-header {
   height: 106px;
   width: 106px;
+  border-radius: 10px;
+  opacity: 0.7;
+  box-shadow: 0 0 70px 30px rgb(249, 249, 249) inset;
 }
 
 #activityDel .img-responsive {
@@ -271,6 +286,7 @@
   width: 15px;
   height: 15px;
   text-align: center;
+  line-height: 15px;
 }
 
 #activityDel .img-joinP {
@@ -283,8 +299,8 @@
   width: 20px;
   height: 20px;
   position: absolute;
-  top: -5%;
-  left: 12%
+  top: 30%;
+  left: 15%
 }
 
 #activityDel hr {
@@ -295,7 +311,7 @@
 
 .activityTimer {
   background: url(../img/activityImg/icon_时间@2x.png) no-repeat center;
-  background-size: 58%, 58%;
+  background-size: 50%, 50%;
   padding: 5%;
 }
 
@@ -308,7 +324,7 @@
 
 .activityLocation {
   background: url(../img/activityImg/icon_地址@2x.png) no-repeat center;
-  background-size: 58%, 58%;
+  background-size: 50%, 50%;
   padding: 5%;
 }
 
@@ -424,12 +440,13 @@
 
 #activityDel input {
   display: inline;
-  width: 80%;
+  width: 100%;
   background-color: white;
-  color: black;
+  color: #4d4d4d;
 }
 
 #activityDel textarea {
+  color: #4d4d4d;
   background-color: white;
 }
 
@@ -492,13 +509,31 @@
   float: left;
 }
 
+#activityMatter ion-item {
+  background-color: #b7dee0;
+  border-bottom: 5px solid salmon;
+}
+
 #activityMatter button {
   float: right;
+  display: inline-block;
+  width: 20%;
+  height: 36px;
 }
 
 #activityMatter h3 {
   font-size: 18px;
-  text-align: center;
+  text-align: left;
+}
+
+#activityMatter textarea {
+  width: 80%;
+  resize: none;
+  background-color: #b7dee0;
+  display: inline-block;
+}
+
+.join-matter {
 }
 
 /*活动邀请方式***********************************************************************************************************/
@@ -753,5 +788,8 @@
 
   #activityDel input {
     white-space: normal
+  }
+  .tabs{
+    height: 40px;
   }
 }

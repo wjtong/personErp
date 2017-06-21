@@ -1,12 +1,20 @@
 /*全局样式设置***********************************************************************************************************/
 .globalColor {
-  background-color: #444444;
-  color: black;
+  background-color: red;
 }
 
 .globalColorButton {
   color: black;
 }
+.tab-create{
+  font-size: 20px;
+  color: white;
+}
+.act-foot-btn{
+  background-color: #787878;
+  opacity: 0.5
+}
+
 
 /*tabs图标**************************************************************************************************************/
 .tab-item i.icon {
@@ -110,7 +118,7 @@
 
 #login .captcha {
   position: absolute;
-  top: 28%;
+  top: 37%;
   right: 15%;
 }
 
@@ -125,7 +133,7 @@
   width: 80%;
   height: 45px;
   background-color: white;
-  margin: 20% 10% 15% 10%;
+  margin: 5% 10% 15% 10%;
   font-size: 20px;
   color: #1AAD19;
 }
@@ -216,7 +224,47 @@
     font-size: 0.8rem;
   }
 
+  .bar-home-on {
+    background-size: 50%, 50%;
+  }
+
+  .bar-home-off {
+    background-size: 50%, 50%;
+  }
+
+  .bar-contact-on {
+    background-size: 50%, 50%;
+  }
+
+  .bar-contact-off {
+    background-size: 50%, 50%;
+  }
+
+  .bar-my-on {
+    background-size: 50%, 50%;
+  }
+
+  .bar-my-off {
+    background-size: 50%, 50%;
+  }
+
+  .bar-message-on {
+    background-size: 50%, 50%;
+  }
+
+  .bar-message-off {
+    background-size: 50%, 50%;
+  }
+
+  .bar-newActivity-on {
+    background-size: 75%, 75%;
+  }
+
   #activityDel .item-thumbnail-left {
     padding-left: 40%
+  }
+
+  .empty {
+    margin-top: 215px;
   }
 }

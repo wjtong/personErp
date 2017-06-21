@@ -7,7 +7,7 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content id="login">
-    <div class="content has-header">
+    <div class="content" style="padding-top: 44px">
       <form ng-submit="doLogin()">
         <label>
           <input type="tel" class="inputLogin" placeholder="    手机号码" ng-model="loginData.mobileNumber">
@@ -19,6 +19,12 @@
           <input class="buttonLogin" type="submit" value="完成">
         </label>
       </form>
+      <div class="captcha">
+        <button class="button button-clear button-dark" ng-controller="captcha"
+                ng-click="getIdentifyCode(loginData.mobileNumber)">
+          {{codeBtn}}
+        </button>
+      </div>
       <span>OR</span>
       <div style="text-align: center">
         <img src="../www/img/tabs/形状-2@2x.png" ng-click="wachatLogin()"/>
@@ -29,11 +35,6 @@
         <input class="buttonLogin" type="button" value="微信找回" ng-click="wachatLogin()">
       </label>
     </div>
-    <div class="captcha">
-      <button class="button button-clear button-dark" ng-controller="captcha"
-              ng-click="getIdentifyCode(loginData.mobileNumber)">
-        {{codeBtn}}
-      </button>
-    </div>
+
   </ion-content>
 </ion-view>

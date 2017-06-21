@@ -6,7 +6,7 @@
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button id="editEvent" class="button button-clear" ng-if="!editIf" ng-click="editEvent(editButton)">
+      <button id="editEvent" class="button button-clear" ng-click="editEvent(editButton)">
         {{editButton}}
       </button>
     </ion-nav-buttons>
@@ -18,49 +18,36 @@
           <img id="activityImage" class="img-header" src="{{themeImgList.objectInfo}}" ng-click="updateActivityPhoto()">
         </div>
         <div class="del-right">
-          <label>
-            <i class="icon activityTimer"></i>
-            <input type="text" placeholder="开始时间" readonly ng-click="startDate()" ng-disabled="edit"
-                   ng-model="ActivityData.startDate">
-          </label>
-          <label>
-            <i class="icon activityTimerEnd"></i>
-            <input type="text" placeholder="结束时间" readonly ng-click="endDate()" ng-disabled="edit"
-                   ng-model="ActivityData.endDate">
-          </label>
-          <label>
-            <i class="icon activityLocation"></i>
-            <input type="text" placeholder="活动地点" readonly ng-disabled="edit" ng-click="openModalAddress()"
-                   ng-model="ActivityData.address">
-          </label>
+          <h3 style="text-align: center">公告:</h3>
+          <textarea style="resize:none;width: 100%" rows="3" ng-model="activityList.serviceLoaderName"
+                    ng-disabled="edit"></textarea>
         </div>
       </div>
-      <div class="row activityDetTabs">
+      <div class="row activityDetTabs header-bar">
         <div class="col col-20" ng-repeat="picture in activityTabsImg">
           <img class="img-responsive" ng-src="{{picture.img}}" ng-click="goNavigation(picture.name)">
           <p>{{picture.name}}</p>
         </div>
       </div>
       <div class="item">
-        <h3>公告:</h3>
-        <textarea style="resize:none" rows="3" ng-model="activityList.serviceLoaderName" ng-disabled="edit"></textarea>
+        <label>
+          <i class="icon activityTimer"></i>
+          <input type="text" placeholder="开始时间" readonly ng-click="startDate()" ng-disabled="edit"
+                 ng-model="ActivityData.startDate">
+        </label>
+        <label>
+          <i class="icon activityTimerEnd"></i>
+          <input type="text" placeholder="结束时间" readonly ng-click="endDate()" ng-disabled="edit"
+                 ng-model="ActivityData.endDate">
+        </label>
+        <label>
+          <i class="icon activityLocation"></i>
+          <input type="text" placeholder="活动地点" readonly ng-disabled="edit" ng-click="openModalAddress()"
+                 ng-model="ActivityData.address">
+        </label>
       </div>
       <div class="item item-joinP">
-        <h3>参与人:</h3>
-        <p class="pe-num">{{number}}人</p>
-        <hr class="cleanFloat">
-        <ion-scroll direction="x" class="wide-as-needed">
-          <div class="row ">
-            <div class="col col-20" ng-repeat="item in groupMemberList" ng-click="getPersonInfo(item.partyId)">
-              <img class="img-joinP" ng-src="{{item.headPortrait}}">
-              <p>{{item.firstName}}</p>
-            </div>
-          </div>
-          <div><img class="img-zhuzi" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/></div>
-        </ion-scroll>
-      </div>
-      <div class="item item-joinP">
-        <h3>活动描述:</h3>
+        <h3>介绍:</h3>
         <label>
           <textarea style="resize:none" placeholder="活动描述" ng-disabled="edit"
                     ng-model="activityList.description"></textarea>
@@ -82,26 +69,26 @@
         <div id="content">
         </div>
       </div>
-      <div class="item" ng-if="activityItemNull">
-        <h3>活动项:</h3>
-        <hr>
-        <div class="activity-item" ng-repeat="item in projectList">
-          <img src="../www/img/activityImg/icon_活动项@2x.png"/>
-          <span>{{item.actualStartDate| date:'MM月dd日 HH时mm分'}} {{item.workEffortName}}</span>
+      <div class="item item-joinP">
+        <h3>参与人:</h3>
+        <p class="pe-num" ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)">
+          {{groupAcount}}人｜评论({{commEventCount}})</p>
+        <hr class="cleanFloat">
+        <div class="row row-wrap">
+          <div class="col col-20" ng-repeat="item in groupMemberList" ng-click="getPersonInfo(item.partyId)">
+            <img class="img-joinP" ng-src="{{item.headPortrait}}">
+            <p>{{item.firstName}}</p>
+          </div>
+          <img class="img-zhuzi" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/>
         </div>
       </div>
+      <br><br><br>
     </div>
   </ion-content>
-  <ion-footer-bar id="footer" class="bar-light">
-    <div class="yuyin" style="">
-      <img src="../www/img/activityImg/评论.jpeg" width="30" height="30" ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)"/>
-      <span class="red-point">{{commEventCount}}</span>
-    </div>
-    <div class="yaoqing">
-      <button id="invent" ng-click="InviteModal()" class="button  activityInvitationImg"></button>
-    </div>
-    <div class="baoming">
-      <button id="join" ng-click="showPopup(activityList.workEffortId)" class="button activityFootImg"></button>
-    </div>
-  </ion-footer-bar>
+  <div class="tab-nav tabs act-foot-btn">
+    <button class="button button-clear tab-create" id="sign" style="font-size: 24px;color: white"
+            ng-click="InviteModal(activityDetailsFootButton)">
+      {{activityDetailsFootButton}}
+    </button>
+  </div>
 </ion-view>

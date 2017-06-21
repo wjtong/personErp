@@ -5,18 +5,17 @@
         <i class="icon  ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <button class="button button-icon ion-plus" ng-click="newActivityMatter()">
-      </button>
-    </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content id="activityMatter">
     <ion-list>
-      <ion-item ng-repeat="item in activityJobsList">
-        <h3>{{item.surveyName}}</h3>
-        <textarea rows="2" readonly="readonly" style="resize: none;background-color: white">{{item.questionName}}</textarea>
-        <button class="button button-positive button-small" style="margin-bottom: 5px" ng-click="joinMatter(item.surveyId,item.surveyQuestionId)">参与</button>
+      <ion-item ng-repeat="item in activityJobsList" style="">
+        <h3>{{item.surveyName}}:</h3>
         <hr>
+        <p style="position: absolute;top: 15px;right: 10px;color: #0c60ee" ng-click="WechatShare(item.surveyName,item.surveyId)">微信分享</p>
+        <div class="join-matter">
+          <textarea rows="2" readonly>{{item.questionName}}</textarea>
+          <button class="button button-positive button-small" ng-click="joinMatter(item.surveyId,item.surveyQuestionId)">参与</button>
+        </div>
         <div class="list" ng-repeat="anwser in item.partyAnswer">
           <div class="item">{{anwser.firstName}}：{{anwser.textResponse}}</div>
         </div>
@@ -24,5 +23,10 @@
     </ion-list>
     <div class="empty" ng-if="item_empty">还没有相关活动事项</div>
   </ion-content>
+  <div class="tab-nav tabs act-foot-btn">
+    <a class="tab-item tab-item" ng-click="newActivityMatter()">
+      <span class="tab-create">创建事项</span>
+    </a>
+  </div>
 </ion-view>
 

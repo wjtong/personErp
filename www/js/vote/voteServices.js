@@ -1,11 +1,11 @@
 angular.module('vote.services', [])
 
   .service("voteService", function ($q, $rootScope) {
-    var tarjeta = localStorage.getItem("tarjeta"); // token
 
     return {
       //查询投票
       findActivityPollQuestionsTitle: function (workEffortId) {
+        var tarjeta = localStorage.getItem('tarjeta');
         var deferred = $q.defer();
         var promise = deferred.promise;
         $.ajax(
@@ -37,6 +37,7 @@ angular.module('vote.services', [])
       },
       //创建投票
       createSurveyAndQuestions: function (workEffortId, surveyName, questions) {
+        var tarjeta = localStorage.getItem('tarjeta');
         var deferred = $q.defer();
         var promise = deferred.promise;
         $.ajax(
@@ -72,8 +73,9 @@ angular.module('vote.services', [])
         };
         return promise;
       },
-      //查询投票
+      //查询投票详情
       findActivityPollQuestions: function (surveyId) {
+        var tarjeta = localStorage.getItem('tarjeta');
         var deferred = $q.defer();
         var promise = deferred.promise;
         $.ajax(
@@ -105,6 +107,7 @@ angular.module('vote.services', [])
       },
       //点击投票
       doPollQuestion: function (surveyId, surveyQuestionId) {
+        var tarjeta = localStorage.getItem('tarjeta');
         var deferred = $q.defer();
         var promise = deferred.promise;
         $.ajax(

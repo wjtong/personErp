@@ -2,6 +2,7 @@ angular.module('contact.services', [])
 
 //联系人列表
   .factory('Contact', function ($rootScope) {
+    var tarjeta = localStorage.getItem('tarjeta');
 
     return {
       //获得联系人列表
@@ -74,7 +75,8 @@ angular.module('contact.services', [])
         });
       },
       //查询用户的个人信息
-      queryPersonInfo: function (tarjeta, cb) {
+      queryPersonInfo: function (cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "queryPersonInfo",
           data: {tarjeta: tarjeta},
@@ -93,7 +95,8 @@ angular.module('contact.services', [])
         });
       },
       //绑定用户手机号码
-      updateLoginTel: function (tarjeta, partyId, tel, captcha, cb) {
+      updateLoginTel: function (partyId, tel, captcha, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "updateLoginTel",
           data: {
@@ -117,7 +120,8 @@ angular.module('contact.services', [])
         });
       },
       //查询联系人的信息详情
-      findUserDetail: function (tarjeta, partyId, cb) {
+      findUserDetail: function (partyId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.communicationfaceUrl + "findUserDetail",
           data: {
@@ -139,7 +143,8 @@ angular.module('contact.services', [])
         });
       },
       //修改联系人备注名称
-      remarksContact: function (tarjeta, partyId, markName, cb) {
+      remarksContact: function (partyId, markName, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.communicationfaceUrl + "remarksContact",
           data: {
