@@ -81,14 +81,15 @@ angular.module('bill.services', [])
         });
       },
       //用户确认支付
-      partyPay: function (partyIdFrom, paymentId, cb) {
+      partyPay: function (partyIdFrom, paymentId,paymentMethodId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "partyPay",
           data: {
             tarjeta: tarjeta,
             partyIdFrom: partyIdFrom,
-            paymentId: paymentId
+            paymentId: paymentId,
+            paymentMethodId:paymentMethodId
           },
           async: false,
           type: 'POST',

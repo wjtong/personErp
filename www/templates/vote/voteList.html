@@ -8,25 +8,33 @@
   </ion-nav-bar>
   <ion-content class="vote">
     <ion-list>
-      <ion-item ng-repeat="activityPollQuestionsTitle in activityPollQuestionsTitles"
-                ui-sref="tab.goCastVote({surveyId:activityPollQuestionsTitle.surveyId,surveyName:activityPollQuestionsTitle.surveyName,workEffortId:workEffortId})">
-        <div class="item-avatar" style="position: relative">
-          <img src="../www/img/activityImg/touxiang.jpg" height="32" width="32" style="top: 0"/>
-          <h2>桃子</h2>
-          <p>{{activityPollQuestionsTitle.fromDate | date:'yyyy年MM月dd日 HH:mm'}}</p>
-          <div style="position: absolute;top: 0;right: 0;background-color: #ffc900;color: white;height: 18px;width: 68px;
-          text-align: center;font-size: 12px">
-            进行中
+      <ion-item ng-repeat="item in activityPollQuestionsTitles"
+                ui-sref="tab.goCastVote({surveyId:item.surveyId,surveyName:item.surveyName,workEffortId:workEffortId})">
+        <div class="item-avatar">
+          <img src="{{item.objectInfo}}"/>
+          <h2>{{item.firstName}}</h2>
+          <p>{{item.fromDate | date:'yyyy年MM月dd日 HH:mm'}}</p>
+          <div ng-class="{true: 'vote-state-open', false: 'vote-state-close'}[item.statusId=='VOTE_OPEN']"
+               ng-bind-html="{true: '进行中', false: '已结束'}[item.statusId=='VOTE_OPEN']">
           </div>
         </div>
-        <div style="padding-bottom: 22px;text-indent: 12px">
-          {{activityPollQuestionsTitle.surveyName}}
+        <div class="vote-name">
+          {{item.surveyName}}
         </div>
-        <div
-          style="height: 34px;background-color: #ffc900;width: 100%;text-align: center;color: white;line-height: 34px">
-          正在进行,立即参与
+        <div ng-class="{true: 'vote-button-open', false: 'vote-button-close'}[item.statusId=='VOTE_OPEN']"
+             ng-bind-html="{true: '正在进行,立即参与', false: '投票结束,点击查看'}[item.statusId=='VOTE_OPEN']">
+
         </div>
-        <ion-option-button class="button-assertive">移除</ion-option-button>
+        <div ng-if="item.partyId==partyId">
+          <ion-option-button class="button-assertive"
+                             ng-click="deleteVote(item.surveyId)">
+            删除
+          </ion-option-button>
+          <ion-option-button class="button-positive" ng-if="item.statusId=='VOTE_OPEN'"
+                             ng-click="finishVote(item.surveyId)">
+            结束
+          </ion-option-button>
+        </div>
       </ion-item>
     </ion-list>
     <div class="empty" ng-if="vote_empty">还没有相关投票内容</div>

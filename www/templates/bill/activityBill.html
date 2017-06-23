@@ -7,7 +7,7 @@
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
       <button class="button button-clear" ng-click="billHide(billHideText)">
-       {{billHideText}}
+        {{billHideText}}
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
@@ -18,13 +18,17 @@
         <p style="float: right" ng-click="billShare(item.paymentGroupId,item.paymentGroupName)"><b>微信分享</b></p>
         <p>单位:元</p>
         <hr>
-        <div class="partition" ng-repeat="member in item.memberList">
+        <div class="partition" ng-repeat="member in item.memberList"
+             ng-if="activityAdminPartyId==partyId||(member.roleTypeIdTo=='PRIVATE_PAYMENT'||member.partyIdFrom==partyId)">
           <div>
             <span>{{member.firstName}}</span>
-            <input type="text" name="{{member.paymentId}}" ng-model="member.amount" ng-change="onfocus(member.paymentId)">
+            <input type="text" name="{{member.paymentId}}" ng-model="member.amount" ng-readonly="activityAdminPartyId!=partyId"
+                   ng-change="onfocus(member.paymentId)">
             <button class="Payment-edit" id="{{member.paymentId}}" ng-click="updatePaymentAmount(member.paymentId)">修改
             </button>
-            <button class="Payment-status" ng-disabled="member.statusId=='已付'" ng-click="partyPay(member.partyIdFrom,member.paymentId)">{{member.statusId}}
+            <button class="Payment-status" id="falt" ng-disabled="activityAdminPartyId!=partyId&&member.partyIdFrom!=partyId||member.statusId=='已付'"
+                    ng-style="{'background-color':(member.partyIdFrom==partyId||activityAdminPartyId==partyId)?'':'white'}"
+                    ng-click="partyPay(member.partyIdFrom,member.paymentId,member.payMethod)">{{member.paymentMethodName}}{{member.statusId}}
             </button>
           </div>
         </div>
@@ -32,7 +36,7 @@
     </div>
     <div class="empty" ng-if="billEmpty">还没有相关账单内容</div>
   </ion-content>
-  <div class="tab-nav tabs act-foot-btn">
+  <div class="tab-nav tabs act-foot-btn" ng-if="activityAdminPartyId==partyId">
     <a class="tab-item tab-item" ng-click="addBill()">
       <span class="tab-create">创建账单</span>
     </a>

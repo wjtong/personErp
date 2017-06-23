@@ -353,8 +353,9 @@ angular.module('activity.controllers', [])
       $scope.locationAddress = item.location.lat + "/" + item.location.lng;
     };
 
-    //新建活动连接后台
+    //创建活动连接后台
     $scope.createNewActivity = function () {
+      var flag = false;
       if ($scope.ActivityData.workEffortName == '' || $scope.ActivityData.workEffortName == undefined) {
         var validate = $ionicPopup.show({
           title: '活动名称不能为空'
@@ -367,6 +368,7 @@ angular.module('activity.controllers', [])
         if ($scope.themeImgId == null) {
           $scope.themeImgId = localStorage.getItem("themeImgId")
         }
+        if (flag == true) return;
         ActivityServer.createActivity(
           $scope.ActivityData.workEffortName,
           $scope.ActivityData.startDate,
@@ -377,6 +379,15 @@ angular.module('activity.controllers', [])
           $scope.themeImgId,
           $scope.groupId,
           function (data) {
+            if (data.resultMsg == '成功') {
+              flag = true;
+              $scope.ActivityData.workEffortName = '';
+              $scope.ActivityData.startDate = '';
+              $scope.ActivityData.endDate = '';
+              $scope.ActivityData.address = '';
+              $scope.ActivityData.information = '';
+              $cordovaProgress.hide()
+            }
             var id = data.workEffortId;
             $location.path("/tab/activityDetails/" + id);
             $scope.modal.hide();
@@ -1145,7 +1156,7 @@ angular.module('activity.controllers', [])
    * Date 2017-3-3
    * */
   .controller('slideCrl', function ($scope, $stateParams, $ionicHistory, ActivityServer, $ionicActionSheet, $location,
-                                    $ionicSlideBoxDelegate, $cordovaFileTransfer, $timeout) {
+                                    $ionicSlideBoxDelegate) {
 
     //准备参数
     $scope.workEffortId = $stateParams.activityId;
@@ -1153,12 +1164,6 @@ angular.module('activity.controllers', [])
     $scope.partyId = localStorage.getItem("partyId");
     var activityData = localStorage.getItem("activityData" + $scope.workEffortId);
     $scope.workEffortName = jQuery.parseJSON(activityData).workEffortName;
-
-    //照片INDEX
-    $scope.slideChanged = function (index) {
-      $scope.imgIndex = index;
-      $scope.acountPraiseCount = $scope.pictureList[$scope.imgIndex].praiseCount;
-    };
 
     if ($scope.myActiveSlide == 0) {
       $scope.imgIndex = 0;
@@ -1178,32 +1183,47 @@ angular.module('activity.controllers', [])
       function (data) {
         if (data.contentsList.length > 0) {
           $scope.pictureList = data.contentsList;
-          $scope.acountPraiseCount = $scope.pictureList[$scope.myActiveSlide].praiseCount;
+          $scope.count = data.contentsList;
+          $scope.acountPraiseCount = $scope.count[$scope.myActiveSlide].praiseCount;
         }
-        //$scope.acountTrampleCount = $scope.pictureList[$scope.myActiveSlide].trampleCount;
       });
 
     //赞和踩
     $scope.praise = 'PRAISE_COUNT';
-    $scope.trample = 'TRAMPLE_COUNT';
     $scope.praiseselect = function (type) {
       for (var i = 0; i < $scope.pictureList.length; i++) {
         if (i == $scope.imgIndex) {
           $scope.contentId = $scope.pictureList[i].contentId;
           $scope.contentTypeId = type;
-          //alert( $scope.contentId+$scope.contentTypeId);
           ActivityServer.praisePicture($scope.contentTypeId, $scope.contentId, function (data) {
-            if (type == 'PRAISE_COUNT') {
-              $scope.acountPraiseCount = data.praiseCount
-            } else {
-              $scope.acountTrampleCount = data.trampleCount
-            }
+            $scope.viewSize = '999';
+            $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
+            ActivityServer.queryMyEventContents($scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize,
+              function (data) {
+                if (data.contentsList.length > 0) {
+                  $scope.viewSize = '999';
+                  $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
+                  ActivityServer.queryMyEventContents($scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize,
+                    function (data) {
+                      if (data.contentsList.length > 0) {
+                        $scope.count = data.contentsList;
+                        $scope.acountPraiseCount = $scope.count[$scope.imgIndex].praiseCount;
+                      }
+                    });
+                }
+              });
           });
         }
       }
-      $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.doRefresh();
-      });
+      // $scope.$on('$ionicView.beforeEnter', function () {
+      //   $scope.doRefresh();
+      // });
+    };
+
+    //照片INDEX
+    $scope.slideChanged = function (index) {
+      $scope.imgIndex = index;
+      $scope.acountPraiseCount = $scope.count[$scope.imgIndex].praiseCount;
     };
 
     //照片操作

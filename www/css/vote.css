@@ -8,6 +8,65 @@
   color: #4d4d4d;
 }
 
+.vote .vote-state-open {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ffc900;
+  color: white;
+  height: 18px;
+  width: 68px;
+  text-align: center;
+  font-size: 12px
+}
+
+.vote .vote-button-open {
+  height: 34px;
+  background-color: #ffc900;
+  width: 100%;
+  text-align: center;
+  color: white;
+  line-height: 34px
+}
+
+.vote .vote-state-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #aaaaaa;
+  color: white;
+  height: 18px;
+  width: 68px;
+  text-align: center;
+  font-size: 12px
+}
+
+.vote .vote-button-close {
+  height: 34px;
+  background-color: #aaaaaa;
+  width: 100%;
+  text-align: center;
+  color: white;
+  line-height: 34px
+}
+
+.vote .item-avatar {
+  position: relative
+}
+
+.vote img {
+  top: 0;
+  height: 32px;
+  width: 32px;
+}
+
+.vote .vote-name {
+  padding-bottom: 22px;
+  text-indent: 12px
+}
+
+
+
 /*兼容性问题******************************************屏幕大小兼容性*******************************************************/
 
 /*当页面大于1024px时，大屏幕，主要显示PC端*************/

@@ -196,7 +196,7 @@
 }
 
 /*在375 和768 像素之间的屏幕里，中等屏幕，主要是手机*/
-@media (min-width: 374px) and (max-width: 767px) {
+@media (min-width: 360px) and (max-width: 767px) {
   html {
     font-size: 16px;
   }
@@ -211,7 +211,7 @@
 }
 
 /*在小于375px的屏幕里，微小屏幕，更低分辨率的手机*/
-@media (max-width: 374px) {
+@media (max-width: 359px) {
   html {
     font-size: 14px;
   }

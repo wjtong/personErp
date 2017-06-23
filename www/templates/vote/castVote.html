@@ -25,9 +25,12 @@
                   ng-style="{width:question.answerCount/responceAnswersCount*100+'%'}">
               {{question.question}}<span ng-if="question.question==mySelect">(已选)</span>
             </span>
-            <span style="font-size: 12px;color: #979797">{{question.answerCount}}人  {{question.answerCount/responceAnswersCount*100}}%</span>
+            <span style="font-size: 12px;color: #979797">{{question.answerCount}}人  {{question.answerCount/responceAnswersCount*100|number : 2}}%</span>
           </div>
           <div style="text-align: right;color: #979797;font-size: 12px ">
+            <span ng-repeat="item in partyResponceAnswers">
+              <img ng-src="{{item.headPortrait}}" width="20" height="20" style="border-radius: 50%">
+            </span>
             {{partyResponceAnswersCount}}人已参与了投票
           </div>
         </div>

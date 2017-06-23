@@ -137,6 +137,52 @@ angular.module('vote.services', [])
           return promise;
         };
         return promise;
-      }
+      },
+      //关闭投票
+      closeVote: function (surveyId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.voteInterfaceUrl + "closeVote",
+          data: {
+            tarjeta: tarjeta,
+            surveyId: surveyId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //删除投票
+      removeVote: function (surveyId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.voteInterfaceUrl + "removeVote",
+          data: {
+            tarjeta: tarjeta,
+            surveyId: surveyId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
     };
   });

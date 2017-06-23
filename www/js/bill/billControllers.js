@@ -10,6 +10,7 @@ angular.module('bill.controllers', [])
 
     //准备参数
     var id = $stateParams.workEffortId;
+    $scope.partyId=localStorage.getItem('partyId');
     var activityData = localStorage.getItem("activityData" + id);
     $scope.workEffortName = jQuery.parseJSON(activityData).workEffortName;
     $scope.billEmpty = true;
@@ -17,6 +18,8 @@ angular.module('bill.controllers', [])
     //查询账单信息
     billServer.findActivityPayment(id, function (data) {
       $scope.billList = data.paymentGroupList;
+      $scope.activityAdminPartyId=data.activityAdminPartyId;
+
       if ($scope.billList.length > 0) {
         $scope.billEmpty = false
       }
@@ -50,13 +53,14 @@ angular.module('bill.controllers', [])
     };
 
     //用户确认支付
-    $scope.partyPay = function (partyIdFrom, paymentId) {
+    $scope.partyPay = function (partyIdFrom, paymentId,payMethod) {
+      console.log(payMethod);
       // 显示上拉菜单
       var hideSheet = $ionicActionSheet.show({
         buttons: [
-          {text: '支付宝'},
-          {text: '微信'},
-          {text: '银行卡转账'}
+          {text: payMethod[0].description},
+          {text: payMethod[1].description},
+          {text: payMethod[2].description}
         ],
         destructiveText: '',
         titleText: '支付方式',
@@ -67,7 +71,7 @@ angular.module('bill.controllers', [])
         buttonClicked: function (index) {
           switch (index) {
             case 0:
-              billServer.partyPay(partyIdFrom, paymentId, function (data) {
+              billServer.partyPay(partyIdFrom, paymentId, payMethod[0].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
                   $state.reload()
@@ -75,7 +79,7 @@ angular.module('bill.controllers', [])
               });
               break;
             case 1:
-              billServer.partyPay(partyIdFrom, paymentId, function (data) {
+              billServer.partyPay(partyIdFrom, paymentId,payMethod[0].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
                   $state.reload()
@@ -83,7 +87,7 @@ angular.module('bill.controllers', [])
               });
               break;
             case 2:
-              billServer.partyPay(partyIdFrom, paymentId, function (data) {
+              billServer.partyPay(partyIdFrom, paymentId,payMethod[0].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
                   $state.reload()

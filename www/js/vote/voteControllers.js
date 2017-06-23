@@ -9,15 +9,51 @@ angular.module('vote.controllers', [])
     //参数准备
     $scope.workEffortId = $stateParams.workEffortId;
     $scope.vote_empty = true;
+    $scope.partyId=localStorage.getItem('partyId');
 
     //查询我的投票列表
     voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
       console.log(data.resultMap.activityPollQuestionsTitle);
       $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle;
+
       if ($scope.activityPollQuestionsTitles.length > 0) {
         $scope.vote_empty = false;
       }
     });
+
+    //删除投票
+    $scope.deleteVote=function (id) {
+      voteService.removeVote(id,function (data) {
+        console.log('删除投票:'+data.resultMsg);
+        if(data.resultMsg){
+          //查询我的投票列表
+          voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
+            console.log(data.resultMap.activityPollQuestionsTitle);
+            $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle;
+            if ($scope.activityPollQuestionsTitles.length > 0) {
+              $scope.vote_empty = false;
+            }
+          });
+        }
+      })
+    };
+
+    //结束投票
+    $scope.finishVote=function (id) {
+      voteService.closeVote(id,function (data) {
+        console.log('结束投票:'+data.resultMsg);
+        if(data.resultMsg){
+          //查询我的投票列表
+          voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
+            console.log(data.resultMap.activityPollQuestionsTitle);
+            $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle;
+            if ($scope.activityPollQuestionsTitles.length > 0) {
+              $scope.vote_empty = false;
+            }
+          });
+        }
+      })
+    };
   })
 
   /*********************************************************************************************************************
@@ -35,14 +71,6 @@ angular.module('vote.controllers', [])
         "<textarea style='display: inline-block;width: 81%;resize:none' rows='1' class='questions' placeholder='选项'></textarea>" +
         "<img src='../www/img/activityImg/矢量智能对象-拷贝@2x.png' width=18 height=18 onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><hr>" +
         "");
-    };
-
-    //选择投票截止日期
-    $scope.itemData={};
-    $scope.selectDate=function () {
-      SelectDate.nativeDate(function (data) {
-        $scope.itemData.date = data
-      })
     };
 
     // 创建投票
@@ -106,18 +134,18 @@ angular.module('vote.controllers', [])
       $scope.questions = data.resultMap.questions;
       $scope.ret = {choice: '0'};
 
-      var partyResponceAnswers = data.resultMap.partyResponceAnswer;
-      $scope.partyResponceAnswersCount=partyResponceAnswers.length;
-      if(partyResponceAnswers.length>0){
-        $scope.responceAnswersCount = partyResponceAnswers.length;
+      $scope.partyResponceAnswers = data.resultMap.partyResponceAnswer;
+      $scope.partyResponceAnswersCount=$scope.partyResponceAnswers.length;
+      if($scope.partyResponceAnswers.length>0){
+        $scope.responceAnswersCount = $scope.partyResponceAnswers.length;
       }else {
         $scope.responceAnswersCount=1
       }
 
       var voteArr = [];
-      for (var i = 0; i < partyResponceAnswers.length; i++) {
-        if(partyResponceAnswers[i].partyId==$scope.partyId){
-         $scope.mySelect=partyResponceAnswers[i].question
+      for (var i = 0; i < $scope.partyResponceAnswers.length; i++) {
+        if($scope.partyResponceAnswers[i].partyId==$scope.partyId){
+         $scope.mySelect=$scope.partyResponceAnswers[i].question
         }
       }
       $scope.voteArrs = voteArr;
