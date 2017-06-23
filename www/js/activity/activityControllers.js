@@ -14,8 +14,6 @@ angular.module('activity.controllers', [])
 
     //查询我的活动
     $scope.$on('$ionicView.enter', function () {
-
-      //查询服务
       var roleTypeId = 'ACTIVITY_MEMBER';
       ActivityServer.queryMyEvent(roleTypeId, function (data) {
         $scope.activtyList = data.partyEventsList;
@@ -179,7 +177,7 @@ angular.module('activity.controllers', [])
                                        $rootScope, $stateParams, $cordovaCamera, $cordovaImagePicker, ActivityServer,
                                        $ionicPopup, $location, ThemeImage, ionicDatePicker, $cordovaFileTransfer,
                                        ionicTimePicker, $cordovaDatePicker, $cordovaVibration, $cordovaProgress,
-                                       SelectDate, $timeout) {
+                                       SelectDate, $timeout, $ionicLoading) {
 
     //参数准备
     $scope.ActivityData = {};
@@ -355,45 +353,47 @@ angular.module('activity.controllers', [])
 
     //创建活动连接后台
     $scope.createNewActivity = function () {
-      var flag = false;
-      if ($scope.ActivityData.workEffortName == '' || $scope.ActivityData.workEffortName == undefined) {
-        var validate = $ionicPopup.show({
-          title: '活动名称不能为空'
-        });
-        $timeout(function () {
-          validate.close()
-        }, 2000);
-        return false
-      } else {
-        if ($scope.themeImgId == null) {
-          $scope.themeImgId = localStorage.getItem("themeImgId")
-        }
-        if (flag == true) return;
-        ActivityServer.createActivity(
-          $scope.ActivityData.workEffortName,
-          $scope.ActivityData.startDate,
-          $scope.ActivityData.endDate,
-          $scope.ActivityData.address,
-          $scope.ActivityData.information,
-          $scope.locationAddress,
-          $scope.themeImgId,
-          $scope.groupId,
-          function (data) {
-            if (data.resultMsg == '成功') {
-              flag = true;
-              $scope.ActivityData.workEffortName = '';
-              $scope.ActivityData.startDate = '';
-              $scope.ActivityData.endDate = '';
-              $scope.ActivityData.address = '';
-              $scope.ActivityData.information = '';
-              $cordovaProgress.hide()
-            }
-            var id = data.workEffortId;
-            $location.path("/tab/activityDetails/" + id);
-            $scope.modal.hide();
+      $ionicLoading.show({
+        template: '创建中...'
+      });
+      $timeout(function () {
+        if ($scope.ActivityData.workEffortName == '') {
+          $ionicLoading.hide();
+          var validate = $ionicPopup.show({
+            title: '活动名称不能为空'
+          });
+          $timeout(function () {
+            validate.close()
+          }, 2000);
+        } else {
+          if ($scope.themeImgId == null) {
+            $scope.themeImgId = localStorage.getItem("themeImgId")
           }
-        );
-      }
+          ActivityServer.createActivity(
+            $scope.ActivityData.workEffortName,
+            $scope.ActivityData.startDate,
+            $scope.ActivityData.endDate,
+            $scope.ActivityData.address,
+            $scope.ActivityData.information,
+            $scope.locationAddress,
+            $scope.themeImgId,
+            $scope.groupId,
+            function (data) {
+              if (data.resultMsg == '成功') {
+                $ionicLoading.hide();
+                $scope.ActivityData.workEffortName = '';
+                $scope.ActivityData.startDate = '';
+                $scope.ActivityData.endDate = '';
+                $scope.ActivityData.address = '';
+                $scope.ActivityData.information = '';
+              }
+              var id = data.workEffortId;
+              $location.path("/tab/activityDetails/" + id);
+              $scope.modal.hide();
+            }
+          );
+        }
+      }, 500);
     };
 
     //取消
@@ -1156,7 +1156,7 @@ angular.module('activity.controllers', [])
    * Date 2017-3-3
    * */
   .controller('slideCrl', function ($scope, $stateParams, $ionicHistory, ActivityServer, $ionicActionSheet, $location,
-                                    $ionicSlideBoxDelegate) {
+                                    $ionicSlideBoxDelegate, $ionicPopup) {
 
     //准备参数
     $scope.workEffortId = $stateParams.activityId;
@@ -1165,6 +1165,8 @@ angular.module('activity.controllers', [])
     var activityData = localStorage.getItem("activityData" + $scope.workEffortId);
     $scope.workEffortName = jQuery.parseJSON(activityData).workEffortName;
 
+
+    //判断如果选择的是第一张相片
     if ($scope.myActiveSlide == 0) {
       $scope.imgIndex = 0;
     } else {
@@ -1176,6 +1178,13 @@ angular.module('activity.controllers', [])
       $ionicSlideBoxDelegate.$getByHandle('mySlide').slide(index);
     };
 
+    //照片INDEX
+    $scope.slideChanged = function (index) {
+      $scope.imgIndex = index;
+      $scope.acountPraiseCount = $scope.count[$scope.imgIndex].praiseCount;
+      $scope.PraiseList = $scope.count[$scope.imgIndex].praiseList
+    };
+
     //获取活动照片墙图片
     $scope.viewSize = '999';
     $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
@@ -1185,45 +1194,46 @@ angular.module('activity.controllers', [])
           $scope.pictureList = data.contentsList;
           $scope.count = data.contentsList;
           $scope.acountPraiseCount = $scope.count[$scope.myActiveSlide].praiseCount;
+          $scope.PraiseList = $scope.count[$scope.imgIndex].praiseList
         }
       });
 
-    //赞和踩
-    $scope.praise = 'PRAISE_COUNT';
-    $scope.praiseselect = function (type) {
+    //照片墙点赞
+    $scope.praised = '赞';
+    $scope.praiseselect = function (PraiseList) {
+
+      //判断是否已经点赞
+      for (var m = 0; m < PraiseList.length; m++) {
+        if (PraiseList[m].partyId == $scope.partyId) {
+          $ionicPopup.alert({
+            title: '您已经赞过了',
+          });
+          return
+        }
+      }
+
+      //点赞功能
       for (var i = 0; i < $scope.pictureList.length; i++) {
         if (i == $scope.imgIndex) {
           $scope.contentId = $scope.pictureList[i].contentId;
-          $scope.contentTypeId = type;
-          ActivityServer.praisePicture($scope.contentTypeId, $scope.contentId, function (data) {
-            $scope.viewSize = '999';
-            $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
-            ActivityServer.queryMyEventContents($scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize,
-              function (data) {
-                if (data.contentsList.length > 0) {
-                  $scope.viewSize = '999';
-                  $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
-                  ActivityServer.queryMyEventContents($scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize,
-                    function (data) {
-                      if (data.contentsList.length > 0) {
-                        $scope.count = data.contentsList;
-                        $scope.acountPraiseCount = $scope.count[$scope.imgIndex].praiseCount;
-                      }
-                    });
-                }
-              });
+          ActivityServer.praisePicture('PRAISE_COUNT', $scope.contentId, function (data) {
+
+            //点赞成功后执行刷新
+            if (data.resultMsg == '成功') {
+              $scope.viewSize = '999';
+              $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
+              ActivityServer.queryMyEventContents($scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize,
+                function (data) {
+                  if (data.contentsList.length > 0) {
+                    $scope.count = data.contentsList;
+                    $scope.acountPraiseCount = $scope.count[$scope.imgIndex].praiseCount;
+                    $scope.PraiseList = $scope.count[$scope.imgIndex].praiseList
+                  }
+                });
+            }
           });
         }
       }
-      // $scope.$on('$ionicView.beforeEnter', function () {
-      //   $scope.doRefresh();
-      // });
-    };
-
-    //照片INDEX
-    $scope.slideChanged = function (index) {
-      $scope.imgIndex = index;
-      $scope.acountPraiseCount = $scope.count[$scope.imgIndex].praiseCount;
     };
 
     //照片操作

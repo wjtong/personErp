@@ -5,7 +5,7 @@ angular.module('activity.services', [])
  * Author LX
  * Date 2017-6-12
  * */
-  .factory('ActivityServer', function ($rootScope, $q, $http) {
+  .factory('ActivityServer', function ($rootScope, $q, $http,$ionicLoading) {
 
     var tarjeta = localStorage.getItem('tarjeta');
 
