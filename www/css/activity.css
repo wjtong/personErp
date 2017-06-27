@@ -485,6 +485,14 @@
   font-size: 26px;
   color: #4d4d4d;
 }
+#activityItem .item{
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+#activityItem .item-content{
+  padding: 0;
+}
 
 #activityItem img {
   width: 30px;
@@ -501,36 +509,55 @@
 }
 
 /*活动事项**************************************************************************************************************/
+#activityMatter {
+  background-color: #efefef;
+}
 #activityMatter hr {
-  clear: both
+  clear: both;
+  color: #696968;
 }
 
 #activityMatter p {
-  float: left;
+  font-size: 14px;
+  color: #1AAD19;
+  position: absolute;
+  top: 22px;
+  right: 10px;
 }
 
 #activityMatter ion-item {
-  background-color: #b7dee0;
-  border-bottom: 5px solid salmon;
+  margin: 17.5px;
+  border-radius: 13px;
 }
 
 #activityMatter button {
   float: right;
   display: inline-block;
-  width: 20%;
-  height: 36px;
+  width: 24%;
+  top: 8px;
+  border-radius: 5px;
+  height: 34.5px;
+  background-color: #FFDA44;
+  font-size: 14px;
 }
 
 #activityMatter h3 {
-  font-size: 18px;
+  font-size: 17px;
   text-align: left;
 }
 
+#activityMatter .item h3{
+  margin: 11px 22px;
+}
+
 #activityMatter textarea {
-  width: 80%;
+  width: 65%;
   resize: none;
-  background-color: #b7dee0;
   display: inline-block;
+  background-color: white;
+  font-size: 15px;
+  color: #1d1d1d;
+  margin-left: 22px;
 }
 
 .join-matter {

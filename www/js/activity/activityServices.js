@@ -5,7 +5,7 @@ angular.module('activity.services', [])
  * Author LX
  * Date 2017-6-12
  * */
-  .factory('ActivityServer', function ($rootScope, $q, $http,$ionicLoading) {
+  .factory('ActivityServer', function ($rootScope, $q, $http, $ionicLoading) {
 
     var tarjeta = localStorage.getItem('tarjeta');
 
@@ -118,6 +118,124 @@ angular.module('activity.services', [])
       //     }
       //   });
       // },
+      //查询活动参与人员
+      queryActivityMembers: function (workEffortId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "queryActivityMembers",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //查询活动待审批人员
+      queryActivityWaitApprovals: function (workEffortId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "queryActivityWaitApprovals",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //查询活动待审批人员
+      approvalPartyJoin: function (workEffortId, partyId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "approvalPartyJoin",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+            partyId: partyId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //组织者踢人
+      removeActivityParty: function (workEffortId, partyId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "removeActivityParty",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+            partyId: partyId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //组织者是否需要审批
+      activityApproval: function (workEffortId, approval, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "activityApproval",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId,
+            approval: approval
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //新建活动项
       createActivityItem: function (workEffortId, workEffortName, actualStartDate, cb) {
         var tarjeta = localStorage.getItem('tarjeta');

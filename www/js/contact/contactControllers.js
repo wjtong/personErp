@@ -103,7 +103,7 @@ angular.module('contact.controllers', [])
 
     //获得我的全部联系人列表(我参与的活动)
     $scope.$on('$ionicView.enter', function () {
-      Contact.queryAllActivityRelationPersons(partyId, function (data) {
+      Contact.queryAllActivityRelationPersons(function (data) {
         $scope.allPersonList = data.allPersonList
       });
       if ($scope.allPersonList != null) {
@@ -331,11 +331,12 @@ angular.module('contact.controllers', [])
           $scope.sex = sex[i].value
         }
       }
-      Contact.updatePersonInfo($scope.partyId, $scope.myInfoList.personName, $scope.sex, function (data) {
+      Contact.updatePersonInfo($scope.myInfoList.personName, $scope.sex, function (data) {
         $ionicPopup.alert({
           title: '完成更新',
           template: data.resultMsg
         });
+        $state.go('tab.account')
       })
     }
   })

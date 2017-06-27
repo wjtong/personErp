@@ -12,6 +12,7 @@
                 ng-class="{'item-divider': item.isLetter}">
         <img ng-if="!item.isLetter" ng-src="{{item.headPortrait}}">
         {{item.letter || (item.first_name)}} <span ng-if="!item.isLetter&&item.appUser=='Y'">不分梨用户</span>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

@@ -6,61 +6,145 @@
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button class="button button-icon" ng-click="shareItem()">
-        分享
+      <button class="button button-clear" ng-click="newActivityItem(editButton)">
+        {{editButton}}
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content id="activityItem" overflow-scroll="false" style="overflow: hidden">
-    <!-- Connected lists -->
-    <!--<div class="container">-->
-      <!--<div data-force="30" class="layer block" style="width: 100%">-->
-        <!--<ul id="foo" class="block__list block__list_words" >-->
-          <!--<li ng-repeat="item in activityItemList" on-release="startIndexItem($index,item.sequenceNum)">-->
-            <!--<ion-item>-->
-              <!--<span style="color: white">{{item.sequenceNum}}.</span>-->
-              <!--<img src="../www/img/activityImg/icon_活动项@2x.png"/>-->
-              <!--<span>{{item.actualStartDate| date:'MM月dd日 HH时mm分'}} {{item.workEffortName}}</span>-->
-              <!--<ion-option-button class="button-assertive"-->
-              <!--ng-click="deleteActivityItem(item.workEffortIdFrom)">-->
-              <!--删除-->
-              <!--</ion-option-button>-->
-              <!--<ion-option-button class="button-positive"-->
-              <!--ng-click="updateActivityItem(item.workEffortIdFrom,item.workEffortName,item.sequenceNum,item.actualStartDate)">-->
-              <!--编辑-->
-              <!--</ion-option-button>-->
-            <!--</ion-item>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</div>-->
-    <!--</div>-->
-    <ion-list id="foo" class="list" ng-repeat="item in activityItemList">
+  <ion-content id="activityItem">
+    <ion-list ng-repeat="item in activityItemList">
       <ion-item>
-        <span>{{$index+1}}.</span>
-        <img src="../www/img/activityImg/icon_活动项@2x.png"/>
-        <span>{{item.actualStartDate| date:'MM月dd日 HH时mm分'}} {{item.workEffortName}}</span>
-
-        <ion-option-button class="button-assertive"
+        <div style="display: flex">
+          <div style="flex: 1">
+            <img src="../www/img/activityItem/未选中@2x.png"  style="padding: 15px;width: 100%;height: 46px"/></div>
+          <div style="flex: 7;border-bottom: 1px solid #f0f0f0">
+            <input type="text" ng-model="item.workEffortName" readonly
+                   ng-focus="updateActivityItem(item.workEffortIdFrom,item.workEffortName,item.sequenceNum,item.actualStartDate)"
+                   style="font-size: 16px;width: 100%;height: 46px;background-color: white">
+            <span>{{item.actualStartDate| date:'MM月dd日 HH时mm分'}}</span>
+          </div>
+        </div>
+        <ion-option-button style="padding: 0" class="button-assertive"
                            ng-click="deleteActivityItem(item.workEffortIdFrom)">
           删除
         </ion-option-button>
-        <ion-option-button class="button-positive"
+        <ion-option-button style="padding: 0" class="button-positive"
                            ng-click="updateActivityItem(item.workEffortIdFrom,item.workEffortName,item.sequenceNum,item.actualStartDate)">
           编辑
         </ion-option-button>
       </ion-item>
     </ion-list>
-    <div class="empty" ng-if="itemEmpty">还没有相关日程安排</div>
+    <ion-list id="newItem">
+      <ion-item>
+        <div style="display: flex">
+          <div style="flex: 1">
+            <img src="../www/img/activityItem/增加下一项 37X37px@2x.png" style="padding: 15px;width: 100%;height: 100%"/>
+          </div>
+          <div style="flex: 7;border-bottom: 1px solid #f0f0f0">
+            <input type="text" id="global-search-input" ng-focus="itemFocus()"
+                   style="font-size: 16px;width: 100%;height: 46px">
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div style="display: flex">
+          <div style="flex: 1">
+          </div>
+          <div style="flex: 7;border-bottom: 1px solid #f0f0f0;height: 46px">
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div style="display: flex">
+          <div style="flex: 1">
+          </div>
+          <div style="flex: 7;border-bottom: 1px solid #f0f0f0;height: 46px">
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div style="display: flex">
+          <div style="flex: 1">
+          </div>
+          <div style="flex: 7;border-bottom: 1px solid #f0f0f0;height: 46px">
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div style="display: flex">
+          <div style="flex: 1">
+          </div>
+          <div style="flex: 7;border-bottom: 1px solid #f0f0f0;height: 46px">
+          </div>
+        </div>
+      </ion-item>
+
+
+    </ion-list>
+    <!--<ion-list id="foo" class="list" ng-repeat="item in activityItemList">-->
+    <!--<ion-item style="border: 0;padding: 0">-->
+    <!--<div style="display: flex">-->
+    <!--<div style="flex: 1">-->
+    <!--<ion-checkbox style="width: 50px;height: 50px;border: 0">-->
+    <!--</ion-checkbox>-->
+    <!--</div>-->
+    <!--<div style="flex: 7;border-bottom: 1px solid #f0f0f0">-->
+    <!--<input type="text" placeholder="安排" style="font-size: 16px;width: 100%" ng-model="item.workEffortName">-->
+    <!--<span>{{item.actualStartDate| date:'MM月dd日 HH时mm分'}}</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<ion-option-button style="padding: 0" class="button-assertive"-->
+    <!--ng-click="deleteActivityItem(item.workEffortIdFrom)">-->
+    <!--删除-->
+    <!--</ion-option-button>-->
+    <!--<ion-option-button style="padding: 0" class="button-positive"-->
+    <!--ng-click="updateActivityItem(item.workEffortIdFrom,item.workEffortName,item.sequenceNum,item.actualStartDate)">-->
+    <!--编辑-->
+    <!--</ion-option-button>-->
+    <!--</ion-item>-->
+    <!--</ion-list>-->
+    <!--<div style="display: flex">-->
+    <!--<div style="flex: 1">-->
+    <!--<ion-checkbox style="width: 50px;height: 50px;border: 0">-->
+    <!--</ion-checkbox>-->
+    <!--</div>-->
+    <!--<div style="flex: 7;border-bottom: 1px solid #f0f0f0">-->
+    <!--<input type="text" style="font-size: 16px;width: 100%" >-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div style="display: flex">-->
+    <!--<div style="flex: 1">-->
+    <!--<ion-checkbox style="width: 50px;height: 50px;border: 0">-->
+    <!--<input type="text" style="font-size: 16px;width: 100%" >-->
+    <!--</ion-checkbox>-->
+    <!--</div>-->
+    <!--<div style="flex: 7;border-bottom: 1px solid #f0f0f0">-->
+    <!--<input type="text" style="font-size: 16px;width: 100%">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div style="display: flex">-->
+    <!--<div style="flex: 1">-->
+    <!--<ion-checkbox style="width: 50px;height: 50px;border: 0">-->
+    <!--</ion-checkbox>-->
+    <!--</div>-->
+    <!--<div style="flex: 7;border-bottom: 1px solid #f0f0f0">-->
+    <!--<input type="text" style="font-size: 16px;width: 100%" ng-model="item.workEffortName">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div style="border-bottom: 1px solid #f0f0f0;text-align: center" ng-click="newActivityItem()">-->
+    <!--<i class="ion ion-ios-plus-empty" style="font-size: 40px"></i>-->
+    <!--</div>-->
+    <!--<div class="empty" ng-if="itemEmpty">还没有相关日程安排</div>-->
   </ion-content>
   <div class="tab-nav tabs act-foot-btn">
-    <a class="tab-item tab-item" ng-click="newActivityItem()">
-      <span class="tab-create">创建日程</span>
+    <a class="tab-item tab-item" ng-click="shareItem()">
+      <span class="tab-create">微信分享</span>
     </a>
   </div>
   <!--<div class="tab-nav tabs globalColor">-->
-    <!--<a class="tab-item tab-item" ng-click="saveActivityItem()">-->
-      <!--<span class="tab-title">保存排序</span>-->
-    <!--</a>-->
+  <!--<a class="tab-item tab-item" ng-click="saveActivityItem()">-->
+  <!--<span class="tab-title">保存排序</span>-->
+  <!--</a>-->
   <!--</div>-->
 </ion-view>
 

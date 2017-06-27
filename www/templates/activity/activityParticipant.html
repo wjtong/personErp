@@ -1,0 +1,46 @@
+<ion-view title="参与人管理" hide-tabs="true">
+  <ion-nav-bar class="bar-dark">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon  ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content class="activityParticipant">
+    <h3 style="background-color: #0c60ee;color:white;text-align: center;font-size: 20px">已加入</h3>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right"
+                ng-repeat="item in activityParticipantList" ng-click="sendInvitation(chat.partyId)"
+      ">
+      <img ng-src="{{item.headPortrait}}">
+      <h2>{{item.firstName}}</h2>
+      <p>{{item.partyRole}}</p>
+      <i class="icon ion-chevron-right icon-accessory"></i>
+      <ion-option-button class="button-assertive" ng-click="removeActivityParty(item.partyId)">
+        踢人
+      </ion-option-button>
+      <ion-option-button class="button-positive" ng-click="">
+        权限
+      </ion-option-button>
+      </ion-item>
+    </ion-list>
+    <h3 style="background-color: #FF6344;color:white;text-align: center;font-size: 20px">待审批</h3>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right"
+                ng-repeat="item in activityWaitApprovalstList""
+      ">
+      <img ng-src="{{item.headPortrait}}">
+      <h2>{{item.firstName}}</h2>
+      <p>{{item.partyRole}}</p>
+      <i class="icon ion-chevron-right icon-accessory"></i>
+      <ion-option-button class="button-assertive" ng-click="">
+        驳回
+      </ion-option-button>
+      <ion-option-button class="button-positive" ng-click="approvalPartyJoin(item.partyId)">
+        批准
+      </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
+

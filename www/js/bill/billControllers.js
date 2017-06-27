@@ -79,7 +79,7 @@ angular.module('bill.controllers', [])
               });
               break;
             case 1:
-              billServer.partyPay(partyIdFrom, paymentId,payMethod[0].paymentMethodId, function (data) {
+              billServer.partyPay(partyIdFrom, paymentId,payMethod[1].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
                   $state.reload()
@@ -87,7 +87,7 @@ angular.module('bill.controllers', [])
               });
               break;
             case 2:
-              billServer.partyPay(partyIdFrom, paymentId,payMethod[0].paymentMethodId, function (data) {
+              billServer.partyPay(partyIdFrom, paymentId,payMethod[2].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
                   $state.reload()
@@ -98,6 +98,24 @@ angular.module('bill.controllers', [])
               alert('请选择')
           }
         }
+      });
+    };
+
+    //显示隐藏账单详情
+    $scope.show=function (index) {
+      $('.blii-list').eq(index).css({
+        display: 'block'
+      });
+      $('.hide_bill').eq(index).css({
+        display: 'none'
+      });
+    };
+    $scope.hide=function (index) {
+      $('.blii-list').eq(index).css({
+        display: 'none'
+      });
+      $('.hide_bill').eq(index).css({
+        display: 'block'
       });
     };
 

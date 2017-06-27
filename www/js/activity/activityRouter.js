@@ -7,7 +7,6 @@ angular.module('starter')
       .state('tab.activityDetails', {
         url: '/activityDetails/:activityId',
         disableBack: true,
-        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityDetails.html',
@@ -19,7 +18,6 @@ angular.module('starter')
       .state('tab.activityDetails2', {
         url: '/activityDetails2/:activityId/:type',
         disableBack: true,
-        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityDetails.html',
@@ -31,7 +29,6 @@ angular.module('starter')
       .state('tab.slide', {
         url: '/slide/:activityId/:index',
         disableBack: true,
-        cache: true,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activitySlide.html',
@@ -39,11 +36,22 @@ angular.module('starter')
           }
         }
       })
+      //活动参与人员
+      .state('tab.activityParticipant', {
+        url: '/Participant/:workEffortId',
+        disableBack: true,
+        cache:true,
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/activity/activityParticipant.html',
+            controller: 'activityParticipant'
+          }
+        }
+      })
       //活动添加活动参与人员
       .state('tab.activityAddPerson', {
         url: '/activityAddPerson/:workEffortId',
         disableBack: true,
-        cache: true,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityAddPerson.html',
@@ -55,7 +63,6 @@ angular.module('starter')
       .state('tab.activityPreview', {
         url: '/activityPreview/:workEffortId',
         disableBack: true,
-        cache: true,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityPreview.html',
@@ -66,7 +73,6 @@ angular.module('starter')
       //联系人信息详情
       .state('tab.joinContactInfo', {
         url: '/contactInfo/:partyId',
-        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/contact/contactInfo.html',
@@ -78,7 +84,6 @@ angular.module('starter')
       .state('tab.activityCode', {
         url: '/activityCode/:workEffortId',
         disableBack: true,
-        cache: true,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityCode.html',
@@ -90,7 +95,6 @@ angular.module('starter')
       .state('tab.activityDiscuss', {
         url: '/activityDiscuss/:communicationEventId/:workEffortId',
         disableBack: true,
-        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityDiscuss.html',
@@ -102,7 +106,6 @@ angular.module('starter')
       .state('tab.activityItem', {
         url: '/activityItem/:id',
         disableBack: true,
-        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityItem.html',
@@ -114,7 +117,6 @@ angular.module('starter')
       .state('tab.activityMatter', {
         url: '/activityMatter/:workEffortId',
         disableBack: true,
-        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityMatter.html',
@@ -122,11 +124,10 @@ angular.module('starter')
           }
         }
       })
-      //活动（由我组织的活动列表  往期活动 邀请列表   共用一个界面）
+      //活动状态（由我组织的活动列表  往期活动 邀请列表   共用一个界面）
       .state('tab.activityList', {
         url: '/activityList/:type',
         disableBack: true,
-        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityList.html',

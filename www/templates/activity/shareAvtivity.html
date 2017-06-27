@@ -21,13 +21,21 @@
         <input type="text" id="originator" placeholder="请输入您的昵称" ng-model="originator.nickName"
                ng-blur="updateUserName()">
       </label>
-      <span>OR</span>
       <label>
         <input type="button" value="使用微信头像及昵称" ng-if="weixin" ng-click="userWeixinInfo()">
       </label>
-      <p>邀请方式</p>
+      <span>邀请方式</span>
+      <div class="item item-toggle" style="border: 0;width: 80%">
+        是否需要审批
+        <label class="toggle toggle-assertive">
+          <input type="checkbox" ng-model="approveState.now" ng-change="approve()">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </div>
       <label>
-        <input type="button" value="微信邀请"  ng-click="chooseWay('微信')">
+        <input type="button" value="微信邀请" ng-click="chooseWay('微信')">
       </label>
       <div class="row padding row-wrap" ng-if="other">
         <div class="col col-20" ng-repeat="picture in shareImgList">

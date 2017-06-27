@@ -1,7 +1,7 @@
 <ion-view title="{{ activityList.workEffortName }}" hide-tabs="true">
   <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
-      <button class="button button-clear" ng-click="goActivityHome()">
+      <button class="button button-clear" ui-sref='tab.dash'>
         <i class="icon  ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
@@ -75,9 +75,11 @@
           {{groupAcount}}人｜评论({{commEventCount}})</p>
         <hr class="cleanFloat">
         <div class="row row-wrap">
-          <div class="col col-20" ng-repeat="item in groupMemberList" ng-click="getPersonInfo(item.partyId)">
-            <img class="img-joinP" ng-src="{{item.headPortrait}}">
-            <p>{{item.firstName}}</p>
+          <div class="col col-20" ng-repeat="item in groupMemberList">
+            <div style="position: relative">
+              <img class="img-joinP" ng-src="{{item.headPortrait}}" ng-click="getPersonInfo()">
+              <p>{{item.firstName}}</p>
+            </div>
           </div>
           <img class="img-zhuzi" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/>
         </div>
@@ -86,9 +88,8 @@
     </div>
   </ion-content>
   <div class="tab-nav tabs act-foot-btn">
-    <button class="button button-clear tab-create" id="sign" style="font-size: 24px;color: white"
-            ng-click="InviteModal(activityDetailsFootButton)">
-      {{activityDetailsFootButton}}
-    </button>
+    <a class="tab-item tab-item" ng-click="InviteModal(activityDetailsFootButton)">
+      <span class="tab-create">{{activityDetailsFootButton}}</span>
+    </a>
   </div>
 </ion-view>

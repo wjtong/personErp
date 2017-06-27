@@ -6,10 +6,11 @@ angular.module('contact.services', [])
 
     return {
       //获得联系人列表
-      queryAllActivityRelationPersons: function (partyId, cb) {
+      queryAllActivityRelationPersons: function (cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "queryAllActivityRelationPersons",
-          data: {partyId: partyId},
+          data: {tarjeta: tarjeta},
           async: false,
           type: 'POST',
           success: function (result) {
@@ -25,11 +26,12 @@ angular.module('contact.services', [])
         });
       },
       //更新用户个人信息
-      updatePersonInfo: function (partyId, firstName, gender, cb) {
+      updatePersonInfo: function (firstName, gender, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.platformInterfaceUrl + "updatePersonInfo",
           data: {
-            partyId: partyId,
+            tarjeta: tarjeta,
             firstName: firstName,
             gender: gender
           },

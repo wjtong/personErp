@@ -1,7 +1,60 @@
 /*活动账单样式***********************************************************************************************************/
 #activityBill .item {
-  border-bottom: 20px solid saddlebrown;
+  margin: 15px 17.5px;
+  padding: 21px;
+  box-shadow: 0 0 10px 10px #EFEFEF;
+}
+
+#activityBill .list-card {
+}
+
+#activityBill .bill-title {
   position: relative;
+}
+
+#activityBill h2 {
+  font-size: 27px;
+  color: #9bc4ff;
+  margin-bottom: 10px;
+}
+
+#activityBill p {
+  font-size: 20px;
+  color: #1d1d1d;
+  margin-top: 5px;
+}
+
+#activityBill img {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 17.5px;
+}
+
+#activityBill .blii-list {
+  border-top: 1px solid #f0eff5;
+  margin-top: 16px;
+  display: none;
+  position: relative;
+  margin-bottom: 20px;
+  padding-top: 10px;
+}
+
+#activityBill .blii-item {
+  flex: 1px;
+  font-size: 15px;
+  color: #1d1d1d;
+  text-align: center;
+  margin:5px 0;
+}
+
+#activityBill .wacatShare {
+  position: absolute;
+  top: 0px;
+  right: 17.5px;
+  font-size: 16px;
+  color: #1AAD19;
 }
 
 #activityBill input {
