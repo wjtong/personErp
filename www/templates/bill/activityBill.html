@@ -9,7 +9,7 @@
   <ion-content id="activityBill">
     <ion-list class="list-card" ng-repeat="item in billList">
       <ion-item>
-        <div class="bill-title">
+        <div class="bill-title" on-hold="deleteBill(item.paymentGroupId)">
           <h2>{{item.paymentGroupName}}</h2>
           <p>单位: 元</p>
           <p class="wacatShare" ng-click="billShare(item.paymentGroupId,item.paymentGroupName)">微信分享</p>

@@ -11,22 +11,24 @@ navigation history that also transitions its views in and out.
     <ion-nav-view name="tab-dash"></ion-nav-view>
   </ion-tab>
 
-  <!-- Chats Tab -->
-  <ion-tab title="联系人" icon-off="bar-contact-off" icon-on="bar-contact-on" href="#/tab/chats">
-    <ion-nav-view name="tab-chats"></ion-nav-view>
-  </ion-tab>
+
   <ion-tab></ion-tab>
   <!--创建活动弹出框-->
   <div class="bar-newActivity-on" ng-click="openModal()" ng-controller="ActivityHome"></div>
 
-  <ion-tab title="消息" icon-off="bar-message-off" icon-on="bar-message-on" href="#/tab/activityNotice">
-    <ion-nav-view name="tab-notice"></ion-nav-view>
+  <!-- Chats Tab -->
+  <ion-tab title="联系人" icon-off="bar-contact-off" icon-on="bar-contact-on" href="#/tab/chats">
+    <ion-nav-view name="tab-chats"></ion-nav-view>
   </ion-tab>
 
-  <!-- Account Tab -->
-  <ion-tab title="关于我" icon-off="bar-my-off" icon-on="bar-my-on" href="#/tab/account">
-    <ion-nav-view name="tab-account"></ion-nav-view>
-  </ion-tab>
+  <!--<ion-tab title="消息" icon-off="bar-message-off" icon-on="bar-message-on" href="#/tab/activityNotice">-->
+    <!--<ion-nav-view name="tab-notice"></ion-nav-view>-->
+  <!--</ion-tab>-->
+
+  <!--&lt;!&ndash; Account Tab &ndash;&gt;-->
+  <!--<ion-tab title="关于我" icon-off="bar-my-off" icon-on="bar-my-on" href="#/tab/account">-->
+    <!--<ion-nav-view name="tab-account"></ion-nav-view>-->
+  <!--</ion-tab>-->
 
 
 </ion-tabs>

@@ -49,37 +49,37 @@
   float: right;
 }
 #aboutMe .my-logout {
-  background: url(../img/aboutMe/形状-28@2x.png) no-repeat center;
+  background: url(../img/aboutMe/newIcon/形状-28@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 1.0625rem;
 }
 #aboutMe .my-weixin {
-  background: url(../img/aboutMe/icon_微信@2x.png) no-repeat center;
+  background: url(../img/aboutMe/newIcon/icon_微信@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 1.0625rem;
 }
 #aboutMe .my-yijian {
-  background: url(../img/aboutMe/icon_意见反馈@2x.png) no-repeat center;
+  background: url(../img/aboutMe/newIcon/icon_意见反馈@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 1.0625rem;
 }
 #aboutMe .my-haoping {
-  background: url(../img/aboutMe/icon-给个好评@2x.png) no-repeat center;
+  background: url(../img/aboutMe/newIcon/icon-给个好评@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 1.0625rem;
 }
 #aboutMe .my-about {
-  background: url(../img/aboutMe/icon_关于@2x.png) no-repeat center;
+  background: url(../img/aboutMe/newIcon/icon_关于@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 1.0625rem;
 }
 #aboutMe .my-tel {
-  background: url(../img/aboutMe/icon_手机@2x.png) no-repeat center;
+  background: url(../img/aboutMe/newIcon/icon_手机@2x.png) no-repeat center;
   background-size: 100%, 100%;
   padding: 5%;
   margin-right: 1.0625rem;

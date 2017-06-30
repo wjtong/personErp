@@ -1,7 +1,7 @@
-<ion-modal-view ng-controller="NewActivity">
+<ion-modal-view>
   <ion-header-bar class="bar-dark">
-    <h1 class="title">创建活动</h1>
-    <button class="button button-clear " ng-click="cannel()">
+    <h1 class="title">编辑活动</h1>
+    <button class="button button-clear " ng-click="closeEditModal()">
       <i class="icon">取消</i>
     </button>
   </ion-header-bar>
@@ -22,7 +22,6 @@
                    style="width: 45%;display: inline-block;background-color: white" ng-model="ActivityData.startDate"
                    ng-click="startDate()">
           </label>
-
         </div>
         <div class="item" style="padding: 0">
           <label class="item item-input">
@@ -45,15 +44,15 @@
           <label class="item ">
             <p style="border-left: 7px solid #FFDA44;font-size: 16px">活动介绍：</p>
             <textarea name="a" style="width:100%;" rows="10" placeholder="填写活动描述，让更多的人参与活动"
-                      ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
+                      ng-model="ActivityData.information"></textarea>
           </label>
         </div>
       </div>
     </div>
   </ion-content>
   <div class="tab-nav tabs act-foot-btn">
-    <a class="tab-item tab-item" ng-click="createNewActivity()">
-      <span class="tab-create">立即创建</span>
+    <a class="tab-item tab-item" ng-click="editEvent()">
+      <span class="tab-create">完成编辑</span>
     </a>
   </div>
 </ion-modal-view>

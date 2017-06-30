@@ -6,90 +6,123 @@
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button id="editEvent" class="button button-clear" ng-click="editEvent(editButton)">
-        {{editButton}}
+      <button id="editEvent" class="button button-clear" ng-click="openEditModal()"
+              ng-if="activityAdminPartyId!=partyId">
+        <img src="../www/img/activityDel/icon-编辑48X48@2x.png" height="25" width="25"/>
+      </button>
+      <button class="button button-clear" ng-click="moreFunctionality()">
+        <img src="../www/img/activityDel/icon-更多46X46@2x.png" height="25" width="25"/>
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content id="activityDel">
     <div class="list">
-      <div class="item del-top">
+      <div class="item del-date">
         <div class="del-left">
-          <img id="activityImage" class="img-header" src="{{themeImgList.objectInfo}}" ng-click="updateActivityPhoto()">
+          <img src="../www/img/activityDel/icon-开始时间100X100@2x.png"/>
+          <label>
+            <input type="text" placeholder="开始时间" ng-click="startDate()"
+                   ng-model="ActivityData.startDate">
+          </label>
         </div>
         <div class="del-right">
-          <h3 style="text-align: center">公告:</h3>
-          <textarea style="resize:none;width: 100%" rows="3" ng-model="activityList.serviceLoaderName"
-                    ng-disabled="edit"></textarea>
+          <img src="../www/img/activityDel/icon-结束时间100X100@2x.png"/>
+          <label>
+            <input type="text" placeholder="结束时间" ng-click="endDate()"
+                   ng-model="ActivityData.endDate">
+          </label>
         </div>
       </div>
-      <div class="row activityDetTabs header-bar">
-        <div class="col col-20" ng-repeat="picture in activityTabsImg">
-          <img class="img-responsive" ng-src="{{picture.img}}" ng-click="goNavigation(picture.name)">
-          <p>{{picture.name}}</p>
-        </div>
+      <div class="item item-icon-left" style="height: 47px">
+        <i class="icon ion-ios-location-outline" style="margin-right: 5px;vertical-align: middle"></i>
+        <p style="text-indent: 8px;font-size: 13px;color: #1d1d1d;line-height: 27px">{{ActivityData.address}}</p>
+      </div>
+      <div class="item del-title">
+        介绍
       </div>
       <div class="item">
         <label>
-          <i class="icon activityTimer"></i>
-          <input type="text" placeholder="开始时间" readonly ng-click="startDate()" ng-disabled="edit"
-                 ng-model="ActivityData.startDate">
-        </label>
-        <label>
-          <i class="icon activityTimerEnd"></i>
-          <input type="text" placeholder="结束时间" readonly ng-click="endDate()" ng-disabled="edit"
-                 ng-model="ActivityData.endDate">
-        </label>
-        <label>
-          <i class="icon activityLocation"></i>
-          <input type="text" placeholder="活动地点" readonly ng-disabled="edit" ng-click="openModalAddress()"
-                 ng-model="ActivityData.address">
-        </label>
-      </div>
-      <div class="item item-joinP">
-        <h3>介绍:</h3>
-        <label>
-          <textarea style="resize:none" placeholder="活动描述" ng-disabled="edit"
+          <textarea rows="10" placeholder="活动描述" ng-disabled="edit"
                     ng-model="activityList.description"></textarea>
         </label>
       </div>
+      <div class="item del-title">
+        照片墙
+      </div>
       <div class="item item-wall">
-        <div>
-          <h3>照片墙:</h3>
-          <p class="pe-num" ng-click="upLoadImage(activityList.id)">上传图片</p>
-        </div>
-        <hr>
-        <div class="row  row-wrap">
+        <div class="row row-wrap">
           <div class="col col-33"
-               style="text-align: center;height:100px;-webkit-box-shadow: 0 0 10px rgb(153,134,117);-moz-box-shadow:0 0 10px rgb(153,134,117);box-shadow:0 0 10px rgb(153,134,117);border-radius: 3px;"
                ng-repeat="picture in images_list" ng-click="shouBigImage($index,picture.firstName)">
-            <img class="img-responsive" style="width: 100%;height: 100%;" ng-src="{{picture.objectInfo}}">
+            <img class="img-responsive" ng-src="{{picture.objectInfo}}">
           </div>
         </div>
-        <div id="content">
-        </div>
       </div>
-      <div class="item item-joinP">
-        <h3>参与人:</h3>
-        <p class="pe-num" ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)">
-          {{groupAcount}}人｜评论({{commEventCount}})</p>
-        <hr class="cleanFloat">
+      <div class="item del-title">
+        评论
+      </div>
+      <div class="item" ng-repeat="item in commList">
+        <a class="item item-avatar" href="#" style="border: 0">
+          <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
+          <h2>{{item.firstName}}</h2>
+          <p style="color: #696868">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
+        </a>
+        <p
+          style="font-size: 16px;color: #1d1d1d;text-indent: 10px;margin: 12px 0;border-bottom:1px solid #f0eff5;padding-bottom: 8px ">
+          {{item.textData}}</p>
+        <p style="text-indent: 5px;font-size:14px;background-color: #f0f0f0;color:#83ccfc;margin: 12px 10px"
+           ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)">共{{item.responceCount}}条回复</p>
+        <input type="text" placeholder=" 回复"
+               ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)"
+               style="border: 1px solid #f0eff5;margin:10px;width: 337px;-webkit-appearance: none;">
+      </div>
+      <div class="item del-title">
+        参与人
+        <p class="pe-num">
+          {{groupAcount}}人｜收起</p>
+      </div>
+      <div class="item" style="border-bottom: 0">
         <div class="row row-wrap">
           <div class="col col-20" ng-repeat="item in groupMemberList">
             <div style="position: relative">
-              <img class="img-joinP" ng-src="{{item.headPortrait}}" ng-click="getPersonInfo()">
-              <p>{{item.firstName}}</p>
+              <img class="del-member" ng-src="{{item.headPortrait}}" ng-click="getPersonInfo()">
             </div>
           </div>
-          <img class="img-zhuzi" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/>
+          <img class="del-organizer" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/>
         </div>
       </div>
       <br><br><br>
     </div>
   </ion-content>
-  <div class="tab-nav tabs act-foot-btn">
-    <a class="tab-item tab-item" ng-click="InviteModal(activityDetailsFootButton)">
-      <span class="tab-create">{{activityDetailsFootButton}}</span>
+  <div class="tab-nav tabs tabs-dark">
+    <a class="tab-item" style="line-height: 10px;" ng-click="goNavigation('投票')">
+      <i class="icon icon-left">
+        <img src="../www/img/activityDel/icon-投票-60X60@2x.png" height="30" width="30"/>
+      </i>
+      <span class="tab-Del-Nac">投票</span>
+    </a>
+    <a class="tab-item" style="line-height: 10px;" ng-click="goNavigation('日程')">
+      <i class="icon icon-left">
+        <img src="../www/img/activityDel/icon-日程-60X60@2x.png" height="30" width="30"/>
+      </i>
+      <span class="tab-Del-Nac">日程</span>
+    </a>
+    <a class="tab-item" style="line-height: 10px;" ng-click="goNavigation('事项')">
+      <i class="icon icon-left">
+
+        <img src="../www/img/activityDel/icon-讨论@2x.png" height="30" width="30"/></i>
+      <span class="tab-Del-Nac">讨论区</span>
+    </a>
+    <a class="tab-item" style="line-height: 10px;" ng-click="goNavigation('账单')">
+      <i class="icon icon-left">
+        <img src="../www/img/activityDel/icon-账单-60X60@2x.png" height="30" width="30"/>
+      </i>
+      <span class="tab-Del-Nac">账单</span>
+    </a>
+    <a class="tab-item" style="line-height: 10px;" ng-click="InviteModal('邀请')">
+      <i class="icon icon-left">
+        <img src="../www/img/activityDel/icon-邀请-60X60@2x.png" height="30" width="30"/>
+      </i>
+      <span class="tab-Del-Nac">邀请</span>
     </a>
   </div>
 </ion-view>

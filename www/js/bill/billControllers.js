@@ -10,20 +10,21 @@ angular.module('bill.controllers', [])
 
     //准备参数
     var id = $stateParams.workEffortId;
-    $scope.partyId=localStorage.getItem('partyId');
+    $scope.partyId = localStorage.getItem('partyId');
     var activityData = localStorage.getItem("activityData" + id);
     $scope.workEffortName = jQuery.parseJSON(activityData).workEffortName;
     $scope.billEmpty = true;
 
     //查询账单信息
-    billServer.findActivityPayment(id, function (data) {
-      $scope.billList = data.paymentGroupList;
-      $scope.activityAdminPartyId=data.activityAdminPartyId;
-
-      if ($scope.billList.length > 0) {
-        $scope.billEmpty = false
-      }
-      console.log("查询活动列表——————————" + data.resultMsg)
+    $scope.$on('$ionicView.enter',function () {
+      billServer.findActivityPayment(id, function (data) {
+        $scope.billList = data.paymentGroupList;
+        $scope.activityAdminPartyId = data.activityAdminPartyId;
+        if ($scope.billList.length > 0) {
+          $scope.billEmpty = false
+        }
+        console.log("查询活动列表——————————" + data.resultMsg)
+      });
     });
 
     //添加账单
@@ -53,7 +54,7 @@ angular.module('bill.controllers', [])
     };
 
     //用户确认支付
-    $scope.partyPay = function (partyIdFrom, paymentId,payMethod) {
+    $scope.partyPay = function (partyIdFrom, paymentId, payMethod) {
       console.log(payMethod);
       // 显示上拉菜单
       var hideSheet = $ionicActionSheet.show({
@@ -79,7 +80,7 @@ angular.module('bill.controllers', [])
               });
               break;
             case 1:
-              billServer.partyPay(partyIdFrom, paymentId,payMethod[1].paymentMethodId, function (data) {
+              billServer.partyPay(partyIdFrom, paymentId, payMethod[1].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
                   $state.reload()
@@ -87,7 +88,7 @@ angular.module('bill.controllers', [])
               });
               break;
             case 2:
-              billServer.partyPay(partyIdFrom, paymentId,payMethod[2].paymentMethodId, function (data) {
+              billServer.partyPay(partyIdFrom, paymentId, payMethod[2].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
                   $state.reload()
@@ -102,7 +103,7 @@ angular.module('bill.controllers', [])
     };
 
     //显示隐藏账单详情
-    $scope.show=function (index) {
+    $scope.show = function (index) {
       $('.blii-list').eq(index).css({
         display: 'block'
       });
@@ -110,7 +111,7 @@ angular.module('bill.controllers', [])
         display: 'none'
       });
     };
-    $scope.hide=function (index) {
+    $scope.hide = function (index) {
       $('.blii-list').eq(index).css({
         display: 'none'
       });
@@ -134,6 +135,33 @@ angular.module('bill.controllers', [])
           $state.reload()
         }
       })
+    };
+
+    //删除账单
+    $scope.deleteBill = function (paymentGroupId) {
+      var confirmPopup = $ionicPopup.confirm({
+        title: '删除账单',
+        template: '你确定要删除账单吗?'
+      });
+      confirmPopup.then(function (res) {
+        if (res) {
+          billServer.cancelledPaymentGroup(paymentGroupId, function (data) {
+            console.log(data);
+            if (data.resultMsg == '成功') {
+              billServer.findActivityPayment(id, function (data) {
+                $scope.billList = data.paymentGroupList;
+                $scope.activityAdminPartyId = data.activityAdminPartyId;
+                if ($scope.billList.length > 0) {
+                  $scope.billEmpty = false
+                }
+                console.log("查询活动列表——————————" + data.resultMsg)
+              });
+            }
+          })
+        } else {
+          console.log('You are not sure');
+        }
+      });
     };
 
     //缴费日期

@@ -1,8 +1,11 @@
 <ion-view hide-nav-bar="true">
   <ion-header-bar align-title="left" class="bar-dark">
-    <div class="h1 title">活动( {{quantity }} )</div>
+    <div class="h1 title" ui-sref="tab.account">
+      <i class="icon ion-grid" style="margin-right: 5px;vertical-align: middle;font-size: 31px"></i>
+      活动( {{quantity }} )
+    </div>
     <div class="buttons">
-      <button class="button no-animation button-icon icon ion-ios-photos-outline" ng-click="Management()">
+      <button class="button no-animation button-icon icon ion-more" ng-click="Management()">
       </button>
     </div>
   </ion-header-bar>

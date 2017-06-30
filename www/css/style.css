@@ -22,61 +22,61 @@
 
 .bar-home-on {
   background: url(../img/tabs/首页_选中.png) no-repeat center top;
-  background-size: 40%, 40%;
+  background-size: 25%, 25%;
   padding: 5%;
 }
 
 .bar-home-off {
   background: url(../img/tabs/首页.png) no-repeat center top;
-  background-size: 40%, 40%;
+  background-size: 25%, 25%;
   padding: 5%;
 }
 
 .bar-contact-on {
   background: url(../img/tabs/联系人_选中.png) no-repeat center top;
-  background-size: 40%, 40%;
+  background-size: 25%, 25%;
   padding: 5%;
 }
 
 .bar-contact-off {
   background: url(../img/tabs/联系人.png) no-repeat center top;
-  background-size: 40%, 40%;
+  background-size: 25%, 25%;
   padding: 5%;
 }
 
 .bar-my-on {
   background: url(../img/tabs/我_选中.png) no-repeat center top;
-  background-size: 40%, 40%;
+  background-size: 25%, 25%;
   padding: 5%;
 }
 
 .bar-my-off {
   background: url(../img/tabs/我.png) no-repeat center top;
-  background-size: 40%, 40%;
+  background-size: 25%, 25%;
   padding: 5%;
 }
 
 .bar-message-on {
   background: url(../img/tabs/消息_选中.png) no-repeat center top;
-  background-size: 40%, 40%;
+  background-size: 25%, 25%;
   padding: 5%;
 }
 
 .bar-message-off {
   background: url(../img/tabs/消息.png) no-repeat center top;
-  background-size: 40%, 40%;
+  background-size: 25%, 25%;
   padding: 5%;
 }
 
 .bar-newActivity-on {
   position: fixed;
-  bottom: 0;
+  bottom: 23%;
   z-index: 999;
   color: red;
   right: 40%;
   width: 20%;
   height: 100%;
-  background: url(../img/tabs/创建边.png) no-repeat center top;
+  background: url(../img/tabs/newTabs/icon-创建92X92@2x.png) no-repeat center top;
   background-size: 60%, 60%;
 }
 
@@ -224,35 +224,35 @@
   }
 
   .bar-home-on {
-    background-size: 50%, 50%;
+    background-size: 30%, 30%;
   }
 
   .bar-home-off {
-    background-size: 50%, 50%;
+    background-size: 30%, 30%;
   }
 
   .bar-contact-on {
-    background-size: 50%, 50%;
+    background-size: 30%, 30%;
   }
 
   .bar-contact-off {
-    background-size: 50%, 50%;
+    background-size: 30%, 30%;
   }
 
   .bar-my-on {
-    background-size: 50%, 50%;
+    background-size: 30%, 30%;
   }
 
   .bar-my-off {
-    background-size: 50%, 50%;
+    background-size: 30%, 30%;
   }
 
   .bar-message-on {
-    background-size: 50%, 50%;
+    background-size: 30%, 30%;
   }
 
   .bar-message-off {
-    background-size: 50%, 50%;
+    background-size: 30%, 30%;
   }
 
   .bar-newActivity-on {

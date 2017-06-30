@@ -57,6 +57,12 @@ angular.module('contact.controllers', [])
       });
     };
 
+    //意见反馈
+    $scope.opinion=function () {
+      $state.go('tab.opinion');
+    };
+
+
     //绑定手机号码
     $scope.bindTelephone = function () {
       $state.go('tab.bindTelephone', {'partyId': $scope.partyId})

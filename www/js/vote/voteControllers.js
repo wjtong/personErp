@@ -64,6 +64,7 @@ angular.module('vote.controllers', [])
   .controller('editVoteCtrl', function ($scope, $state, $stateParams, $ionicPopup, voteService,SelectDate) {
     //准备参数
     $scope.workEffortId = $stateParams.workEffortId;
+    $scope.Vote={};
 
     // 添加投票选项
     $scope.addVotes = function () {
@@ -75,7 +76,6 @@ angular.module('vote.controllers', [])
 
     // 创建投票
     $scope.createSurveyAndQuestions = function () {
-      var voteTitle = $("input").val();
       var questions = ''; // 投票项
 
       for (var i = 0; i < $("textarea").length; i++) {
@@ -86,7 +86,7 @@ angular.module('vote.controllers', [])
         questions += question + "&";
       }
       console.log(questions);
-      voteService.createSurveyAndQuestions($scope.workEffortId, voteTitle, questions).success(function (data) {
+      voteService.createSurveyAndQuestions($scope.workEffortId, $scope.Vote.voteTitle, questions).success(function (data) {
         var alertPopup = $ionicPopup.alert({
           title: '成功',
           template: "创建投票项成功！"

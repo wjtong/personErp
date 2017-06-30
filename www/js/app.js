@@ -150,17 +150,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+      //意见反馈
+      .state('tab.opinion', {
+        url: '/opinion',
+        cache: false,
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/opinion.html',
+            //controller: 'opinionCtrl'
+          }
+        }
+      })
       //用户账户信息
       .state('tab.account', {
         url: '/account',
-        cache: true,
+        cache: false,
         views: {
-          'tab-account': {
+          'tab-dash': {
             templateUrl: 'templates/tab-account.html',
             controller: 'AccountCtrl'
           }
         }
       });
+
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/dash');

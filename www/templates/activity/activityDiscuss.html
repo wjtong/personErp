@@ -7,19 +7,22 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content keyboardshow id="act-discuss">
-    <ion-list>
-      <ion-item ng-repeat="item in commEventContentDataResource">
-        <div class="profile-box">
-          <div class="profile-box-thumb">
-            <img ng-src="{{item.headPortrait}}">
-          </div>
-          <div class="profile-box-details">
-            <h3 class="profile-name">{{item.firstName}}</h3>
-            <p class="profile-Message">{{item.textData}}</p>
-            <p class="profile-Message">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
-            <button class="profile-button" ng-click="openResponse(item.contentId)">{{item.responceCount}}回复</button>
-          </div>
+    <ion-list class="list card">
+      <ion-item style="border-bottom: 10px solid #f2f2f2;border-top: 0"
+                ng-repeat="item in commEventContentDataResource">
+        <div class="item item-avatar" style="border: 0">
+          <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
+          <h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>
+          <p style="color: #696868">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
         </div>
+        <p
+          style="font-size: 15px;color: #1d1d1d;text-indent: 10px;padding-bottom: 8px ">
+          {{item.textData}}</p>
+        <p style="text-indent: 5px;font-size:14px;background-color: #f0f0f0;color:#83ccfc;margin: 12px 10px"
+           ng-click="openResponse(item.contentId)">共{{item.responceCount}}条回复</p>
+        <input type="text" placeholder=" 回复"
+               ng-click="openResponse(item.contentId)"
+               style="border: 1px solid #f0eff5;margin:10px;width: 337px;-webkit-appearance: none;">
       </ion-item>
     </ion-list>
   </ion-content>

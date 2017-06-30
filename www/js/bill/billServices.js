@@ -80,6 +80,29 @@ angular.module('bill.services', [])
           }
         });
       },
+      //删除账单
+      cancelledPaymentGroup: function (paymentGroupId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "cancelledPaymentGroup",
+          data: {
+            tarjeta: tarjeta,
+            paymentGroupId: paymentGroupId,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //用户确认支付
       partyPay: function (partyIdFrom, paymentId,paymentMethodId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');

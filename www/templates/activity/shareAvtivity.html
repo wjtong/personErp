@@ -1,4 +1,4 @@
-<div class="modal">
+<ion-modal-view>
   <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="taskModal.hide()">
@@ -25,15 +25,15 @@
         <input type="button" value="使用微信头像及昵称" ng-if="weixin" ng-click="userWeixinInfo()">
       </label>
       <span>邀请方式</span>
-      <div class="item item-toggle" style="border: 0;width: 80%">
-        是否需要审批
-        <label class="toggle toggle-assertive">
-          <input type="checkbox" ng-model="approveState.now" ng-change="approve()">
-          <div class="track">
-            <div class="handle"></div>
-          </div>
-        </label>
-      </div>
+      <!--<div class="item item-toggle" style="border: 0;width: 80%">-->
+        <!--是否需要审批-->
+        <!--<label class="toggle toggle-assertive">-->
+          <!--<input type="checkbox" ng-model="approveState.now" ng-change="approve()">-->
+          <!--<div class="track">-->
+            <!--<div class="handle"></div>-->
+          <!--</div>-->
+        <!--</label>-->
+      <!--</div>-->
       <label>
         <input type="button" value="微信邀请" ng-click="chooseWay('微信')">
       </label>
@@ -46,4 +46,4 @@
       </div>
     </div>
   </ion-content>
-</div>
+</ion-modal-view>>

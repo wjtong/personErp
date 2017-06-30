@@ -117,6 +117,7 @@ angular.module('starter')
       .state('tab.activityMatter', {
         url: '/activityMatter/:workEffortId',
         disableBack: true,
+        cache:false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityMatter.html',
@@ -124,14 +125,15 @@ angular.module('starter')
           }
         }
       })
-      //活动状态（由我组织的活动列表  往期活动 邀请列表   共用一个界面）
-      .state('tab.activityList', {
-        url: '/activityList/:type',
+      //创建事项
+      .state('tab.createMatter', {
+        url: '/createMatter/:workEffortId',
         disableBack: true,
+        cache:false,
         views: {
           'tab-dash': {
-            templateUrl: 'templates/activity/activityList.html',
-            controller: 'ActivityList'
+            templateUrl: 'templates/activity/createMatter.html',
+            controller: 'createMatter'
           }
         }
       })

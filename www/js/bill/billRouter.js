@@ -8,7 +8,7 @@ angular.module('starter')
     //活动账单的显示
       .state('tab.activityBill', {
         url: '/activityBill/:workEffortId',
-        cache: false,
+        cache: true,
         views: {
           'tab-dash': {
             templateUrl: 'templates/bill/activityBill.html',

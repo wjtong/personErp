@@ -6,29 +6,60 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content class="padding">
-    <div class="cardinputInfo">
-      <form name="accreForm">
-        <div class="list">
-          <label class="item item-input">
-            <span class="input-label">账单名称：</span>
-            <input type="text" name="billName" ng-model="Bill.billName" placeholder="请输入账单名称">
-          </label>
-          <label class="item item-input">
-            <span class="input-label">应付金额/每人：</span>
-            <input type="number" name="amount" ng-model="Bill.amount" placeholder="请输入应付金额/每人">
-          </label>
-          <lable class="item" style="text-align: center">
-            <input class="male" type="radio" name="public" value="y" ng-checked="male">公开
-            <input class="female" type="radio" name="public" value="n" ng-checked="female">不公开
-          </lable>
+  <ion-content class="padding" style="background-color: #f2f2f2;font-size: 15px">
+    <div class="cardinputInfo" >
+      <ul class="list">
+        <li class="item item-input">
+          <span class="input-label">账单名称：</span>
+          <input type="text" name="billName" ng-model="Bill.billName" placeholder="请输入账单名称">
+        </li>
+        <li class="item item-input">
+          <span class="input-label">每人应付：</span>
+          <input type="number" name="amount" ng-model="Bill.amount" placeholder="请输入每人应付金额">
+        </li>
+        <li class="item item-input">
+          <span class="input-label">账单总额：</span>
+          <input type="text" name="billName" placeholder="请输入账单总额">
+        </li>
+        <div style="height: 12px;">
         </div>
-        <div>
-          <button class="button button-positive" style="width: 100%"
-                  ng-click="createBill()">确认
-          </button>
+        <li class="item item-toggle" style="padding: 15px">
+          <span>是否公开：</span>
+          <label class="toggle toggle-assertive">
+            <input type="checkbox">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+        <li class="item item-toggle" style="padding: 15px">
+          <span>是否AA：</span>
+          <label class="toggle toggle-assertive" >
+            <input type="checkbox" >
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+        <div style="height: 12px;">
         </div>
-      </form>
+        <li class="item item-input">
+          <span class="input-label" style="background-color: red;width: 6%;height: 3px;padding: 0;margin-right: 5%;border-radius: 3px"></span>
+          <span class="input-label" style="color: #1d1d1d;">金龙熙：</span>
+          <input type="text" value="15.00" style="text-align: right">
+        </li>
+        <li class="item item-input">
+          <span class="input-label" style="background-color: red;width: 6%;height: 3px;padding: 0;margin-right: 5%;border-radius: 3px"></span>
+          <span class="input-label" style="color: #1d1d1d;">沈寅麟：</span>
+          <input type="text" value="15.00" style="text-align: right">
+        </li>
+      </ul>
+
+      <div>
+        <button class="button" style="width: 100%;background-color: #FFDA44;font-size: 15px;color: #1d1d1d;border: 0"
+                ng-click="createBill()">确认
+        </button>
+      </div>
     </div>
   </ion-content>
 </ion-view>
