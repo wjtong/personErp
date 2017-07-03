@@ -31,13 +31,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //通过UUID获取TOKEN
       document.addEventListener("deviceready", function () {
         var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
-        if(localStorage.getItem("tarjeta") == null){
-          ActivityServer.setUUID(uuid+'aa',function (data) {
+        if (localStorage.getItem("tarjeta") == null) {
+          ActivityServer.setUUID(uuid + 'aa', function (data) {
             localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
             localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
             localStorage.setItem("RongCloudToken", data.rongCloudToken);//设置partyId登陆人
             //alert(localStorage.getItem("partyId"));
-            console.log("创建新用户通过UUID"+"token:"+data.tarjeta+"UUID:"+uuid)
+            console.log("创建新用户通过UUID" + "token:" + data.tarjeta + "UUID:" + uuid)
           })
         }
       }, false);
@@ -111,10 +111,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     // Each state's controller can be found in controllers.js
     $stateProvider
 
-    // app首页tab
+    //app首页tab
       .state('tab', {
         url: '/tab',
         abstract: true,
+        cache: true,
         templateUrl: 'templates/tabs.html'
       })
       //活动首页
@@ -131,7 +132,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //联系人
       .state('tab.chats', {
         url: '/chats',
-        cache: false,
+        cache: true,
         views: {
           'tab-chats': {
             templateUrl: 'templates/tab-chats.html',
@@ -157,14 +158,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         views: {
           'tab-dash': {
             templateUrl: 'templates/opinion.html',
-            //controller: 'opinionCtrl'
+            controller: 'opinionCtrl'
+          }
+        }
+      })
+      //关于我们
+      .state('tab.about', {
+        url: '/about',
+        cache: false,
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/about.html',
           }
         }
       })
       //用户账户信息
       .state('tab.account', {
         url: '/account',
-        cache: false,
+        cache: true,
         views: {
           'tab-dash': {
             templateUrl: 'templates/tab-account.html',

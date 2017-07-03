@@ -2,7 +2,7 @@
   <ion-header-bar align-title="left" class="bar-dark">
     <div class="h1 title" ui-sref="tab.account">
       <i class="icon ion-grid" style="margin-right: 5px;vertical-align: middle;font-size: 31px"></i>
-      活动( {{quantity }} )
+      {{ActivityListType}}( {{quantity }} )
     </div>
     <div class="buttons">
       <button class="button no-animation button-icon icon ion-more" ng-click="Management()">
@@ -30,7 +30,15 @@
         <div>
           <ion-option-button class="button-assertive"
                              ng-click="deleteActivity(message.workEffortId,message.joinsCount,message.adminPartyId)">
-            删除
+            退出
+          </ion-option-button>
+          <ion-option-button class="button-stable" ng-if="ActivityListType!='隐藏的活动'"
+                             ng-click="hideActivity(message.workEffortId)">
+            隐藏
+          </ion-option-button>
+          <ion-option-button class="button-calm" ng-if="ActivityListType=='隐藏的活动'"
+                             ng-click="showActivity(message.workEffortId)">
+            还原
           </ion-option-button>
         </div>
       </ion-item>

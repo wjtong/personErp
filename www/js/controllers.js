@@ -1,11 +1,20 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
 
-
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('opinionCtrl', function($scope, Platform,$ionicPopup,$state) {
+  //提交意见
+  $scope.Modle={};
+  $scope.createSuggest=function () {
+    Platform.createSuggest($scope.Modle.suggest,function (data) {
+      if(data.resultMsg=="成功"){
+        $ionicPopup.alert({
+          title: '意见反馈',
+          template: "发送成功"
+        });
+        $state.go('tab.account')
+      }
+    })
+  }
 });
 
 

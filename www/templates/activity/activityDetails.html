@@ -7,7 +7,7 @@
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
       <button id="editEvent" class="button button-clear" ng-click="openEditModal()"
-              ng-if="activityAdminPartyId!=partyId">
+              ng-if="iAmAdmin!= 'N'">
         <img src="../www/img/activityDel/icon-编辑48X48@2x.png" height="25" width="25"/>
       </button>
       <button class="button button-clear" ng-click="moreFunctionality()">
@@ -70,7 +70,8 @@
           style="font-size: 16px;color: #1d1d1d;text-indent: 10px;margin: 12px 0;border-bottom:1px solid #f0eff5;padding-bottom: 8px ">
           {{item.textData}}</p>
         <p style="text-indent: 5px;font-size:14px;background-color: #f0f0f0;color:#83ccfc;margin: 12px 10px"
-           ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)">共{{item.responceCount}}条回复</p>
+           ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)">
+          共{{item.responceCount}}条回复</p>
         <input type="text" placeholder=" 回复"
                ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)"
                style="border: 1px solid #f0eff5;margin:10px;width: 337px;-webkit-appearance: none;">
@@ -118,7 +119,7 @@
       </i>
       <span class="tab-Del-Nac">账单</span>
     </a>
-    <a class="tab-item" style="line-height: 10px;" ng-click="InviteModal('邀请')">
+    <a class="tab-item" style="line-height: 10px;" ng-click="InviteModal('邀请')" ng-if="iAmAdmin!= 'N'">
       <i class="icon icon-left">
         <img src="../www/img/activityDel/icon-邀请-60X60@2x.png" height="30" width="30"/>
       </i>

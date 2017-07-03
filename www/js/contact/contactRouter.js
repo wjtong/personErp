@@ -7,7 +7,7 @@ angular.module('starter')
         url: '/contactInfo/:partyId',
         cache: false,
         views: {
-          'tab-chats': {
+          'tab-dash': {
             templateUrl: 'templates/contact/contactInfo.html',
             controller: 'contactInfo'
           }
@@ -18,7 +18,7 @@ angular.module('starter')
         url: '/editPersonInfo/:partyId',
         cache: false,
         views: {
-          'tab-account': {
+          'tab-dash': {
             templateUrl: 'templates/contact/editPersonInfo.html',
             controller: 'editPersonInfo'
           }
@@ -29,7 +29,7 @@ angular.module('starter')
         url: '/bindTelephone/:partyId',
         cache: false,
         views: {
-          'tab-account': {
+          'tab-dash': {
             templateUrl: 'templates/contact/bindTelephone.html',
             controller: 'bindTelephone'
           }

@@ -32,6 +32,28 @@ angular.module('activity.services', [])
           }
         });
       },
+      //禁用当前用户
+      disableUserLoginFromTarJeta: function (cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "disableUserLoginFromTarJeta",
+          data: {
+            tarjeta: tarjeta
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //新建活动
       createActivity: function (workEffortName, actualStartDate, estimatedCompletionDate,
                                 locationDesc, description, specialTerms, themesId, universalId, cb) {
@@ -119,10 +141,10 @@ angular.module('activity.services', [])
       //   });
       // },
       //查询活动参与人员
-      queryActivityMembers: function (workEffortId, cb) {
+      queryActivityAdminsAndMembers: function (workEffortId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
-          url: $rootScope.activityInterfaceUrl + "queryActivityMembers",
+          url: $rootScope.activityInterfaceUrl + "queryActivityAdminsAndMembers",
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId,
@@ -740,7 +762,9 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+
+      ,
       //照片墙图片 赞踩
       praisePicture: function (partyContentTypeId, contentId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -764,7 +788,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //查询消息列表
       querySystemInfoList: function (cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -786,7 +811,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //选择活动地址
       selectAddress: function (query, region, city_limit, output, ak) {
         var d = $q.defer();
@@ -808,7 +834,8 @@ angular.module('activity.services', [])
           return promise;
         };
         return promise;
-      },
+      }
+      ,
       //通过IP获得当前位置信息
       currentAddress: function (ak) {
         var d = $q.defer();
@@ -830,7 +857,8 @@ angular.module('activity.services', [])
           return promise;
         };
         return promise;
-      },
+      }
+      ,
       // //获取微信用户信息
       // wachatInfo: function (appid, secret, code, grant_type) {
       //   var d = $q.defer();
@@ -877,7 +905,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //举报活动
       createActivityReview: function (workEffortId, reviewText, rating, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -902,7 +931,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //退出活动
       quitActivity: function (workEffortId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -911,6 +941,74 @@ angular.module('activity.services', [])
           data: {
             tarjeta: tarjeta,
             workEffortId: workEffortId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //隐藏活动
+      hideActivity: function (workEffortId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "hideActivity",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //隐藏还原
+      showHiddenActivity: function (workEffortId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "showHiddenActivity",
+          data: {
+            tarjeta: tarjeta,
+            workEffortId: workEffortId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //查询隐藏活动
+      queryMyHiddenEvent: function (cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "queryMyHiddenEvent",
+          data: {
+            tarjeta: tarjeta
           },
           async: false,
           type: 'POST',
@@ -948,7 +1046,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //发表评论
       createActivityCommunication: function (communicationEventId, contentId, text, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -974,7 +1073,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //查询回复消息
       queryActivityCommunicationResponce: function (contentId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -998,7 +1098,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //查询预览文本信息
       printActivityInfo: function (workEffortId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -1022,7 +1123,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //活动主题图片
       createPeSystemInfoAboutActivity: function (partyIdTo, moreInfoUrl, noteInfo, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -1046,7 +1148,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //活动主题图片
       queryContentTypeList: function (cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -1065,7 +1168,8 @@ angular.module('activity.services', [])
             }
           }
         });
-      },
+      }
+      ,
       //活动主题图片类型列表
       queryThemes: function (contentTypeId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');

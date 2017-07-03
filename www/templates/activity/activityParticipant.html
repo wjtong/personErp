@@ -7,23 +7,23 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content style="background-color: #f0eff5">
-    <div class="list-card" style="padding: 20px 20px 0 20px">
-      <div class="item item-avatar item-icon-right" ng-repeat="item in activityMembersList"
-           ng-click="sendInvitation(chat.partyId)">
-        <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
-        <h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>
-        <p style="color: #696868">2017-05-26 15:26</p>
-        <span style="position: absolute;top: 20px;right: 30px;background-color: #83ccfc;color: #fefefe;font-size: 14px">{{item.partyRole}}</span>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </div>
-    </div>
+    <!--<div class="list-card" style="padding: 20px 20px 0 20px">-->
+      <!--<div class="item item-avatar item-icon-right" ng-repeat="item in activityMembersList"-->
+           <!--ng-click="sendInvitation(chat.partyId)">-->
+        <!--<img ng-src="{{item.headPortrait}}" style="border-radius: 50%">-->
+        <!--<h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>-->
+        <!--<p style="color: #696868">2017-05-26 15:26</p>-->
+        <!--<span style="position: absolute;top: 20px;right: 30px;background-color: #83ccfc;color: #fefefe;font-size: 14px">{{item.partyRole}}</span>-->
+        <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="list-card" style="padding:20px 20px 0 20px">
       <div class="item item-avatar item-icon-right" ng-repeat="item in activityParticipantList"
            ng-click="sendInvitation(chat.partyId)">
         <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
         <h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>
         <p style="color: #696868">2017-05-26 15:26</p>
-        <span style="position: absolute;top: 20px;right: 30px;background-color: #f0eff5;color: #fefefe;font-size: 14px">{{item.partyRole}}</span>
+        <span style="position: absolute;top: 20px;right: 30px;background-color: #83ccfc;color: #fefefe;font-size: 14px">{{item.partyRole}}</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </div>
     </div>

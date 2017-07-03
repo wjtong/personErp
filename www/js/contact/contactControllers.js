@@ -5,13 +5,14 @@ angular.module('contact.controllers', [])
  * Author LX
  * Date 2017-3-3
  * */
-  .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, Login, $ionicPopup) {
+  .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, Login, $ionicPopup,ActivityServer) {
 
     //准备参数
     $scope.partyId = localStorage.getItem("partyId");
 
     //查询我的个人信息
     $scope.$on('$ionicView.enter', function () {
+
       Contact.queryPersonInfo(function (data) {
         $scope.myInfoList = data;
         console.log('微信openId:' + data.openId);
@@ -47,10 +48,15 @@ angular.module('contact.controllers', [])
       });
       confirmPopup.then(function (res) {
         if (res) {
-          localStorage.removeItem('tarjeta');
-          localStorage.removeItem("partyId");
-          $state.go("login");
-          $ionicHistory.clearCache();   //清除缓存数据
+          ActivityServer.disableUserLoginFromTarJeta(function (data) {
+            console.log(data);
+            if(data.resultMsg=="成功"){
+              localStorage.removeItem('tarjeta');
+              localStorage.removeItem("partyId");
+              $state.go("login");
+              $ionicHistory.clearCache();   //清除缓存数据
+            }
+          });
         } else {
           console.log('You are not sure');
         }
@@ -58,10 +64,14 @@ angular.module('contact.controllers', [])
     };
 
     //意见反馈
-    $scope.opinion=function () {
+    $scope.opinion = function () {
       $state.go('tab.opinion');
     };
 
+    //关于
+    $scope.about = function () {
+      $state.go('tab.about');
+    };
 
     //绑定手机号码
     $scope.bindTelephone = function () {
@@ -107,58 +117,61 @@ angular.module('contact.controllers', [])
     var currentCharCode = ' '.charCodeAt(0) - 1;
     var array = [];
 
+    //定义查询联系人方法
+    $scope.queryContact = function () {
+
+    };
+
     //获得我的全部联系人列表(我参与的活动)
-    $scope.$on('$ionicView.enter', function () {
-      Contact.queryAllActivityRelationPersons(function (data) {
-        $scope.allPersonList = data.allPersonList
-      });
-      if ($scope.allPersonList != null) {
-        for (var j = 0; j < $scope.allPersonList.length; j++) {
-          array.push({
-            'last_name': Tools.ConvertPinyin($scope.allPersonList[j].firstName).toUpperCase(),
-            'first_name': $scope.allPersonList[j].firstName,
-            'headPortrait': $scope.allPersonList[j].headPortrait,
-            'partyId': $scope.allPersonList[j].partyId,
-            'appUser': $scope.allPersonList[j].appUser
-          })
-        }
-      }
-
-      //联系人按照字母排序
-      array
-        .sort(function (a, b) {
-          return a.last_name > b.last_name ? 1 : -1;
-        })
-        .forEach(function (person) {
-          var personCharCode = Tools.ConvertPinyin(person.last_name).toUpperCase().charCodeAt(0);
-          if (personCharCode < 65) {
-            personCharCode = 35;
-          }
-
-          var difference = personCharCode - currentCharCode;
-
-          for (var i = 1; i <= difference; i++) {
-            addLetter(currentCharCode + i);
-          }
-          currentCharCode = personCharCode;
-          contacts.push(person);
-        });
-
-      for (var i = currentCharCode + 1; i <= 'Z'.charCodeAt(0); i++) {
-        addLetter(i);
-      }
-
-      function addLetter(code) {
-        var letter = String.fromCharCode(code);
-
-        contacts.push({
-          isLetter: true,
-          letter: letter
-        });
-
-        letters.push(letter);
-      }
+    Contact.queryAllActivityRelationPersons(function (data) {
+      $scope.allPersonList = data.allPersonList
     });
+    if ($scope.allPersonList != null) {
+      for (var j = 0; j < $scope.allPersonList.length; j++) {
+        array.push({
+          'last_name': Tools.ConvertPinyin($scope.allPersonList[j].firstName).toUpperCase(),
+          'first_name': $scope.allPersonList[j].firstName,
+          'headPortrait': $scope.allPersonList[j].headPortrait,
+          'partyId': $scope.allPersonList[j].partyId,
+          'appUser': $scope.allPersonList[j].appUser
+        })
+      }
+    }
+
+    //联系人按照字母排序
+    array
+      .sort(function (a, b) {
+        return a.last_name > b.last_name ? 1 : -1;
+      })
+      .forEach(function (person) {
+        var personCharCode = Tools.ConvertPinyin(person.last_name).toUpperCase().charCodeAt(0);
+        if (personCharCode < 65) {
+          personCharCode = 35;
+        }
+
+        var difference = personCharCode - currentCharCode;
+
+        for (var i = 1; i <= difference; i++) {
+          addLetter(currentCharCode + i);
+        }
+        currentCharCode = personCharCode;
+        contacts.push(person);
+      });
+
+    for (var i = currentCharCode + 1; i <= 'Z'.charCodeAt(0); i++) {
+      addLetter(i);
+    }
+
+    function addLetter(code) {
+      var letter = String.fromCharCode(code);
+
+      contacts.push({
+        isLetter: true,
+        letter: letter
+      });
+
+      letters.push(letter);
+    }
 
     $scope.getItemHeight = function (item) {
       return item.isLetter ? 12 : 30;

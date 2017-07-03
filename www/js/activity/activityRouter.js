@@ -5,7 +5,7 @@ angular.module('starter')
 
     //活动详情
       .state('tab.activityDetails', {
-        url: '/activityDetails/:activityId',
+        url: '/activityDetails/:workEffortId',
         disableBack: true,
         views: {
           'tab-dash': {
@@ -40,7 +40,7 @@ angular.module('starter')
       .state('tab.activityParticipant', {
         url: '/Participant/:workEffortId',
         disableBack: true,
-        cache:true,
+        cache: true,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityParticipant.html',
@@ -117,7 +117,7 @@ angular.module('starter')
       .state('tab.activityMatter', {
         url: '/activityMatter/:workEffortId',
         disableBack: true,
-        cache:false,
+        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityMatter.html',
@@ -129,7 +129,7 @@ angular.module('starter')
       .state('tab.createMatter', {
         url: '/createMatter/:workEffortId',
         disableBack: true,
-        cache:false,
+        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/createMatter.html',
