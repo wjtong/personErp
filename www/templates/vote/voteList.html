@@ -37,7 +37,7 @@
         </div>
       </ion-item>
     </ion-list>
-    <div class="empty" ng-if="vote_empty">还没有相关投票内容</div>
+    <div class="empty" ng-if="!activityPollQuestionsTitles.length>0">还没有相关投票内容</div>
   </ion-content>
   <div class="tab-nav tabs act-foot-btn">
     <a class="tab-item tab-item" ui-sref="tab.goEditVote({workEffortId:{{workEffortId}}})">

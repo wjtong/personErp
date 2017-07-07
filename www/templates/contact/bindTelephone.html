@@ -12,15 +12,15 @@
         <span class="bing-tel">电话:</span>
         <input type="tel" placeholder="  请输入手机号码" ng-model="loginData.mobileNumber">
       </label>
-      <button class="codeBtn" ng-controller="captcha"
-              ng-click="getIdentifyCodeReg(loginData.mobileNumber)">{{codeBtn}}
+      <button class="codeBtn"
+              ng-click="getIdentify(loginData.mobileNumber)">{{codeBtn}}
       </button>
       <label>
         <span class="bind-code">验证码:</span>
         <input type="tel" placeholder="  请输入验证吗" ng-model="loginData.captcha">
       </label>
       <label>
-        <input type="button" value="完成" ng-click="updateLoginTel()">
+        <input type="button" value="完成" ng-click="bindLoginTel()">
       </label>
     </div>
   </ion-content>

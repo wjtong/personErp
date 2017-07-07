@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view title="邀请好友" ng-controller="SharingActivity">
   <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="taskModal.hide()">
@@ -11,29 +11,33 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-header-bar class="bar-dark">
-    <h1 class="title">邀请好友</h1>
-  </ion-header-bar>
-  <ion-content id="share" ng-controller="SharingActivity">
+  <ion-nav-bar class="bar-dark">
+    <ion-nav-buttons>
+      <button class="button button-clear" ui-sref='tab.dash'>
+        <i class="icon  ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button id="editEvent" class="button button-clear" ng-click="openEditModal()"
+              ng-if="iAmAdmin!= 'N'">
+        <img src="../www/img/activityDel/icon-编辑48X48@2x.png" height="25" width="25"/>
+      </button>
+      <button class="button button-clear" ng-click="moreFunctionality()">
+        <img src="../www/img/activityDel/icon-更多46X46@2x.png" height="25" width="25"/>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content id="share" class="has-header">
     <div class="share-container">
-      <img class="img-Name" ng-src="{{originatorHeadImg}}"/>
+      <img class="img-Name" ng-src="{{createPersonInfoList.objectInfo}}"/>
       <label>
-        <input type="text" id="originator" placeholder="请输入您的昵称" ng-model="originator.nickName"
+        <input type="text" id="originator" placeholder="请输入您的昵称" ng-model="createPersonInfoList.firstName"
                ng-blur="updateUserName()">
       </label>
-      <label>
-        <input type="button" value="使用微信头像及昵称" ng-if="weixin" ng-click="userWeixinInfo()">
+      <label ng-if="createPersonInfoList.openId=='NA'">
+        <input type="button" value="使用微信头像及昵称"  ng-click="userWeixinInfo()">
       </label>
       <span>邀请方式</span>
-      <!--<div class="item item-toggle" style="border: 0;width: 80%">-->
-        <!--是否需要审批-->
-        <!--<label class="toggle toggle-assertive">-->
-          <!--<input type="checkbox" ng-model="approveState.now" ng-change="approve()">-->
-          <!--<div class="track">-->
-            <!--<div class="handle"></div>-->
-          <!--</div>-->
-        <!--</label>-->
-      <!--</div>-->
       <label>
         <input type="button" value="微信邀请" ng-click="chooseWay('微信')">
       </label>
@@ -46,4 +50,4 @@
       </div>
     </div>
   </ion-content>
-</ion-modal-view>>
+</ion-modal-view>

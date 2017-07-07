@@ -5,14 +5,16 @@ angular.module('contact.controllers', [])
  * Author LX
  * Date 2017-3-3
  * */
-  .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, Login, $ionicPopup,ActivityServer) {
+  .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, Login, $ionicPopup,
+                                       ActivityServer,$ionicLoading) {
 
     //准备参数
     $scope.partyId = localStorage.getItem("partyId");
+    $scope.weixinBinding = '未绑定';
+    $scope.telBinding = '未绑定';
 
-    //查询我的个人信息
-    $scope.$on('$ionicView.enter', function () {
-
+    //定义查询服务
+    $scope.queryPersonInfo = function () {
       Contact.queryPersonInfo(function (data) {
         $scope.myInfoList = data;
         console.log('微信openId:' + data.openId);
@@ -21,7 +23,6 @@ angular.module('contact.controllers', [])
       });
 
       //判断手机号码是否绑定
-      $scope.telBinding = '未绑定';
       if ($scope.myInfoList) {
         var phone = $scope.myInfoList.contactNumber;
         if ((/^1[34578]\d{9}$/.test(phone))) {
@@ -30,13 +31,17 @@ angular.module('contact.controllers', [])
       }
 
       //判断是否绑定微信
-      $scope.weixinBinding = '未绑定';
       if ($scope.myInfoList) {
         var openId = $scope.myInfoList.openId;
         if (openId != "NA") {
           $scope.weixinBinding = '已绑定';
         }
       }
+    };
+
+    //查询我的个人信息
+    $scope.$on('$ionicView.enter', function () {
+      $scope.queryPersonInfo();
       $scope.$apply()
     });
 
@@ -50,7 +55,7 @@ angular.module('contact.controllers', [])
         if (res) {
           ActivityServer.disableUserLoginFromTarJeta(function (data) {
             console.log(data);
-            if(data.resultMsg=="成功"){
+            if (data.resultMsg == "成功") {
               localStorage.removeItem('tarjeta');
               localStorage.removeItem("partyId");
               $state.go("login");
@@ -59,6 +64,7 @@ angular.module('contact.controllers', [])
           });
         } else {
           console.log('You are not sure');
+          s
         }
       });
     };
@@ -73,27 +79,82 @@ angular.module('contact.controllers', [])
       $state.go('tab.about');
     };
 
-    //绑定手机号码
+    //绑定或解绑手机号码
     $scope.bindTelephone = function () {
-      $state.go('tab.bindTelephone', {'partyId': $scope.partyId})
-    };
-
-    //微信绑定
-    $scope.wachatLogin = function () {
-      $scope.scope = "snsapi_userinfo";
-      Wechat.auth($scope.scope, function (response) {
-        console.log(JSON.stringify(response) + "微信返回值");
-        var code = response.code;
-        Login.userWeChatAppLogin(code, $scope.partyId, function (data) {
-          if (data.tarjeta) {
-            localStorage.removeItem("openId");
-            localStorage.setItem("adminOpenId", data.openId);//设置partyId登陆人
+      if ($scope.telBinding == '已绑定') {
+        var confirmPopup = $ionicPopup.confirm({
+          title: '更换手机号码',
+          template: '如果您更换了手机号码，您将不能通过它找回您的活动！',
+          cancelText: '取消',
+          okText: '确定'
+        });
+        confirmPopup.then(function (res) {
+          if (res) {
+            $state.go('tab.bindTelephone', {'partyId': $scope.partyId, 'type': 'update'})
+          } else {
+            console.log('You are not sure');
           }
         });
-        $state.reload();
-      }, function (reason) {
-        alert("Failed: " + reason);
-      });
+      } else {
+        $state.go('tab.bindTelephone', {'partyId': $scope.partyId, 'type': 'bind'})
+      }
+    };
+
+    //绑定或解绑微信
+    $scope.wachatLogin = function () {
+      if ($scope.weixinBinding == '已绑定') {
+        var confirmPopup = $ionicPopup.confirm({
+          title: '解绑微信',
+          template: '如果您解绑了微信，您将不能通过它找回您的活动！',
+          cancelText: '取消',
+          okText: '确定'
+        });
+        confirmPopup.then(function (res) {
+          if (res) {
+            $ionicLoading.show({
+              template: '交互中...'
+            });
+            $scope.scope = "snsapi_userinfo";
+            Wechat.auth($scope.scope, function (response) {
+              console.log(JSON.stringify(response) + "微信返回值");
+              console.log(response.code + '///' + $scope.partyId);
+              Login.userWeChatAppLogin(response.code, $scope.partyId, function (data) {
+                console.log(data.resultMsg);
+                if (data.resultMsg === 'PE平台登录成功') {
+                  $scope.queryPersonInfo();
+                  $scope.$apply();
+                  $ionicLoading.hide()
+                }
+              });
+            }, function (reason) {
+              alert("Failed: " + reason);
+              $ionicLoading.hide()
+            });
+          } else {
+            console.log('You are not sure');
+          }
+        });
+      } else {
+        $ionicLoading.show({
+          template: '交互中...'
+        });
+        $scope.scope = "snsapi_userinfo";
+        Wechat.auth($scope.scope, function (response) {
+          console.log(JSON.stringify(response) + "微信返回值");
+          console.log(response.code + '///' + $scope.partyId);
+          Login.userWeChatAppLogin(response.code, $scope.partyId, function (data) {
+            console.log(data.resultMsg);
+            if (data.resultMsg === 'PE平台登录成功') {
+              $scope.queryPersonInfo();
+              $scope.$apply();
+              $ionicLoading.hide()
+            }
+          });
+        }, function (reason) {
+          alert("Failed: " + reason);
+          $ionicLoading.hide()
+        });
+      }
     };
 
     //完善编辑个人信息
@@ -116,11 +177,6 @@ angular.module('contact.controllers', [])
     var contacts = $scope.contacts = [];
     var currentCharCode = ' '.charCodeAt(0) - 1;
     var array = [];
-
-    //定义查询联系人方法
-    $scope.queryContact = function () {
-
-    };
 
     //获得我的全部联系人列表(我参与的活动)
     Contact.queryAllActivityRelationPersons(function (data) {
@@ -207,7 +263,6 @@ angular.module('contact.controllers', [])
         if (item.isLetter && !letterHasMatch[item.letter]) {
           return false;
         }
-
         return true;
       });
     };
@@ -366,10 +421,13 @@ angular.module('contact.controllers', [])
    * Author LX
    * Date 2017-3-3
    * */
-  .controller('bindTelephone', function ($scope, Contact, $stateParams, $state, $ionicPopup) {
+  .controller('bindTelephone', function ($scope, Contact, $stateParams, $state, $ionicPopup, Login, $http, $rootScope, $interval) {
 
     //准备参数
     $scope.partyId = localStorage.getItem('partyId');
+    $scope.type = $stateParams.type;
+    $scope.codeBtn = '验证码';
+    $scope.loginData = {};
 
     //查询我的个人信息
     Contact.queryPersonInfo(function (data) {
@@ -382,21 +440,85 @@ angular.module('contact.controllers', [])
       $state.go('tab.account')
     };
 
+    //获取验证码
+    $scope.getIdentify = function (tel) {
+      if ($scope.type == "bind") {
+        $scope.getIdentifyCode(tel)
+      } else {
+        $scope.getUpdateInfoCaptcha(tel)
+      }
+    };
+
+    //获取更换手机号码验证码
+    $scope.getUpdateInfoCaptcha = function (tel) {
+      Login.getUpdateInfoCaptcha(tel, function (data) {
+        console.log(data)
+      });
+      $scope.countDown();
+    };
+
+    //获取绑定验证码（注册验证码）
+    $scope.getIdentifyCode = function (tel) {
+      $scope.smsType = 'REGISTER';
+      Login.getLoginCaptcha(tel, $scope.smsType, function (data) {
+        console.log(data)
+      });
+      $scope.countDown();
+    };
+
+    //倒计时
+    $scope.countDown = function () {
+      //倒计时
+      $scope.n = 60;
+      $scope.codeBtn = $scope.n + " 秒";
+      var time = $interval(function () {
+        $scope.n--;
+        $scope.codeBtn = $scope.n + " 秒";
+        if ($scope.n == 0) {
+          $interval.cancel(time); // 取消定时任务
+          $scope.codeBtn = '验证码';
+        }
+      }, 1000);
+    };
+
     //完成绑定手机号码
-    $scope.loginData = {};
-    $scope.updateLoginTel = function () {
-      Contact.updateLoginTel($scope.partyId, $scope.loginData.mobileNumber, $scope.loginData.captcha, function (data) {
-        console.log(data.resultMsg);
-        localStorage.removeItem("tarjeta");
-        localStorage.setItem("tarjeta", data.tarjeta);
-        $ionicPopup.alert({
-          title: '绑定成功',
-          template: "你可以通过手机号码找回您参与的活动"
-        });
-        $state.go('tab.account')
-      })
+    $scope.bindLoginTel = function () {
+      if ($scope.type == "bind") {
+        Contact.updateLoginTel($scope.partyId, $scope.loginData.mobileNumber, $scope.loginData.captcha, function (data) {
+          console.log(data);
+          if (data.resultMsg == '更新人员信息成功') {
+            localStorage.removeItem("tarjeta");
+            localStorage.setItem("tarjeta", data.tarjeta);
+            $ionicPopup.alert({
+              title: '绑定成功',
+              template: "你可以通过手机号码找回您参与的活动"
+            });
+            $state.go('tab.account')
+          }
+        })
+      } else {
+        Contact.rebindTel($scope.loginData.mobileNumber, $scope.loginData.captcha, function (data) {
+          console.log(data);
+          if (data.resultMsg == '更新人员信息成功') {
+            localStorage.removeItem("tarjeta");
+            localStorage.setItem("tarjeta", data.tarjeta);
+            $ionicPopup.alert({
+              title: '更换成功',
+              template: "你可以通过手机号码找回您参与的活动"
+            });
+            $state.go('tab.account', null, {reload: true})
+          }
+        })
+      }
     }
   });
+
+
+
+
+
+
+
 
 
 

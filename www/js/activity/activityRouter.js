@@ -27,7 +27,7 @@ angular.module('starter')
       })
       //活动照片墙
       .state('tab.slide', {
-        url: '/slide/:activityId/:index',
+        url: '/slide/:workEffortId/:index',
         disableBack: true,
         views: {
           'tab-dash': {
@@ -91,10 +91,11 @@ angular.module('starter')
           }
         }
       })
-      //活动讨论（实时聊天融云）
+      //活动讨论
       .state('tab.activityDiscuss', {
         url: '/activityDiscuss/:communicationEventId/:workEffortId',
         disableBack: true,
+        cache: false,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/activityDiscuss.html',
@@ -129,7 +130,7 @@ angular.module('starter')
       .state('tab.createMatter', {
         url: '/createMatter/:workEffortId',
         disableBack: true,
-        cache: false,
+        cache: true,
         views: {
           'tab-dash': {
             templateUrl: 'templates/activity/createMatter.html',

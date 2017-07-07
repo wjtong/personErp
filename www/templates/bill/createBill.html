@@ -7,54 +7,41 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content class="padding" style="background-color: #f2f2f2;font-size: 15px">
-    <div class="cardinputInfo" >
+    <div class="cardinputInfo">
       <ul class="list">
         <li class="item item-input">
           <span class="input-label">账单名称：</span>
           <input type="text" name="billName" ng-model="Bill.billName" placeholder="请输入账单名称">
         </li>
-        <li class="item item-input">
+        <li class="item item-input" ng-if="!settingsList[1].checked">
           <span class="input-label">每人应付：</span>
           <input type="number" name="amount" ng-model="Bill.amount" placeholder="请输入每人应付金额">
         </li>
-        <li class="item item-input">
-          <span class="input-label">账单总额：</span>
-          <input type="text" name="billName" placeholder="请输入账单总额">
-        </li>
+
         <div style="height: 12px;">
         </div>
-        <li class="item item-toggle" style="padding: 15px">
-          <span>是否公开：</span>
+        <li class="item item-toggle" style="padding: 15px" ng-repeat="item in settingsList">
+          <span>{{item.text}}：</span>
           <label class="toggle toggle-assertive">
-            <input type="checkbox">
+            <input type="checkbox" ng-model="item.checked" ng-checked="item.checked">
             <div class="track">
               <div class="handle"></div>
             </div>
           </label>
         </li>
-        <li class="item item-toggle" style="padding: 15px">
-          <span>是否AA：</span>
-          <label class="toggle toggle-assertive" >
-            <input type="checkbox" >
-            <div class="track">
-              <div class="handle"></div>
-            </div>
-          </label>
+        <li class="item item-input" ng-if="settingsList[1].checked">
+          <span class="input-label">账单总额：</span>
+          <input type="text" name="billTotal" placeholder="请输入账单总额" ng-model="Bill.billTotal" ng-change="billTotal()">
         </li>
         <div style="height: 12px;">
         </div>
-        <li class="item item-input">
-          <span class="input-label" style="background-color: red;width: 6%;height: 3px;padding: 0;margin-right: 5%;border-radius: 3px"></span>
-          <span class="input-label" style="color: #1d1d1d;">金龙熙：</span>
-          <input type="text" value="15.00" style="text-align: right">
-        </li>
-        <li class="item item-input">
-          <span class="input-label" style="background-color: red;width: 6%;height: 3px;padding: 0;margin-right: 5%;border-radius: 3px"></span>
-          <span class="input-label" style="color: #1d1d1d;">沈寅麟：</span>
-          <input type="text" value="15.00" style="text-align: right">
+        <li class="item item-input" ng-repeat="item in activityParticipantList">
+          <span class="input-label" ng-click="deleteMember(item.partyId,$index)"
+                style="background-color: red;width: 6%;height: 3px;padding: 0;margin-right: 5%;border-radius: 3px"></span>
+          <span class="input-label" style="color: #1d1d1d;">{{item.firstName}}：</span>
+          <input type="text" name="{{item.partyId}}" ng-value="Bill.amount" style="text-align: right">
         </li>
       </ul>
-
       <div>
         <button class="button" style="width: 100%;background-color: #FFDA44;font-size: 15px;color: #1d1d1d;border: 0"
                 ng-click="createBill()">确认

@@ -9,7 +9,7 @@ angular.module('bill.services', [])
 
     return {
       //新建活动账单
-      createActivityInvoice: function (workEffortId, invoiceName, amount, isPrivate, cb) {
+      createActivityInvoice: function (workEffortId, invoiceName, payArray, isPrivate, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "createActivityPaymentGroup",
@@ -17,7 +17,7 @@ angular.module('bill.services', [])
             tarjeta: tarjeta,
             workEffortId: workEffortId,
             invoiceName: invoiceName,
-            amount: amount,
+            payArray: payArray,
             isPrivate: isPrivate
           },
           async: false,

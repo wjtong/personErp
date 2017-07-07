@@ -1025,13 +1025,14 @@ angular.module('activity.services', [])
         });
       },
       //查询评论
-      queryActivityCommunication: function (communicationEventId, cb) {
+      queryActivityCommunication: function (communicationEventId,viewSize, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.communicationfaceUrl + "queryActivityCommunication",
           data: {
             tarjeta: tarjeta,
-            communicationEventId: communicationEventId
+            communicationEventId: communicationEventId,
+            viewSize:viewSize
           },
           async: false,
           type: 'POST',

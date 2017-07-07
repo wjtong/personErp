@@ -17,21 +17,27 @@
   </ion-nav-bar>
   <ion-content id="activityDel">
     <div class="list">
+      <div class="item del-title">
+        时间
+      </div>
       <div class="item del-date">
         <div class="del-left">
           <img src="../www/img/activityDel/icon-开始时间100X100@2x.png"/>
           <label>
-            <input type="text" placeholder="开始时间" ng-click="startDate()"
+            <input type="text" readonly placeholder="开始时间" ng-click="startDate()"
                    ng-model="ActivityData.startDate">
           </label>
         </div>
         <div class="del-right">
           <img src="../www/img/activityDel/icon-结束时间100X100@2x.png"/>
           <label>
-            <input type="text" placeholder="结束时间" ng-click="endDate()"
+            <input type="text" readonly placeholder="结束时间" ng-click="endDate()"
                    ng-model="ActivityData.endDate">
           </label>
         </div>
+      </div>
+      <div class="item del-title">
+        地点
       </div>
       <div class="item item-icon-left" style="height: 47px">
         <i class="icon ion-ios-location-outline" style="margin-right: 5px;vertical-align: middle"></i>
@@ -42,7 +48,7 @@
       </div>
       <div class="item">
         <label>
-          <textarea rows="10" placeholder="活动描述" ng-disabled="edit"
+          <textarea rows="10" placeholder="活动描述" readonly
                     ng-model="activityList.description"></textarea>
         </label>
       </div>
@@ -60,26 +66,28 @@
       <div class="item del-title">
         评论
       </div>
-      <div class="item" ng-repeat="item in commList">
-        <a class="item item-avatar" href="#" style="border: 0">
-          <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
-          <h2>{{item.firstName}}</h2>
-          <p style="color: #696868">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
-        </a>
-        <p
-          style="font-size: 16px;color: #1d1d1d;text-indent: 10px;margin: 12px 0;border-bottom:1px solid #f0eff5;padding-bottom: 8px ">
-          {{item.textData}}</p>
-        <p style="text-indent: 5px;font-size:14px;background-color: #f0f0f0;color:#83ccfc;margin: 12px 10px"
+      <div class="item">
+        <div ng-repeat="item in commList">
+          <div class="item item-avatar" style="border: 0">
+            <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
+            <h2>{{item.firstName}}</h2>
+            <p style="color: #696868">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
+          </div>
+          <p
+            style="font-size: 16px;color: #1d1d1d;text-indent: 10px;margin: 12px 0;border-bottom:1px solid #f0eff5;padding-bottom: 8px ">
+            {{item.textData}}</p>
+          <p style="text-indent: 5px;font-size:14px;background-color: #f0f0f0;color:#83ccfc;margin: 12px 10px"
+             ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)">
+            共{{item.responceCount}}条回复</p>
+        </div>
+        <p style="font-size:16px;color:#1d1d1d;margin: 12px 10px;text-align: center"
            ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)">
-          共{{item.responceCount}}条回复</p>
-        <input type="text" placeholder=" 回复"
-               ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)"
-               style="border: 1px solid #f0eff5;margin:10px;width: 337px;-webkit-appearance: none;">
+          查看全部</p>
       </div>
       <div class="item del-title">
         参与人
         <p class="pe-num">
-          {{groupAcount}}人｜收起</p>
+          {{groupAcount}}人</p>
       </div>
       <div class="item" style="border-bottom: 0">
         <div class="row row-wrap">

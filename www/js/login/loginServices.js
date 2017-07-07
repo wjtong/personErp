@@ -111,6 +111,49 @@ angular.module('login.services', [])
             }
           }
         });
+      },
+      //获取验证码
+      getLoginCaptcha: function (teleNumber, smsType, cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "getLoginCaptcha",
+          data: {
+            teleNumber: teleNumber,
+            smsType: smsType
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //获取更改手机号验证码
+      getUpdateInfoCaptcha: function (teleNumber, cb) {
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "getUpdateInfoCaptcha",
+          data: {
+            teleNumber: teleNumber,
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
       }
     }
   });

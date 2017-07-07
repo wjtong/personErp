@@ -7,7 +7,7 @@ angular.module('starter')
         url: '/contactInfo/:partyId',
         cache: false,
         views: {
-          'tab-dash': {
+          'tab-chats': {
             templateUrl: 'templates/contact/contactInfo.html',
             controller: 'contactInfo'
           }
@@ -26,7 +26,7 @@ angular.module('starter')
       })
       //绑定用户手机号码
       .state('tab.bindTelephone', {
-        url: '/bindTelephone/:partyId',
+        url: '/bindTelephone/:partyId/:type',
         cache: false,
         views: {
           'tab-dash': {

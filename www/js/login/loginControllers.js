@@ -5,7 +5,7 @@ angular.module('login.controllers', [])
  * Author LX
  * Date 2017-3-3
  * */
-  .controller('LoginCtrl', function ($http, $scope, Login, $state, ThemeImage, $ionicHistory) {
+  .controller('LoginCtrl', function ($http, $scope, Login, $state) {
 
     //手机号码找回
     $scope.loginData = {};
@@ -70,100 +70,37 @@ angular.module('login.controllers', [])
    * */
   .controller('captcha', function ($scope, $http, $rootScope, $interval, Login) {
 
-    //登陆获取验证码
+    //获取登录验证码
     $scope.codeBtn = '立即验证';
     $scope.getIdentifyCode = function (tel) {
-      $scope.smsType = 'LOGIN';
-      $scope.msg = ""; //先清空错误提示
-      if (tel) {
-        $http({
-          method: "POST",
-          url: $rootScope.platformInterfaceUrl + "getLoginCaptcha",
-          data: {
-            "teleNumber": tel,
-            "smsType": $scope.smsType
-          },
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},  // 默认的Content-Type是text/plain;charset=UTF-8，所以需要更改下
-          transformRequest: function (obj) {                               // 参数是对象的话，需要把参数转成序列化的形式
-            var str = [];
-            for (var p in obj) {
-              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-            }
-            return str.join("&");
-          }
-        }).success(function (result) {
-          if (result.code == '500') {
-            $scope.msg = result.msg;
-          } else {
-            //倒计时
-            $scope.n = 60;
-            $scope.codeBtn = $scope.n + " 秒";
-            var time = $interval(function () {
-              $scope.n--;
-              $scope.codeBtn = $scope.n + " 秒";
-              if ($scope.n == 0) {
-                $interval.cancel(time); // 取消定时任务
-                $scope.codeBtn = '获取验证码';
-                $scope.codeBtnDisable = false;
-              }
-            }, 1000);
-            $scope.codeBtnDisable = true;
-          }
-        });
-      } else {
-        $scope.msg = "请输入您的手机号码！！"
-      }
+      var smsType = 'LOGIN';
+      Login.getLoginCaptcha(tel, smsType, function (data) {
+        console.log(data)
+      });
+      $scope.countDown();
     };
 
-    //注册获取验证码
+    //获取注册验证码
     $scope.getIdentifyCodeReg = function (tel) {
-      Login.userLoginExsit(tel, function (data) {     //判断用户是否存在
-        if (data.resultMsg === '成功') {
-          $scope.smsType = 'REGISTER';                //定义获取验证码用于注册
-          $scope.msg = "";//先清空错误提示
-          if (tel) {
-            $http({
-              method: "POST",
-              url: $rootScope.platformInterfaceUrl + "getLoginCaptcha",
-              data: {
-                "teleNumber": tel,
-                "smsType": $scope.smsType
-              },
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'},         // 默认的Content-Type是text/plain;charset=UTF-8，所以需要更改下
-              transformRequest: function (obj) {                                      // 参数是对象的话，需要把参数转成序列化的形式
-                var str = [];
-                for (var p in obj) {
-                  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                }
-                return str.join("&");
-              }
-            }).success(function (result) {
-              console.log(result.code + " " + result.msg);
-              if (result.code == '500') {
-                $scope.msg = result.msg;
-              } else {
-                //倒计时
-                $scope.n = 60;
-                $scope.codeBtn = "获取中 " + $scope.n + " 秒";
-                var time = $interval(function () {
-                  $scope.n--;
-                  $scope.codeBtn = "获取中 " + $scope.n + " 秒";
-                  if ($scope.n == 0) {
-                    $interval.cancel(time); // 取消定时任务
-                    $scope.codeBtn = '获取验证码';
-                    $scope.codeBtnDisable = false;
-                  }
-                }, 1000);
-                $scope.codeBtnDisable = true;
-              }
-            });
-          } else {
-            $scope.msg = "请输入您的手机号码！！"
-          }
-        } else {
-          alert("用户已存在！！！！！！！！！！！！");
+      var smsType = 'REGISTER';
+      Login.getLoginCaptcha(tel, smsType, function (data) {
+        console.log(data)
+      });
+      $scope.countDown();
+    };
+
+    //倒计时
+    $scope.countDown = function () {
+      $scope.n = 60;
+      $scope.codeBtn = $scope.n + " 秒";
+      var time = $interval(function () {
+        $scope.n--;
+        $scope.codeBtn = $scope.n + " 秒";
+        if ($scope.n == 0) {
+          $interval.cancel(time); // 取消定时任务
+          $scope.codeBtn = '验证码';
         }
-      })
+      }, 1000);
     };
   });
 

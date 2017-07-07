@@ -121,6 +121,30 @@ angular.module('contact.services', [])
           }
         });
       },
+      //更换用户手机号码
+      rebindTel: function (tel, captcha, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.platformInterfaceUrl + "rebindTel",
+          data: {
+            tarjeta: tarjeta,
+            tel: tel,
+            captcha: captcha
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //查询联系人的信息详情
       findUserDetail: function (partyId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');

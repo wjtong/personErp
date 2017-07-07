@@ -1,4 +1,4 @@
-<ion-view title="评论" hide-tabs="true">
+<ion-view title="全部评论" hide-tabs="true">
   <ion-nav-bar class="bar-dark">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="goBack()">
@@ -18,9 +18,13 @@
         <p
           style="font-size: 15px;color: #1d1d1d;text-indent: 10px;padding-bottom: 8px ">
           {{item.textData}}</p>
-        <p style="text-indent: 5px;font-size:14px;background-color: #f0f0f0;color:#83ccfc;margin: 12px 10px"
-           ng-click="openResponse(item.contentId)">共{{item.responceCount}}条回复</p>
-        <input type="text" placeholder=" 回复"
+        <p style="text-indent: 5px;font-size:14px;background-color: #f0f0f0;color:#83ccfc;margin: 12px 10px">共{{item.responceCount}}条回复</p>
+        <div class="card" ng-repeat="response in item.responseList">
+          <div class="item item-divider">
+            {{response.firstName}}:   {{response.textData}}
+          </div>
+        </div>
+        <input type="text" placeholder=" 回复" readonly
                ng-click="openResponse(item.contentId)"
                style="border: 1px solid #f0eff5;margin:10px;width: 337px;-webkit-appearance: none;">
       </ion-item>

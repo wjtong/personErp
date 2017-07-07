@@ -29,6 +29,10 @@
   text-align: center;
 }
 
+.del-left input[readonly]{
+  background-color: #f8f8f8;
+}
+
 .del-left img, .del-right img {
   height: 50px;
   width: 50px;

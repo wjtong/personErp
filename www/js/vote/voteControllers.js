@@ -8,49 +8,37 @@ angular.module('vote.controllers', [])
   .controller('voteListCtrl', function ($scope, $state, $ionicPopup, $stateParams, voteService) {
     //参数准备
     $scope.workEffortId = $stateParams.workEffortId;
-    $scope.vote_empty = true;
-    $scope.partyId=localStorage.getItem('partyId');
+    $scope.partyId = localStorage.getItem('partyId');
 
-    //查询我的投票列表
-    voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
-      console.log(data.resultMap.activityPollQuestionsTitle);
-      $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle;
+    //定义查询投票列表
+    $scope.queryVoteList = function () {
+      //查询我的投票列表
+      voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
+        console.log(data.resultMap.activityPollQuestionsTitle);
+        $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle;
+      });
+    };
 
-      if ($scope.activityPollQuestionsTitles.length > 0) {
-        $scope.vote_empty = false;
-      }
+    $scope.$on('$ionicView.enter', function () {
+      $scope.queryVoteList()
     });
 
     //删除投票
-    $scope.deleteVote=function (id) {
-      voteService.removeVote(id,function (data) {
-        console.log('删除投票:'+data.resultMsg);
-        if(data.resultMsg){
-          //查询我的投票列表
-          voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
-            console.log(data.resultMap.activityPollQuestionsTitle);
-            $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle;
-            if ($scope.activityPollQuestionsTitles.length > 0) {
-              $scope.vote_empty = false;
-            }
-          });
+    $scope.deleteVote = function (id) {
+      voteService.removeVote(id, function (data) {
+        console.log('删除投票:' + data.resultMsg);
+        if (data.resultMsg) {
+          $scope.queryVoteList()
         }
       })
     };
 
     //结束投票
-    $scope.finishVote=function (id) {
-      voteService.closeVote(id,function (data) {
-        console.log('结束投票:'+data.resultMsg);
-        if(data.resultMsg){
-          //查询我的投票列表
-          voteService.findActivityPollQuestionsTitle($scope.workEffortId).success(function (data) {
-            console.log(data.resultMap.activityPollQuestionsTitle);
-            $scope.activityPollQuestionsTitles = data.resultMap.activityPollQuestionsTitle;
-            if ($scope.activityPollQuestionsTitles.length > 0) {
-              $scope.vote_empty = false;
-            }
-          });
+    $scope.finishVote = function (id) {
+      voteService.closeVote(id, function (data) {
+        console.log('结束投票:' + data.resultMsg);
+        if (data.resultMsg) {
+          $scope.queryVoteList()
         }
       })
     };
@@ -61,15 +49,15 @@ angular.module('vote.controllers', [])
    * Author LN
    * Date 2017-3-3
    */
-  .controller('editVoteCtrl', function ($scope, $state, $stateParams, $ionicPopup, voteService,SelectDate) {
+  .controller('editVoteCtrl', function ($scope, $state, $stateParams, $ionicPopup, voteService) {
     //准备参数
     $scope.workEffortId = $stateParams.workEffortId;
-    $scope.Vote={};
+    $scope.Vote = {};
 
     // 添加投票选项
     $scope.addVotes = function () {
       $("#votes").append("" +
-        "<textarea style='display: inline-block;width: 81%;resize:none' rows='1' class='questions' placeholder='选项'></textarea>" +
+        "<textarea name='voteItem' style='display: inline-block;width: 81%;resize:none' rows='1' class='questions' placeholder='选项'></textarea>" +
         "<img src='../www/img/activityImg/矢量智能对象-拷贝@2x.png' width=18 height=18 onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><hr>" +
         "");
     };
@@ -77,9 +65,9 @@ angular.module('vote.controllers', [])
     // 创建投票
     $scope.createSurveyAndQuestions = function () {
       var questions = ''; // 投票项
-
-      for (var i = 0; i < $("textarea").length; i++) {
-        var question = $("textarea").eq(i).val();
+      var voteItem = $("textarea[name='voteItem']");
+      for (var i = 0; i < voteItem.length; i++) {
+        var question = voteItem.eq(i).val();
         if (question.trim() == '') {
           continue;
         }
@@ -117,45 +105,42 @@ angular.module('vote.controllers', [])
     var activityData = localStorage.getItem("activityData" + $scope.workEffortId);
     $scope.workEffortName = jQuery.parseJSON(activityData).workEffortName;
     $scope.siginUp = '投票';
-    $scope.partyId=localStorage.getItem('partyId');
+    $scope.partyId = localStorage.getItem('partyId');
 
-    // 投票详情 展开/合拢
-    $scope.onOff = false;
-    $scope.changeOnOff = function (onOff) {
-      if (onOff == true) {
-        $scope.onOff = false;
-      } else {
-        $scope.onOff = true;
-      }
+    //定义查询方法
+    $scope.queryVoteList = function () {
+      voteService.findActivityPollQuestions($scope.surveyId).success(function (data) {
+        $scope.questions = data.resultMap.questions;
+        $scope.ret = {choice: '0'};
+
+        $scope.partyResponceAnswers = data.resultMap.partyResponceAnswer;
+        $scope.partyResponceAnswersCount = $scope.partyResponceAnswers.length;
+        if ($scope.partyResponceAnswers.length > 0) {
+          $scope.responceAnswersCount = $scope.partyResponceAnswers.length;
+        } else {
+          $scope.responceAnswersCount = 1
+        }
+
+        var voteArr = [];
+        for (var i = 0; i < $scope.partyResponceAnswers.length; i++) {
+          if ($scope.partyResponceAnswers[i].partyId == $scope.partyId) {
+            $scope.mySelect = $scope.partyResponceAnswers[i].question
+          }
+        }
+        $scope.voteArrs = voteArr;
+        console.log($scope.voteArrs)
+      });
     };
 
-    //查询投票列表
-    voteService.findActivityPollQuestions($scope.surveyId).success(function (data) {
-      $scope.questions = data.resultMap.questions;
-      $scope.ret = {choice: '0'};
-
-      $scope.partyResponceAnswers = data.resultMap.partyResponceAnswer;
-      $scope.partyResponceAnswersCount=$scope.partyResponceAnswers.length;
-      if($scope.partyResponceAnswers.length>0){
-        $scope.responceAnswersCount = $scope.partyResponceAnswers.length;
-      }else {
-        $scope.responceAnswersCount=1
-      }
-
-      var voteArr = [];
-      for (var i = 0; i < $scope.partyResponceAnswers.length; i++) {
-        if($scope.partyResponceAnswers[i].partyId==$scope.partyId){
-         $scope.mySelect=$scope.partyResponceAnswers[i].question
-        }
-      }
-      $scope.voteArrs = voteArr;
-      console.log($scope.voteArrs)
+    $scope.$on('$ionicView.enter', function () {
+      $scope.queryVoteList()
     });
 
+    //点击投票
     $scope.doPollQuestion = function (surveyQuestionId) {
-      if($scope.mySelect!=undefined){
+      if ($scope.mySelect != undefined) {
         alert('你已经投过票了，不能重复投票')
-      }else{
+      } else {
         var confirmPopup = $ionicPopup.confirm({
           title: '确定投票',
           template: '确定投票不可修改，是否继续？'
@@ -174,7 +159,7 @@ angular.module('vote.controllers', [])
                 template: "投票成功！"
               });
               alertPopup.then(function (res) {
-                $state.go("tab.voteList", {"workEffortId": $scope.workEffortId});
+                $scope.queryVoteList()
               });
             }).error(function (data) {
               var alertPopup = $ionicPopup.alert({

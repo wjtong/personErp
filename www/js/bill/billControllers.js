@@ -13,18 +13,20 @@ angular.module('bill.controllers', [])
     $scope.partyId = localStorage.getItem('partyId');
     var activityData = localStorage.getItem("activityData" + id);
     $scope.workEffortName = jQuery.parseJSON(activityData).workEffortName;
-    $scope.billEmpty = true;
 
-    //查询账单信息
-    $scope.$on('$ionicView.enter',function () {
+    //定义查询账单
+    $scope.queryBill = function () {
       billServer.findActivityPayment(id, function (data) {
         $scope.billList = data.paymentGroupList;
+        console.log($scope.billList);
         $scope.activityAdminPartyId = data.activityAdminPartyId;
-        if ($scope.billList.length > 0) {
-          $scope.billEmpty = false
-        }
         console.log("查询活动列表——————————" + data.resultMsg)
       });
+    };
+
+    //查询账单信息
+    $scope.$on('$ionicView.enter', function () {
+      $scope.queryBill();
     });
 
     //添加账单
@@ -34,7 +36,7 @@ angular.module('bill.controllers', [])
 
     //返回
     $scope.goBack = function () {
-      $state.go("tab.activityDetails", {activityId: id});
+      $state.go("tab.activityDetails", {workEffortId: id});
     };
 
     //隐藏已付
@@ -72,26 +74,29 @@ angular.module('bill.controllers', [])
         buttonClicked: function (index) {
           switch (index) {
             case 0:
+              hideSheet();
               billServer.partyPay(partyIdFrom, paymentId, payMethod[0].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
-                  $state.reload()
+                  $scope.queryBill()
                 }
               });
               break;
             case 1:
+              hideSheet();
               billServer.partyPay(partyIdFrom, paymentId, payMethod[1].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
-                  $state.reload()
+                  $scope.queryBill()
                 }
               });
               break;
             case 2:
+              hideSheet();
               billServer.partyPay(partyIdFrom, paymentId, payMethod[2].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
-                  $state.reload()
+                  $scope.queryBill()
                 }
               });
               break;
@@ -148,14 +153,7 @@ angular.module('bill.controllers', [])
           billServer.cancelledPaymentGroup(paymentGroupId, function (data) {
             console.log(data);
             if (data.resultMsg == '成功') {
-              billServer.findActivityPayment(id, function (data) {
-                $scope.billList = data.paymentGroupList;
-                $scope.activityAdminPartyId = data.activityAdminPartyId;
-                if ($scope.billList.length > 0) {
-                  $scope.billEmpty = false
-                }
-                console.log("查询活动列表——————————" + data.resultMsg)
-              });
+              $scope.queryBill();
             }
           })
         } else {
@@ -197,21 +195,43 @@ angular.module('bill.controllers', [])
    * Author LX
    * Date 2017-6-6
    * */
-  .controller('addPersonBillCtrl', function ($scope, $ionicHistory, ionicDatePicker, $state, $ionicModal, $rootScope, Contact,
-                                             $stateParams, billServer, $ionicPopup) {
+  .controller('addPersonBillCtrl', function ($scope, $ionicHistory, ionicDatePicker, $state, $ionicModal, $rootScope,
+                                             Contact, $stateParams, billServer, $ionicPopup, ActivityServer) {
     //准备参数
     $scope.workEffortId = $stateParams.workEffortId;
     $scope.Bill = {};
 
+    //查询活动人员
+    ActivityServer.queryActivityAdminsAndMembers($scope.workEffortId, function (data) {
+      $scope.activityParticipantList = data.activityMembersList
+    });
+
+    //删除成员
+    $scope.deleteMember = function (id, index) {
+      $scope.activityParticipantList.splice(index, 1);
+    };
+
+    //是否AA
+    $scope.settingsList = [
+      {text: "不公开", checked: false},
+      {text: "是否AA", checked: false}
+    ];
+    $scope.billTotal = function () {
+      $scope.Bill.amount = $scope.Bill.billTotal / $scope.activityParticipantList.length;
+    };
+
     //提交新录入账单
     $scope.createBill = function () {
-      var public = document.getElementsByName("public");
-      for (var i = 0; i < public.length; i++) {
-        if (public[i].checked) {
-          $scope.public = public[i].value
-        }
+      $scope.public = $scope.settingsList[0].checked == true ? 'Y' : 'N';
+      var payArray = [];
+      for (var j = 0; j < $scope.activityParticipantList.length; j++) {
+        var memberId = $scope.activityParticipantList[j].partyId;
+        var menberCount = document.getElementsByName(memberId)[0].value;
+        payArray.push({partyId: memberId, amount: menberCount})
       }
-      billServer.createActivityInvoice($scope.workEffortId, $scope.Bill.billName, $scope.Bill.amount, $scope.public, function (data) {
+      console.log(JSON.stringify(payArray));
+
+      billServer.createActivityInvoice($scope.workEffortId, $scope.Bill.billName, JSON.stringify(payArray), $scope.public, function (data) {
         console.log("创建账单:" + data);
         if (data.resultMsg == '账单创建成功!') {
           $ionicPopup.alert({

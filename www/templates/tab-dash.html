@@ -45,7 +45,7 @@
 
     </ion-list>
   </ion-content>
-  <div class="activityNull" ng-if="activityHomeNull">
+  <div class="activityNull" ng-if="!activtyList.length>0">
     <img ng-src="../www/img/tabs/空状态 350X350px@2x.png"/>
     <p class="tipTextAct" id="box">您还没有活动是否要新建？</p>
     <p class="history" id="history" ng-click="getHistory()">找回历史活动</p>

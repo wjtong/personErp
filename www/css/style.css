@@ -6,14 +6,37 @@
 .globalColorButton {
   color: black;
 }
-.tab-create{
+
+.tab-create {
   font-size: 20px;
   color: #1d1d1d;
 }
-.act-foot-btn{
+
+.act-foot-btn {
   background-color: #FFDA44;
 }
 
+/*上拉菜单*/
+.platform-android.action-sheet-cancel {
+  display: block !important;
+  margin-top: 4px;
+}
+
+.platform-android.action-sheet.button {
+  border-width: 1px 0 0px 0;
+  border-style: solid;
+  border-color: #DEDEDE;
+  text-align: center;
+}
+
+/*弹出警告框*/
+.popup-container.active .popup {
+  border-radius: 15px;
+}
+
+.popup-title {
+
+}
 
 /*tabs图标**************************************************************************************************************/
 .tab-item i.icon {

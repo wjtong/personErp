@@ -7,26 +7,25 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content style="background-color: #f0eff5">
-    <!--<div class="list-card" style="padding: 20px 20px 0 20px">-->
-      <!--<div class="item item-avatar item-icon-right" ng-repeat="item in activityMembersList"-->
-           <!--ng-click="sendInvitation(chat.partyId)">-->
-        <!--<img ng-src="{{item.headPortrait}}" style="border-radius: 50%">-->
-        <!--<h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>-->
-        <!--<p style="color: #696868">2017-05-26 15:26</p>-->
-        <!--<span style="position: absolute;top: 20px;right: 30px;background-color: #83ccfc;color: #fefefe;font-size: 14px">{{item.partyRole}}</span>-->
-        <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
-      <!--</div>-->
-    <!--</div>-->
-    <div class="list-card" style="padding:20px 20px 0 20px">
-      <div class="item item-avatar item-icon-right" ng-repeat="item in activityParticipantList"
-           ng-click="sendInvitation(chat.partyId)">
+    <ion-list class="list-card" style="padding:20px 20px 0 20px">
+      <ion-item class="item item-avatar item-icon-right" ng-repeat="item in activityParticipantList">
         <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
         <h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>
         <p style="color: #696868">2017-05-26 15:26</p>
         <span style="position: absolute;top: 20px;right: 30px;background-color: #83ccfc;color: #fefefe;font-size: 14px">{{item.partyRole}}</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
-      </div>
-    </div>
+        <div ng-if="item.partyRole!='活动组织者'">
+          <ion-option-button class="button-assertive"
+                             ng-click="removeActivityParty(item.partyId)">
+            踢掉
+          </ion-option-button>
+          <ion-option-button class="button-calm"
+                             ng-click="grantActivityAdminRole(item.partyId)">
+            授权
+          </ion-option-button>
+        </div>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
 
