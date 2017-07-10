@@ -20,7 +20,7 @@
         </div>
         <div class="list">
           <div class="item" style="margin: 0" ng-repeat="question in questions"
-               ng-click="doPollQuestion(question.surveyQuestionId)">
+               ng-click="vote.statusId=='VOTE_CLOSE'?true:false||doPollQuestion(question.surveyQuestionId)">
             <span style="background-color: #ffeca1;display: block;font-size: 14px"
                   ng-style="{width:question.answerCount/responceAnswersCount*100+'%'}">
               {{question.question}}<span ng-if="question.question==mySelect">(已选)</span>

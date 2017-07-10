@@ -11,22 +11,6 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-nav-bar class="bar-dark">
-    <ion-nav-buttons>
-      <button class="button button-clear" ui-sref='tab.dash'>
-        <i class="icon  ion-ios-arrow-back"></i>
-      </button>
-    </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <button id="editEvent" class="button button-clear" ng-click="openEditModal()"
-              ng-if="iAmAdmin!= 'N'">
-        <img src="../www/img/activityDel/icon-编辑48X48@2x.png" height="25" width="25"/>
-      </button>
-      <button class="button button-clear" ng-click="moreFunctionality()">
-        <img src="../www/img/activityDel/icon-更多46X46@2x.png" height="25" width="25"/>
-      </button>
-    </ion-nav-buttons>
-  </ion-nav-bar>
   <ion-content id="share" class="has-header">
     <div class="share-container">
       <img class="img-Name" ng-src="{{createPersonInfoList.objectInfo}}"/>

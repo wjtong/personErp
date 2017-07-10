@@ -115,6 +115,8 @@ angular.module('vote.controllers', [])
 
         $scope.partyResponceAnswers = data.resultMap.partyResponceAnswer;
         $scope.partyResponceAnswersCount = $scope.partyResponceAnswers.length;
+
+        $scope.vote=data.resultMap.vote;
         if ($scope.partyResponceAnswers.length > 0) {
           $scope.responceAnswersCount = $scope.partyResponceAnswers.length;
         } else {

@@ -74,6 +74,11 @@ angular.module('contact.controllers', [])
       $state.go('tab.opinion');
     };
 
+    //bug修复记录
+    $scope.bugFix = function () {
+      $state.go('tab.BugFix');
+    };
+
     //关于
     $scope.about = function () {
       $state.go('tab.about');

@@ -11,7 +11,6 @@ angular.module('activity.controllers', [])
 
     //准备参数
     $scope.partyId = localStorage.getItem('partyId');
-    alert($scope.partyId)
     $scope.ActivityListType = '活动';
 
     //定义查询活动函数
@@ -105,7 +104,7 @@ angular.module('activity.controllers', [])
         buttons: [
           {text: '由我组织'},
           {text: '隐藏活动列表'},
-          {text: '扫码活动二维码'}
+          {text: '扫一扫'}
         ],
         titleText: '管理',
         cancelText: '取消',
@@ -503,7 +502,7 @@ angular.module('activity.controllers', [])
         $scope.activityList = data.eventDetail;                       //活动基本信息
         $scope.themeImgList = data.theme;                             //活动组题图片
         $scope.createPersonInfoList = data.createPersonInfoList[0];   //组织者信息
-        $scope.pitcureWallList = data.pictureWallList.reverse();                //照片墙图片
+        $scope.pitcureWallList = data.pictureWallList.reverse();      //照片墙图片
         $scope.groupMemberList = data.partyJoinEventsList;            //参与人员、
         $scope.commEventCount = data.commEventCount;                  //评论数
         $scope.groupAcount = $scope.groupMemberList.length;
@@ -584,7 +583,6 @@ angular.module('activity.controllers', [])
           {text: '文本预览'}
         ],
         destructiveText: '举报',
-        titleText: '更多功能',
         cancelText: '取消',
         cancel: function () {
           // 这里添加取消代码
@@ -647,7 +645,7 @@ angular.module('activity.controllers', [])
               break;
             case 2:
               //查询文本信息
-              $ionicActionSheet.hide();
+              hideSheet();
               ActivityServer.printActivityInfo($scope.workEffortId, function (data) {
                 if (data.activityInfo) {
                   $cordovaClipboard
@@ -1019,6 +1017,18 @@ angular.module('activity.controllers', [])
     $scope.closeNewTask = function () {
       $scope.taskModal.hide();
     };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.taskModal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
 
     //其他邀请方式
     $scope.other = false;
@@ -1281,7 +1291,7 @@ angular.module('activity.controllers', [])
     ActivityServer.queryMyEventContents($scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize,
       function (data) {
         if (data.contentsList.length > 0) {
-          $scope.pictureList = data.contentsList;
+          $scope.pictureList = data.contentsList.reverse();
           $scope.count = data.contentsList;
           $scope.acountPraiseCount = $scope.count[$scope.myActiveSlide].praiseCount;
           $scope.PraiseList = $scope.count[$scope.imgIndex].praiseList
@@ -1313,7 +1323,7 @@ angular.module('activity.controllers', [])
               ActivityServer.queryMyEventContents($scope.workEffortId, $scope.ACTIVITY_PICTURE, $scope.viewSize,
                 function (data) {
                   if (data.contentsList.length > 0) {
-                    $scope.count = data.contentsList;
+                    $scope.count = data.contentsList.reverse();
                     $scope.acountPraiseCount = $scope.count[$scope.imgIndex].praiseCount;
                     $scope.PraiseList = $scope.count[$scope.imgIndex].praiseList
                   }

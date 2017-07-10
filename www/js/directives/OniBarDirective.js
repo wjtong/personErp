@@ -116,4 +116,3 @@ angular.module('directives.OniBarDirective', [])
     }
   }]);
 
-

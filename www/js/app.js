@@ -166,6 +166,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
+      //BUG
+      .state('tab.BugFix', {
+        url: '/BugFix',
+        cache: false,
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/BugFix.html',
+            controller: 'BugFixCtrl'
+          }
+        }
+      })
       //用户账户信息
       .state('tab.account', {
         url: '/account',

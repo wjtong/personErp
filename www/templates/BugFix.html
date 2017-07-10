@@ -1,0 +1,47 @@
+<ion-view title="BUG修复记录" hide-tabs="true">
+  <ion-nav-bar class="bar-dark">
+    <ion-nav-buttons>
+      <button class="button button-clear" ui-sref='tab.dash'>
+        <i class="icon  ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button class="button no-animation button-icon icon ion-more" ng-click="bugClassify()">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <ion-list>
+      <div class="item" style="padding: 0;border-bottom: 10px solid #83ccfc" ng-repeat="item in problemList">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            发起人:{{item.createBy}}
+          </div>
+          <span style="color: #0a9dc7;text-indent: 20px"> {{item.createdTxStamp|date:'MM-dd HH:mm'}}</span>
+          <select  ng-model="item.statusId" ng-change="UpdateState(item.statusId,item.pId)">
+            <option ng-repeat="x in BugState" value="{{x.id}}">{{x.state}}</option>
+          </select>
+        </label>
+        <div class="card">
+          <div class="item item-text-wrap">
+            ({{$index+1}}) {{item.description}}
+          </div>
+        </div>
+        <label class="item item-input">
+          <div class="input-label">
+            处理人:{{item.fixBy}}
+          </div>
+          <span style="color: #0a9dc7;text-indent: 20px"> {{item.lastUpdatedTxStamp|date:'MM-dd HH:mm'}}</span>
+          <button class="button button-clear button-assertive" style="position: absolute;right: 0" ng-click="removeProblem(item.pId)"> 删除</button>
+        </label>
+      </div>
+    </ion-list>
+  </ion-content>
+  <div class="tab-nav tabs act-foot-btn">
+    <a class="tab-item tab-item" ng-click="createProblem()">
+      <span class="tab-create">新建BUG</span>
+    </a>
+  </div>
+</ion-view>
+
