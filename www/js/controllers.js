@@ -41,6 +41,7 @@ angular.module('starter.controllers', [])
     $scope.bugClassify=function () {
       var hideSheet = $ionicActionSheet.show({
         buttons: [
+          {text: '未开始'},
           {text: '处理中'},
           {text: '待审批'},
           {text: '已修复'},
@@ -55,22 +56,30 @@ angular.module('starter.controllers', [])
           switch (index) {
             case 0:
               hideSheet();
-              $scope.queryProblem('FIXING');
+              $scope.queryProblem('OPEN');
+              localStorage.setItem('currentStateList','OPEN');
               break;
             case 1:
               hideSheet();
-              $scope.queryProblem('WAITCHECK');
+              $scope.queryProblem('FIXING');
+              localStorage.setItem('currentStateList','FIXING');
               break;
             case 2:
               hideSheet();
-              $scope.queryProblem('CLOSE');
+              $scope.queryProblem('WAITCHECK');
+              localStorage.setItem('currentStateList','WAITCHECK');
               break;
             case 3:
+              hideSheet();
+              $scope.queryProblem('CLOSE');
+              localStorage.setItem('currentStateList','CLOSE');
+              break;
+            case 4:
               hideSheet();
               Wechat.share({
                 message: {
                   title: 'Bug记录:',
-                  description: '目前位置的全部BUG',
+                  description: '目前为止的全部BUG',
                   thumb: 'www/img/activityImg/bug.png',
                   media: {
                     type: Wechat.Type.WEBPAGE,
@@ -102,6 +111,8 @@ angular.module('starter.controllers', [])
       Platform.queryProblemList(statusId,function (data) {
         console.log(data);
         $scope.problemList = data.problemList;
+        $scope.allLength=data.allLength;
+        $scope.fixOverLength=data.fixOverLength;
       });
     };
 
@@ -112,17 +123,28 @@ angular.module('starter.controllers', [])
     //修改问题状态
     $scope.UpdateState = function (statusId, pId) {
       Platform.updateProblem(statusId, pId, function (data) {
-        console.log(data);
-        $scope.queryProblem()
+        var currentStateList=localStorage.getItem('currentStateList');
+        $scope.queryProblem(currentStateList)
       })
     };
 
     //删除BUG记录
     $scope.removeProblem = function (pId) {
-      Platform.removeProblem(pId, function (data) {
-        console.log(data);
-        $scope.queryProblem()
-      })
+      var confirmPopup = $ionicPopup.confirm({
+        title: '你要删除吗？',
+        template: '都是梅国勇辛辛苦苦打上去的呀?'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          Platform.removeProblem(pId, function (data) {
+            console.log(data);
+            $scope.queryProblem()
+          })
+        } else {
+          console.log('You are not sure');
+        }
+      });
+
     };
 
     //创建问题

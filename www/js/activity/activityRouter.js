@@ -59,17 +59,6 @@ angular.module('starter')
           }
         }
       })
-      //活动文本预览
-      .state('tab.activityPreview', {
-        url: '/activityPreview/:workEffortId',
-        disableBack: true,
-        views: {
-          'tab-dash': {
-            templateUrl: 'templates/activity/activityPreview.html',
-            controller: 'activityPreview'
-          }
-        }
-      })
       //联系人信息详情
       .state('tab.joinContactInfo', {
         url: '/contactInfo/:partyId',

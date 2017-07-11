@@ -227,7 +227,8 @@ angular.module('bill.controllers', [])
       for (var j = 0; j < $scope.activityParticipantList.length; j++) {
         var memberId = $scope.activityParticipantList[j].partyId;
         var menberCount = document.getElementsByName(memberId)[0].value;
-        payArray.push({partyId: memberId, amount: menberCount})
+        var menberCountStr=menberCount.replace(/,/g,'');
+        payArray.push({partyId: memberId, amount: menberCountStr})
       }
       console.log(JSON.stringify(payArray));
 

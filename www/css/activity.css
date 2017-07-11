@@ -6,9 +6,9 @@
 }
 
 .activityNull img {
-  margin: 40% 0%;
-  width: 100%;
-  height: 50%;
+  margin: 40% 25%;
+  width: 50%;
+  height: 25%;
 }
 
 .activityTabs {
@@ -145,10 +145,10 @@
 
 .tipTextAct {
   font-size: 1.4rem;
-  color: #9e9e9e;
+  color: #1d1d1d;
   text-align: center;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 15%;
 }
 

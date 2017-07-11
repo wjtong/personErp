@@ -1,5 +1,5 @@
 <ion-view hide-nav-bar="true">
-  <ion-header-bar align-title="left" class="bar-dark">
+  <ion-header-bar align-title="left" class="bar-light">
     <div class="h1 title" ui-sref="tab.account">
       <i class="icon ion-grid" style="margin-right: 5px;vertical-align: middle;font-size: 31px"></i>
       {{ActivityListType}}( {{quantity }} )
@@ -42,12 +42,11 @@
           </ion-option-button>
         </div>
       </ion-item>
-
     </ion-list>
   </ion-content>
   <div class="activityNull" ng-if="!activtyList.length>0">
-    <img ng-src="../www/img/tabs/空状态 350X350px@2x.png"/>
-    <p class="tipTextAct" id="box">您还没有活动是否要新建？</p>
+    <!--<img ng-src="../www/img/tabs/空状态 350X350px@2x.png"/>-->
+    <p class="tipTextAct" id="box" ng-click="openModal()">您还没有活动是否要新建？</p>
     <p class="history" id="history" ng-click="getHistory()">找回历史活动</p>
   </div>
 </ion-view>

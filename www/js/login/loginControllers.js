@@ -5,7 +5,7 @@ angular.module('login.controllers', [])
  * Author LX
  * Date 2017-3-3
  * */
-  .controller('LoginCtrl', function ($http, $scope, Login, $state) {
+  .controller('LoginCtrl', function ($http, $scope, Login, $state,$ionicPopup) {
 
     //手机号码找回
     $scope.loginData = {};
@@ -27,7 +27,10 @@ angular.module('login.controllers', [])
             $scope.loginData.captcha = '';
             $state.go("tab.dash");
           } else {
-            alert("用户不存在")
+            $ionicPopup.alert({
+              title:data.resultMsg,
+              template: '请确认您输入的验证码是否正确'
+            })
           }
         })
       }

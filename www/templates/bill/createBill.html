@@ -1,5 +1,5 @@
 <ion-view title="账单录入" hide-tabs="true">
-  <ion-nav-bar class="bar-dark">
+  <ion-nav-bar class="bar-light">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
         <i class="icon  ion-ios-arrow-back "></i>
@@ -39,7 +39,7 @@
           <span class="input-label" ng-click="deleteMember(item.partyId,$index)"
                 style="background-color: red;width: 6%;height: 3px;padding: 0;margin-right: 5%;border-radius: 3px"></span>
           <span class="input-label" style="color: #1d1d1d;">{{item.firstName}}：</span>
-          <input type="text" name="{{item.partyId}}" ng-value="Bill.amount" style="text-align: right">
+          <input type="text" name="{{item.partyId}}" ng-value="Bill.amount|number:2" style="text-align: right">
         </li>
       </ul>
       <div>

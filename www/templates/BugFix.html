@@ -1,5 +1,5 @@
 <ion-view title="BUG修复记录" hide-tabs="true">
-  <ion-nav-bar class="bar-dark">
+  <ion-nav-bar class="bar-light">
     <ion-nav-buttons>
       <button class="button button-clear" ui-sref='tab.dash'>
         <i class="icon  ion-ios-arrow-back"></i>
@@ -13,13 +13,29 @@
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
-      <div class="item" style="padding: 0;border-bottom: 10px solid #83ccfc" ng-repeat="item in problemList">
+      <div class="list">
+        <div class="item item-icon-left">
+          总个数
+          <span class="badge badge-assertive">{{allLength}}</span>
+        </div>
+        <div class="item item-icon-left">
+          处理中
+          <span class="badge badge-assertive">{{allLength-fixOverLength}}</span>
+        </div>
+        <div class="item item-icon-left">
+          已修复
+          <span class="badge badge-assertive">{{fixOverLength}}</span>
+        </div>
+
+      </div>
+      <div class="item" style="padding: 0;border-bottom: 10px solid #83ccfc" ng-repeat="item in problemList"
+           on-hold="removeProblem(item.pId)">
         <label class="item item-input item-select">
           <div class="input-label">
             发起人:{{item.createBy}}
           </div>
           <span style="color: #0a9dc7;text-indent: 20px"> {{item.createdTxStamp|date:'MM-dd HH:mm'}}</span>
-          <select  ng-model="item.statusId" ng-change="UpdateState(item.statusId,item.pId)">
+          <select ng-model="item.statusId" ng-change="UpdateState(item.statusId,item.pId)">
             <option ng-repeat="x in BugState" value="{{x.id}}">{{x.state}}</option>
           </select>
         </label>
@@ -33,7 +49,6 @@
             处理人:{{item.fixBy}}
           </div>
           <span style="color: #0a9dc7;text-indent: 20px"> {{item.lastUpdatedTxStamp|date:'MM-dd HH:mm'}}</span>
-          <button class="button button-clear button-assertive" style="position: absolute;right: 0" ng-click="removeProblem(item.pId)"> 删除</button>
         </label>
       </div>
     </ion-list>

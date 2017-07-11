@@ -1,5 +1,5 @@
 <ion-view title="联系人" hide-nav-bar="false">
-  <ion-nav-bar class="bar-dark">
+  <ion-nav-bar class="bar-light">
   </ion-nav-bar>
   <ion-content>
     <ion-list class="contact">
@@ -14,6 +14,7 @@
         {{item.letter || (item.first_name)}} <span ng-if="!item.isLetter&&item.appUser=='Y'">不分梨用户</span>
       </ion-item>
     </ion-list>
+    <div class="empty" ng-if="!getContacts().length>0">这里会出现活动中的好友</div>
   </ion-content>
 </ion-view>
 

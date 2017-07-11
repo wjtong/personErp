@@ -1,17 +1,17 @@
 <ion-view title="{{ activityList.workEffortName }}" hide-tabs="true">
-  <ion-nav-bar class="bar-dark">
+  <ion-nav-bar class="bar-light">
     <ion-nav-buttons>
       <button class="button button-clear" ui-sref='tab.dash'>
         <i class="icon  ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button id="editEvent" class="button button-clear" ng-click="openEditModal()"
+      <button id="editEvent" class="button button- button-clear ion-ios-compose-outline" style="font-size: 30px" ng-click="openEditModal()"
               ng-if="iAmAdmin!= 'N'">
-        <img src="../www/img/activityDel/icon-编辑48X48@2x.png" height="25" width="25"/>
+        <!--<img src="../www/img/activityDel/icon-编辑48X48@2x.png" height="25" width="25"/>-->
       </button>
-      <button class="button button-clear" ng-click="moreFunctionality()">
-        <img src="../www/img/activityDel/icon-更多46X46@2x.png" height="25" width="25"/>
+      <button class="button button-clear ion-navicon-round" style="font-size: 30px" ng-click="moreFunctionality()">
+        <!--<img src="../www/img/activityDel/icon-更多46X46@2x.png" height="25" width="25"/>-->
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
@@ -24,14 +24,14 @@
         <div class="del-left">
           <img src="../www/img/activityDel/icon-开始时间100X100@2x.png"/>
           <label>
-            <input type="text" readonly placeholder="开始时间" ng-click="startDate()"
+            <input type="text" disabled  placeholder="开始时间" ng-click="startDate()"
                    ng-model="ActivityData.startDate">
           </label>
         </div>
         <div class="del-right">
           <img src="../www/img/activityDel/icon-结束时间100X100@2x.png"/>
           <label>
-            <input type="text" readonly placeholder="结束时间" ng-click="endDate()"
+            <input type="text" disabled placeholder="结束时间" ng-click="endDate()"
                    ng-model="ActivityData.endDate">
           </label>
         </div>

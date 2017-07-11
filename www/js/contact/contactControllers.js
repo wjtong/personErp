@@ -6,7 +6,7 @@ angular.module('contact.controllers', [])
  * Date 2017-3-3
  * */
   .controller('AccountCtrl', function ($scope, $rootScope, $ionicHistory, Contact, $state, Login, $ionicPopup,
-                                       ActivityServer,$ionicLoading) {
+                                       ActivityServer, $ionicLoading) {
 
     //准备参数
     $scope.partyId = localStorage.getItem("partyId");
@@ -40,9 +40,8 @@ angular.module('contact.controllers', [])
     };
 
     //查询我的个人信息
-    $scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.beforeEnter', function () {
       $scope.queryPersonInfo();
-      $scope.$apply()
     });
 
     //切换账户
@@ -64,7 +63,6 @@ angular.module('contact.controllers', [])
           });
         } else {
           console.log('You are not sure');
-          s
         }
       });
     };
@@ -143,22 +141,48 @@ angular.module('contact.controllers', [])
         $ionicLoading.show({
           template: '交互中...'
         });
-        $scope.scope = "snsapi_userinfo";
-        Wechat.auth($scope.scope, function (response) {
-          console.log(JSON.stringify(response) + "微信返回值");
-          console.log(response.code + '///' + $scope.partyId);
-          Login.userWeChatAppLogin(response.code, $scope.partyId, function (data) {
-            console.log(data.resultMsg);
-            if (data.resultMsg === 'PE平台登录成功') {
-              $scope.queryPersonInfo();
-              $scope.$apply();
-              $ionicLoading.hide()
-            }
+        if ($scope.partyId == '' || $scope.partyId == null) {
+          var scope = "snsapi_userinfo";
+          Wechat.auth(scope, function (response) {
+            console.log("微信返回值:" + JSON.stringify(response));
+            var code = response.code;
+            Login.userWeChatAppLoginBack(code, function (data) {
+              console.log('微信找回的Token:' + data.tarjeta);
+              if (data.tarjeta) {
+                localStorage.removeItem("tarjeta");
+                localStorage.removeItem("partyId");
+                localStorage.removeItem("openId");
+                localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
+                localStorage.setItem("partyId", data.partyId);//设置partyId登陆人
+                localStorage.setItem("adminOpenId", data.openId);//设置adminOpenId登陆人
+                $scope.queryPersonInfo();
+                $scope.$apply();
+                $ionicLoading.hide()
+              }
+            })
+          }, function (reason) {
+            alert("Failed: " + reason);
+            $ionicLoading.hide()
           });
-        }, function (reason) {
-          alert("Failed: " + reason);
-          $ionicLoading.hide()
-        });
+        } else {
+          alert($scope.partyId)
+          $scope.scope = "snsapi_userinfo";
+          Wechat.auth($scope.scope, function (response) {
+            console.log(JSON.stringify(response) + "微信返回值");
+            console.log(response.code + '///' + $scope.partyId);
+            Login.userWeChatAppLogin(response.code, $scope.partyId, function (data) {
+              console.log(data.resultMsg);
+              if (data.resultMsg === 'PE平台登录成功') {
+                $scope.queryPersonInfo();
+                $scope.$apply();
+                $ionicLoading.hide()
+              }
+            });
+          }, function (reason) {
+            alert("Failed: " + reason);
+            $ionicLoading.hide()
+          });
+        }
       }
     };
 
@@ -499,6 +523,11 @@ angular.module('contact.controllers', [])
               template: "你可以通过手机号码找回您参与的活动"
             });
             $state.go('tab.account')
+          }else{
+            $ionicPopup.alert({
+              title:data.resultMsg,
+              template: '请确认您输入的验证码是否正确'
+            })
           }
         })
       } else {
@@ -512,6 +541,11 @@ angular.module('contact.controllers', [])
               template: "你可以通过手机号码找回您参与的活动"
             });
             $state.go('tab.account', null, {reload: true})
+          }else{
+            $ionicPopup.alert({
+              title:data.resultMsg,
+              template: '请确认您输入的验证码是否正确'
+            })
           }
         })
       }
