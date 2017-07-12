@@ -501,5 +501,20 @@ angular.module('tools.services', [])
         }, false);
       }
     }
+  })
+  .factory('operateArray', function () {
+
+    return {
+      //判断用户是否是组织者
+      InArray:function (partyId,array,cd) {
+        var isAdmin;
+        for(var i=0;i<array.length;i++){
+          if(partyId==array[i].partyId){
+            isAdmin=true;
+            cd(isAdmin)
+          }
+        }
+      }
+    }
   });
 

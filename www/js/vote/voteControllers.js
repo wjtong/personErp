@@ -57,7 +57,7 @@ angular.module('vote.controllers', [])
     // 添加投票选项
     $scope.addVotes = function () {
       $("#votes").append("" +
-        "<textarea name='voteItem' style='display: inline-block;width: 81%;resize:none' rows='1' class='questions' placeholder='选项'></textarea>" +
+        "<textarea name='voteItem' style='display: inline-block;width: 81%;resize:none' rows='1' class='questions' placeholder='投票选项'></textarea>" +
         "<img src='../www/img/activityImg/矢量智能对象-拷贝@2x.png' width=18 height=18 onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><hr>" +
         "");
     };
@@ -141,7 +141,10 @@ angular.module('vote.controllers', [])
     //点击投票
     $scope.doPollQuestion = function (surveyQuestionId) {
       if ($scope.mySelect != undefined) {
-        alert('你已经投过票了，不能重复投票')
+        $ionicPopup.alert({
+          title:'你已经投过票了，不能重复投票',
+          template:'您投的内容是:'+$scope.mySelect
+        })
       } else {
         var confirmPopup = $ionicPopup.confirm({
           title: '确定投票',

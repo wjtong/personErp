@@ -10,7 +10,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   'activity.services', 'contact.services', 'contact.controllers', 'directives.OniBarDirective', 'tools.services', 'bill.controllers',
   'bill.services'])
 
-  .run(function ($ionicPlatform, ActivityServer, $cordovaDevice, $rootScope,$cordovaStatusbar) {
+  .run(function ($ionicPlatform, ActivityServer, $cordovaDevice, $rootScope, $cordovaStatusbar) {
 
     //连接服务器
     $rootScope.interfaceUrl = "http://114.215.200.46:3400/personContacts/control/";//联系人
@@ -26,7 +26,27 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     // $rootScope.platformInterfaceUrl = "http://192.168.3.102:3400/peplatform/control/";//活动接口
     // $rootScope.communicationfaceUrl = "http://192.168.3.102:3400/communication/control/";//活动接口
 
-    $ionicPlatform.ready(function ($cordovaStatusbar) {
+    if (window.StatusBar) {
+      $cordovaStatusbar.overlaysWebView(true);
+
+      // 样式: 无 : 0, 白色不透明: 1, 黑色半透明: 2, 黑色不透明: 3
+      $cordovaStatusbar.style(0);
+
+      // 背景颜色名字 : black, darkGray, lightGray, white, gray, red, green,
+      // blue, cyan, yellow, magenta, orange, purple, brown 注:需要开启状态栏占用视图.
+      //$cordovaStatusbar.styleColor('red');
+      //$cordovaStatusbar.styleHex('red');
+
+      // $cordovaStatusbar.hide();
+      //
+      // $cordovaStatusbar.show();
+
+      var isVisible = $cordovaStatusbar.isVisible();
+      // org.apache.cordova.statusbar required
+      //StatusBar.styleDefault();
+    }
+
+    $ionicPlatform.ready(function () {
       //通过UUID获取TOKEN
       document.addEventListener("deviceready", function () {
         var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
@@ -35,7 +55,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         if (localStorage.getItem("tarjeta") == null) {
           ActivityServer.setUUID(uuid + '/' + date, function (data) {
             console.log('通过UUID创建partyId' + data.resultMsg);
-            if (data.resultMsg == '成功'){
+            if (data.resultMsg == '成功') {
               localStorage.setItem("tarjeta", data.tarjeta);//设置全局token(令牌)
               localStorage.setItem("partyId", data.partyId);//设置全局partyId
             }
@@ -48,25 +68,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //配置键盘
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
-        cordova.plugins.Keyboard.disableScroll(true);
-      }
-
-      //顶部状态栏
-      // if (window.StatusBar) {
-      //   $cordovaStatusbar.overlaysWebView(true);
-      //   // 样式: 无 : 0, 白色不透明: 1, 黑色半透明: 2, 黑色不透明: 3
-      //   $cordovaStatusbar.style(1);
-      //   // 背景颜色名字 : black, darkGray, lightGray, white, gray, red, green,
-      //   // blue, cyan, yellow, magenta, orange, purple, brown 注:需要开启状态栏占用视图.
-      //   $cordovaStatusbar.styleColor('black');
-      //   $cordovaStatusbar.styleHex('#000');
-      //   $cordovaStatusbar.hide();
-      //   $cordovaStatusbar.show();
-      //   var isVisible = $cordovaStatusbar.isVisible();
-      // }
-      if (window.StatusBar) {
-        // org.apache.cordova.statusbar required
-        StatusBar.styleDefault();
+        cordova.plugins.Keyboard.disableScroll(false);
       }
     });
   })

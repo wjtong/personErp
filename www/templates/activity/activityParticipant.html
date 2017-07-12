@@ -14,7 +14,7 @@
         <p style="color: #696868">2017-05-26 15:26</p>
         <span style="position: absolute;top: 20px;right: 30px;background-color: #83ccfc;color: #fefefe;font-size: 14px">{{item.partyRole}}</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
-        <div ng-if="!isActivityAdmin&&item.partyRole!='活动组织者'">
+        <div ng-if="isActivityAdmin&&item.partyRole!='活动组织者'">
           <ion-option-button class="button-assertive"
                              ng-click="removeActivityParty(item.partyId)">
             踢掉

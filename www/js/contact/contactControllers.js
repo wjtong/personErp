@@ -127,6 +127,11 @@ angular.module('contact.controllers', [])
                   $scope.queryPersonInfo();
                   $scope.$apply();
                   $ionicLoading.hide()
+                }else{
+                  $ionicPopup.alert({
+                    title:data.resultMsg
+                  })
+                  $ionicLoading.hide()
                 }
               });
             }, function (reason) {
@@ -165,7 +170,6 @@ angular.module('contact.controllers', [])
             $ionicLoading.hide()
           });
         } else {
-          alert($scope.partyId)
           $scope.scope = "snsapi_userinfo";
           Wechat.auth($scope.scope, function (response) {
             console.log(JSON.stringify(response) + "微信返回值");
@@ -514,7 +518,7 @@ angular.module('contact.controllers', [])
     $scope.bindLoginTel = function () {
       if ($scope.type == "bind") {
         Contact.updateLoginTel($scope.partyId, $scope.loginData.mobileNumber, $scope.loginData.captcha, function (data) {
-          console.log(data);
+          console.log(data.resultMsg + '获取验证码状态');
           if (data.resultMsg == '更新人员信息成功') {
             localStorage.removeItem("tarjeta");
             localStorage.setItem("tarjeta", data.tarjeta);
@@ -523,9 +527,9 @@ angular.module('contact.controllers', [])
               template: "你可以通过手机号码找回您参与的活动"
             });
             $state.go('tab.account')
-          }else{
+          } else {
             $ionicPopup.alert({
-              title:data.resultMsg,
+              title: data.resultMsg,
               template: '请确认您输入的验证码是否正确'
             })
           }
@@ -541,9 +545,9 @@ angular.module('contact.controllers', [])
               template: "你可以通过手机号码找回您参与的活动"
             });
             $state.go('tab.account', null, {reload: true})
-          }else{
+          } else {
             $ionicPopup.alert({
-              title:data.resultMsg,
+              title: data.resultMsg,
               template: '请确认您输入的验证码是否正确'
             })
           }

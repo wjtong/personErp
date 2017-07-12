@@ -236,6 +236,7 @@ angular.module('activity.controllers', [])
     $scope.ActivityData = {};
     $scope.workEffortId = $stateParams.id;
     $scope.partyId = localStorage.getItem("partyId");
+    $scope.ActivityData.workEffortName = '';
 
     //选择活动开始时间
     $scope.startDate = function () {
@@ -271,6 +272,10 @@ angular.module('activity.controllers', [])
         }
       })
     };
+
+    // if($scope.ActivityData.workEffortName.length>13){
+    //   $scope.titleRows=2;
+    // }
 
     //选择插入图片方式
     // $scope.selectImg = function () {
@@ -495,7 +500,7 @@ angular.module('activity.controllers', [])
     //判断是否存在缓存数据
     var activityDetailsData = jQuery.parseJSON(localStorage.getItem("activityDetailsData" + $scope.workEffortId));
     //获取需要用到的参数
-    if(activityDetailsData!=null){
+    if (activityDetailsData != null) {
       $scope.activityList = activityDetailsData.eventDetail;                       //活动基本信息
       $scope.themeImgList = activityDetailsData.theme;                             //活动组题图片
       $scope.createPersonInfoList = activityDetailsData.createPersonInfoList[0];   //组织者信息
@@ -1094,25 +1099,21 @@ angular.module('activity.controllers', [])
    * Author LX
    * Date 2017-6-26
    * */
-  .controller('activityParticipant', function ($scope, ActivityServer, $stateParams, $ionicPopup) {
+  .controller('activityParticipant', function ($scope, ActivityServer, $stateParams, $ionicPopup,operateArray) {
     //准备参数
     $scope.workEffortId = $stateParams.workEffortId;
     $scope.partyId = localStorage.getItem('partyId');
-    $scope.isActivityAdmin = true;
 
     //定义查询服务
     $scope.queryActivityMembers = function () {
       ActivityServer.queryActivityAdminsAndMembers($scope.workEffortId, function (data) {
-        $scope.activityParticipantList = data.activityMembersList
+        $scope.activityParticipantList = data.activityMembersList;
+        $scope.adminList=data.adminList;
 
         //判断是否是组织者
-        var isAdmin = data.adminList;
-        console.log(isAdmin);
-        for (var i = 0; i < isAdmin.length; i++) {
-          if (isAdmin[i].partyId == $scope.partyId) {
-            $scope.isActivityAdmin = false;
-          }
-        }
+        operateArray.InArray($scope.partyId,$scope.adminList,function (data) {
+          $scope.isActivityAdmin=data;
+        });
       });
     };
 
@@ -1632,7 +1633,6 @@ angular.module('activity.controllers', [])
         });
       }
     };
-
   })
   /*********************************************************************************************************************
    * Desc 活动讨论
@@ -1858,8 +1858,8 @@ angular.module('activity.controllers', [])
       $scope.itemDataEdit.sequenceNum = sequenceNum;
       $scope.itemDataEdit.workEffortIdFrom = workEffortIdFrom;
       var itemPopup = $ionicPopup.show({
-        template: '<input type="text" placeholder="时间" ng-model="itemDataEdit.time" readonly=“readonly” style="background-color: white" ng-click="openDatePicker()"><br>' +
-        '<input type="text" placeholder="安排" ng-model="itemDataEdit.name"><br>' +
+        template: '<input type="text" placeholder="安排" ng-model="itemDataEdit.name"><br>' +
+        '<input type="text" placeholder="时间" ng-model="itemDataEdit.time" readonly=“readonly” style="background-color: white" ng-click="openDatePicker()"><br>' +
         '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="updateLabel();">更新</button><br/>' +
         '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>',
         title: '更新活动项',

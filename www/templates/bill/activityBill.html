@@ -19,7 +19,7 @@
         <div class="blii-list">
           <div style="display: flex;" ng-repeat="member in item.memberList">
             <p class="blii-item" style="text-align: left">{{member.firstName}}</p>
-            <p class="blii-item">{{member.amount}}</p>
+            <p class="blii-item">{{member.amount|number:2}}</p>
             <p class="blii-item" ng-style="{'background-color':(member.statusId=='付款')?'#ffda44':'white'}"
                ng-click="partyPay(member.partyIdFrom,member.paymentId,member.payMethod)"
                ng-disabled="(partyId!=member.partyIdFrom&&activityAdminPartyId!=partyId)||member.statusId!='付款'">
@@ -35,7 +35,7 @@
     <!--</div>-->
     <div class="empty" ng-if="!billList.length>0">还没有相关账单内容</div>
   </ion-content>
-  <div class="tab-nav tabs act-foot-btn" ng-if="activityAdminPartyId==partyId">
+  <div class="tab-nav tabs act-foot-btn" ng-repeat="admin in activityAdminList" ng-if="isActivityAdmin">
     <a class="tab-item tab-item" ng-click="addBill()">
       <span class="tab-create">创建账单</span>
     </a>

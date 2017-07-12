@@ -15,14 +15,14 @@
           <h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>
           <p style="color: #696868">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
         </div>
-        <p
-          style="font-size: 15px;color: #1d1d1d;text-indent: 10px;padding-bottom: 8px ">
+        <p style="font-size: 15px;color: #1d1d1d;padding:0 10px;white-space: normal">
           {{item.textData}}</p>
-        <p style="text-indent: 5px;font-size:14px;background-color: #f0f0f0;color:#83ccfc;margin: 12px 10px">共{{item.responceCount}}条回复</p>
-        <div class="card" ng-repeat="response in item.responseList">
-          <div class="item item-divider">
-            {{response.firstName}}:   {{response.textData}}
+        <div style="background-color: #f0f0f0;font-size:14px;padding: 0 10px">
+          <div ng-repeat="response in item.responseList" style="">
+            <p style="white-space: normal"><span style="color:#83ccfc">{{response.firstName}}:</span>{{response.textData}}
+            </p>
           </div>
+          <p style="color:#83ccfc;">共{{item.responceCount}}条回复</p>
         </div>
         <input type="text" placeholder=" 回复" readonly
                ng-click="openResponse(item.contentId)"
@@ -31,7 +31,7 @@
     </ion-list>
   </ion-content>
   <form name="sendMessageForm">
-    <ion-footer-bar keyboardshow class="bar-stable item-input-inset message-footer">
+    <ion-footer-bar class="bar-stable item-input-inset message-footer">
       <label class="item-input-wrapper">
         <textarea ng-model="input.message" placeholder="写评论.."
                   style="width: 100%"></textarea>

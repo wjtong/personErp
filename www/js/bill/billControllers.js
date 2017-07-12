@@ -6,7 +6,7 @@ angular.module('bill.controllers', [])
  * Date 2017-3-3
  * */
   .controller('activityBillCtrl', function ($scope, $ionicPopup, Contact, $state, $stateParams, billServer, SelectDate,
-                                            $timeout, $ionicActionSheet) {
+                                            $timeout, $ionicActionSheet,operateArray) {
 
     //准备参数
     var id = $stateParams.workEffortId;
@@ -19,7 +19,12 @@ angular.module('bill.controllers', [])
       billServer.findActivityPayment(id, function (data) {
         $scope.billList = data.paymentGroupList;
         console.log($scope.billList);
-        $scope.activityAdminPartyId = data.activityAdminPartyId;
+        $scope.activityAdminList = data.activityAdminList;
+
+        //判断当前用户是否有组织者权限
+        operateArray.InArray($scope.partyId,$scope.activityAdminList,function (data) {
+          $scope.isActivityAdmin=data;
+        });
         console.log("查询活动列表——————————" + data.resultMsg)
       });
     };

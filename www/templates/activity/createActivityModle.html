@@ -11,8 +11,9 @@
         <div class="item" style="padding: 0">
           <label class="item item-input">
             <span class="input-label">活动标题：</span>
-            <input type="text" placeholder="活动标题(必填)" style="width: 100%"
-                   ng-model="ActivityData.workEffortName">
+            <textarea name="activityTitle" rows="{{ActivityData.workEffortName.length>14?2:1}}"
+                      placeholder="活动标题(必填20字以内)" style="width:60%;word-break: break-all;resize: none"
+                      ng-model="ActivityData.workEffortName" maxlength="20"></textarea>
           </label>
         </div>
         <div class="item" style="padding: 0">
@@ -35,8 +36,9 @@
         <div class="item" style="padding: 0">
           <label class="item item-input">
             <span class="input-label">活动地点：</span>
-            <input type="text" readonly=“readonly” ng-click="openModalAddress()"
-                   placeholder="活动举办地点" style="width: 100%;background-color: white" ng-model="ActivityData.address">
+            <textarea readonly=“readonly” ng-click="openModalAddress()" rows="{{ActivityData.address.length>14?2:1}}"
+                      placeholder="活动举办地点" style="width: 60%;background-color: white;resize: none" ng-model="ActivityData.address">
+            </textarea>
           </label>
         </div>
         <div style="height: 12px;background-color: #f2f2f2">
@@ -44,8 +46,10 @@
         <div class="item" style="padding: 0">
           <label class="item ">
             <p style="border-left: 7px solid #FFDA44;font-size: 16px">活动介绍：</p>
-            <textarea name="a" style="width:100%;" rows="10" placeholder="填写活动描述，让更多的人参与活动"
+            <textarea name="a" style="width:100%;resize: none;letter-spacing: 3px;line-height: 20px;text-indent: 20px"
+                      rows="10" placeholder="填写活动描述，让更多的人参与活动" maxlength="100"
                       ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
+            还可以输入{{100-ActivityData.information.length}}个字符
           </label>
         </div>
       </div>
