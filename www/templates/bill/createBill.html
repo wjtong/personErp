@@ -11,19 +11,19 @@
       <ul class="list">
         <li class="item item-input">
           <span class="input-label">账单名称：</span>
-          <input type="text" name="billName" ng-model="Bill.billName" placeholder="请输入账单名称">
+          <input type="text" name="billName" maxlength="12" ng-model="Bill.billName" placeholder="请输入账单名称">
         </li>
         <li class="item item-input" ng-if="!settingsList[1].checked">
           <span class="input-label">每人应付：</span>
-          <input type="number" name="amount" ng-model="Bill.amount" placeholder="请输入每人应付金额">
+          <input type="number" name="amount" ng-model="Bill.amount" placeholder="请输入每人应付金额" ng-change="averageAmount(Bill.amount)">
         </li>
 
         <div style="height: 12px;">
         </div>
         <li class="item item-toggle" style="padding: 15px" ng-repeat="item in settingsList">
           <span>{{item.text}}：</span>
-          <label class="toggle toggle-assertive">
-            <input type="checkbox" ng-model="item.checked" ng-checked="item.checked">
+          <label class="toggle toggle-positive">
+            <input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="AA()">
             <div class="track">
               <div class="handle"></div>
             </div>
@@ -35,11 +35,11 @@
         </li>
         <div style="height: 12px;">
         </div>
-        <li class="item item-input" ng-repeat="item in activityParticipantList">
+        <li id="eachAmount" class="item item-input" ng-repeat="item in activityParticipantList">
           <span class="input-label" ng-click="deleteMember(item.partyId,$index)"
                 style="background-color: red;width: 6%;height: 3px;padding: 0;margin-right: 5%;border-radius: 3px"></span>
-          <span class="input-label" style="color: #1d1d1d;">{{item.firstName}}：</span>
-          <input type="text" name="{{item.partyId}}" ng-value="Bill.amount|number:2" style="text-align: right">
+          <span  style="color: #1d1d1d;width:20%;white-space: nowrap;text-overflow: ellipsis;overflow: inherit">{{item.firstName}}：</span>
+          <input type="tel"  name="{{item.partyId}}"  ng-value="Bill.amount|number:2" style="text-align: right">
         </li>
       </ul>
       <div>

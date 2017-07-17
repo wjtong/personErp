@@ -51,9 +51,12 @@
 }
 
 .vote .item-avatar {
-  position: relative
+  position: relative;
+  border: 0;
 }
-
+.vote .item-complex .item-content{
+  padding:5px;
+}
 .vote img {
   top: 0;
   height: 32px;
@@ -63,6 +66,9 @@
 .vote .vote-name {
   padding-bottom: 22px;
   text-indent: 12px
+}
+.vote input{
+  width: 100%;
 }
 
 

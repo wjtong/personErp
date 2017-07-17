@@ -6,31 +6,33 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content keyboardshow id="act-discuss">
-    <ion-list class="list card">
-      <ion-item style="border-bottom: 10px solid #f2f2f2;border-top: 0"
-                ng-repeat="item in commEventContentDataResource">
-        <div class="item item-avatar" style="border: 0">
+  <ion-content>
+    <ion-list class="list">
+      <ion-item ng-repeat="item in commEventContentDataResource">
+        <div class="item-avatar" style="border: 0">
           <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
           <h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>
-          <p style="color: #696868">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
-        </div>
-        <p style="font-size: 15px;color: #1d1d1d;padding:0 10px;white-space: normal">
-          {{item.textData}}</p>
-        <div style="background-color: #f0f0f0;font-size:14px;padding: 0 10px">
-          <div ng-repeat="response in item.responseList" style="">
-            <p style="white-space: normal"><span style="color:#83ccfc">{{response.firstName}}:</span>{{response.textData}}
-            </p>
+          <p style="color: #696868;font-size: 10px">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
+          <p style="font-size: 15px;color: #1d1d1d;white-space: normal">
+            {{item.textData}}</p>
+          <div style="background-color:#e8e8e8;font-size:14px;padding: 0 2px;border-radius: 5px">
+            <div ng-repeat="response in item.responseList">
+              <p style="white-space: normal"><span style="color:#83ccfc">{{response.firstName}}:</span>{{response.textData}}
+                <span style="font-size: 12px;float: right;color: #1d1d1d" ng-if="response.partyId==partyId" ng-click="removeActivityCommunication(response.contentId)">删除</span>
+              </p>
+            </div>
+            <p style="color:#83ccfc;"  ng-click="openResponse(item.contentId)">共{{item.responceCount}}条.<span>回复</span></p>
           </div>
-          <p style="color:#83ccfc;">共{{item.responceCount}}条回复</p>
         </div>
-        <input type="text" placeholder=" 回复" readonly
-               ng-click="openResponse(item.contentId)"
-               style="border: 1px solid #f0eff5;margin:10px;width: 337px;-webkit-appearance: none;">
+        <ion-option-button style="padding: 0" class="button-assertive"
+                           ng-if="item.partyId==partyId"
+                           ng-click="removeActivityCommunication(item.contentId)">
+          删除
+        </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>
-  <form name="sendMessageForm">
+  <form keyboardshow name="sendMessageForm">
     <ion-footer-bar class="bar-stable item-input-inset message-footer">
       <label class="item-input-wrapper">
         <textarea ng-model="input.message" placeholder="写评论.."

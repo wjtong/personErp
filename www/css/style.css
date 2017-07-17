@@ -16,6 +16,11 @@
   background-color: #444444;
 }
 
+h3{
+  overflow: hidden;
+}
+
+
 /*上拉菜单*/
 .platform-android.action-sheet-cancel {
   display: block !important;
@@ -32,6 +37,7 @@
 /*弹出警告框*/
 .popup-container.active .popup {
   border-radius: 15px;
+  margin: 20px;
 }
 
 .popup-title {
@@ -168,9 +174,6 @@
 
 /*在768 和1024 像素之间的屏幕里，中等屏幕，分辨率低的PC  PAD*/
 @media (min-width: 767px) and (max-width: 1023px) {
-  html {
-    font-size: 20px;
-  }
 
   .tipTextAct {
     font-size: 3.5rem;
@@ -244,42 +247,6 @@
 
   .history {
     font-size: 0.8rem;
-  }
-
-  .bar-home-on {
-    background-size: 30%, 30%;
-  }
-
-  .bar-home-off {
-    background-size: 30%, 30%;
-  }
-
-  .bar-contact-on {
-    background-size: 30%, 30%;
-  }
-
-  .bar-contact-off {
-    background-size: 30%, 30%;
-  }
-
-  .bar-my-on {
-    background-size: 30%, 30%;
-  }
-
-  .bar-my-off {
-    background-size: 30%, 30%;
-  }
-
-  .bar-message-on {
-    background-size: 30%, 30%;
-  }
-
-  .bar-message-off {
-    background-size: 30%, 30%;
-  }
-
-  .bar-newActivity-on {
-    background-size: 75%, 75%;
   }
 
   #activityDel .item-thumbnail-left {

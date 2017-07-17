@@ -10,9 +10,9 @@
     <ion-list class="list-card" style="padding:20px 20px 0 20px">
       <ion-item class="item item-avatar item-icon-right" ng-repeat="item in activityParticipantList">
         <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
-        <h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>
+        <h2 style="font-size: 14px;color: #83ccfc;width: 80%">{{item.firstName}}</h2>
         <p style="color: #696868">2017-05-26 15:26</p>
-        <span style="position: absolute;top: 20px;right: 30px;background-color: #83ccfc;color: #fefefe;font-size: 14px">{{item.partyRole}}</span>
+        <span style="position: absolute;top: 25px;right: 30px;background-color: #83ccfc;color: #fefefe;font-size: 14px">{{item.partyRole}}</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
         <div ng-if="isActivityAdmin&&item.partyRole!='活动组织者'">
           <ion-option-button class="button-assertive"

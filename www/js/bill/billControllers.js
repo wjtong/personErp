@@ -6,13 +6,14 @@ angular.module('bill.controllers', [])
  * Date 2017-3-3
  * */
   .controller('activityBillCtrl', function ($scope, $ionicPopup, Contact, $state, $stateParams, billServer, SelectDate,
-                                            $timeout, $ionicActionSheet,operateArray) {
+                                            $timeout, $ionicActionSheet, operateArray) {
 
     //准备参数
     var id = $stateParams.workEffortId;
     $scope.partyId = localStorage.getItem('partyId');
     var activityData = localStorage.getItem("activityData" + id);
     $scope.workEffortName = jQuery.parseJSON(activityData).workEffortName;
+    $scope.showMember=false;
 
     //定义查询账单
     $scope.queryBill = function () {
@@ -22,12 +23,13 @@ angular.module('bill.controllers', [])
         $scope.activityAdminList = data.activityAdminList;
 
         //判断当前用户是否有组织者权限
-        operateArray.InArray($scope.partyId,$scope.activityAdminList,function (data) {
-          $scope.isActivityAdmin=data;
+        operateArray.InArray($scope.partyId, $scope.activityAdminList, function (data) {
+          $scope.isActivityAdmin = data;
         });
         console.log("查询活动列表——————————" + data.resultMsg)
       });
     };
+
 
     //查询账单信息
     $scope.$on('$ionicView.enter', function () {
@@ -62,7 +64,6 @@ angular.module('bill.controllers', [])
 
     //用户确认支付
     $scope.partyPay = function (partyIdFrom, paymentId, payMethod) {
-      console.log(payMethod);
       // 显示上拉菜单
       var hideSheet = $ionicActionSheet.show({
         buttons: [
@@ -83,7 +84,8 @@ angular.module('bill.controllers', [])
               billServer.partyPay(partyIdFrom, paymentId, payMethod[0].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
-                  $scope.queryBill()
+                  $scope.queryBill();
+                  $scope.show($scope.billIndex)
                 }
               });
               break;
@@ -92,7 +94,8 @@ angular.module('bill.controllers', [])
               billServer.partyPay(partyIdFrom, paymentId, payMethod[1].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
-                  $scope.queryBill()
+                  $scope.queryBill();
+                  $scope.show($scope.billIndex)
                 }
               });
               break;
@@ -101,7 +104,8 @@ angular.module('bill.controllers', [])
               billServer.partyPay(partyIdFrom, paymentId, payMethod[2].paymentMethodId, function (data) {
                 console.log(data);
                 if (data.resultMsg == '成功') {
-                  $scope.queryBill()
+                  $scope.queryBill();
+                  $scope.show($scope.billIndex)
                 }
               });
               break;
@@ -114,20 +118,12 @@ angular.module('bill.controllers', [])
 
     //显示隐藏账单详情
     $scope.show = function (index) {
-      $('.blii-list').eq(index).css({
-        display: 'block'
-      });
-      $('.hide_bill').eq(index).css({
-        display: 'none'
-      });
+       $scope.billList[index].isShow=true;
+        $scope.billIndex=index;
     };
     $scope.hide = function (index) {
-      $('.blii-list').eq(index).css({
-        display: 'none'
-      });
-      $('.hide_bill').eq(index).css({
-        display: 'block'
-      });
+      $scope.billList[index].isShow=false;
+      $scope.billIndex=index;
     };
 
     //获取要修改金额焦点
@@ -214,6 +210,8 @@ angular.module('bill.controllers', [])
     //删除成员
     $scope.deleteMember = function (id, index) {
       $scope.activityParticipantList.splice(index, 1);
+      var a = $scope.Bill.billTotal / $scope.activityParticipantList.length;
+      $('#eachAmount input').val(a.toFixed(2));
     };
 
     //是否AA
@@ -221,8 +219,21 @@ angular.module('bill.controllers', [])
       {text: "不公开", checked: false},
       {text: "是否AA", checked: false}
     ];
+
+    //准备删除的代码
+    $scope.averageAmount = function (a) {
+      if (a != null)
+        $('#eachAmount input').val(a.toFixed(2));
+    };
+
+    $scope.AA = function () {
+      $('#eachAmount input').val('');
+    };
+
     $scope.billTotal = function () {
-      $scope.Bill.amount = $scope.Bill.billTotal / $scope.activityParticipantList.length;
+      var a = $scope.Bill.billTotal / $scope.activityParticipantList.length;
+      $('#eachAmount input').val(a.toFixed(2));
+      //$scope.Bill.amount = $scope.Bill.billTotal / $scope.activityParticipantList.length;
     };
 
     //提交新录入账单
@@ -232,7 +243,7 @@ angular.module('bill.controllers', [])
       for (var j = 0; j < $scope.activityParticipantList.length; j++) {
         var memberId = $scope.activityParticipantList[j].partyId;
         var menberCount = document.getElementsByName(memberId)[0].value;
-        var menberCountStr=menberCount.replace(/,/g,'');
+        var menberCountStr = menberCount.replace(/,/g, '');
         payArray.push({partyId: memberId, amount: menberCountStr})
       }
       console.log(JSON.stringify(payArray));

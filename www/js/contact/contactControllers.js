@@ -135,7 +135,7 @@ angular.module('contact.controllers', [])
                 }
               });
             }, function (reason) {
-              alert("Failed: " + reason);
+              //alert("Failed: " + reason);
               $ionicLoading.hide()
             });
           } else {
@@ -166,7 +166,7 @@ angular.module('contact.controllers', [])
               }
             })
           }, function (reason) {
-            alert("Failed: " + reason);
+            //alert("Failed: " + reason);
             $ionicLoading.hide()
           });
         } else {
@@ -183,7 +183,7 @@ angular.module('contact.controllers', [])
               }
             });
           }, function (reason) {
-            alert("Failed: " + reason);
+            //alert("Failed: " + reason);
             $ionicLoading.hide()
           });
         }
@@ -366,7 +366,7 @@ angular.module('contact.controllers', [])
 
     //跳转至相应活动详情页面
     $scope.goActivityDetail = function (workEffortId) {
-      $state.go("tab.activityDetails", {'activityId': workEffortId})
+      $state.go("tab.activityDetails", {'workEffortId': workEffortId})
     }
   })
 

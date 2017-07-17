@@ -1,4 +1,4 @@
-<ion-view title="创建讨论" hide-tabs="true">
+<ion-view title="创建码垛" hide-tabs="true">
   <ion-nav-bar class="bar-light">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
@@ -12,14 +12,15 @@
         <div class="item" style="padding: 0">
           <label class="item item-input">
             <span class="input-label">讨论主题：</span>
-            <input type="text" placeholder="活动标题(必填)" style="width: 100%"
-                   ng-model="itemMatter.surveyName">
+            <textarea  rows="{{itemMatter.surveyName>10?2:1}}"
+                      placeholder="码垛标题(必填15字以内)" style="width:60%;word-break: break-all;resize: none"
+                      ng-model="itemMatter.surveyName" maxlength="15"></textarea>
           </label>
         </div>
         <div class="item" style="padding: 0">
           <label class="item ">
             <p style="border-left: 7px solid #FFDA44;font-size: 16px">主题介绍：</p>
-            <textarea name="a" style="width:100%;" rows="15" placeholder="填写活动描述，让更多的人参与活动"
+            <textarea name="a" style="width:100%;" rows="5" placeholder="填写活动描述，让更多的人参与活动"
                       ng-model="itemMatter.information">{{myActivtyList.information}}</textarea>
           </label>
         </div>

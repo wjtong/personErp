@@ -502,6 +502,29 @@ angular.module('tools.services', [])
       }
     }
   })
+
+  // .factory('Wechat', function () {
+  //
+  //   return {
+  //     //微信登录
+  //     WechatLogin:function (partyId,cd) {
+  //       $scope.scope = "snsapi_userinfo";
+  //       Wechat.auth($scope.scope, function (response) {
+  //         Login.userWeChatAppLogin(response.code, partyId, function (data) {
+  //           if (data.resultMsg === 'PE平台登录成功') {
+  //             $scope.queryActivityDetails();
+  //             $scope.$apply();
+  //             $ionicLoading.hide()
+  //           }
+  //         });
+  //       }, function (reason) {
+  //         //alert("Failed: " + reason);
+  //         $ionicLoading.hide()
+  //       });
+  //     }
+  //   }
+  // })
+
   .factory('operateArray', function () {
 
     return {

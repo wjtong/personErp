@@ -7,11 +7,11 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content class="vote">
-    <ion-list>
-      <ion-item ng-repeat="item in activityPollQuestionsTitles" ui-sref="tab.goCastVote({surveyId:item.surveyId,surveyName:item.surveyName,workEffortId:workEffortId})">
-        <div class="item-avatar"  >
+    <ion-list >
+      <ion-item style="padding: 0" ng-repeat="item in activityPollQuestionsTitles" ui-sref="tab.goCastVote({surveyId:item.surveyId,surveyName:item.surveyName,workEffortId:workEffortId})">
+        <div class="item-avatar">
           <img src="{{item.objectInfo}}"/>
-          <h2>{{item.firstName}}</h2>
+          <h2 style="padding-top: 8%">{{item.firstName}}</h2>
           <p>{{item.fromDate | date:'yyyy年MM月dd日 HH:mm'}}</p>
           <div ng-class="{true: 'vote-state-open', false: 'vote-state-close'}[item.statusId=='VOTE_OPEN']"
                ng-bind-html="{true: '进行中', false: '已结束'}[item.statusId=='VOTE_OPEN']">

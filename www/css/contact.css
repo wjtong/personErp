@@ -171,58 +171,55 @@
 
 #bindTel .bindTelephone {
   text-align: center;
-  margin-top: 33px;
+  margin-top: 2.0625rem;
 }
-
 #bindTel input {
   outline: none;
-  -webkit-appearance: none; /*去除系统默认的样式*/
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 点击高亮的颜色*/
+  -webkit-appearance: none;
+  /*去除系统默认的样式*/
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* 点击高亮的颜色*/
   border: 1px #D9D9D9 solid;
-  border-radius: 40px;
+  border-radius: 2.5rem;
   width: 80.5%;
-  height: 45px;
-  margin: 20px auto 0 auto;
-  font-size: 16px;
+  height: 2.8125rem;
+  margin: 1.25rem auto 0 auto;
+  font-size: 1rem;
   text-align: center;
 }
-
 #bindTel input[type='button'] {
   background-color: #FFDA44;
   color: #FFFFFF;
-  margin-top: 55px;
+  margin-top: 3.4375rem;
   text-align: center;
 }
-
 #bindTel .codeBtn {
   background-color: #FFDA44;
   position: absolute;
   right: 10%;
   top: 0;
-  margin: 1px 0 0 0;
-  height: 43px;
-  width: 87px;
+  margin: 0.0625rem 0 0 0;
+  height: 2.6875rem;
+  width: 5.4375rem;
   border: 0;
-  font-size: 14px;
-  border-radius: 0 40px 40px 0;
+  font-size: 0.875rem;
+  border-radius: 0 2.5rem 2.5rem 0;
 }
-
 #bindTel .bing-tel {
   position: absolute;
   left: 15%;
   top: 5%;
 }
-
 #bindTel span {
   color: #333333;
-  font-size: 16px;
+  font-size: 1rem;
 }
-
 #bindTel .bind-code {
   position: absolute;
   left: 15%;
   top: 35%;
 }
+
 
 /*联系人****************************************************************************************************************/
 .contact .button.button-icon.input-button {
@@ -453,6 +450,9 @@
   }
   .CI-header {
     height: 13rem;
+  }
+  #bindTel .codeBtn {
+    font-size: 0.775rem;
   }
 
 }

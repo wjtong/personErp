@@ -425,6 +425,32 @@ angular.module('activity.services', [])
           }
         });
       },
+      //活动项排序
+      updateProjectsequense: function (workEffortIdFrom,workEffortIdTo,sequenseFrom,sequenseTo,cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "updateProjectsequense",
+          data: {
+            tarjeta: tarjeta,
+            workEffortIdFrom: workEffortIdFrom,
+            workEffortIdTo: workEffortIdTo,
+            sequenseFrom: sequenseFrom,
+            sequenseTo: sequenseTo
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //活动讨论的相关参数
       queryActivityChatGroupInfo: function (workEffortId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -665,7 +691,30 @@ angular.module('activity.services', [])
           }
         });
       },
-      //加入活动事项
+      //删除活动事项
+      removeActivityJob: function (surveyId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "removeActivityJob",
+          data: {
+            tarjeta: tarjeta,
+            surveyId: surveyId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //加入活动事项removeMyPushJob
       pushMyJob: function (surveyQuestionId, surveyId, answer, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
@@ -675,6 +724,30 @@ angular.module('activity.services', [])
             surveyQuestionId: surveyQuestionId,
             surveyId: surveyId,
             answer: answer
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
+      //删除事项参与方式
+      removeMyPushJob: function (surveyResponseId,surveyQuestionId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.activityInterfaceUrl + "removeMyPushJob",
+          data: {
+            tarjeta: tarjeta,
+            surveyResponseId: surveyResponseId,
+            surveyQuestionId:surveyQuestionId
           },
           async: false,
           type: 'POST',
@@ -1074,8 +1147,32 @@ angular.module('activity.services', [])
             }
           }
         });
-      }
-      ,
+      },
+      //删除评论
+      removeActivityCommunication: function (communicationEventId, contentId, cb) {
+        var tarjeta = localStorage.getItem('tarjeta');
+        $.ajax({
+          url: $rootScope.communicationfaceUrl + "removeActivityCommunication",
+          data: {
+            tarjeta: tarjeta,
+            communicationEventId: communicationEventId,
+            contentId: contentId
+          },
+          async: false,
+          type: 'POST',
+          success: function (result) {
+            if (jQuery.type(result) === "string") {
+              result = jQuery.parseJSON(result);
+              /**/
+            }
+            if (result.resultMap != null) {
+              if ($.type(cb) === 'function') {
+                cb(result.resultMap);
+              }
+            }
+          }
+        });
+      },
       //查询回复消息
       queryActivityCommunicationResponce: function (contentId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
@@ -1099,8 +1196,7 @@ angular.module('activity.services', [])
             }
           }
         });
-      }
-      ,
+      },
       //查询预览文本信息
       printActivityInfo: function (workEffortId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');

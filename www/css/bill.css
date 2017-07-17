@@ -13,9 +13,11 @@
 }
 
 #activityBill h2 {
-  font-size: 27px;
+  font-size: 1.6875rem;
   color: #9bc4ff;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
+  width: 65%;
+  white-space: normal;
 }
 
 #activityBill p {
@@ -35,7 +37,7 @@
 #activityBill .blii-list {
   border-top: 1px solid #f0eff5;
   margin-top: 16px;
-  display: none;
+  /*display: none;*/
   position: relative;
   margin-bottom: 20px;
   padding-top: 10px;

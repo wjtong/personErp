@@ -1,7 +1,7 @@
-<ion-view title="讨论区" hide-tabs="true">
-  <ion-nav-bar class="bar-blue" style="border: 0;">
+<ion-view title="码垛区" hide-tabs="true">
+  <ion-nav-bar class="bar-light" style="border: 0;">
     <ion-nav-buttons>
-      <button class="button button-clear" style="color: white" ng-click="goBack()">
+      <button class="button button-clear" ng-click="goBack()">
         <i class="icon  ion-ios-arrow-back"></i>
       </button>
     </ion-nav-buttons>
@@ -12,19 +12,18 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content id="activityMatter" style="background-color: white">
-    <ion-slide-box active-slide="myActiveSlide" on-slide-changed="slideChanged(index)" style="">
-      <ion-slide ng-repeat="item in activityJobsList" style="background-color: #83ccfc;height: 236px">
+    <ion-slide-box active-slide="myActiveSlide" on-slide-changed="slideChanged(index)"
+                   style="border-bottom: 2px solid #FFDA44">
+      <ion-slide ng-repeat="item in activityJobsList" style="height: 236px">
         <ion-list class="card">
-          <ion-item class="matter-slide" style="box-shadow: 0 0 20px 2px #d7efff;height: 131px">
-            <h3 style="border-bottom: 1px solid #f0eff5;padding-bottom: 20px;font-size: 21px;color: #83ccfc;">
-              {{item.surveyName}}</h3>
+          <ion-item class="matter-slide" style="box-shadow: 0 0 20px 2px #d7efff;height: 131px"
+                    on-hold="removeActivityJob(item.surveyId)">
+            <h3 style="border-bottom: 1px solid #f0eff5;font-size:21px;color: #83ccfc;white-space: normal">
+              {{item.surveyName}}
+            </h3>
             <p class="wacat" ng-click="WechatShare(item.surveyName,item.surveyId)">微信分享</p>
-            <div class="join-matter">
-              <textarea rows="3" readonly>{{item.questionName}}</textarea>
-              <button class="button  button-small">
-                <!--<img src="../www/img/activityImg/icon-点赞-未点击状态36X30px@2x.png"-->
-                     <!--height="26" width="22"/>-->
-              </button>
+            <div class="item-text-wrap">
+              {{item.questionName}}
             </div>
           </ion-item>
         </ion-list>
@@ -36,23 +35,28 @@
       </ion-slide>
     </ion-slide-box>
     <ion-list>
-      <ion-item style="border-bottom: 10px solid #f2f2f2;border-top: 0" ng-repeat="item in reverseList">
-        <div class="item item-avatar" style="border: 0">
+      <ion-item style="border-bottom: 5px solid #f2f2f2;border-top: 0" ng-repeat="item in reverseList">
+        <div class="item-avatar" style="border: 0">
           <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
-          <h2 style="font-size: 14px;color: #83ccfc">{{item.firstName}}</h2>
+          <p style="float: right">{{$index+1}}号垛</p>
+          <h2 style="font-size: 14px;color: #83ccfc;">{{item.firstName}}</h2>
           <p style="color: #696868">{{item.responseDate|date:'MM月dd日 HH时mm分'}}</p>
         </div>
-        <p
-          style="font-size: 15px;color: #1d1d1d;text-indent: 10px;padding-bottom: 8px ">
-          {{item.textResponse}}</p>
+        <p style="font-size: 15px;color: #1d1d1d;text-indent: 10px;padding-bottom: 8px ">{{item.textResponse}}</p>
+        <ion-option-button style="padding: 0" class="button-assertive"
+                           ng-if="item.partyId==partyId"
+                           ng-click="removeMyPushJob(item.surveyResponseId,item.surveyQuestionId)">
+          删除
+        </ion-option-button>
       </ion-item>
     </ion-list>
-    <div class="empty" ng-if="item_empty">还没有相关活动事项</div>
+    <br><br><br>
+    <div class="empty" ng-if="activityJobsList.length==0">还没有相关活动码垛</div>
   </ion-content>
-  <form name="sendMessageForm" style="border: 0">
+  <form name="sendMessageForm" style="border: 0" ng-if="activityJobsList.length!=0">
     <ion-footer-bar keyboardshow class="bar-stable item-input-inset message-footer" style="height: 50px;border: 0">
       <label class="item-input-wrapper" style="background-color: #f8f8f8;border: 0">
-        <textarea ng-model="joinMatter.content" placeholder=""
+        <textarea ng-model="joinMatter.content" placeholder="填写码垛信息"
                   style="width: 100%;height:35px;"></textarea>
       </label>
       <button class="button button-icon icon ion-android-send" type="submit"

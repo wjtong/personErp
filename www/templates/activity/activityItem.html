@@ -11,131 +11,52 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content id="activityItem">
-    <ion-list ng-repeat="item in activityItemList">
-      <ion-item>
-        <div style="display: flex">
-          <div style="flex: 1">
-            <img src="../www/img/activityItem/未选中@2x.png"  style="padding: 15px;width: 100%;height: 46px"/></div>
-          <div style="flex: 7;border-bottom: 1px solid #f0f0f0">
-            <input type="text" ng-model="item.workEffortName" readonly
-                   ng-focus="updateActivityItem(item.workEffortIdFrom,item.workEffortName,item.sequenceNum,item.actualStartDate)"
-                   style="font-size: 16px;width: 100%;height: 46px;background-color: white">
-            <span>{{item.actualStartDate| date:'MM月dd日 HH时mm分'}}</span>
-          </div>
+  <ion-content>
+    <ion-list show-reorder="itemSort" can-swipe="true">
+      <ion-item ng-repeat="item in activityItemList">
+        <div class="item-icon-left">
+          <i class="icon ion-ios-circle-outline" style="font-size: 16px"></i>
+          <p style="color: #1d1d1d;white-space: normal;margin: 0;font-size: 16px"
+             ng-click="updateActivityItem(item.workEffortIdFrom,item.workEffortName,item.sequenceNum,item.actualStartDate)">
+            {{item.workEffortName}}</p>
+          <span style="font-size: 12px;color: #4a4a4a">{{item.actualStartDate| date:'MM月dd日 HH时mm分'}}</span>
         </div>
-        <ion-option-button style="padding: 0" class="button-assertive"
+        <ion-option-button class="button-assertive"
                            ng-click="deleteActivityItem(item.workEffortIdFrom)">
           删除
         </ion-option-button>
-        <ion-option-button style="padding: 0" class="button-positive"
+        <ion-option-button  class="button-positive "
                            ng-click="updateActivityItem(item.workEffortIdFrom,item.workEffortName,item.sequenceNum,item.actualStartDate)">
           编辑
         </ion-option-button>
+        <ion-reorder-button class="ion-navicon"
+
+                            on-reorder="moveItem(item, $fromIndex, $toIndex)">
+
+        </ion-reorder-button>
       </ion-item>
     </ion-list>
-    <ion-list id="newItem">
-      <ion-item>
-        <div style="display: flex">
-          <div style="flex: 1">
-            <img src="../www/img/activityItem/增加下一项 37X37px@2x.png" style="padding: 15px;width: 100%;height: 100%"/>
-          </div>
-          <div style="flex: 7;border-bottom: 1px solid #f0f0f0">
-            <input type="text" id="global-search-input" ng-focus="itemFocus()"
-                   ng-blur="newActivityItem(editButton)"
-                   style="font-size: 16px;width: 100%;height: 46px">
-          </div>
-        </div>
-      </ion-item>
-      <ion-item>
-        <div style="display: flex">
-          <div style="flex: 1">
-          </div>
-          <div style="flex: 7;border-bottom: 1px solid #f0f0f0;height: 46px">
-          </div>
-        </div>
-      </ion-item>
-      <ion-item>
-        <div style="display: flex">
-          <div style="flex: 1">
-          </div>
-          <div style="flex: 7;border-bottom: 1px solid #f0f0f0;height: 46px">
-          </div>
-        </div>
-      </ion-item>
-      <ion-item>
-        <div style="display: flex">
-          <div style="flex: 1">
-          </div>
-          <div style="flex: 7;border-bottom: 1px solid #f0f0f0;height: 46px">
-          </div>
-        </div>
-      </ion-item>
-      <ion-item>
-        <div style="display: flex">
-          <div style="flex: 1">
-          </div>
-          <div style="flex: 7;border-bottom: 1px solid #f0f0f0;height: 46px">
-          </div>
-        </div>
-      </ion-item>
-
-
-    </ion-list>
-    <!--<ion-list id="foo" class="list" ng-repeat="item in activityItemList">-->
-    <!--<ion-item style="border: 0;padding: 0">-->
-    <!--<div style="display: flex">-->
-    <!--<div style="flex: 1">-->
-    <!--<ion-checkbox style="width: 50px;height: 50px;border: 0">-->
-    <!--</ion-checkbox>-->
-    <!--</div>-->
-    <!--<div style="flex: 7;border-bottom: 1px solid #f0f0f0">-->
-    <!--<input type="text" placeholder="安排" style="font-size: 16px;width: 100%" ng-model="item.workEffortName">-->
-    <!--<span>{{item.actualStartDate| date:'MM月dd日 HH时mm分'}}</span>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<ion-option-button style="padding: 0" class="button-assertive"-->
-    <!--ng-click="deleteActivityItem(item.workEffortIdFrom)">-->
-    <!--删除-->
-    <!--</ion-option-button>-->
-    <!--<ion-option-button style="padding: 0" class="button-positive"-->
-    <!--ng-click="updateActivityItem(item.workEffortIdFrom,item.workEffortName,item.sequenceNum,item.actualStartDate)">-->
-    <!--编辑-->
-    <!--</ion-option-button>-->
-    <!--</ion-item>-->
-    <!--</ion-list>-->
-    <!--<div style="display: flex">-->
-    <!--<div style="flex: 1">-->
-    <!--<ion-checkbox style="width: 50px;height: 50px;border: 0">-->
-    <!--</ion-checkbox>-->
-    <!--</div>-->
-    <!--<div style="flex: 7;border-bottom: 1px solid #f0f0f0">-->
-    <!--<input type="text" style="font-size: 16px;width: 100%" >-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div style="display: flex">-->
-    <!--<div style="flex: 1">-->
-    <!--<ion-checkbox style="width: 50px;height: 50px;border: 0">-->
-    <!--<input type="text" style="font-size: 16px;width: 100%" >-->
-    <!--</ion-checkbox>-->
-    <!--</div>-->
-    <!--<div style="flex: 7;border-bottom: 1px solid #f0f0f0">-->
-    <!--<input type="text" style="font-size: 16px;width: 100%">-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div style="display: flex">-->
-    <!--<div style="flex: 1">-->
-    <!--<ion-checkbox style="width: 50px;height: 50px;border: 0">-->
-    <!--</ion-checkbox>-->
-    <!--</div>-->
-    <!--<div style="flex: 7;border-bottom: 1px solid #f0f0f0">-->
-    <!--<input type="text" style="font-size: 16px;width: 100%" ng-model="item.workEffortName">-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div style="border-bottom: 1px solid #f0f0f0;text-align: center" ng-click="newActivityItem()">-->
-    <!--<i class="ion ion-ios-plus-empty" style="font-size: 40px"></i>-->
-    <!--</div>-->
-    <!--<div class="empty" ng-if="itemEmpty">还没有相关日程安排</div>-->
+    <div class="list" id="newItem" style="padding: 0;">
+      <div class="item item-icon-left">
+        <i class="icon ion-ios-plus-empty"></i>
+        <textarea rows="{{content.item.length>17?2:1}}" id="global-search-input" ng-focus="itemFocus()"
+                  ng-blur="newActivityItem(editButton)"
+                  style="font-size: 16px;width: 100%;overflow: visible;resize: none" ng-model="content.item">
+        </textarea>
+      </div>
+      <div class="item item-icon-left" style="color: white;">
+        Friends
+      </div>
+      <div class="item item-icon-left" style="color: white;">
+        Friends
+      </div>
+      <div class="item item-icon-left" style="color: white;">
+        Friends
+      </div>
+      <div class="item item-icon-left" style="color: white">
+        Friends
+      </div>
+    </div>
   </ion-content>
   <div class="tab-nav tabs act-foot-btn">
     <a class="tab-item tab-item" ng-click="shareItem()">

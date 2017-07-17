@@ -9,11 +9,11 @@
       </button>
     </div>
   </ion-header-bar>
-  <ion-content on-swipe-left="onSwipeLeft()">
+  <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
-    <ion-list rj-close-back-drop>
-      <ion-item class="item-avatar" ng-class="{'rj-item-top': message.isTop}" on-hold="popupMessageOpthins(message)"
-                rj-hold-active ng-repeat="message in activtyList | orderBy:['isTop', 'lastMessage.timeFrome1970']:true"
+    <ion-list>
+      <ion-item class="item-avatar""
+                 ng-repeat="message in activtyList"
                 ng-click="activityDetails(message.workEffortId)">
         <div class="act-gridding">
           <div class="row  row-wrap" style="padding: 0;margin: 0">
@@ -23,24 +23,24 @@
             </div>
           </div>
         </div>
-        <span class="rj-sm-red-icon" ng-show="message.showHints"><p ng-bind="message.noReadMessages"></p></span>
-        <h2 ng-bind="message.workEffortName"></h2>
-        <p class="rj-list-p" ng-bind="message.exDay"></p>
-        <span class="rj-push-right" ng-bind="message.adminFirstName"></span>
         <div>
-          <ion-option-button class="button-assertive"
-                             ng-click="deleteActivity(message.workEffortId,message.joinsCount,message.adminPartyId)">
-            退出
-          </ion-option-button>
-          <ion-option-button class="button-stable" ng-if="ActivityListType!='隐藏的活动'"
-                             ng-click="hideActivity(message.workEffortId)">
-            隐藏
-          </ion-option-button>
-          <ion-option-button class="button-calm" ng-if="ActivityListType=='隐藏的活动'"
-                             ng-click="showActivity(message.workEffortId)">
-            还原
-          </ion-option-button>
+          <h2 style="width: 80%" ng-bind="message.workEffortName"></h2>
+          <p  ng-bind="message.locationDesc"></p>
+          <p  ng-bind="message.exDay"></p>
+          <span class="rj-push-right" ng-bind="message.adminFirstName"></span>
         </div>
+        <ion-option-button class="button-assertive"
+                           ng-click="deleteActivity(message.workEffortId,message.joinsCount,message.adminPartyId)">
+          退出
+        </ion-option-button>
+        <ion-option-button class="button-stable" ng-if="ActivityListType!='隐藏的活动'"
+                           ng-click="hideActivity(message.workEffortId)">
+          隐藏
+        </ion-option-button>
+        <ion-option-button class="button-calm" ng-if="ActivityListType=='隐藏的活动'"
+                           ng-click="showActivity(message.workEffortId)">
+          还原
+        </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>

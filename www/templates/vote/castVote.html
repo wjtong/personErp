@@ -19,7 +19,7 @@
           <span style="float: right;font-size: 12px;color: #787878">单选</span>
         </div>
         <div class="list">
-          <div class="item" style="margin: 0" ng-repeat="question in questions"
+          <div class="item padding" ng-repeat="question in questions"
                ng-click="vote.statusId=='VOTE_CLOSE'?true:false||doPollQuestion(question.surveyQuestionId)">
             <span style="background-color: #ffeca1;display: block;font-size: 14px"
                   ng-style="{width:question.answerCount/responceAnswersCount*100+'%'}">
@@ -29,9 +29,9 @@
           </div>
           <div style="text-align: right;color: #979797;font-size: 12px ">
             <span ng-repeat="item in partyResponceAnswers">
-              <img ng-src="{{item.headPortrait}}" width="20" height="20" style="border-radius: 50%">
+              <img ng-src="{{item.headPortrait}}" width="20" height="20" style="border-radius: 50%;vertical-align: middle">
+               {{partyResponceAnswersCount}}人已参与了投票
             </span>
-            {{partyResponceAnswersCount}}人已参与了投票
           </div>
         </div>
       </ion-item>

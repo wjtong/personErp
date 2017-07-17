@@ -47,9 +47,9 @@
           <label class="item ">
             <p style="border-left: 7px solid #FFDA44;font-size: 16px">活动介绍：</p>
             <textarea name="a" style="width:100%;resize: none;letter-spacing: 3px;line-height: 20px;text-indent: 20px"
-                      rows="10" placeholder="填写活动描述，让更多的人参与活动" maxlength="100"
+                      rows="{{ActivityData.information==undefined?5:ActivityData.information.length/18+5}}" placeholder="填写活动描述，让更多的人参与活动" maxlength="100"
                       ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
-            还可以输入{{100-ActivityData.information.length}}个字符
+            <p style="text-align: right;color: #83ccfc;font-size: 12px">还可以输入{{500-ActivityData.information.length}}个字符<p>
           </label>
         </div>
       </div>
