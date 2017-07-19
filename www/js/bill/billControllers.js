@@ -32,7 +32,7 @@ angular.module('bill.controllers', [])
 
 
     //查询账单信息
-    $scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.beforeEnter', function () {
       $scope.queryBill();
     });
 

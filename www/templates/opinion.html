@@ -7,7 +7,7 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content>
-   <textarea style="width: 100%" rows="20" placeholder="请输入你要反馈的内容。。。" ng-model="Modle.suggest"></textarea>
+   <textarea style="width: 100%" rows="20" placeholder="请输入你要反馈的内容(100字以内)。。。" maxlength="100" ng-model="Modle.suggest"></textarea>
   </ion-content>
   <div class="tab-nav tabs act-foot-btn">
     <a class="tab-item tab-item" ng-click="createSuggest()">

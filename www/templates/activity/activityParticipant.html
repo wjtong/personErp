@@ -8,7 +8,8 @@
   </ion-nav-bar>
   <ion-content style="background-color: #f0eff5">
     <ion-list class="list-card" style="padding:20px 20px 0 20px">
-      <ion-item class="item item-avatar item-icon-right" ng-repeat="item in activityParticipantList">
+      <ion-item class="item item-avatar item-icon-right" ng-repeat="item in activityParticipantList"
+                ui-sref="tab.contactInfo({partyId:item.partyId})">
         <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
         <h2 style="font-size: 14px;color: #83ccfc;width: 80%">{{item.firstName}}</h2>
         <p style="color: #696868">2017-05-26 15:26</p>

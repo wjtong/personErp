@@ -5,8 +5,8 @@ angular.module('login.controllers', [])
  * Author LX
  * Date 2017-3-3
  * */
-  .controller('LoginCtrl', function ($http, $scope, Login, $state,$ionicPopup) {
-
+  .controller('LoginCtrl', function ($http, $scope, Login, $state, $ionicPopup) {
+    $scope.partyId = localStorage.getItem('partyId');
     //手机号码找回
     $scope.loginData = {};
     $scope.doLogin = function () {
@@ -28,8 +28,8 @@ angular.module('login.controllers', [])
             $state.go("tab.dash");
           } else {
             $ionicPopup.alert({
-              title:data.resultMsg,
-              template: '请确认您输入的验证码是否正确'
+              title: data.resultMsg,
+              template: '请确认您输入的手机号或验证码是否正确'
             })
           }
         })
@@ -38,11 +38,14 @@ angular.module('login.controllers', [])
 
     //微信找回
     $scope.wachatLogin = function () {
+      console.log('微信找回1')
       var scope = "snsapi_userinfo";
       Wechat.auth(scope, function (response) {
+        console.log('微信找回2')
         console.log("微信返回值:" + JSON.stringify(response));
         var code = response.code;
         Login.userWeChatAppLoginBack(code, function (data) {
+          console.log('微信找回3')
           console.log('微信找回的Token:' + data.tarjeta);
           if (data.tarjeta) {
             localStorage.removeItem("tarjeta");

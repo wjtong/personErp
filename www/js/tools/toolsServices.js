@@ -534,6 +534,10 @@ angular.module('tools.services', [])
         for(var i=0;i<array.length;i++){
           if(partyId==array[i].partyId){
             isAdmin=true;
+            cd(isAdmin);
+            break
+          }else{
+            isAdmin=false;
             cd(isAdmin)
           }
         }

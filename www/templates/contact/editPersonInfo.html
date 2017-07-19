@@ -18,16 +18,25 @@
     </div>
     <ion-list>
       <ion-item>
-        <label>
+        <label class="input-label">
           <span>姓名:</span>
           <input type="text" placeholder="      请输入您的姓名" name="userName" ng-model="myInfoList.personName" maxlength="32">
         </label>
+        <label class="item-input item-select" style="padding: 0">
+          <div class="input-label">
+            性别
+          </div>
+          <select ng-model="myInfoList.gender">
+            <option value="M">男</option>
+            <option value="F">女</option>
+          </select>
+        </label>
       </ion-item>
-      <ion-item>
-        <span>性别:</span>
-        <input class="male" type="radio" name="sex" value="M" ng-checked="male">男
-        <input class="female" type="radio" name="sex" value="F" ng-checked="female">女
-      </ion-item>
+      <!--<ion-item>-->
+        <!--<span>性别:</span>-->
+        <!--<label><input class="male" type="radio" name="sex" value="M" ng-checked="male">男</label>-->
+        <!--<label> <input class="female" type="radio" name="sex" value="F" ng-checked="female">女</label>-->
+      <!--</ion-item>-->
     </ion-list>
   </ion-content>
 </ion-view>
