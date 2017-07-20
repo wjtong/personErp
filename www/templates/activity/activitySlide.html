@@ -11,20 +11,21 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content style="background-color: black" id="act-img">
+  <ion-content id="act-img">
     <ion-slide-box class="imgWall" on-slide-changed="slideChanged(index)" delegate-handle="mySlide"
                    active-slide="myActiveSlide">
-      <ion-slide ng-repeat="picture in pictureList" style="background-color: black">
+      <ion-slide ng-repeat="picture in pictureList">
         <img ng-src="{{picture.objectInfo}}" width="100%">
       </ion-slide>
     </ion-slide-box>
-    <div style="position: fixed;top: 0;right: 0;color: black;background-color:white; z-index: 999;
-        font-size: 28px;padding: 10px;opacity: 0.8;border-radius: 5px"
-         ng-click="praiseselect(PraiseList)">{{praised}}({{acountPraiseCount}})
+    <div class="praise"
+         ng-click="praiseselect(PraiseList)">
+      <img src="../www/img/activityImg/icon-点赞-未点击状态36X30px@2x.png" height="29" width="29"/>
+      <span>{{acountPraiseCount}}</span>
     </div>
-    <ion-scroll direction="x" class="wide-as-needed" delegate-handle="myScroll">
+    <ion-scroll direction="x" class="wide-as-needed" on-scroll="scrollSmallToTop()" delegate-handle="myScroll">
       <div class="row">
-        <div class="col col-20" ng-repeat="item in pictureList" ng-click="getPersonInfo(item.partyId)">
+        <div class="col col-20" ng-repeat="item in pictureList">
           <img id="a{{$index}}" class="imgWall-list" ng-src="{{item.objectInfo}}" ng-click="chooseImg($index)">
         </div>
       </div>

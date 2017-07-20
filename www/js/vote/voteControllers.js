@@ -57,8 +57,8 @@ angular.module('vote.controllers', [])
     // 添加投票选项
     $scope.addVotes = function () {
       $("#votes").append("" +
-        "<textarea name='voteItem' maxlength='15' style='display: inline-block;width: 81%;resize:none' rows='1' class='questions' placeholder='投票选项'></textarea>" +
-        "<img src='../www/img/activityImg/矢量智能对象-拷贝@2x.png' width=18 height=18 onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><hr>" +
+        "<textarea name='voteItem' maxlength='15' rows='1' placeholder='投票选项'></textarea>" +
+        "<img src='../www/img/activityImg/矢量智能对象-拷贝@2x.png' style='margin-left: 5px' width=18 height=18 onclick='$(this).prev().remove(); $(this).next().remove(); $(this).remove();'/><hr>" +
         "");
     };
 
@@ -73,22 +73,27 @@ angular.module('vote.controllers', [])
         }
         questions += question + "&";
       }
-      console.log(questions);
-      voteService.createSurveyAndQuestions($scope.workEffortId, $scope.Vote.voteTitle, questions).success(function (data) {
-        var alertPopup = $ionicPopup.alert({
-          title: '成功',
-          template: "创建投票项成功！"
+      console.log(questions.length);
+      if($scope.Vote.voteTitle==null){
+        alert('标题不能为空，或至少两个投票项')
+      }else if(questions.length<4){
+        alert('标题不能为空，或至少两个投票项')
+      }else {
+        voteService.createSurveyAndQuestions($scope.workEffortId, $scope.Vote.voteTitle, questions).success(function (data) {
+          var alertPopup = $ionicPopup.alert({
+            title: '成功',
+            template: "创建投票项成功！"
+          });
+          alertPopup.then(function (res) {
+            $state.go("tab.voteList", {"workEffortId": $scope.workEffortId});
+          });
+        }).error(function (data) {
+          var alertPopup = $ionicPopup.alert({
+            title: '错误',
+            template: "添加失败，请重新添加！"
+          });
         });
-        alertPopup.then(function (res) {
-          $state.go("tab.voteList", {"workEffortId": $scope.workEffortId});
-        });
-      }).error(function (data) {
-        var alertPopup = $ionicPopup.alert({
-          title: '错误',
-          template: "添加失败，请重新添加！"
-        });
-      });
-
+      }
     };
   })
 
@@ -134,7 +139,7 @@ angular.module('vote.controllers', [])
       });
     };
 
-    $scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.beforeEnter', function () {
       $scope.queryVoteList()
     });
 
@@ -148,7 +153,9 @@ angular.module('vote.controllers', [])
       } else {
         var confirmPopup = $ionicPopup.confirm({
           title: '确定投票',
-          template: '确定投票不可修改，是否继续？'
+          template: '确定投票不可修改，是否继续？',
+          cancelText: "取消",
+          okText: '确定'
         });
         confirmPopup.then(function (res) {
           if (res) {

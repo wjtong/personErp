@@ -14,7 +14,7 @@
         {{item.letter || (item.first_name)}} <span ng-if="!item.isLetter&&item.appUser=='Y'">不分梨用户</span>
       </ion-item>
     </ion-list>
-    <div class="empty" ng-if="!getContacts().length>0">这里会出现活动中的好友</div>
+    <div class="activity_empty" ng-if="!getContacts().length>0">这里会出现活动中的好友</div>
   </ion-content>
 </ion-view>
 

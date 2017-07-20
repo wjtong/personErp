@@ -32,7 +32,7 @@ angular.module('activity.controllers', [])
     };
 
     //查询我的活动
-    $scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.beforeEnter', function () {
       $scope.queryActivity('ACTIVITY_MEMBER');
     });
 
@@ -56,7 +56,7 @@ angular.module('activity.controllers', [])
         })
       } else {
         $ionicPopup.alert({
-          title:'活动中还有其他成员，不可以删除！'
+          title: '活动中还有其他成员，不可以删除！'
         })
       }
     };
@@ -145,7 +145,8 @@ angular.module('activity.controllers', [])
                       //$state.go("tab.activityDetails", {"workEffortId": barcodeData.text});
                       var confirmPopup = $ionicPopup.confirm({
                         title: '报名活动',
-                        template: '是否要报名该活动'
+                        template: '是否要报名该活动',
+
                       });
                       confirmPopup.then(function (res) {
                         if (res) {
@@ -192,7 +193,7 @@ angular.module('activity.controllers', [])
   //     }
   //   });
   //
-  //   $scope.$on('$ionicView.enter', function () {
+  //   $scope.$on('$ionicView.beforeEnter', function () {
   //     ActivityServer.querySystemInfoList(function (data) {
   //       console.log('查询我的消息列表————————' + data);
   //       $scope.noticeList = data.systemInfos;
@@ -274,10 +275,6 @@ angular.module('activity.controllers', [])
         }
       })
     };
-
-    // if($scope.ActivityData.workEffortName.length>13){
-    //   $scope.titleRows=2;
-    // }
 
     //选择插入图片方式
     // $scope.selectImg = function () {
@@ -492,7 +489,7 @@ angular.module('activity.controllers', [])
                                            $rootScope, $ionicPopup, $ionicPopover, $ionicHistory, $location, $ionicModal,
                                            $timeout, $cordovaLaunchNavigator, $cordovaImagePicker, $cordovaFileTransfer,
                                            $ionicLoading, $cordovaProgress, Login, $cordovaClipboard, $cordovaGeolocation,
-                                           Contact, SelectDate, $ionicActionSheet) {
+                                           Contact, SelectDate, $ionicActionSheet, $cordovaSms, $window) {
     //准备参数
     $scope.partyId = localStorage.getItem("partyId");
     $scope.workEffortId = $stateParams.workEffortId;
@@ -515,7 +512,7 @@ angular.module('activity.controllers', [])
     }
 
     //刷新活动详情数据
-    $scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.beforeEnter', function () {
       $scope.queryActivityDetails()
     });
 
@@ -676,9 +673,11 @@ angular.module('activity.controllers', [])
         buttonClicked: function (index) {
           switch (index) {
             case 0:
+              hideSheet();
               $scope.callFriend();
               break;
             case 1:
+              hideSheet();
               $scope.launchNavigator();
               break;
             case 2:
@@ -750,28 +749,88 @@ angular.module('activity.controllers', [])
 
     //联系组织者
     $scope.callFriend = function () {
-      if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test($scope.groupMemberList[0].contactNumber))) {
-        var myPopup = $ionicPopup.show({
-          template: '',
-          title: '组织者没有留下联系方式',
-          scope: $scope,
-          buttons: [
-            {
-              text: '返回'
+      $scope.contact = {};
+      var myPopup = $ionicPopup.show({
+        template: '<button class="button" style="width:100%;background-color: mintcream;" ng-click="callUp()">打电话</button><br/>' +
+        '<button class="button" style="width: 100%;background-color: mintcream;margin-top: 2px;" ng-click="sendMessage()" >发短信</button>' +
+        '<button class="button" style="width: 100%;background-color: cadetblue;margin-top: 2px;" ng-click="closeMyPopup()">取消</button>',
+        title: '添加方式',
+        scope: $scope
+      });
+      myPopup.then(function (res) {
+        console.log('Tapped!', res);
+      });
+      $scope.contact = myPopup;
+
+      //关闭选择框
+      $scope.closeMyPopup = function () {
+        $scope.contact.close();
+      };
+
+      //打电话
+      $scope.callUp = function () {
+        if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test($scope.groupMemberList[0].contactNumber))) {
+          var myPopup = $ionicPopup.show({
+            template: '',
+            title: '组织者没有留下联系方式',
+            scope: $scope,
+            buttons: [
+              {
+                text: '返回'
+              }
+            ]
+          });
+          myPopup.then(function (res) {
+            console.log('Tapped!', res);
+          });
+          $timeout(function () {
+            myPopup.close();
+          }, 1500);
+          return false;
+        } else {
+          $window.location.href = "tel:" + $scope.groupMemberList[0].contactNumber;
+          return false;
+        }
+      };
+
+      //发短信
+      $scope.sendMessage = function () {
+        if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test($scope.groupMemberList[0].contactNumber))) {
+          var myPopup = $ionicPopup.show({
+            template: '',
+            title: '组织者没有留下联系方式',
+            scope: $scope,
+            buttons: [
+              {
+                text: '返回'
+              }
+            ]
+          });
+          myPopup.then(function (res) {
+            console.log('Tapped!', res);
+          });
+          $timeout(function () {
+            myPopup.close();
+          }, 1500);
+          return false;
+        } else {
+          var options = {
+            replaceLineBreaks: false,
+            android: {
+              intent: 'INTENT'
             }
-          ]
-        });
-        myPopup.then(function (res) {
-          console.log('Tapped!', res);
-        });
-        $timeout(function () {
-          myPopup.close();
-        }, 1500);
-        return false;
-      } else {
-        window.open('tel:' + $scope.groupMemberList[0].contactNumber);
-        return false;
-      }
+          };
+          document.addEventListener("deviceready", function () {
+            $cordovaSms
+              .send($scope.groupMemberList[0].contactNumber, '', options)
+              .then(function () {
+                // Success! SMS was sent
+              }, function (error) {
+                // An error occurred
+              });
+          });
+        }
+      };
     };
 
     /*活动详情编辑活动********************************************************/
@@ -926,14 +985,13 @@ angular.module('activity.controllers', [])
         }
         if ($scope.ActivityData.startDate == '开始时间待定')$scope.ActivityData.startDate = '';
         if ($scope.ActivityData.endDate == '结束时间待定')$scope.ActivityData.endDate = '';
-
         ActivityServer.updateActivity(
           $scope.ActivityData.workEffortName,
           $scope.ActivityData.startDate,
           $scope.ActivityData.endDate,
           $scope.ActivityData.address,
           $scope.ActivityData.information,
-          $scope.locationAddress,
+          $scope.activityList.specialTerms,
           $scope.workEffortId,
           $scope.themeImgId,
           $scope.groupId,
@@ -1109,17 +1167,19 @@ angular.module('activity.controllers', [])
     //定义查询服务
     $scope.queryActivityMembers = function () {
       ActivityServer.queryActivityAdminsAndMembers($scope.workEffortId, function (data) {
-        $scope.activityParticipantList = data.activityMembersList;
-        $scope.adminList = data.adminList;
+        if (data.resultMsg == '成功') {
+          $scope.activityParticipantList = data.activityMembersList;
+          $scope.adminList = data.adminList;
 
-        //判断是否是组织者
-        operateArray.InArray($scope.partyId, $scope.adminList, function (data) {
-          $scope.isActivityAdmin = data;
-        });
+          //判断是否是组织者
+          operateArray.InArray($scope.partyId, $scope.adminList, function (data) {
+            $scope.isActivityAdmin = data;
+          });
+        }
       });
     };
 
-    $scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.beforeEnter', function () {
       $scope.queryActivityMembers()
     });
 
@@ -1127,7 +1187,9 @@ angular.module('activity.controllers', [])
     $scope.removeActivityParty = function (id) {
       var confirmPopup = $ionicPopup.confirm({
         title: '活动踢人',
-        template: '您确定要踢掉此人？'
+        template: '您确定要踢掉此人？',
+        cancelText: "取消",
+        okText: '确定'
       });
       confirmPopup.then(function (res) {
         if (res) {
@@ -1142,11 +1204,14 @@ angular.module('activity.controllers', [])
         }
       });
     };
+
     //活动权限授予
     $scope.grantActivityAdminRole = function (partyIdTo) {
       var confirmPopup = $ionicPopup.confirm({
         title: '权限授予',
-        template: '授予后他将与您有相同的权限，管理活动！'
+        template: '授予后他将与您有相同的权限，管理活动！',
+        cancelText: "取消",
+        okText: '确定'
       });
       confirmPopup.then(function (res) {
         if (res) {
@@ -1326,7 +1391,7 @@ angular.module('activity.controllers', [])
    * Date 2017-3-3
    * */
   .controller('slideCrl', function ($scope, $stateParams, $ionicHistory, ActivityServer, $ionicActionSheet, $location,
-                                    $ionicSlideBoxDelegate, $ionicPopup, $timeout) {
+                                    $ionicSlideBoxDelegate, $ionicPopup, $ionicScrollDelegate) {
 
     //准备参数
     $scope.workEffortId = $stateParams.workEffortId;
@@ -1340,6 +1405,7 @@ angular.module('activity.controllers', [])
       $scope.imgIndex = 0;
     } else {
       $scope.imgIndex = $scope.myActiveSlide;
+
     }
 
     //选择橡相片
@@ -1347,12 +1413,24 @@ angular.module('activity.controllers', [])
       $ionicSlideBoxDelegate.$getByHandle('mySlide').slide(index);
     };
 
-    //照片INDEX
+    //滑动大图片
     $scope.slideChanged = function (index) {
       $scope.imgIndex = index;
       $scope.acountPraiseCount = $scope.count[$scope.imgIndex].praiseCount;
-      $scope.PraiseList = $scope.count[$scope.imgIndex].praiseList
+      $scope.PraiseList = $scope.count[$scope.imgIndex].praiseList;
+      if (index < $scope.pictureList.length - 4) {
+        $ionicScrollDelegate.$getByHandle('myScroll').scrollTo(index * 73, 0)
+      }
     };
+
+    //滑动小图片
+    $scope.scrollSmallToTop = function () {
+      var scrollPosition = $ionicScrollDelegate.$getByHandle('myScroll').getScrollPosition().left / 73;
+      //if (scrollPosition.toFixed(0) < $scope.pictureList.length - 4 && scrollPosition.toFixed(0) > 4) {
+        $ionicSlideBoxDelegate.$getByHandle('mySlide').slide(scrollPosition.toFixed(0), true);
+      //}
+    };
+
     //获取活动照片墙图片
     $scope.viewSize = '999';
     $scope.ACTIVITY_PICTURE = 'ACTIVITY_PICTURE';
@@ -1528,7 +1606,7 @@ angular.module('activity.controllers', [])
    * Author LX
    * Date 2017-6-7
    * */
-  .controller('ActivityMatter', function ($scope, $state, $stateParams, $ionicPopup, ActivityServer, $timeout) {
+  .controller('ActivityMatter', function ($scope, $state, $stateParams, $ionicPopup, ActivityServer, $timeout, operateArray) {
 
     //准备参数
     $scope.workEffortId = $stateParams.workEffortId;
@@ -1599,7 +1677,9 @@ angular.module('activity.controllers', [])
     $scope.removeActivityJob = function (surveyId) {
       var confirmPopup = $ionicPopup.confirm({
         title: '删除码垛',
-        template: '你确定要删除本次码垛吗?'
+        template: '你确定要删除本次码垛吗?',
+        cancelText: "取消",
+        okText: '确定'
       });
       confirmPopup.then(function (res) {
         if (res) {
@@ -1616,16 +1696,28 @@ angular.module('activity.controllers', [])
     };
 
     //事项参与方式
-    $scope.joinMatter = function (currentSlide) {
-      if (currentSlide == undefined)currentSlide = 0;
-      var surveyId = $scope.activityJobsList[currentSlide].surveyId;
-      var surveyQuestionId = $scope.activityJobsList[currentSlide].surveyQuestionId;
-      ActivityServer.pushMyJob(surveyQuestionId, surveyId, $scope.joinMatter.content, function (data) {
-        if (data.resultMsg == '成功') {
-          $scope.joinMatter.content = '';
-          $scope.queryMatter()
-        }
-      })
+    $scope.joinMatter = function (index, $event) {
+      if ($scope.stopPropagation) {
+        $event.stopPropagation();
+      }
+      var partyAnswer = $scope.activityJobsList[index].partyAnswer;
+      operateArray.InArray($scope.partyId, partyAnswer, function (data) {
+        $scope.isJoined = data
+      });
+      if ($scope.isJoined == true) {
+        $ionicPopup.alert({
+          title: '本区域只允许参与一次'
+        });
+      } else {
+        var surveyId = $scope.activityJobsList[index].surveyId;
+        var surveyQuestionId = $scope.activityJobsList[index].surveyQuestionId;
+        var content = $('input[name=joinMatter]')[index].value;
+        ActivityServer.pushMyJob(surveyQuestionId, surveyId, content, function (data) {
+          if (data.resultMsg == '成功') {
+            $scope.queryMatter()
+          }
+        })
+      }
     };
 
     //删除事项参与方式
@@ -1691,7 +1783,7 @@ angular.module('activity.controllers', [])
     };
 
     //查询全部评论和键盘事件
-    $scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.beforeEnter', function () {
       $scope.queryDiscussList();
       window.cordova.plugins.Keyboard.disableScroll(false);
     });
@@ -1746,7 +1838,7 @@ angular.module('activity.controllers', [])
                     }
                   });
                 }
-              }, 1000);
+              }, 500);
             }
           }
         ]
@@ -1763,7 +1855,7 @@ angular.module('activity.controllers', [])
    * Date 2017-3-3
    * */
   .controller('ActivityItem', function ($scope, $state, $rootScope, $stateParams, ActivityServer, $ionicPopup, SelectDate,
-                                        $timeout) {
+                                        operateArray) {
 
     //准备参数
     var id = $stateParams.id;
@@ -1780,9 +1872,12 @@ angular.module('activity.controllers', [])
     $scope.qureyActivityItemList = function () {
       ActivityServer.findActivityItem(id, function (data) {
         $scope.activityItemList = data.projectList;
-        if ($scope.activityItemList.length > 0) {
-          $scope.itemEmpty = false;
-        }
+        $scope.activityAdminList = data.adminList;
+
+        //判断当前用户是否有组织者权限
+        operateArray.InArray(partyId, $scope.activityAdminList, function (data) {
+          $scope.isActivityAdmin = data;
+        });
       });
     };
 
@@ -1812,15 +1907,8 @@ angular.module('activity.controllers', [])
     //拖动排序
     $scope.items = [1, 2, 3, 4];
     $scope.moveItem = function (item, fromIndex, toIndex) {
-      var workEffortIdFrom = $scope.activityItemList[fromIndex].workEffortIdFrom;
-      var sequenseFrom = $scope.activityItemList[fromIndex].sequenceNum;
-      var workEffortIdTo = $scope.activityItemList[toIndex].workEffortIdFrom;
-      var sequenseTo = $scope.activityItemList[toIndex].sequenceNum;
-      ActivityServer.updateProjectsequense(workEffortIdFrom, workEffortIdTo, sequenseFrom, sequenseTo, function (data) {
-        if (data.resultMsg == '成功') {
-          $scope.qureyActivityItemList()
-        }
-      })
+      $scope.activityItemList.splice(fromIndex, 1);
+      $scope.activityItemList.splice(toIndex, 0, item);
     };
 
     //新建活动日程
@@ -1839,6 +1927,7 @@ angular.module('activity.controllers', [])
             }
           });
         }
+        $scope.saveActivityItem();
         $scope.editButton = '排序';
       } else if (editButton == '排序') {
         $scope.itemSort = true;
@@ -1905,45 +1994,48 @@ angular.module('activity.controllers', [])
 
     //编辑活动项
     $scope.updateActivityItem = function (workEffortIdFrom, workEffortName, sequenceNum, actualStartDate) {
-
-      //日期格式转换
-      Date.prototype.Format = function (fmt) { //author: meizz
-        var o = {
-          "M+": this.getMonth() + 1, //月份
-          "d+": this.getDate(), //日
-          "h+": this.getHours(), //小时
-          "m+": this.getMinutes(), //分
-          "s+": this.getSeconds(), //秒
-          "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-          "S": this.getMilliseconds() //毫秒
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-          if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-      };
-      $scope.itemDataEdit = {};
-      $scope.itemDataEdit.name = workEffortName;
-      if (actualStartDate != null) {
-        var activityStartDate1 = new Date(actualStartDate);
-        $scope.itemDataEdit.time = activityStartDate1.Format("yyyy-MM-dd hh:mm:ss");
+      if (!$scope.isActivityAdmin) {
+        return false
       } else {
-        $scope.itemDataEdit.time = null
+        //日期格式转换
+        Date.prototype.Format = function (fmt) { //author: meizz
+          var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+          };
+          if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+          for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+          return fmt;
+        };
+        $scope.itemDataEdit = {};
+        $scope.itemDataEdit.name = workEffortName;
+        if (actualStartDate != null) {
+          var activityStartDate1 = new Date(actualStartDate);
+          $scope.itemDataEdit.time = activityStartDate1.Format("yyyy-MM-dd hh:mm:ss");
+        } else {
+          $scope.itemDataEdit.time = null
+        }
+        $scope.itemDataEdit.sequenceNum = sequenceNum;
+        $scope.itemDataEdit.workEffortIdFrom = workEffortIdFrom;
+        var itemPopup = $ionicPopup.show({
+          template: '<input type="text" placeholder="安排" ng-model="itemDataEdit.name"><br>' +
+          '<input type="text" placeholder="时间" ng-model="itemDataEdit.time" readonly=“readonly” style="background-color: white" ng-click="openDatePicker()"><br>' +
+          '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="updateLabel();">更新</button><br/>' +
+          '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>',
+          title: '更新活动项',
+          scope: $scope
+        });
+        itemPopup.then(function (res) {
+          console.log('Tapped!', res);
+        });
+        $scope.addLab = itemPopup;
       }
-      $scope.itemDataEdit.sequenceNum = sequenceNum;
-      $scope.itemDataEdit.workEffortIdFrom = workEffortIdFrom;
-      var itemPopup = $ionicPopup.show({
-        template: '<input type="text" placeholder="安排" ng-model="itemDataEdit.name"><br>' +
-        '<input type="text" placeholder="时间" ng-model="itemDataEdit.time" readonly=“readonly” style="background-color: white" ng-click="openDatePicker()"><br>' +
-        '<button class="button" style="width:100%;background-color: #009dda;margin-top: 6px;" ng-click="updateLabel();">更新</button><br/>' +
-        '<button class="button" style="width: 100%;background-color: lightslategray;margin-top: 2px;" ng-click="closeLab();">取消</button>',
-        title: '更新活动项',
-        scope: $scope
-      });
-      itemPopup.then(function (res) {
-        console.log('Tapped!', res);
-      });
-      $scope.addLab = itemPopup;
     };
 
     //选择创建时间
@@ -1962,12 +2054,7 @@ angular.module('activity.controllers', [])
         ActivityServer.updateEventProject($scope.itemDataEdit.workEffortIdFrom, $scope.itemDataEdit.name, $scope.itemDataEdit.sequenceNum, $scope.itemDataEdit.time, function (data) {
           console.log(data.resultMsg);
           if (data.resultMsg == '成功') {
-            ActivityServer.findActivityItem(id, function (data) {
-              $scope.activityItemList = data.projectList;
-              if ($scope.activityItemList.length > 0) {
-                $scope.itemEmpty = false;
-              }
-            });
+            $scope.qureyActivityItemList();
             $scope.addLab.close();
           }
         });
@@ -1976,22 +2063,15 @@ angular.module('activity.controllers', [])
 
     //保存排序
     $scope.saveActivityItem = function () {
-      var sequenceArray = [];
       var sequenceArrayList = [];
-      var list = document.getElementById("foo").getElementsByTagName("li");
-      for (var i = 0; i < list.length; i++) {
-        sequenceArray.push(list[i].innerText.substring(0, 1))
-      }
-      for (var m = 0; m < sequenceArray.length; m++) {
-        for (var n = 0; n < $scope.activityItemList.length; n++) {
-          if (sequenceArray[m] == $scope.activityItemList[n].sequenceNum) {
-            sequenceArrayList.push({'sequenceNum': m, 'workEffortId': $scope.activityItemList[n].workEffortIdFrom})
-          }
-        }
+      for (var i = 0; i < $scope.activityItemList.length; i++) {
+        sequenceArrayList.push({'sequenceNum': i, 'workEffortId': $scope.activityItemList[i].workEffortIdFrom})
       }
       console.log(sequenceArrayList);
       ActivityServer.updateProjectsequenceNum(JSON.stringify(sequenceArrayList), function (data) {
-        console.log(data)
+        if (data.resultMsg == '成功') {
+          $scope.qureyActivityItemList();
+        }
       })
     }
   })

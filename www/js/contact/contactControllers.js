@@ -57,8 +57,8 @@ angular.module('contact.controllers', [])
             if (data.resultMsg == "成功") {
               localStorage.removeItem('tarjeta');
               localStorage.removeItem("partyId");
-              $state.go("login");
               $ionicHistory.clearCache();   //清除缓存数据
+              $state.go("login");
             }
           });
         } else {
@@ -432,16 +432,14 @@ angular.module('contact.controllers', [])
 
     //更新用户个人信息
     $scope.updatePersonInfo = function () {
-      var sex = document.getElementsByName("sex");
-      for (var i = 0; i < sex.length; i++) {
-        if (sex[i].checked) {
-          $scope.sex = sex[i].value
-        }
-      }
-      Contact.updatePersonInfo($scope.myInfoList.personName, $scope.sex, function (data) {
+      Contact.updatePersonInfo($scope.myInfoList.personName,$scope.myInfoList.gender, function (data) {
         $ionicPopup.alert({
           title: '完成更新',
-          template: data.resultMsg
+          template: data.resultMsg,
+          buttons: [{
+            text: '确定',
+            type: 'button-positive',
+          }]
         });
         $state.go('tab.account')
       })
@@ -502,7 +500,7 @@ angular.module('contact.controllers', [])
     //倒计时
     $scope.countDown = function () {
       //倒计时
-      $scope.n = 60;
+      $scope.n = 30;
       $scope.codeBtn = $scope.n + " 秒";
       var time = $interval(function () {
         $scope.n--;

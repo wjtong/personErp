@@ -32,7 +32,7 @@ angular.module('bill.controllers', [])
 
 
     //查询账单信息
-    $scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.beforeEnter', function () {
       $scope.queryBill();
     });
 
@@ -147,7 +147,9 @@ angular.module('bill.controllers', [])
     $scope.deleteBill = function (paymentGroupId) {
       var confirmPopup = $ionicPopup.confirm({
         title: '删除账单',
-        template: '你确定要删除账单吗?'
+        template: '你确定要删除账单吗?',
+        cancelText: "取消",
+        okText: '确定'
       });
       confirmPopup.then(function (res) {
         if (res) {
@@ -192,7 +194,7 @@ angular.module('bill.controllers', [])
   })
 
   /*********************************************************************************************************************
-   * Desc 新建活动账单
+   * Desc 创建活动账单
    * Author LX
    * Date 2017-6-6
    * */
@@ -210,8 +212,12 @@ angular.module('bill.controllers', [])
     //删除成员
     $scope.deleteMember = function (id, index) {
       $scope.activityParticipantList.splice(index, 1);
-      var a = $scope.Bill.billTotal / $scope.activityParticipantList.length;
-      $('#eachAmount input').val(a.toFixed(2));
+      if($scope.Bill.billTotal==undefined){
+        $('#eachAmount input').val($scope.Bill.amount.toFixed(2));
+      }else{
+        var a = $scope.Bill.billTotal / $scope.activityParticipantList.length;
+        $('#eachAmount input').val(a.toFixed(2));
+      }
     };
 
     //是否AA
@@ -220,20 +226,20 @@ angular.module('bill.controllers', [])
       {text: "是否AA", checked: false}
     ];
 
-    //准备删除的代码
-    $scope.averageAmount = function (a) {
-      if (a != null)
-        $('#eachAmount input').val(a.toFixed(2));
-    };
-
+    //是否AA
     $scope.AA = function () {
-      $('#eachAmount input').val('');
+      if($scope.settingsList[1].checked){
+        $('#eachAmount input').val('');
+      }else{
+        $state.reload()
+      }
+
     };
 
+    //账单总额变动
     $scope.billTotal = function () {
       var a = $scope.Bill.billTotal / $scope.activityParticipantList.length;
       $('#eachAmount input').val(a.toFixed(2));
-      //$scope.Bill.amount = $scope.Bill.billTotal / $scope.activityParticipantList.length;
     };
 
     //提交新录入账单

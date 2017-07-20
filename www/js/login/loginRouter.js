@@ -5,6 +5,7 @@ angular.module('starter')
     //登陆***************************************************************************************************************
       .state('login', {
         url: '/login',
+        cache:false,
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
       })

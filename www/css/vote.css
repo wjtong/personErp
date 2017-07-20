@@ -1,11 +1,7 @@
-/*活动投票***************************************************************************************************************/
+/*活动投票列表***************************************************************************************************************/
 
-.empty {
-  width: 100%;
-  text-align: center;
-  margin-top: 250px;
-  font-size: 26px;
-  color: #4d4d4d;
+.vote h2 {
+  padding-top: 8%;
 }
 
 .vote .vote-state-open {
@@ -54,25 +50,84 @@
   position: relative;
   border: 0;
 }
-.vote .item-complex .item-content{
-  padding:5px;
-}
-.vote img {
-  top: 0;
-  height: 32px;
-  width: 32px;
+
+.vote .item-complex .item-content {
+  padding: 5px;
 }
 
 .vote .vote-name {
   padding-bottom: 22px;
-  text-indent: 12px
+  text-indent: 12px;
+  width: 100%;
+  white-space: normal
 }
-.vote input{
+
+.vote input {
   width: 100%;
 }
 
+/*活动投票执行页面********************************************************************************************************/
+.vote_radio {
+  float: right;
+  font-size: 12px;
+  color: #787878
+}
 
+.vote_selected {
+  background-color: #ffeca1;
+  display: block;
+  font-size: 14px
+}
 
+.vote_member {
+  text-align: right;
+  color: #979797;
+  font-size: 12px
+}
+
+.vote_member_count {
+  font-size: 12px;
+  color: #979797
+}
+
+/*活动投票创建页面********************************************************************************************************/
+.vote_create ion-content {
+  background-color: #d9d9d9;
+}
+
+.vote_create .item {
+  border-top: 8px solid #D9D9D9;
+  font-size: 15px
+}
+
+[name=voteItem] {
+  display: inline-block;
+  width: 90%;
+  resize: none;
+  vertical-align: middle
+}
+
+.vote_create .button-full {
+  font-size: 17px;
+  color: #a5a5a5;
+  margin: 0;
+  height: 32px;
+  background-color: white
+}
+
+.vote_item_details {
+  background-color: #D9D9D9;
+  color: #a5a5a5;
+  text-align: center
+}
+
+.vote_create .button-energized{
+  height: 33px;
+  width: 90%;
+  margin-top: 20px;
+  color: #000000;
+  text-align: center
+}
 /*兼容性问题******************************************屏幕大小兼容性*******************************************************/
 
 /*当页面大于1024px时，大屏幕，主要显示PC端*************/
@@ -100,8 +155,4 @@
     font-size: 14px;
   }
 
-  .empty {
-    margin-top: 215px;
-    font-size: 20px;
-  }
 }

@@ -503,37 +503,20 @@ angular.module('tools.services', [])
     }
   })
 
-  // .factory('Wechat', function () {
-  //
-  //   return {
-  //     //微信登录
-  //     WechatLogin:function (partyId,cd) {
-  //       $scope.scope = "snsapi_userinfo";
-  //       Wechat.auth($scope.scope, function (response) {
-  //         Login.userWeChatAppLogin(response.code, partyId, function (data) {
-  //           if (data.resultMsg === 'PE平台登录成功') {
-  //             $scope.queryActivityDetails();
-  //             $scope.$apply();
-  //             $ionicLoading.hide()
-  //           }
-  //         });
-  //       }, function (reason) {
-  //         //alert("Failed: " + reason);
-  //         $ionicLoading.hide()
-  //       });
-  //     }
-  //   }
-  // })
-
+  //操作数组
   .factory('operateArray', function () {
 
     return {
       //判断用户是否是组织者
-      InArray:function (partyId,array,cd) {
+      InArray: function (partyId, array, cd) {
         var isAdmin;
-        for(var i=0;i<array.length;i++){
-          if(partyId==array[i].partyId){
-            isAdmin=true;
+        for (var i = 0; i < array.length; i++) {
+          if (partyId == array[i].partyId) {
+            isAdmin = true;
+            cd(isAdmin);
+            break
+          } else {
+            isAdmin = false;
             cd(isAdmin)
           }
         }

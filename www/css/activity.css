@@ -17,295 +17,8 @@
   color: #6a6a6a;
 }
 
-.item.my-popup {
-  padding: 15px;
-  padding-left: 20px;
-}
-
-/*.popup-head {*/
-/*padding: 0 !important;*/
-/*border-bottom: none !important; }*/
-
-/*.popup-body {*/
-/*padding: 0px !important;*/
-/*overflow: hidden !important; }*/
-
-.scroll-bar-indicator {
-  display: none;
-}
-
-.item > .rj-sm-red-icon {
-  position: absolute;
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background-color: #FF0000;
-  line-height: 18px;
-  text-align: center;
-  top: 5px;
-  left: 40px;
-}
-
-.item > .rj-sm-red-icon > p {
-  color: #FFF;
-  font-size: 12px;
-}
-
-.rj-item-top {
-  background-color: #F1F1F1 !important;
-}
-
-.rj-stable-content {
-  background-color: #EEE;
-}
-
-.bar-footer {
-  border-top: 1px solid #EEE !important;
-}
-
-.bar-footer textarea {
-  resize: none;
-  height: 21px;
-  max-height: 100px;
-}
-
-.bar-footer .item-input {
-  border: none !important;
-  border-bottom: 1px solid #EEE !important;
-}
-
-.rj-footer-btn {
-  position: absolute !important;
-  bottom: -1px;
-  right: 5px;
-}
-
-.rj-footer-input {
-  width: 100%;
-}
-
-.rj-footer-btn-wrap {
-  position: relative;
-  height: 100%;
-  width: 50px;
-  top: 2px;
-}
-
-.rj-footer-btn-left {
-  position: absolute !important;
-  bottom: 0;
-}
-
-.rj-message-wrap {
-  padding: 7px;
-  overflow: auto;
-  position: relative;
-}
-
-.rj-message-wrap .rj-head-pic,
-.rj-message-wrap .rj-head-pic-right {
-  max-height: 40px;
-  max-width: 40px;
-}
-
-.rj-message-wrap .rj-head-pic {
-  float: left;
-}
-
-.rj-message-wrap .rj-head-pic-right {
-  float: right;
-}
-
-.rj-message-wrap .rj-message,
-.rj-message-wrap .rj-message-right {
-  padding: 6px 8px;
-  line-height: 26px;
-  max-width: 190px;
-  border-radius: 5px;
-}
-
-.rj-message-wrap .rj-message {
-  float: left;
-  margin-left: 16px;
-  background-color: #fff;
-}
-
-.rj-message-wrap .rj-message-right {
-  float: right;
-  margin-right: 16px;
-  background-color: #6BE00B;
-}
-
-.rj-message-wrap .rj-triangle-left,
-.rj-message-wrap .rj-triangle-right {
-  display: inline-block;
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-width: 8px 10px;
-  border-style: solid;
-  top: 17px;
-}
-
-.rj-message-wrap .rj-triangle-left {
-  left: 47px;
-  border-color: transparent #FFF transparent transparent;
-}
-
-.rj-message-wrap .rj-triangle-right {
-  right: 47px;
-  border-color: transparent transparent transparent #6BE00B;
-}
-
-.rj-message-time {
-  width: 42px;
-  text-align: center;
-  margin-bottom: 5px;
-  color: #FFF;
-  background-color: rgba(0, 0, 0, 0.2);
-  font-size: 12px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.rj-footer-btn-wrap .rj-send-button {
-  background-color: #1BBB37;
-  color: #FFF;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  position: absolute;
-  bottom: 3px;
-  width: 38px;
-  left: 4px;
-}
-
-.rj-list .list {
-  width: 90%;
-  margin-left: 10px;
-  margin-right: auto;
-  margin-top: -1px;
-}
-
-.rj-list .list .rj-item {
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-  padding-left: 0;
-  padding-top: 6px;
-  padding-bottom: 6px;
-}
-
-.rj-contacts-item {
-  padding: 0px !important;
-}
-
-.rj-item .rj-contacts-pic {
-  color: white;
-  height: 36px;
-  width: 36px;
-  line-height: 36px;
-  float: left;
-  font-size: 28px;
-  text-align: center;
-}
-
-.rj-orange-bgc {
-  background-color: orange;
-}
-
-.rj-green-bgc {
-  background-color: #63db2a;
-}
-
-.rj-blue-bgc {
-  background-color: #2d31ca;
-}
-
-.rj-item h2 {
-  padding-left: 10px;
-  position: absolute;
-  margin: auto !important;
-  top: 0;
-  bottom: 0;
-  left: 36px;
-  height: 32px;
-  line-height: 32px;
-}
-
-.rj-contacts-pic img {
-  width: 36px;
-  height: 36px;
-}
-
-.rj-contacts-index-bar {
-  background-color: #E8E8E8;
-  padding-left: 10px;
-  height: 20px;
-  line-height: 20px;
-  font-size: 80%;
-  color: #545454;
-}
-
-.rj-contacts-right-bar {
-  position: fixed;
-  right: 0;
-  width: 20px;
-  height: 464px;
-  z-index: 2;
-  text-align: center;
-  font-size: 80%;
-  color: #545454;
-}
-
-.rj-contacts-right-bar div {
-  height: 16px;
-}
-
-.rj-contacts-middle-bar {
-  position: fixed;
-  margin: auto;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  height: 60px;
-  width: 60px;
-  line-height: 60px;
-  text-align: center;
-  color: #FFF;
-  font-size: 300%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.activityNull {
-  height: 100%;
-  position: relative;
-}
-
-.activityNull img {
-  margin: 40% 25%;
-  width: 50%;
-  height: 25%;
-}
-
-.activityTabs {
-  background-color: #FFDA44;
-  text-align: center;
-  color: black;
-  height: 30%
-}
-
-.event-list {
-  width: 100%;
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  border-top: 0.1875rem solid silver;
-}
-
-.act-gridding {
+/*首页九宫格*/
+.act_gridding {
   position: absolute;
   top: 20px;
   left: 10px;
@@ -317,112 +30,7 @@
   background-color: #e8e8e8;
 }
 
-.event-list img {
-  width: 100%;
-  height: 100%;
-}
-
-
-.event-list .event-top {
-  margin: 0.375rem;
-  flex: 3;
-}
-
-.event-list .event-top div:nth-child(1) {
-  float: left;
-  width: 8.4375rem;
-  height: 6.625rem;
-}
-
-.event-list .event-top div:nth-child(2) {
-  float: right;
-  width: 60%;
-  height: 6.625rem;
-  position: relative;
-}
-
-.event-list .event-top .organizer-home {
-  position: absolute;
-  bottom: -10%;
-  right: 0;
-  color: #08d918;
-}
-
-.event-list h3 {
-  font-size: 1rem;
-  margin: 0.1875rem 0;
-  color: #4d4d4d;
-}
-
-.event-list p {
-  color: #717171;
-  margin: 0.125rem 0;
-  font-size: 0.875rem;
-
-}
-
-.event-list em {
-  font-size: 0.625rem;
-  color: #717171;
-  font-weight: bold;
-}
-
-.event-list .activityTimer {
-  background: url(../img/activityImg/icon_时间@2x.png) no-repeat center;
-  background-size: 70%, 70%;
-  margin-right: 0.1875rem;
-}
-
-.event-list .activityLocation {
-  background: url(../img/activityImg/icon_地址@2x.png) no-repeat center;
-  background-size: 60%, 60%;
-  margin-right: 0.1875rem;
-}
-
-.event-list .activityOrganizer {
-  font-size: 0.9375rem;
-  margin: 0 0.25rem;
-}
-
-.event-list .event-bottom {
-  flex: 1;
-}
-
-.event-bottom .join-count {
-  float: left;
-  width: 30%;
-  height: 100%;
-  text-align: center;
-}
-
-.event-bottom .join-count button {
-  border-radius: 0.9375rem;
-  letter-spacing: 0.1875rem;
-  font-size: 0.8125rem;
-  margin-top: 0.25rem;
-  background-color: #FFDA44;
-  border: 0;
-  height: 1.5rem;
-}
-
-.event-bottom .from-start {
-  float: right;
-  width: 69%;
-  height: 100%;
-  text-align: right;
-}
-
-.event-bottom .from-start button {
-  border-radius: 0.9375rem;
-  letter-spacing: 0.3125rem;
-  font-size: 1rem;
-  border: 1px solid silver;
-  background-color: white;
-  margin-right: 0.3125rem;
-  margin-top: 0.0625rem;
-  height: 2rem;
-}
-
+/*无活动显示文字*/
 .tipTextAct {
   font-size: 1.4rem;
   color: #1d1d1d;
@@ -432,6 +40,7 @@
   left: 15%;
 }
 
+/*找回历史活动*/
 .history {
   position: absolute;
   top: 73%;
@@ -440,147 +49,302 @@
   color: #9e9e9e;
 }
 
+.activity_home .icon {
+  margin-right: 5px;
+  vertical-align: middle;
+  font-size: 31px
+}
+
+.activity_home .row, .col {
+  padding: 0;
+  margin: 0
+}
+
+.activity_home .col img {
+  width: 13px;
+  height: 13px;
+}
+
+.activity_home h2 {
+  width: 80%;
+}
+
+/*创建活动 和编辑活动******************************************************************************************************/
+.create_and_edit ion-content {
+  background-color: #f0eff5;
+
+}
+
+.create_and_edit textarea {
+  resize: none;
+  letter-spacing: 1px;
+  line-height: 16px;
+  width: 100%;
+  overflow:visible
+}
+
+.create_and_edit input:read-only, textarea:read-only {
+  background-color: white;
+}
+
+/*活动详情***************************************************************************************************************/
+
+/*顶部编辑按钮和更过*/
+#activityDel .ion-ios-compose-outline, #activityDel .ion-navicon-round {
+  font-size: 30px;
+}
+
+#activityDel input[disabled] {
+  background-color: white;
+  color: #1d1d1d;
+  opacity: 1
+}
+
+/*日期*/
+#activityDel .del-date {
+  display: flex;
+  padding: 0;
+  height: 100px;
+  width: 100%;
+}
+
+/*日期左右区域等分*/
+.del-left, .del-right {
+  flex: 1;
+  text-align: center;
+}
+
+.del-left img, .del-right img {
+  height: 50px;
+  width: 50px;
+  margin: 8px 0 0 0;
+}
+
+#activityDel .pe-num {
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  right: 2%;
+  color: #83ccfc;
+  text-align: right
+}
+
+#activityDel .item p {
+  white-space: initial;
+  width: 100%
+}
+
+/*照片墙*/
+#activityDel .item-wall {
+  padding: 0 16px 0 16px;
+}
+
+#activityDel .img-responsive {
+  height: 91px;
+  width: 91px
+}
+
+/*参与人*/
+#activityDel .del-member {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+}
+
+/*评论*/
+#activityDel .item-avatar img {
+  border-radius: 50%
+}
+
+#activityDel .item-avatar h2 {
+  color: #83ccfc
+}
+
+#activityDel .item-avatar > p:first-child {
+  color: #696868;
+  font-size: 10px
+}
+
+#activityDel .item-avatar > p:last-child {
+  color: #1d1d1d;
+}
+
+#activityDel .del-organizer {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 8%;
+  left: 14%
+}
+
+/*底部导航*/
+#activityDel .tab-item {
+  line-height: 10px;
+}
+
+#activityDel .tab-item img {
+  width: 30px;
+  height: 30px;
+}
+
+.tab-Del-Nac {
+  font-size: 11px;
+  color: #ffffff;
+}
+
 /*活动照片***************************************************************************************************************/
 #act-img .imgWall {
   width: 100%;
   height: 500px;
-  line-height: 700px;
+  background-color: black;
+  margin-bottom: 10px;
+}
+
+#act-img, #act-img ion-slide {
   background-color: black;
 }
 
 #act-img .imgWall-list {
-  width: 80px;
-  height: 80px;
-  padding: 5px;
+  width: 70px;
+  height: 70px;
+  padding: 2px;
+  border: 1px solid white
+}
+
+#act-img .praise {
+  position: fixed;
+  top: 0;
+  right: 0;
+  color: black;
+  background-color: white;
+  z-index: 999;
+  font-size: 28px;
+  padding: 10px;
+  opacity: 0.8;
+  border-radius: 5px
 }
 
 /*活动讨论***************************************************************************************************************/
-.profile-box {
-  width: 100%;
-  display: flex;
+.activity_discuss .item-complex .item-content {
+  padding: 10px
 }
 
-.profile-box-thumb {
-  flex: 1;
+.activity_discuss h3 {
+  color: #83ccfc;
 }
 
-.profile-box-details {
-  display: inline-block;
-  flex: 5;
-  position: relative;
-}
-
-.profile-name {
-  color: #0c60ee;
-}
-
-#act-discuss .profile-Message {
-  width: 80%;
+.activity_discuss p {
   white-space: normal
 }
 
-#act-discuss img {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+.activity_discuss .create-date {
+  color: #696868;
+  font-size: 10px
 }
 
-.profile-button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #f0f0f0;
-  border-radius: 25%;
-  border: 0;
-}
-
-/*活动项****************************************************************************************************************/
-/*#activityItem .item-empty {*/
-/*width: 100%;*/
-/*text-align: center;*/
-/*margin-top: 250px;*/
-/*font-size: 26px;*/
-/*color: #4d4d4d;*/
-/*}*/
-
-/*#activityItem .item {*/
-/*padding: 0;*/
-/*margin: 0;*/
-/*border: 0;*/
-/*}*/
-
-/*#activityItem .item-content {*/
-/*padding: 0;*/
-/*}*/
-
-/*#activityItem img {*/
-/*width: 30px;*/
-/*height: 30px;*/
-/*vertical-align: middle;*/
-/*margin-right: 5%;*/
-/*}*/
-
-/*#activityItem span:last-child {*/
-/*white-space: normal;*/
-/*font-size: 14px;*/
-/*color: #4a4a4a;*/
-/*width: 80%;*/
-/*}*/
-
-/*活动事项**************************************************************************************************************/
-#activityMatter {
-  background-color: #efefef;
-}
-
-#activityMatter hr {
-  clear: both;
-  color: #696968;
-}
-
-#activityMatter .wacat {
-  font-size: 14px;
-  color: #1AAD19;
-  position: absolute;
-  top: 5px;
-  right: 16px;
-}
-
-#activityMatter .matter-slide {
-  margin: 12px 49px;
-  border-radius: 13px;
-}
-
-#activityMatter button {
-  float: right;
-  display: inline-block;
-  width: 24%;
-  top: 8px;
-  height: 34.5px;
-  font-size: 14px;
-  border: 0;
-  background-color: white;
-}
-
-#activityMatter h3 {
-  font-size: 17px;
-  text-align: left;
-}
-
-#activityMatter .item h3 {
-  margin: 11px 0;
-}
-
-#activityMatter textarea {
-  width: 65%;
-  resize: none;
-  display: inline-block;
-  background-color: white;
+.activity_discuss .discuss_textDate {
   font-size: 15px;
   color: #1d1d1d;
-  margin-left: 22px;
+  white-space: normal
 }
 
-.join-matter {
+/*讨论回复*/
+.discuss_response {
+  background-color: #f0eff5;
+  font-size: 14px;
+  padding: 0 2px;
+  border-radius: 5px;
+  margin-top: 5%;
+}
+
+.activity_discuss .discuss_response_button {
+  color: #83ccfc;
+}
+
+.discuss_response_delete {
+  font-size: 12px;
+  float: right;
+  color: #1d1d1d
+}
+
+/*写评论*/
+.activity_discuss textarea {
+  width: 100%;
+  resize: none;
+}
+
+/*活动日程****************************************************************************************************************/
+.activity_item .ion-ios-circle-outline {
+  font-size: 16px
+}
+
+.activity_item .text_empty {
+  color: white;
+}
+
+.activity_item .item-complex .item-content {
+  padding-left: 0;
+}
+
+.activity_item textarea {
+  font-size: 16px;
+  width: 100%;
+  overflow: visible;
+  resize: none
+}
+
+/*活动事项**************************************************************************************************************/
+.activity_matter h3 {
+  border-bottom: 1px solid #f0eff5;
+  font-size: 21px;
+  color: #1d1d1d;
+  white-space: normal;
+  padding-right: 20%;
+}
+
+.activity_matter p {
+  white-space: normal;
+}
+
+.activity_matter ion-content {
+  background-color: #f0eff5;
+}
+
+.activity_matter ion-item {
+  margin: 5px;
+}
+
+.activity_matter .discuss_response_button {
+  color: #83ccfc;
+}
+
+.activity_matter .share_wechat {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  color: #1AAD19;
+}
+
+.activity_matter .create_member {
+  color: #0a9dc7;
+  font-size: 12px;
+}
+
+.activity_matter .create_time {
+  font-size: 12px;
+}
+
+.matter_details {
+  border-bottom: 1px solid #f0eff5;
+}
+
+.activity_matter .item-input-inset {
+  padding: 10px 0;
+  margin-top: 10%;
+}
+
+.activity_matter textarea {
+  resize: none;
 }
 
 /*活动邀请方式***********************************************************************************************************/
@@ -782,5 +546,39 @@
 
 /*在小于375px的屏幕里，微小屏幕，更低分辨率的手机*/
 @media (max-width: 374px) {
+  html {
+    font-size: 14px;
+  }
 
+  #share .img-Name {
+    height: 4.375rem;
+    width: 4.375rem;
+    border-radius: 50%;
+    margin: 1.75rem 0 0 0;
+  }
+
+  #act-img .imgWall {
+    width: 100%;
+    height: 420px;
+    line-height: 620px;
+  }
+
+  #act-img .imgWall-list {
+    width: 60px;
+    height: 60px;
+  }
+
+  #share input {
+    width: 85%;
+    height: 35px;
+  }
+
+  #share input[type=button] {
+    width: 85%;
+    height: 35px;
+  }
+
+  #activityDel .item-thumbnail-left {
+    padding-left: 40%
+  }
 }

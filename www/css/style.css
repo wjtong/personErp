@@ -7,6 +7,7 @@
   color: black;
 }
 
+/*底部tab foot*/
 .tab-create {
   font-size: 20px;
   color: white;
@@ -16,10 +17,44 @@
   background-color: #444444;
 }
 
-h3{
+h3 {
   overflow: hidden;
 }
 
+/*表单输入字数限制提示*/
+.Allow_alphanumeric {
+  color: #83ccfc;
+  font-size: 12px;
+  float: right;
+  padding-right: 10px;
+}
+
+/*分割条*/
+.Splitter_bar {
+  height: 12px;
+  background-color: #f2f2f2
+}
+
+/*各个模块缺省状态*/
+.activity_empty {
+  width: 100%;
+  text-align: center;
+  margin-top: 50%;
+  font-size: 24px;
+  color: #4d4d4d;
+}
+
+/*每个模块的小title*/
+.del-title {
+  padding: 0 0 0 5px;
+  height: 24px;
+  border-left: 7px solid #FFDA44;
+  border-top: 1px solid #f0eff5;
+  border-bottom: 1px solid #f0eff5;
+  font-size: 14px;
+  color: #1d1d1d;
+  z-index: 999;
+}
 
 /*上拉菜单*/
 .platform-android.action-sheet-cancel {
@@ -38,10 +73,6 @@ h3{
 .popup-container.active .popup {
   border-radius: 15px;
   margin: 20px;
-}
-
-.popup-title {
-
 }
 
 /*tabs图标**************************************************************************************************************/
@@ -252,9 +283,4 @@ h3{
   #activityDel .item-thumbnail-left {
     padding-left: 40%
   }
-
-  .empty {
-    margin-top: 215px;
-  }
-
 }

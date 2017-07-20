@@ -426,7 +426,7 @@ angular.module('activity.services', [])
         });
       },
       //活动项排序
-      updateProjectsequense: function (workEffortIdFrom,workEffortIdTo,sequenseFrom,sequenseTo,cb) {
+      updateProjectsequense: function (workEffortIdFrom, workEffortIdTo, sequenseFrom, sequenseTo, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "updateProjectsequense",
@@ -508,6 +508,7 @@ angular.module('activity.services', [])
           },
           async: false,
           type: 'POST',
+          dataType: "text",
           success: function (result) {
             if (jQuery.type(result) === "string") {
               result = jQuery.parseJSON(result);
@@ -740,14 +741,14 @@ angular.module('activity.services', [])
         });
       },
       //删除事项参与方式
-      removeMyPushJob: function (surveyResponseId,surveyQuestionId, cb) {
+      removeMyPushJob: function (surveyResponseId, surveyQuestionId, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "removeMyPushJob",
           data: {
             tarjeta: tarjeta,
             surveyResponseId: surveyResponseId,
-            surveyQuestionId:surveyQuestionId
+            surveyQuestionId: surveyQuestionId
           },
           async: false,
           type: 'POST',
@@ -1098,14 +1099,14 @@ angular.module('activity.services', [])
         });
       },
       //查询评论
-      queryActivityCommunication: function (communicationEventId,viewSize, cb) {
+      queryActivityCommunication: function (communicationEventId, viewSize, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.communicationfaceUrl + "queryActivityCommunication",
           data: {
             tarjeta: tarjeta,
             communicationEventId: communicationEventId,
-            viewSize:viewSize
+            viewSize: viewSize
           },
           async: false,
           type: 'POST',

@@ -1,7 +1,7 @@
-<ion-view hide-nav-bar="true">
+<ion-view hide-nav-bar="true" class="activity_home">
   <ion-header-bar align-title="left" class="bar-light">
     <div class="h1 title" ui-sref="tab.account">
-      <i class="icon ion-grid" style="margin-right: 5px;vertical-align: middle;font-size: 31px"></i>
+      <i class="icon ion-grid"></i>
       {{ActivityListType}}( {{quantity }} )
     </div>
     <div class="buttons">
@@ -12,23 +12,21 @@
   <ion-content>
     <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
-      <ion-item class="item-avatar""
-                 ng-repeat="message in activtyList"
+      <ion-item class="item-avatar"
+                ng-repeat="message in activtyList"
                 ng-click="activityDetails(message.workEffortId)">
-        <div class="act-gridding">
-          <div class="row  row-wrap" style="padding: 0;margin: 0">
-            <div class="col col-33" style="padding: 0;margin: 0" ng-repeat="picture in message.partyHeadImgList"
+        <div class="act_gridding">
+          <div class="row  row-wrap">
+            <div class="col col-33" ng-repeat="picture in message.partyHeadImgList"
                  ng-click="shouBigImage($index,picture.firstName)">
-              <img class="img-responsive" style="width: 13px;height: 13px;" ng-src="{{picture.headPortrait}}">
+              <img class="img-responsive" ng-src="{{picture.headPortrait}}">
             </div>
           </div>
         </div>
-        <div>
-          <h2 style="width: 80%" ng-bind="message.workEffortName"></h2>
-          <p  ng-bind="message.locationDesc"></p>
-          <p  ng-bind="message.exDay"></p>
-          <span class="rj-push-right" ng-bind="message.adminFirstName"></span>
-        </div>
+        <h2 ng-bind="message.workEffortName"></h2>
+        <p ng-bind="message.locationDesc"></p>
+        <p ng-bind="message.exDay"></p>
+        <span class="rj-push-right" ng-bind="message.adminFirstName"></span>
         <ion-option-button class="button-assertive"
                            ng-click="deleteActivity(message.workEffortId,message.joinsCount,message.adminPartyId)">
           退出
@@ -44,10 +42,9 @@
       </ion-item>
     </ion-list>
   </ion-content>
-  <div class="activityNull" ng-if="!activtyList.length>0">
-    <!--<img ng-src="../www/img/tabs/空状态 350X350px@2x.png"/>-->
-    <p class="tipTextAct" id="box" ng-click="openModal()">您还没有活动是否要新建？</p>
-    <p class="history" id="history" ng-click="getHistory()">找回历史活动</p>
+  <div ng-if="!activtyList.length>0">
+    <p class="tipTextAct" ng-click="openModal()">您还没有活动是否要新建？</p>
+    <p class="history" ng-click="getHistory()">找回历史活动</p>
   </div>
 </ion-view>
 

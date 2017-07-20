@@ -1,4 +1,4 @@
-<ion-view title="{{ activityList.workEffortName }}" hide-tabs="true">
+<ion-view title="{{ activityList.workEffortName }}" hide-tabs="true" id="activityDel">
   <ion-nav-bar class="bar-light">
     <ion-nav-buttons>
       <button class="button button-clear" ui-sref='tab.dash'>
@@ -6,17 +6,15 @@
       </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <button id="editEvent" class="button button- button-clear ion-ios-compose-outline" style="font-size: 30px"
+      <button id="editEvent" class="button button- button-clear ion-ios-compose-outline"
               ng-click="openEditModal()"
               ng-if="iAmAdmin!= 'N'">
-        <!--<img src="../www/img/activityDel/icon-编辑48X48@2x.png" height="25" width="25"/>-->
       </button>
-      <button class="button button-clear ion-navicon-round" style="font-size: 30px" ng-click="moreFunctionality()">
-        <!--<img src="../www/img/activityDel/icon-更多46X46@2x.png" height="25" width="25"/>-->
+      <button class="button button-clear ion-navicon-round" ng-click="moreFunctionality()">
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content id="activityDel">
+  <ion-content>
     <div class="list">
       <div class="item del-title">
         时间
@@ -40,7 +38,7 @@
       </div>
       <div class="item item-icon-left">
         <i class="icon ion-ios-location-outline"></i>
-        <p style="white-space: nowrap;width: 100%">{{ActivityData.address}}</p>
+        <p>{{ActivityData.address}}</p>
       </div>
       <div class="item del-title">
         介绍
@@ -64,54 +62,56 @@
         <p class="pe-num" ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)">
           查看全部</p>
       </div>
-      <div class="item item-avatar" ng-repeat="item in commList">
-        <img ng-src="{{item.headPortrait}}" style="border-radius: 50%">
-        <h2 style="color: #83ccfc">{{item.firstName}}</h2>
-        <p style="color: #696868;font-size: 10px">{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
-        <p style="color: #1d1d1d;">{{item.textData}}</p>
+      <div class="item item-avatar" ng-repeat="item in commList" ng-click="activityDiscuss(activityList.communicationEventId,activityList.workEffortId)">
+        <img ng-src="{{item.headPortrait}}">
+        <h2>{{item.firstName}}</h2>
+        <p>{{item.createdDate|date:'MM月dd日 HH时mm分'}}</p>
+        <p>{{item.textData}}</p>
       </div>
       <div class="item del-title">
         参与人
         <p class="pe-num">
           {{groupAcount}}人</p>
       </div>
-      <div class="row row-wrap">
-        <div class="col col-20" ng-repeat="item in groupMemberList">
-          <img class="del-member" ng-src="{{item.headPortrait}}" ng-click="getPersonInfo()">
+      <div class="item">
+        <div class="row row-wrap">
+          <div class="col col-20" ng-repeat="item in groupMemberList">
+            <img class="del-member" ng-src="{{item.headPortrait}}" ng-click="getPersonInfo()">
+          </div>
+          <img class="del-organizer" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/>
         </div>
-        <img class="del-organizer" src="../www/img/activityImg/icon_发起人皇冠@2x.png"/>
       </div>
       <br><br><br>
     </div>
   </ion-content>
   <div class="tab-nav tabs tabs-dark">
-    <a class="tab-item" style="line-height: 10px;" ng-click="goNavigation('投票')">
+    <a class="tab-item" style="" ng-click="goNavigation('投票')">
       <i class="icon icon-left">
-        <img src="../www/img/activityDel/icon-投票-60X60@2x.png" height="30" width="30"/>
+        <img src="../www/img/activityDel/icon-投票-60X60@2x.png"/>
       </i>
       <span class="tab-Del-Nac">投票</span>
     </a>
-    <a class="tab-item" style="line-height: 10px;" ng-click="goNavigation('日程')">
+    <a class="tab-item" ng-click="goNavigation('日程')">
       <i class="icon icon-left">
-        <img src="../www/img/activityDel/icon-日程-60X60@2x.png" height="30" width="30"/>
+        <img src="../www/img/activityDel/icon-日程-60X60@2x.png"/>
       </i>
       <span class="tab-Del-Nac">日程</span>
     </a>
-    <a class="tab-item" style="line-height: 10px;" ng-click="goNavigation('事项')">
+    <a class="tab-item" ng-click="goNavigation('事项')">
       <i class="icon icon-left">
 
-        <img src="../www/img/activityDel/icon-讨论@2x.png" height="30" width="30"/></i>
-      <span class="tab-Del-Nac">码垛</span>
+        <img src="../www/img/activityDel/icon-讨论@2x.png"/></i>
+      <span class="tab-Del-Nac">统计</span>
     </a>
-    <a class="tab-item" style="line-height: 10px;" ng-click="goNavigation('账单')">
+    <a class="tab-item" ng-click="goNavigation('账单')">
       <i class="icon icon-left">
-        <img src="../www/img/activityDel/icon-账单-60X60@2x.png" height="30" width="30"/>
+        <img src="../www/img/activityDel/icon-账单-60X60@2x.png"/>
       </i>
       <span class="tab-Del-Nac">记账</span>
     </a>
-    <a class="tab-item" style="line-height: 10px;" ng-click="InviteModal('邀请')" ng-if="iAmAdmin!= 'N'">
+    <a class="tab-item" ng-click="InviteModal('邀请')" ng-if="iAmAdmin!= 'N'">
       <i class="icon icon-left">
-        <img src="../www/img/activityDel/icon-邀请-60X60@2x.png" height="30" width="30"/>
+        <img src="../www/img/activityDel/icon-邀请-60X60@2x.png"/>
       </i>
       <span class="tab-Del-Nac">邀请</span>
     </a>

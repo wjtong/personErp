@@ -1,58 +1,47 @@
-<ion-modal-view>
+<ion-modal-view class="create_and_edit">
   <ion-header-bar class="bar-light">
     <h1 class="title">编辑活动</h1>
     <button class="button button-clear " ng-click="closeEditModal()">
       <i class="icon">取消</i>
     </button>
   </ion-header-bar>
-  <ion-content style="background-color: #f2f2f2">
-    <div class="content ionic-pseudo">
-      <div class="list card">
-        <div class="item" style="padding: 0">
-          <label class="item item-input">
-            <span class="input-label">活动标题：</span>
-            <textarea name="activityTitle" rows="{{ActivityData.workEffortName.length>14?2:1}}"
-                      placeholder="活动标题(必填20字以内)" style="width:60%;word-break: break-all;resize: none"
-                      ng-model="ActivityData.workEffortName" maxlength="20"></textarea>
-          </label>
-        </div>
-        <div class="item" style="padding: 0">
-          <label class="item item-input">
-            <span class="input-label">开始时间：</span>
-            <input type="text" readonly placeholder="活动开始日期"
-                   style="width: 45%;display: inline-block;background-color: white" ng-model="ActivityData.startDate"
-                   ng-click="startDate()">
-          </label>
+  <ion-content>
+    <div class="list card">
+      <label class="item item-input">
+        <span class="input-label">活动标题：</span>
+        <textarea name="activityTitle" rows="{{ActivityData.workEffortName.length>14?2:1}}"
+                  placeholder="活动标题(必填20字以内)"
+                  ng-model="ActivityData.workEffortName" maxlength="20"></textarea>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">开始时间：</span>
+        <input type="text" readonly placeholder="活动开始日期"
+               ng-model="ActivityData.startDate"
+               ng-click="startDate()">
+      </label>
 
-        </div>
-        <div class="item" style="padding: 0">
-          <label class="item item-input">
-            <span class="input-label">结束时间：</span>
-            <input type="text" readonly placeholder="活动结束日期"
-                   style="width: 45%;display: inline-block;background-color: white" ng-model="ActivityData.endDate"
-                   ng-click="endDate()">
-          </label>
-        </div>
-        <div class="item" style="padding: 0">
-          <label class="item item-input">
-            <span class="input-label">活动地点：</span>
-            <textarea readonly=“readonly” ng-click="openModalAddress()" rows="{{ActivityData.address.length>14?2:1}}"
-                      placeholder="活动举办地点" style="width: 60%;background-color: white;resize: none" ng-model="ActivityData.address">
+      <label class="item item-input">
+        <span class="input-label">结束时间：</span>
+        <input type="text" readonly placeholder="活动结束日期"
+               ng-model="ActivityData.endDate"
+               ng-click="endDate()">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">活动地点：</span>
+        <textarea ng-click="openModalAddress()" rows="{{ActivityData.address.length>14?2:1}}"
+                  placeholder="活动举办地点"
+                  ng-model="ActivityData.address">
             </textarea>
-          </label>
-        </div>
-        <div style="height: 12px;background-color: #f2f2f2">
-        </div>
-        <div class="item" style="padding: 0">
-          <label class="item ">
-            <p style="border-left: 7px solid #FFDA44;font-size: 16px">活动介绍：</p>
-            <textarea name="a" style="width:100%;resize: none;letter-spacing: 3px;line-height: 20px;text-indent: 20px"
-                      rows="{{ActivityData.information==undefined?5:ActivityData.information.length/18+5}}" placeholder="填写活动描述，让更多的人参与活动" maxlength="100"
-                      ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
-            <p style="text-align: right;color: #83ccfc;font-size: 12px">还可以输入{{500-ActivityData.information.length}}个字符<p>
-          </label>
-        </div>
-      </div>
+      </label>
+      <div class="Splitter_bar"></div>
+      <label class="iitem item-input item-stacked-label">
+        <span class="input-label">活动介绍：</span>
+        <span ng-if="ActivityData.information!=undefined" class="Allow_alphanumeric">剩余{{500-ActivityData.information.length}}个字符</span>
+        <textarea
+          rows="{{ActivityData.information==undefined?5:ActivityData.information.length/19+1}}"
+          placeholder="填写活动描述，让更多的人参与活动" maxlength="500"
+          ng-model="ActivityData.information">{{myActivtyList.information}}</textarea>
+      </label>
     </div>
   </ion-content>
   <div class="tab-nav tabs act-foot-btn">

@@ -1,4 +1,4 @@
-<ion-view title="创建码垛" hide-tabs="true">
+<ion-view title="创建统计" hide-tabs="true" class="activity_matter">
   <ion-nav-bar class="bar-light">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
@@ -6,24 +6,20 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content style="background-color: #f2f2f2">
+  <ion-content>
     <div class="content ionic-pseudo">
       <div class="list card">
-        <div class="item" style="padding: 0">
-          <label class="item item-input">
-            <span class="input-label">讨论主题：</span>
-            <textarea  rows="{{itemMatter.surveyName>10?2:1}}"
-                      placeholder="码垛标题(必填15字以内)" style="width:60%;word-break: break-all;resize: none"
-                      ng-model="itemMatter.surveyName" maxlength="15"></textarea>
-          </label>
-        </div>
-        <div class="item" style="padding: 0">
-          <label class="item ">
-            <p style="border-left: 7px solid #FFDA44;font-size: 16px">主题介绍：</p>
-            <textarea name="a" style="width:100%;" rows="5" placeholder="填写活动描述，让更多的人参与活动"
-                      ng-model="itemMatter.information">{{myActivtyList.information}}</textarea>
-          </label>
-        </div>
+        <label class="item item-input item-stacked-label">
+          <span>标题:</span>
+          <input type="text"
+                 placeholder="统计标题(必填20字以内)"
+                 ng-model="itemMatter.surveyName" maxlength="20">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="del-title">介绍:</span>
+          <textarea rows="5" placeholder="填写统计描述，让更多的人参与本次统计(50字)" maxlength="50"
+                    ng-model="itemMatter.information">{{myActivtyList.information}}</textarea>
+        </label>
       </div>
     </div>
   </ion-content>

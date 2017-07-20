@@ -48,41 +48,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     $ionicPlatform.ready(function () {
 
-      //搭建websocket服务器
-      // var wsserver = cordova.plugins.wsserver;
-      // console.log(wsserver);
-      // wsserver.start(1818, {
-      //   // WebSocket Server
-      //   'onStart' : function(addr, port) {
-      //     //获取到WebSocke  地址 和 端口  发送到，我们的数据库或者 web 服务器储存起来！
-      //    // $.post(“test.ashx”,{Addr:addr,Port:port},function(json){ alert("注册到服务器端成功！"); },“json”);
-      //   },
-      //   'onMessage' : function(conn, msg) {
-      //     //服务端，的消息提示出来（针对手机 WebSocket 是 客户端），本来就实现了声音
-      //     cordova.plugins.notification.local.schedule({
-      //       id: 1,
-      //       title: "来自服器（WebSocket 客户端的消息）",
-      //       text:msg,
-      //       //firstAt: monday_9_am,
-      //       every: "week",
-      //       //icon: "",
-      //       data: { meetingId:"123" }
-      //     });
-      //     //震动
-      //     navigator.notification.vibrate(1000);
-      //     console.log(msg)
-      //     //点击消息栏 后所做的操作
-      //     cordova.plugins.notification.local.on("click", function (notification) {
-      //       alert(notification.data+",messageId:"+notification.data.meetingId);
-      //     });
-      //   },
-      //   'onClose' : function(conn, code, reason) {
-      //     console.log('A user disconnected from %s', conn.remoteAddr);
-      //   },
-      //   'origins' : [ 'file://' ] // optional. validates the 'Origin' HTTP Header.
-      //   // 'protocols' : [ 'my-protocol-v1', 'my-protocol-v2' ] // optional. validates the 'Sec-WebSocket-Protocol' HTTP Header.
-      // });
-
       //通过UUID获取TOKEN
       document.addEventListener("deviceready", function () {
         var uuid = $cordovaDevice.getUUID();         //UUID唯一识别码
@@ -99,22 +64,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }, false);
 
-
-
-
       ionic.Platform.isFullScreen = true;
 
       //配置键盘
-      if (window.cordova && window.cordova.plugins.Keyboard) {
-        window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
-        if (window.ionic.Platform.isIOS()) {
-          window.cordova.plugins.Keyboard.disableScroll(true);
-        }
-      }
       // if (window.cordova && window.cordova.plugins.Keyboard) {
-      //   cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
-      //   cordova.plugins.Keyboard.disableScroll(false);
+      //   window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      //   if (window.ionic.Platform.isIOS()) {
+      //     window.cordova.plugins.Keyboard.disableScroll(true);
+      //   }
       // }
+      if (window.cordova && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+        cordova.plugins.Keyboard.disableScroll(true);
+      }
     });
   })
 

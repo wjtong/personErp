@@ -13,6 +13,7 @@
         <input type="tel" placeholder="  请输入手机号码" ng-model="loginData.mobileNumber">
       </label>
       <button class="codeBtn"
+              ng-disabled="codeBtn!='验证码'"
               ng-click="getIdentify(loginData.mobileNumber)">{{codeBtn}}
       </button>
       <label>

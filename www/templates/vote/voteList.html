@@ -1,4 +1,4 @@
-<ion-view title="活动投票列表" hide-tabs="true">
+<ion-view title="活动投票列表" hide-tabs="true" class="vote">
   <ion-nav-bar class="bar-light">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
@@ -6,12 +6,13 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content class="vote">
-    <ion-list >
-      <ion-item style="padding: 0" ng-repeat="item in activityPollQuestionsTitles" ui-sref="tab.goCastVote({surveyId:item.surveyId,surveyName:item.surveyName,workEffortId:workEffortId})">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="item in activityPollQuestionsTitles"
+                ui-sref="tab.goCastVote({surveyId:item.surveyId,surveyName:item.surveyName,workEffortId:workEffortId})">
         <div class="item-avatar">
           <img src="{{item.objectInfo}}"/>
-          <h2 style="padding-top: 8%">{{item.firstName}}</h2>
+          <h2>{{item.firstName}}</h2>
           <p>{{item.fromDate | date:'yyyy年MM月dd日 HH:mm'}}</p>
           <div ng-class="{true: 'vote-state-open', false: 'vote-state-close'}[item.statusId=='VOTE_OPEN']"
                ng-bind-html="{true: '进行中', false: '已结束'}[item.statusId=='VOTE_OPEN']">
@@ -37,7 +38,8 @@
         </div>
       </ion-item>
     </ion-list>
-    <div class="empty" ng-if="!activityPollQuestionsTitles.length>0">还没有相关投票内容</div>
+    <br><br><br>
+    <div class="activity_empty" ng-if="!activityPollQuestionsTitles.length>0">还没有相关投票内容</div>
   </ion-content>
   <div class="tab-nav tabs act-foot-btn">
     <a class="tab-item tab-item" ui-sref="tab.goEditVote({workEffortId:{{workEffortId}}})">
