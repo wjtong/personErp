@@ -97,7 +97,7 @@ angular.module('login.controllers', [])
 
     //倒计时
     $scope.countDown = function () {
-      $scope.n = 60;
+      $scope.n = 30;
       $scope.codeBtn = $scope.n + " 秒";
       var time = $interval(function () {
         $scope.n--;

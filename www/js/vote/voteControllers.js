@@ -153,7 +153,9 @@ angular.module('vote.controllers', [])
       } else {
         var confirmPopup = $ionicPopup.confirm({
           title: '确定投票',
-          template: '确定投票不可修改，是否继续？'
+          template: '确定投票不可修改，是否继续？',
+          cancelText: "取消",
+          okText: '确定'
         });
         confirmPopup.then(function (res) {
           if (res) {

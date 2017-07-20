@@ -48,7 +48,7 @@
   font-size: 15px;
   color: #1d1d1d;
   text-align: center;
-  margin:5px 0;
+  margin: 5px 0;
 }
 
 #activityBill .wacatShare {
@@ -93,3 +93,31 @@
   height: 30px;
 }
 
+/*创建活动账单***********************************************************************************************************/
+
+.activity_bill ion-content {
+  background-color: #f2f2f2;
+  font-size: 15px
+}
+
+.activity_bill .delete_member {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.activity_bill .bill_member {
+  color: #1d1d1d;
+  width: 40%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: inherit
+}
+
+.activity_bill .button {
+  width: 100%;
+  background-color: #FFDA44;
+  font-size: 15px;
+  color: #1d1d1d;
+  border: 0
+}

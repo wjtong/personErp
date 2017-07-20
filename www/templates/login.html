@@ -13,7 +13,7 @@
           <input type="tel" class="inputLogin" placeholder="    手机号码" ng-model="loginData.mobileNumber">
         </label>
         <label>
-          <input type="tel" class="inputLogin" placeholder="    验证码" ng-model="loginData.captcha">
+          <input type="tel" class="inputLogin" placeholder="    验证码"  ng-model="loginData.captcha">
         </label>
         <label>
           <input class="buttonLogin" type="submit" value="完成">
@@ -21,6 +21,7 @@
       </form>
       <div class="captcha">
         <button class="button button-clear button-dark" ng-controller="captcha"
+                ng-disabled="codeBtn!='立即验证'"
                 ng-click="getIdentifyCode(loginData.mobileNumber)">
           {{codeBtn}}
         </button>

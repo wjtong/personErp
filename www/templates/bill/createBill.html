@@ -1,4 +1,4 @@
-<ion-view title="账单录入" hide-tabs="true">
+<ion-view title="账单录入" hide-tabs="true" class="activity_bill">
   <ion-nav-bar class="bar-light">
     <ion-nav-buttons>
       <button class="button button-clear" ng-click="$ionicGoBack()">
@@ -6,47 +6,47 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
-  <ion-content class="padding" style="background-color: #f2f2f2;font-size: 15px">
-    <div class="cardinputInfo">
-      <ul class="list">
-        <li class="item item-input">
-          <span class="input-label">账单名称：</span>
-          <input type="text" name="billName" maxlength="12" ng-model="Bill.billName" placeholder="请输入账单名称">
-        </li>
-        <li class="item item-input" ng-if="!settingsList[1].checked">
-          <span class="input-label">每人应付：</span>
-          <input type="number" name="amount" ng-model="Bill.amount" placeholder="请输入每人应付金额" ng-change="averageAmount(Bill.amount)">
-        </li>
+  <ion-content class="padding">
+    <ul class="list">
+      <li class="item item-input">
+        <span class="input-label">账单名称：</span>
+        <input type="text" name="billName" maxlength="12" ng-model="Bill.billName" placeholder="请输入账单名称">
+      </li>
+      <li class="item item-input" ng-if="!settingsList[1].checked">
+        <span class="input-label">每人应付：</span>
+        <input type="tel" name="amount" ng-model="Bill.amount" maxlength="7" placeholder="请输入每人应付金额"
+               ng-change="averageAmount(Bill.amount)">
+      </li>
 
-        <div style="height: 12px;">
-        </div>
-        <li class="item item-toggle" style="padding: 15px" ng-repeat="item in settingsList">
-          <span>{{item.text}}：</span>
-          <label class="toggle toggle-positive">
-            <input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="AA()">
-            <div class="track">
-              <div class="handle"></div>
-            </div>
-          </label>
-        </li>
-        <li class="item item-input" ng-if="settingsList[1].checked">
-          <span class="input-label">账单总额：</span>
-          <input type="text" name="billTotal" placeholder="请输入账单总额" ng-model="Bill.billTotal" ng-change="billTotal()">
-        </li>
-        <div style="height: 12px;">
-        </div>
-        <li id="eachAmount" class="item item-input" ng-repeat="item in activityParticipantList">
-          <span class="input-label" ng-click="deleteMember(item.partyId,$index)"
-                style="background-color: red;width: 6%;height: 3px;padding: 0;margin-right: 5%;border-radius: 3px"></span>
-          <span  style="color: #1d1d1d;width:20%;white-space: nowrap;text-overflow: ellipsis;overflow: inherit">{{item.firstName}}：</span>
-          <input type="tel"  name="{{item.partyId}}"  ng-value="Bill.amount|number:2" style="text-align: right">
-        </li>
-      </ul>
-      <div>
-        <button class="button" style="width: 100%;background-color: #FFDA44;font-size: 15px;color: #1d1d1d;border: 0"
-                ng-click="createBill()">确认
-        </button>
+      <div class="Splitter_bar">
       </div>
+      <li class="item item-toggle" ng-repeat="item in settingsList">
+        <span>{{item.text}}：</span>
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="AA()">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+      <li class="item item-input" ng-if="settingsList[1].checked">
+        <span class="input-label">账单总额：</span>
+        <input type="tel" maxlength="7" name="billTotal" placeholder="请输入账单总额" ng-model="Bill.billTotal"
+               ng-change="billTotal()">
+      </li>
+      <div class="Splitter_bar">
+      </div>
+      <li id="eachAmount" class="item item-input" ng-repeat="item in activityParticipantList">
+        <img src='../www/img/activityImg/删除账单成员.png' class="delete_member"
+             ng-click="deleteMember(item.partyId,$index)"/>
+        <span class="bill_member">{{item.firstName}}：</span>
+        <input type="tel" name="{{item.partyId}}" ng-value="Bill.amount|number:2" style="text-align: right">
+      </li>
+    </ul>
+    <div>
+      <button class="button"
+              ng-click="createBill()">确认
+      </button>
     </div>
   </ion-content>
 </ion-view>
