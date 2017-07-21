@@ -456,6 +456,7 @@ angular.module('activity.controllers', [])
           $scope.locationAddress,
           $scope.themeImgId,
           $scope.groupId,
+          $scope.ActivityData.funding,
           function (data) {
             if (data.resultMsg == '成功') {
               $ionicLoading.hide();
@@ -558,6 +559,7 @@ angular.module('activity.controllers', [])
         $scope.groupAcount = $scope.groupMemberList.length;
         $scope.iAmAdmin = data.iAmAdmin;
         $scope.commList = data.commList;
+        $scope.ActivityData.funding = $scope.activityList.yuSuan;
         localStorage.setItem('activityData' + $scope.workEffortId, JSON.stringify(data.eventDetail)); //活动数据保存到本地
         localStorage.setItem('activityDetailsData' + $scope.workEffortId, JSON.stringify(data));
         //活动地址
@@ -1003,6 +1005,7 @@ angular.module('activity.controllers', [])
           $scope.workEffortId,
           $scope.themeImgId,
           $scope.groupId,
+          $scope.ActivityData.funding,
           function (data) {
             if (data.resultMsg == '成功') {
               $ionicLoading.hide();
@@ -1284,14 +1287,14 @@ angular.module('activity.controllers', [])
     //我的联系人弹出框
     $ionicPopover.fromTemplateUrl('templates/contact/contactModle.html', {
       scope: $scope
-    }).then(function (contact) {
-      $scope.contact = contact;
+    }).then(function (contactApp) {
+      $scope.contactApp = contactApp;
     });
     $scope.openContact = function () {
-      $scope.contact.show();
+      $scope.contactApp.show();
     };
     $scope.closeContact = function () {
-      $scope.contact.hide();
+      $scope.contactApp.hide();
     };
 
     //选择哪种方式邀请好友
@@ -1357,26 +1360,8 @@ angular.module('activity.controllers', [])
           $state.go("tab.activityAddPerson", {"workEffortId": $scope.workEffortId});
           $scope.taskModal.hide();
         } else if (name == '梨友') {
+          $state.go("tab.activityAppContact");
           $scope.taskModal.hide();
-          $scope.contact.show();
-
-          //获得我的全部联系人列表(我参与的活动)
-          Contact.queryAllActivityRelationPersons(function (data) {
-            $scope.allPersonList = data.allPersonList
-          });
-
-          //发送邀请
-          $scope.sendInvitation = function (partyId) {
-            var moreInfoUrl = '/tab/activityDetails/' + $scope.workEffortId;
-            var noteInfo = $scope.createPersonInfoList.firstName + '邀请您加入活动:' + $scope.activityList.workEffortName;
-            ActivityServer.createPeSystemInfoAboutActivity(partyId, moreInfoUrl, noteInfo, function (data) {
-              console.log(data);
-              if (data.resultMsg == '成功') {
-                $scope.isJoind = true;
-                alert('邀请成功')
-              }
-            })
-          }
         } else if (name == '复制链接') {
           $ionicPopup.alert({
             title: '复制成功',
@@ -1403,7 +1388,7 @@ angular.module('activity.controllers', [])
    * Date 2017-3-3
    * */
   .controller('slideCrl', function ($scope, $stateParams, $ionicHistory, ActivityServer, $ionicActionSheet, $location,
-                                    $ionicSlideBoxDelegate, $ionicPopup, $ionicScrollDelegate) {
+                                    $ionicSlideBoxDelegate, $ionicPopup, $ionicScrollDelegate, $timeout) {
 
     //准备参数
     $scope.workEffortId = $stateParams.workEffortId;
@@ -1417,12 +1402,21 @@ angular.module('activity.controllers', [])
       $scope.imgIndex = 0;
     } else {
       $scope.imgIndex = $scope.myActiveSlide;
-
     }
+
+    //滚动框每一张相片的宽度
+    $(function () {
+      $scope.singleImgWidth = $('#act-img .row').css("width").substr(0, 3) / 5 - 2
+    });
 
     //选择橡相片
     $scope.chooseImg = function (index) {
-      $ionicSlideBoxDelegate.$getByHandle('mySlide').slide(index);
+      if (index < $scope.pictureList.length - 4) {
+        $scope.slideChanged(index)
+      } else {
+        console.log(index);
+        $ionicSlideBoxDelegate.$getByHandle('mySlide').slide(index, true);
+      }
     };
 
     //滑动大图片
@@ -1431,16 +1425,17 @@ angular.module('activity.controllers', [])
       $scope.acountPraiseCount = $scope.count[$scope.imgIndex].praiseCount;
       $scope.PraiseList = $scope.count[$scope.imgIndex].praiseList;
       if (index < $scope.pictureList.length - 4) {
-        $ionicScrollDelegate.$getByHandle('myScroll').scrollTo(index * 73, 0)
+        $ionicScrollDelegate.$getByHandle('myScroll').scrollTo(index * $scope.singleImgWidth, 0)
       }
     };
 
     //滑动小图片
     $scope.scrollSmallToTop = function () {
-      var scrollPosition = $ionicScrollDelegate.$getByHandle('myScroll').getScrollPosition().left / 73;
-      //if (scrollPosition.toFixed(0) < $scope.pictureList.length - 4 && scrollPosition.toFixed(0) > 4) {
-        $ionicSlideBoxDelegate.$getByHandle('mySlide').slide(scrollPosition.toFixed(0), true);
-      //}
+      var scrollPosition = $ionicScrollDelegate.$getByHandle('myScroll').getScrollPosition().left / $scope.singleImgWidth;
+      // console.log('活动框底部' + $ionicScrollDelegate.$getByHandle('myScroll').getScrollPosition().left);
+      if (scrollPosition.toFixed(0) < $scope.pictureList.length && scrollPosition.toFixed(0) > 0) {
+        $ionicSlideBoxDelegate.$getByHandle('mySlide').slide(scrollPosition.toFixed(0));
+      }
     };
 
     //获取活动照片墙图片
@@ -2120,6 +2115,29 @@ angular.module('activity.controllers', [])
         console.log(data)
       })
     };
+  })
+
+  /*********************************************************************************************************************
+   * Desc 邀请梨友
+   * Author LX
+   * Date 2017-3-3
+   * */
+  .controller('activityAppContact', function ($scope, $ionicPopup, Contact, $state, $stateParams, ActivityServer) {
+    //获得我的全部联系人列表(我参与的活动)
+    Contact.queryAllActivityRelationPersons(function (data) {
+      $scope.allPersonList = data.allPersonList
+    });
+
+    //发送邀请
+    $scope.sendInvitation = function (chat) {
+      ActivityServer.createPeSystemInfoAboutActivity(chat.partyId, chat.moreInfoUrl, chat.firstName, function (data) {
+        console.log(data);
+        if (data.resultMsg == '成功') {
+          $scope.isJoind = true;
+          alert('邀请成功')
+        }
+      })
+    }
   });
 
 

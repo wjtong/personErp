@@ -138,6 +138,9 @@ angular.module('contact.controllers', [])
               //alert("Failed: " + reason);
               $ionicLoading.hide()
             });
+            $timeout(function () {
+              $ionicLoading.hide()
+            },5000);
           } else {
             console.log('You are not sure');
           }

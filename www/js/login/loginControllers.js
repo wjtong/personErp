@@ -38,14 +38,11 @@ angular.module('login.controllers', [])
 
     //微信找回
     $scope.wachatLogin = function () {
-      console.log('微信找回1')
       var scope = "snsapi_userinfo";
       Wechat.auth(scope, function (response) {
-        console.log('微信找回2')
         console.log("微信返回值:" + JSON.stringify(response));
         var code = response.code;
         Login.userWeChatAppLoginBack(code, function (data) {
-          console.log('微信找回3')
           console.log('微信找回的Token:' + data.tarjeta);
           if (data.tarjeta) {
             localStorage.removeItem("tarjeta");

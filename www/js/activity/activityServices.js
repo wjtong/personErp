@@ -56,7 +56,7 @@ angular.module('activity.services', [])
       },
       //新建活动
       createActivity: function (workEffortName, actualStartDate, estimatedCompletionDate,
-                                locationDesc, description, specialTerms, themesId, universalId, cb) {
+                                locationDesc, description, specialTerms, themesId, universalId,yuSuan,cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "createNewEvent",
@@ -69,7 +69,8 @@ angular.module('activity.services', [])
             description: description,
             specialTerms: specialTerms,
             themesId: themesId,
-            universalId: universalId
+            universalId: universalId,
+            yuSuan:yuSuan
           },
           async: false,
           type: 'POST',
@@ -87,7 +88,7 @@ angular.module('activity.services', [])
       },
       //编辑活动
       updateActivity: function (workEffortName, actualStartDate, estimatedCompletionDate, locationDesc,
-                                description, specialTerms, workEffortId, themesId, serviceLoaderName, cb) {
+                                description, specialTerms, workEffortId, themesId, serviceLoaderName,yuSuan, cb) {
         var tarjeta = localStorage.getItem('tarjeta');
         $.ajax({
           url: $rootScope.activityInterfaceUrl + "updateEvent",
@@ -101,7 +102,8 @@ angular.module('activity.services', [])
             specialTerms: specialTerms,
             workEffortId: workEffortId,
             themesId: themesId,
-            serviceLoaderName: serviceLoaderName
+            serviceLoaderName: serviceLoaderName,
+            yuSuan:yuSuan
           },
           async: false,
           type: 'POST',
