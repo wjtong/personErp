@@ -7,7 +7,7 @@
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
       <button id="editEvent" class="button button-clear" ng-click="createMatter()">
-        <img src="../www/img/activityImg/形状-1@2x.png" height="30" width="30"/>
+        <i class="icon  ion-plus-round"></i>
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
@@ -18,7 +18,7 @@
           {{item.surveyName}}
         </h3>
         <p class="padding-top create_member">创建自{{item.surveyAdminName|limitTo:5}}</p>
-        <p class="padding-vertical create_time">2017/7/17 下午2:00<span style="float: right">{{item.partyAnswer.length}}人参与</span>
+        <p class="padding-vertical create_time">{{item.fromDate|date:'MM月dd日 HH时mm分'}}<span style="float: right">{{item.partyAnswer.length}}人参与</span>
         </p>
         <p class="share_wechat" ng-click="WechatShare(item.surveyName,item.surveyId)">微信分享</p>
         <div class="item-text-wrap padding-bottom matter_details">

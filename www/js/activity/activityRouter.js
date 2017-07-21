@@ -59,6 +59,17 @@ angular.module('starter')
           }
         }
       })
+      //活动邀请理由
+      .state('tab.activityAppContact', {
+        url: '/activityAppContact',
+        disableBack: true,
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/activity/activityAppContact.html',
+            controller: 'activityAppContact'
+          }
+        }
+      })
       //联系人信息详情
       .state('tab.joinContactInfo', {
         url: '/contactInfo/:partyId',

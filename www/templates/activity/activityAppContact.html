@@ -1,13 +1,15 @@
-<ion-modal-view>
-  <ion-header-bar class="bar-light">
-    <button class="button button-clear " ng-click="closeContact()">
-      <i class="icon">取消</i>
-    </button>
-  </ion-header-bar>
-  <ion-content class="has-header">
+<ion-view title="梨友列表" hide-tabs="true">
+  <ion-nav-bar class="bar-light">
+    <ion-nav-buttons>
+      <button class="button button-clear" ng-click="$ionicGoBack()">
+        <i class="icon  ion-ios-arrow-back"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content>
     <ion-list ng-repeat="chat in allPersonList">
       <ion-item ng-if="chat.appUser=='Y'" class="item-remove-animate item-avatar item-icon-right item-text-wrap"
-                  ng-click="sendInvitation(chat.partyId)"
+                ng-click="sendInvitation(chat)"
       ">
       <img ng-src="{{chat.headPortrait}}">
       <h2>{{chat.firstName}}</h2>
@@ -19,4 +21,4 @@
       </ion-item>
     </ion-list>
   </ion-content>
-</ion-modal-view>
+</ion-view>

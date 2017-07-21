@@ -27,6 +27,12 @@
                ng-click="endDate()">
       </label>
       <label class="item item-input">
+        <span class="input-label">预估费用：</span>
+        <input type="tel"  placeholder="预估费用"
+               ng-model="ActivityData.funding "
+        >
+      </label>
+      <label class="item item-input">
         <span class="input-label">活动地点：</span>
         <textarea ng-click="openModalAddress()" rows="{{ActivityData.address.length>14?2:1}}"
                   placeholder="活动举办地点"

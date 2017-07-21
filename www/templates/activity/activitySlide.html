@@ -25,7 +25,7 @@
     </div>
     <ion-scroll direction="x" class="wide-as-needed" on-scroll="scrollSmallToTop()" delegate-handle="myScroll">
       <div class="row">
-        <div class="col col-20" ng-repeat="item in pictureList">
+        <div id="aaa" class="col col-20" ng-repeat="item in pictureList">
           <img id="a{{$index}}" class="imgWall-list" ng-src="{{item.objectInfo}}" ng-click="chooseImg($index)">
         </div>
       </div>

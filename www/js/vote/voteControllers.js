@@ -63,7 +63,9 @@ angular.module('vote.controllers', [])
     };
 
     // 创建投票
+    $scope.disableButton=false;
     $scope.createSurveyAndQuestions = function () {
+      $scope.disableButton=true;
       var questions = ''; // 投票项
       var voteItem = $("textarea[name='voteItem']");
       for (var i = 0; i < voteItem.length; i++) {
@@ -74,7 +76,7 @@ angular.module('vote.controllers', [])
         questions += question + "&";
       }
       console.log(questions.length);
-      if($scope.Vote.voteTitle==null){
+      if ($scope.Vote.voteTitle == null) {
         alert('标题不能为空，或至少两个投票项')
       }else if(questions.length<4){
         alert('标题不能为空，或至少两个投票项')
